@@ -8,7 +8,8 @@ as
 begin
 end
 
-
+select top(10) * from TblRequest
+go
 select * from Tbl_ExternalService order by ExternalServiceId asc
 go
 select * from Tbl_ErjaState order by ErjaStateId asc
