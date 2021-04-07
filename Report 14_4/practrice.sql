@@ -1,4 +1,4 @@
-create proc dbo.spGreen_Zanjan @MediaTypeId int,
+/*create proc dbo.spGreen_Zanjan @MediaTypeId int,
 	@AreaIDs as nvarchar(500),
 	@FromDate as nvarchar(10),
 	@ToDate as nvarchar(10),
@@ -7,7 +7,7 @@ create proc dbo.spGreen_Zanjan @MediaTypeId int,
 as
 begin
 end
-
+*/
 select top(5) * from TblRequest
 go
 select top(5) * from TblRequestData
@@ -23,9 +23,14 @@ go
 select top(10) * from Tbl_GISSMSRecevied
 
 	
-execute spAAAAa @MediaTypeId = 5 ,
-	@AreaIDs = '2,3,5',
-	@FromDate = '1399/04/05',
-	@ToDate = '1400/01/01',
-	@ExternalServiceIDs = '1,2',
-	@EndJobStateIDs = '1,2'
+--execute spAAAAa @MediaTypeId = 5 ,
+--	@AreaIDs = '2,3,5',
+--	@FromDate = '1399/04/05',
+--	@ToDate = '1400/01/01',
+--	@ExternalServices = ''
+--	@EndJobStateIDs = '1,2'
+
+
+
+execute spAAAAa 0, '2,3,4,5,6,7,8,9,10' , '1399/01/14',  '1400/01/14' , ''
+
