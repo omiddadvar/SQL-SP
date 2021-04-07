@@ -8,7 +8,9 @@ as
 begin
 end
 
-select top(10) * from TblRequest
+select top(5) * from TblRequest
+go
+select top(5) * from TblRequestData
 go
 select * from Tbl_ExternalService order by ExternalServiceId asc
 go
@@ -17,6 +19,8 @@ go
 select * from Tbl_EndJobState order by EndJobStateId asc
 go
 select * from Tbl_MediaType order by MediaTypeId asc
+go
+select top(10) * from Tbl_GISSMSRecevied
 
 	
 execute spAAAAa @MediaTypeId = 5 ,
