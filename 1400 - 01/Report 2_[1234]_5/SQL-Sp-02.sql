@@ -5,7 +5,10 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[spGetReport_2_2_5]
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spGetReport_2_2_5]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+  DROP PROCEDURE [dbo].[spGetReport_2_2_5]
+GO
+CREATE PROCEDURE [dbo].[spGetReport_2_2_5]
 	@lFromDatePersian as varchar(12),
 	@lToDatePersian as varchar(12),
 	@lAreaId as varchar(1000),
