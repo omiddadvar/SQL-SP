@@ -29,7 +29,9 @@ select * from Tbl_ErjaState order by ErjaStateId asc
 go	
 select * from Tbl_EndJobState order by EndJobStateId asc
 go
-	
+select top(100) * from TblErjaRequest
+
+
 --execute spAAAAa @MediaTypeId = 5 ,
 --	@AreaIDs = '2,3,5',
 --	@FromDate = '1399/04/05',
@@ -37,6 +39,6 @@ go
 --	@ExternalServices = ''
 --	@EndJobStateIDs = '1,2'
 
-
-
-execute spAAAAa 0, '2,3,4,5,6,7,8,9,10' , '1399/01/14',  '1400/01/14' , ''
+USE [CcRequesterSetad]
+GO
+execute dbo.spGetReport_14_4 0, '2,3,4,5,6,7,8,9,10' , '1399/01/14',  '1400/01/14' , ''
