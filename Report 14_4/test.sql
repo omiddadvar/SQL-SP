@@ -31,6 +31,9 @@ select * from Tbl_EndJobState order by EndJobStateId asc
 go
 select top(100) * from TblErjaRequest
 
+USE [CcRequesterSetad]
+GO
+exec spGetReport_14_4 0,'10,2,3,7,5,13,8,4,6,15,11,12,14,9','1399/01/21','1400/01/21',''
 
 --execute spAAAAa @MediaTypeId = 5 ,
 --	@AreaIDs = '2,3,5',
@@ -38,8 +41,3 @@ select top(100) * from TblErjaRequest
 --	@ToDate = '1400/01/01',
 --	@ExternalServices = ''
 --	@EndJobStateIDs = '1,2'
-
-USE [CcRequesterSetad]
-GO
-exec spGetReport_14_4 0,'10,2,3,7,5,13,8,4,6,15,11,12,14,9','1399/01/21','1400/01/21',''
-
