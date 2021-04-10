@@ -3,4 +3,4 @@
 This repository is for accessing "Tazarv Afzar" to stored procedures and belongings :wink:
 
 
-<i> by Omid 😃 </i>
+<i> By Omid the great :triumph:</i>
