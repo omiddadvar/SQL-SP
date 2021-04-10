@@ -41,4 +41,5 @@ select top(100) * from TblErjaRequest
 
 USE [CcRequesterSetad]
 GO
-execute dbo.spGetReport_14_4 0, '2,3,4,5,6,7,8,9,10' , '1399/01/14',  '1400/01/14' , ''
+exec spGetReport_14_4 0,'10,2,3,7,5,13,8,4,6,15,11,12,14,9','1399/01/21','1400/01/21',''
+
