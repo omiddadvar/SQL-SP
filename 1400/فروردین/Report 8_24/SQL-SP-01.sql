@@ -68,7 +68,6 @@ BEGIN
 		INNER JOIN Tbl_MPFeederLoadHours ON Tbl_MPFeederLoad.MPFeederLoadId = Tbl_MPFeederLoadHours.MPFeederLoadId
 		LEFT JOIN Tbl_Hour ON Tbl_MPFeederLoadHours.HourId = Tbl_Hour.HourId
 		WHERE' + @lWhere
-	--Select @lSQL
 	EXEC(@lSQL)
 END	
 
