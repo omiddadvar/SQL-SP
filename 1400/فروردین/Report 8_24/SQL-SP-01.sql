@@ -12,8 +12,8 @@ GO
 CREATE PROCEDURE [dbo].[spGetReport_8_24] @aFromPeakDatePersian AS VARCHAR(50)
 	,@aToPeakDatePersian AS VARCHAR(50)
 	,@aPeakTime AS VARCHAR(10)
-	,@aAreaId AS VARCHAR(1000)
-	,@aMPPostId AS INT
+	,@aAreaIds AS VARCHAR(1000)
+	,@aMPPostIds AS INT
 	,@aMPFeederId AS INT
 	,@aIsActive AS INT
 	,@aOwnershipId AS INT
@@ -24,10 +24,10 @@ BEGIN
 	SET @lSQL = ''
 	SET @lWhere = ''
 	
-	IF @aAreaId <> ''
-		SET @lWhere += ' AND Tbl_MPFeeder.AreaId IN (' + @aAreaId + ')'
-	IF @aMPPostId > -1
-		SET @lWhere += ' AND Tbl_MPPost.MPPostId = ' + cast(@aMPPostId as varchar(20))
+	IF @aAreaIds <> ''
+		SET @lWhere += ' AND Tbl_MPFeeder.AreaId IN (' + @aAreaIds + ')'
+	IF @aMPPostIds <> ''
+		SET @lWhere += ' AND Tbl_MPPost.MPPostId IN (' + @aMPPostIds + ')'
 	IF @aMPFeederId > -1
 		SET @lWhere += ' AND Tbl_MPFeeder.MPFeederId = ' + cast(@aMPFeederId as varchar(20))
 	IF @aIsActive > -1
@@ -50,13 +50,15 @@ BEGIN
 		Tbl_MPPost.MPPostId,
 		Tbl_MPFeeder.MPFeederId, 
 		Tbl_MPFeeder.AreaId,
+		Tbl_Area.Area,
 		Tbl_MPFeederLoad.MPFeederLoadId, 
 		Tbl_MPPost.MPPostOwnershipId,
 		Tbl_MPFeederLoadHours.MPFeederLoadHourId,
 		Tbl_MPFeeder.MPFeederName,
+		Tbl_MPPost.MPPostName,
 		Tbl_MPFeederLoad.RelDatePersian AS LoadDatePersian, 
 		Tbl_Hour.HourId, 
-		Tbl_Hour.[Hour], 
+		Tbl_Hour.[Hour],
 		Tbl_MPFeederLoadHours.HourExact, 
 		Tbl_MPPost.IsActive,
 		Tbl_MPFeederLoadHours.CurrentValue, 
@@ -67,9 +69,7 @@ BEGIN
 		LEFT OUTER JOIN Tbl_MPFeederLoad ON Tbl_MPFeeder.MPFeederId = Tbl_MPFeederLoad.MPFeederId
 		INNER JOIN Tbl_MPFeederLoadHours ON Tbl_MPFeederLoad.MPFeederLoadId = Tbl_MPFeederLoadHours.MPFeederLoadId
 		LEFT JOIN Tbl_Hour ON Tbl_MPFeederLoadHours.HourId = Tbl_Hour.HourId
+		LEFT JOIN Tbl_Area ON Tbl_MPFeeder.AreaId = Tbl_Area.AreaId
 		WHERE' + @lWhere
 	EXEC(@lSQL)
-END	
-
-GO
-EXEC [spGetReport_8_24] '1400/01/25','' ,'11:50' , '' ,-1 ,-1,-1 ,-1;
+END
