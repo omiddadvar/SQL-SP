@@ -205,7 +205,7 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spName]') 
 GO
 
 CREATE PROCEDURE [dbo].[spName] 
-	@aParamNamne as varchar(10), 
+	@aParamNamne as varchar(10),
 	...
 AS
 	...
