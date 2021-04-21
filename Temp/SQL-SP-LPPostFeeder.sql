@@ -39,7 +39,8 @@ END
 GO
 
 exec [dbo].[Sp-PostFeederSelect] '' , 3;
-exec [dbo].[Sp-PostFeederSelect] '20053814,20053813' , 1;
+exec [dbo].[Sp-PostFeederSelect] '20050983,20051023' , 1;
+
 
 
 SELECT COLUMN_NAME

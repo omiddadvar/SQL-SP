@@ -55,11 +55,6 @@ Public Class frmImportMPPostTransLoad
     Private mSortedSpec As New SortedList
     Private mSortedUseType As New SortedList
 
-    Private mSortedMPPost As New SortedList(Of String, CMPPostInfo)
-    Private mSortedMPFeeder As New SortedList(Of String, CMPFeederInfo)
-    Private mSortedLPPost As New SortedList(Of String, CLPPostInfo)
-    Private mSortedLPFeeder As New SortedList(Of String, CLPFeederInfo)
-
     '----------------By Omid--------------------
     Private mTbl_PostFeeder As DataTable
     Private mTbl_PostFeederExcel As DataTable
@@ -67,6 +62,11 @@ Public Class frmImportMPPostTransLoad
     Private columns As List(Of ExcelCol)
     Private TblFieldsToExcelConverter As Dictionary(Of String, Object)
     Private TblDBColumns As Dictionary(Of String, List(Of String))
+
+    Private mSortedMPPost As New SortedList(Of String, CMPPostInfo)
+    Private mSortedMPFeeder As New SortedList(Of String, CMPFeederInfo)
+    Private mSortedLPPost As New SortedList(Of String, CLPPostInfo)
+    Private mSortedLPFeeder As New SortedList(Of String, CLPFeederInfo)
 
     Dim mSortedSubscriber As New SortedList(Of String, DataRow)
     Dim mUseSorted As Boolean = False
@@ -85,6 +85,7 @@ Public Class frmImportMPPostTransLoad
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents btnHelp As System.Windows.Forms.Button
     Friend WithEvents dgLPFeederLoad As Bargh_Common.JGrid
+    Friend WithEvents dgPostFeeder As JGrid
     Friend WithEvents dgViewLPPostLoad As Bargh_Common.JGrid
     Enum Version As Integer
         OldVer = 0
@@ -99,7 +100,7 @@ Public Class frmImportMPPostTransLoad
         InitializeComponent()
         mFormType = aFormType
         'Add any initialization after the InitializeComponent() call
-        InitializeDBColumns()
+
     End Sub
 
     'Form overrides dispose to clean up the component list.
@@ -137,6 +138,7 @@ Public Class frmImportMPPostTransLoad
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmImportMPPostTransLoad))
+        Dim dgPostFeeder_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim dgLPFeederLoad_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim dgSubscriberInfo_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim dgSubscriber_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
@@ -152,6 +154,7 @@ Public Class frmImportMPPostTransLoad
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pg = New System.Windows.Forms.ProgressBar()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.dgPostFeeder = New Bargh_Common.JGrid()
         Me.dgLPFeederLoad = New Bargh_Common.JGrid()
         Me.dgSubscriberInfo = New Bargh_Common.JGrid()
         Me.dgSubscriber = New Bargh_Common.JGrid()
@@ -178,6 +181,7 @@ Public Class frmImportMPPostTransLoad
         Me.btnReturn = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
+        CType(Me.dgPostFeeder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgLPFeederLoad, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgSubscriberInfo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgSubscriber, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -244,6 +248,7 @@ Public Class frmImportMPPostTransLoad
         Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.dgPostFeeder)
         Me.GroupBox1.Controls.Add(Me.dgLPFeederLoad)
         Me.GroupBox1.Controls.Add(Me.dgSubscriberInfo)
         Me.GroupBox1.Controls.Add(Me.dgSubscriber)
@@ -260,6 +265,32 @@ Public Class frmImportMPPostTransLoad
         Me.GroupBox1.Size = New System.Drawing.Size(857, 459)
         Me.GroupBox1.TabIndex = 34
         Me.GroupBox1.TabStop = False
+        '
+        'dgPostFeeder
+        '
+        Me.dgPostFeeder.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgPostFeeder.BuiltInTextsData = resources.GetString("dgPostFeeder.BuiltInTextsData")
+        Me.dgPostFeeder.CurrentRowIndex = -1
+        dgPostFeeder_DesignTimeLayout.LayoutString = resources.GetString("dgPostFeeder_DesignTimeLayout.LayoutString")
+        Me.dgPostFeeder.DesignTimeLayout = dgPostFeeder_DesignTimeLayout
+        Me.dgPostFeeder.EnableFormatEvent = True
+        Me.dgPostFeeder.EnableSaveLayout = True
+        Me.dgPostFeeder.GroupByBoxFormatStyle.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.dgPostFeeder.GroupByBoxInfoFormatStyle.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.dgPostFeeder.GroupByBoxVisible = False
+        Me.dgPostFeeder.IsColor = False
+        Me.dgPostFeeder.IsColumnContextMenu = True
+        Me.dgPostFeeder.IsForMonitoring = False
+        Me.dgPostFeeder.Location = New System.Drawing.Point(9, 37)
+        Me.dgPostFeeder.Name = "dgPostFeeder"
+        Me.dgPostFeeder.PrintLandScape = True
+        Me.dgPostFeeder.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
+        Me.dgPostFeeder.SaveGridName = ""
+        Me.dgPostFeeder.Size = New System.Drawing.Size(838, 414)
+        Me.dgPostFeeder.TabIndex = 42
+        Me.dgPostFeeder.Visible = False
         '
         'dgLPFeederLoad
         '
@@ -704,6 +735,7 @@ Public Class frmImportMPPostTransLoad
         Me.HelpMaker.SetShowHelp(Me, True)
         Me.Text = "ورود بارگيري ترانس‌هاي پست‌هاي فوق توزيع از فايل اکسل"
         Me.GroupBox1.ResumeLayout(False)
+        CType(Me.dgPostFeeder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgLPFeederLoad, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgSubscriberInfo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgSubscriber, System.ComponentModel.ISupportInitialize).EndInit()
@@ -725,7 +757,7 @@ Public Class frmImportMPPostTransLoad
 
 #End Region
 
-    Private Sub frmImportMPPostTransLoad_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+    Private Sub frmImportMPPostTransLoad_Activated(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Activated
 
         If Not mIsFirstActivated Then Exit Sub
         mIsFirstActivated = False
@@ -848,62 +880,60 @@ Public Class frmImportMPPostTransLoad
         LoadData()
     End Sub
     Private Sub btnShowTemplate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnShowTemplate.Click
-        Select Case mFormType
-            Case ""
-                cmnuChecking.Show(btnShowTemplate, New Point(0, btnShowTemplate.Height))
-            Case "MPFeederLoad"
-                cmnuChecking.Show(btnShowTemplate, New Point(0, btnShowTemplate.Height))
-            Case Else
-                Try
-                    '  OldPattern_Click(sender, e)
-                    Dim lFileName As String = ""
-                    Select Case mFormType
-                        Case ""
-                            If mVersionTypeId = Version.OldVer Then
-                                lFileName = "MPPostTransLoad"
-                            ElseIf mVersionTypeId = Version.NewVer Then
-                                lFileName = "MPPostTransLoadNew.xls"
-                            End If
-                        Case "MPFeederLoad"
-                            If mVersionTypeId = Version.OldVer Then
-                                lFileName = "MPFeederLoad"
-                            ElseIf mVersionTypeId = Version.NewVer Then
-                                lFileName = "MPFeederLoadNew.xls"
-                            End If
-
-                        Case "MPPostEnergy"
-                            lFileName = "MPPostEnergy"
-                        Case "MPFeederEnergy"
-                            lFileName = "MPFeederEnergy"
-                        Case "Subscribers"
-                            lFileName = "SubscribersInfo"
-                        Case "SubscriberInfo"
-                            ShowInfo("جهت مقداردهي ستونهاي فايل اکسل، حتماً راهنماي ورود اطلاعات را مشاهده نماييد")
-                            lFileName = "Subscribers"
-                        Case "ViewLPPostLoad"
-                            lFileName = "LPPostLoad.xls"
-                        Case "ViewLPFeederLoad"
-                            lFileName = "LPFeederLoad.xls"
-                    End Select
-                    If mExcel Is Nothing Then
-                        mExcel = New CExcelManager
-                    Else
-                        mExcel.CloseWorkBook()
+        If mFormType = "" Then
+            cmnuChecking.Show(btnShowTemplate, New Point(0, btnShowTemplate.Height))
+        ElseIf mFormType = "MPFeederLoad" Then
+            cmnuChecking.Show(btnShowTemplate, New Point(0, btnShowTemplate.Height))
+        Else
+            Try
+                '  OldPattern_Click(sender, e)
+                Dim lFileName As String = ""
+                If mFormType = "" Then
+                    If mVersionTypeId = Version.OldVer Then
+                        lFileName = "MPPostTransLoad"
+                    ElseIf mVersionTypeId = Version.NewVer Then
+                        lFileName = "MPPostTransLoadNew.xls"
                     End If
-                    Dim lPath As String = VB6.GetPath & "\Reports\Excel\"
-                    Dim lDestPath As String = GetUserTempPath() & "Tac\Havades\" & lFileName
-
-                    If File.Exists(lDestPath) Then
-                        File.SetAttributes(lDestPath, FileAttributes.Normal)
+                ElseIf mFormType = "MPFeederLoad" Then
+                    If mVersionTypeId = Version.OldVer Then
+                        lFileName = "MPFeederLoad"
+                    ElseIf mVersionTypeId = Version.NewVer Then
+                        lFileName = "MPFeederLoadNew.xls"
                     End If
 
-                    System.IO.File.Copy(lPath & lFileName, lDestPath, True)
-                    mExcel.OpenWorkBook(GetUserTempPath() & "Tac\Havades\" & lFileName)
-                    mExcel.ShowExcel()
-                Catch ex As Exception
-                    ShowError(ex)
-                End Try
-        End Select
+                ElseIf mFormType = "MPPostEnergy" Then
+                    lFileName = "MPPostEnergy"
+                ElseIf mFormType = "MPFeederEnergy" Then
+                    lFileName = "MPFeederEnergy"
+                ElseIf mFormType = "Subscribers" Then
+                    lFileName = "SubscribersInfo"
+                ElseIf mFormType = "SubscriberInfo" Then
+                    ShowInfo("جهت مقداردهي ستونهاي فايل اکسل، حتماً راهنماي ورود اطلاعات را مشاهده نماييد")
+                    lFileName = "Subscribers"
+                ElseIf mFormType = "ViewLPPostLoad" Then
+                    lFileName = "LPPostLoad.xls"
+                ElseIf mFormType = "ViewLPFeederLoad" Then
+                    lFileName = "LPFeederLoad.xls"
+                End If
+                If mExcel Is Nothing Then
+                    mExcel = New CExcelManager
+                Else
+                    mExcel.CloseWorkBook()
+                End If
+                Dim lPath As String = VB6.GetPath & "\Reports\Excel\"
+                Dim lDestPath As String = GetUserTempPath() & "Tac\Havades\" & lFileName
+
+                If File.Exists(lDestPath) Then
+                    File.SetAttributes(lDestPath, FileAttributes.Normal)
+                End If
+
+                System.IO.File.Copy(lPath & lFileName, lDestPath, True)
+                mExcel.OpenWorkBook(GetUserTempPath() & "Tac\Havades\" & lFileName)
+                mExcel.ShowExcel()
+            Catch ex As Exception
+                ShowError(ex)
+            End Try
+        End If
     End Sub
     Function ExcelTypeVersion() As Integer
         Dim lValidFromExcel As String = ""
@@ -917,17 +947,16 @@ Public Class frmImportMPPostTransLoad
         End If
         mExcel.OpenWorkBook(mOfd.FileName)
 
-        Select Case mFormType
-            Case ""
-                mSheet = "بارگيري ترانس‌هاي فوق توزيع"
-                lHeadNewVer = "نام بهره بردارنوع پستکد پست توزیعنام پست توزیعنام ترانستاریخ"
-                lHeadOldVer = "کدپستفوقتوزيعنامپستفوقتوزيعنامترانستاريخبارگيريساعتبارگيريباراکتيو(Mw)بارراکتيو(Mvar)".Replace("ی", "ي").Replace("ك", "ک")
-            Case "MPFeederLoad"
-                lHeadOldVer = "کدفيدرنامفيدرتاريخبارگيريساعتبارگيريباراکتيو(A)بارراکتيو(A)توان(Mwh)".Replace("ی", "ي").Replace("ك", "ک")
-                mSheet = "بارگيري فيدرهاي فشار متوسط"
-                lHeadNewVer = "کد فیدرنام فیدرتاریخH1H2H3"
-                lHeadNewVerFinal = "کدفيدرنامفيدرتاريخH1H2H3H4H5H6H7H8H9H10H11H12H13H14H15H16H17H18H19H20H21H22H23H24مجموع"
-        End Select
+        If mFormType = "" Then
+            mSheet = "بارگيري ترانس‌هاي فوق توزيع"
+            lHeadNewVer = "نام بهره بردارنوع پستکد پست توزیعنام پست توزیعنام ترانستاریخ"
+            lHeadOldVer = "کدپستفوقتوزيعنامپستفوقتوزيعنامترانستاريخبارگيريساعتبارگيريباراکتيو(Mw)بارراکتيو(Mvar)".Replace("ی", "ي").Replace("ك", "ک")
+        ElseIf mFormType = "MPFeederLoad" Then
+            lHeadOldVer = "کدفيدرنامفيدرتاريخبارگيريساعتبارگيريباراکتيو(A)بارراکتيو(A)توان(Mwh)".Replace("ی", "ي").Replace("ك", "ک")
+            mSheet = "بارگيري فيدرهاي فشار متوسط"
+            lHeadNewVer = "کد فیدرنام فیدرتاریخH1H2H3"
+            lHeadNewVerFinal = "کدفيدرنامفيدرتاريخH1H2H3H4H5H6H7H8H9H10H11H12H13H14H15H16H17H18H19H20H21H22H23H24مجموع"
+        End If
         lValidFromExcel = mExcel.ReadCell(mSheet, "B2")
         lValidFromExcel &= mExcel.ReadCell(mSheet, "C2")
         lValidFromExcel &= mExcel.ReadCell(mSheet, "D2")
@@ -973,7 +1002,7 @@ Public Class frmImportMPPostTransLoad
                             mTbl_MPPostTransLoadNew.Rows.Clear()
                         End If
                     Case "PostFeeder"
-                        mTbl_PostFeeder.Rows.Clear()
+                        mTbl_PostFeederExcel.Rows.Clear()
                     Case "MPFeederLoad"
                         If mVersionTypeId = Version.OldVer Then
                             mTbl_MPFeederLoad.Rows.Clear()
@@ -1013,44 +1042,47 @@ Public Class frmImportMPPostTransLoad
         End If
     End Sub
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
-        Select Case mFormType
-            Case ""
-                If mVersionTypeId = Version.NewVer Then
-                    If dgNewLoad.RowCount = 0 Then Exit Sub
-                    SaveInfoNew()
-                Else
-                    If dg.RowCount = 0 Then Exit Sub
-                    SaveInfo()
-                End If
-            Case "PostFeeder"
-                SavePostFeederInfo()
-            Case "MPFeederLoad"
-                If dgMPFeederNew.RowCount > 0 And mVersionTypeId = Version.NewVer Then
-                    SaveMPFeederLoadInfoNew()
-                ElseIf dgMPFeeder.RowCount > 0 Then
-                    SaveMPFeederLoadInfo()
-                Else
-                    Exit Sub
-                End If
-            Case "MPPostEnergy"
-                If dgMPPostEnergy.RowCount = 0 Then Exit Sub
-                SaveMPPostEnergyInfo()
-            Case "MPFeederEnergy"
-                If dgMPFeederEnergy.RowCount = 0 Then Exit Sub
-                SaveMPFeederEnergyInfo()
-            Case "Subscribers"
-                If dgSubscriber.RowCount = 0 Then Exit Sub
-                SaveSubscribersInfo()
-            Case "SubscriberInfo"
-                If dgSubscriberInfo.RowCount = 0 Then Exit Sub
-                SaveSubscriberInfo()
-            Case "ViewLPPostLoad"
-                If dgViewLPPostLoad.RowCount = 0 Then Exit Sub
-                SaveLPPostLoadInfo()
-            Case "ViewLPFeederLoad"
-                If dgLPFeederLoad.RowCount = 0 Then Exit Sub
-                SaveLPFeederLoadInfo()
-        End Select
+        If mFormType = "" Then
+            If mVersionTypeId = Version.NewVer Then
+                If dgNewLoad.RowCount = 0 Then Exit Sub
+                SaveInfoNew()
+            Else
+                If dg.RowCount = 0 Then Exit Sub
+                SaveInfo()
+            End If
+        End If
+        If mFormType = "MPFeederLoad" Then
+            If dgMPFeederNew.RowCount > 0 And mVersionTypeId = Version.NewVer Then
+                SaveMPFeederLoadInfoNew()
+            ElseIf dgMPFeeder.RowCount > 0 Then
+                SaveMPFeederLoadInfo()
+            Else
+                Exit Sub
+            End If
+        End If
+        If mFormType = "MPPostEnergy" Then
+            If dgMPPostEnergy.RowCount = 0 Then Exit Sub
+            SaveMPPostEnergyInfo()
+        End If
+        If mFormType = "MPFeederEnergy" Then
+            If dgMPFeederEnergy.RowCount = 0 Then Exit Sub
+            SaveMPFeederEnergyInfo()
+        End If
+        If mFormType = "Subscribers" Then
+            If dgSubscriber.RowCount = 0 Then Exit Sub
+            SaveSubscribersInfo()
+        End If
+        If mFormType = "SubscriberInfo" Then
+            If dgSubscriberInfo.RowCount = 0 Then Exit Sub
+            SaveSubscriberInfo()
+        End If
+        If mFormType = "ViewLPPostLoad" Then
+            If dgViewLPPostLoad.RowCount = 0 Then Exit Sub
+            SaveLPPostLoadInfo()
+        ElseIf mFormType = "ViewLPFeederLoad" Then
+            If dgLPFeederLoad.RowCount = 0 Then Exit Sub
+            SaveLPFeederLoadInfo()
+        End If
     End Sub
 
     Private Sub LoadData()
@@ -1391,6 +1423,8 @@ Public Class frmImportMPPostTransLoad
                 lValidWordNewVer = "نامبهرهبردارنوعپستکدپستتوزيعنامپستتوزيعنامترانستاريخH1H2H3H4H5H6H7H8H9H10H11H12H13H14H15H16H17H18H19H20H21H22H23H24مجموع"
                 lValTemp = "نام بهره بردارنوع پستکد پست توزیعنام پست توزیعنام ترانستاریخ"
                 lValidWordOLdVer = "کدپستفوقتوزيعنامپستفوقتوزيعنامترانستاريخبارگيريساعتبارگيريباراکتيو(Mw)بارراکتيو(Mvar)".Replace("ی", "ي").Replace("ك", "ک")
+            Case "PostFeeder"
+                lValidWord = "کدGISفيدرفشارضعيفنامفيدرفشارضعيفنامپستتوزيعتاريخبارگيريساعتبارگيريفيوزمنصوبهRفيوزمنصوبهSفيوزمنصوبهTجريانفازRجريانفازSجريانفازTجرياننولفيدرولتاژانتهايفيدرجريانفازRپستجريانفازSپستجريانفازTپستجرياننولپستولتاژRNپستولتاژSNپستولتاژTNپستولتاژRSپستولتاژRTپستولتاژSTپست".Replace("ی", "ي").Replace("ك", "ک")
             Case "MPFeederLoad"
                 If mVersionTypeId > -1 Then
                     Return True
@@ -1419,7 +1453,7 @@ Public Class frmImportMPPostTransLoad
         End If
         Try
             mExcel.OpenWorkBook(mOfd.FileName)
-            Dim dict As Dictionary(Of String, String)
+            Dim dict As New Dictionary(Of String, String)
             dict.Add("Default", "BCDEFG")
             dict.Add("ViewLPPostLoad", "HIJKL")
             dict.Add("PostFeeder", "HIJKLMNOPQRSTUVWX")
@@ -1478,6 +1512,7 @@ Public Class frmImportMPPostTransLoad
                 End If
             Case "PostFeeder"
                 ParseExcel()
+                dgPostFeeder.DataSource = mTbl_PostFeederExcel
                 If excel.rows.Count > 0 Then
                     FillPostFeederDataGrid()
                 End If
@@ -4010,136 +4045,6 @@ Public Class frmImportMPPostTransLoad
             End If
         End Try
     End Sub
-
-    ''' '''''''''''''''''''''''''''''''''''''''''''' PostFeederLoad
-    '-------------By Omid---------------
-    Private Sub initializeExcel()
-        ' ----- Initialize Excel Model DataTable
-        mTbl_PostFeederExcel = New DataTable("PostFeederExcel")
-        ' ----- Initialize Excel Model Columns
-        Me.columns = New List(Of ExcelCol)
-        columns.Add(New ExcelCol("LPFeederCode", GetType(String), "B"))
-        columns.Add(New ExcelCol("LPFeederName", GetType(String), "C"))
-        columns.Add(New ExcelCol("LPPostName", GetType(String), "D"))
-        columns.Add(New ExcelCol("LoadDateTimePersian", GetType(String), "E"))
-        columns.Add(New ExcelCol("LoadTime", GetType(String), "F"))
-        columns.Add(New ExcelCol("RFuse", GetType(String), "G"))
-        columns.Add(New ExcelCol("SFuse", GetType(String), "H"))
-        columns.Add(New ExcelCol("TFuse", GetType(String), "I"))
-        columns.Add(New ExcelCol("FeederRCurrent", GetType(String), "J"))
-        columns.Add(New ExcelCol("FeederSCurrent", GetType(String), "K"))
-        columns.Add(New ExcelCol("FeederTCurrent", GetType(String), "L"))
-        columns.Add(New ExcelCol("FeederTcurrent", GetType(String), "M"))
-        columns.Add(New ExcelCol("FeederEndlineVoltage", GetType(String), "N"))
-        columns.Add(New ExcelCol("PostRCurrent", GetType(String), "O"))
-        columns.Add(New ExcelCol("PostSCurrent", GetType(String), "P"))
-        columns.Add(New ExcelCol("PostTCurrent", GetType(String), "Q"))
-        columns.Add(New ExcelCol("PostNolCurrent", GetType(String), "R"))
-        columns.Add(New ExcelCol("PostvRN", GetType(String), "S"))
-        columns.Add(New ExcelCol("PostvSN", GetType(String), "T"))
-        columns.Add(New ExcelCol("PostvTN", GetType(String), "U"))
-        columns.Add(New ExcelCol("PostvRS", GetType(String), "V"))
-        columns.Add(New ExcelCol("PostvTR", GetType(String), "W"))
-        columns.Add(New ExcelCol("PostvTS", GetType(String), "X"))
-        ' ----- Initialize Excel Model
-        Me.excel = New ExcelModel(columns)
-        ' ----- Initialize Excel Model Rows
-        ParseExcel()
-    End Sub
-    Private Sub ParseExcel()
-        Dim i As Integer = 3
-        Dim lLastNullRecord As Integer = 0
-        Dim LPFeederCode As String
-        Dim objList As List(Of Object)
-        '------- Adding Rows to DataTable & Excel Model
-        Do
-            LPFeederCode = mExcel.ReadCellRC(mSheet, i, 2)
-            If LPFeederCode = "" Then
-                lLastNullRecord += 1
-                Continue Do
-            End If
-            objList = New List(Of Object)
-            Dim row As ExcelRow = New ExcelRow()
-            For Each column As ExcelCol In columns
-                Dim item As ExcelRowItem = New ExcelRowItem(column)
-                item.value = mExcel.ReadCell(mSheet, column.excelColumn & i)
-                SaveLog(item.value) ' Lllllllllllloooooooooooooooooooogggggggggggg
-                row.Add(item)
-                objList.Add(item.value)
-            Next
-            excel.rows.Add(row)
-            mTbl_PostFeederExcel.Rows.Add(objList)
-            If lLastNullRecord >= 5 Then
-                Exit Do
-            End If
-            i += 1
-        Loop While True
-    End Sub
-    Private Function GetIdsFromFeederCodes() As List(Of String)
-        Dim codeList As List(Of String) = New List(Of String)
-        For Each row As ExcelRow In excel.rows
-            For Each item As ExcelRowItem In row.items
-                If item.column.name = "LPFeederCode" Then
-                    codeList.Add(item.value)
-                End If
-            Next
-        Next
-        Return codeList
-    End Function
-    Private Sub MakeDataSetPostFeeeder01()
-        Dim codes As List(Of String) = GetIdsFromFeederCodes()
-        Dim lWhere As String = ""
-        For Each code As String In codes
-            lWhere += ",'" + code + "'"
-        Next
-        Dim lSQL As String = "SELECT LPFeederId FROM Tbl_LPFeeder WHERE LPFeederCode IN (" + lWhere.Substring(1) + ")"
-        BindingTable(lSQL, mCnn, mDs, "Tbl_LPFeederId", aIsClearTable:=True)
-    End Sub
-    Private Sub MakeDataSetPostFeeeder02()
-        Dim lWhere As String = ""
-        For Each row As DataRow In mDs.Tables("Tbl_LPFeederId").Rows
-            lWhere += "," + row("LPFeederId")
-        Next
-        Dim lSQL As String = "EXEC [dbo].[Sp-PostFeederSelect] '" + lWhere.Substring(1) + "' , 1;"
-        BindingTable(lSQL, mCnn, mDs, "TblLPFeederLoad", aIsClearTable:=True)
-        lSQL = "EXEC [dbo].[Sp-PostFeederSelect] '" + lWhere.Substring(1) + "' , 2;"
-        BindingTable(lSQL, mCnn, mDs, "TblLPPostLoad", aIsClearTable:=True)
-        lSQL = "EXEC [dbo].[Sp-PostFeederSelect]  '' , 3;"
-        BindingTable(lSQL, mCnn, mDs, "Tbl_Fuse", aIsClearTable:=True)
-    End Sub
-    Private Sub MakeDataSetPostFeeeder()
-        MakeDataSetPostFeeeder01()
-        MakeDataSetPostFeeeder02()
-    End Sub
-    'Me.TblFieldsToExcelConverter = New Dictionary(Of String, Object)
-    'Me.TblDBColumns = New Dictionary(Of String, List(Of String))
-    'TblFieldsToExcelConverter.Add("TblLPFeederLoad", lConverterFeederLoad)
-    'TblFieldsToExcelConverter.Add("TblLPPostLoad", lConverterPostLoad)
-    '    lSubscribersRows = mDs.Tables("TblSubscribers").Select("AreaId = " & lRow("AreaId") & " AND YearMonth = '" & lYear & "/" & lMonth & "'")
-    'If lSubscribersRows.Length > 0 Then
-    '    lNewRow = lSubscribersRows(0)
-    '    lNewRow("TotalSubscriberCount") = lSubscribersRows(0)("PrevMonthSubscriberCount") + lRow("Count") - lRow("Ebtali")
-    Private Sub CheckPostFeederDataIntegrity()
-        For Each table As String In {"TblLPPostLoad", "TblLPFeederLoad"}
-            For Each row As DataRow In mTbl_PostFeederExcel.Rows
-                Dim lDtRow As DataRow() = mDs.Tables(table).Select("")
-                If lDtRow.Length > 0 Then ''''Update
-                    For Each col As String In TblDBColumns.Item(table)
-
-                    Next
-                Else Then ''' Insert
-                End If
-            Next
-        Next
-    End Sub
-    Private Sub FillPostFeederDataGrid()
-        MakeDataSetPostFeeeder()
-        CheckPostFeederDataIntegrity()
-    End Sub
-    Private Sub SavePostFeederInfo()
-        ' Blah blah
-    End Sub
-
     '''''''''''''''''''''''''''''''''''''''''''''''''
     Private Sub MakeTableSubscribers()
         mTbl_Subscribers = New DataTable("Tbl_Subscribers")
@@ -4479,32 +4384,31 @@ Public Class frmImportMPPostTransLoad
         End Try
     End Sub
 
-    Private Sub OldPattern_Click(sender As Object, e As EventArgs) Handles OldPattern.Click
+    Private Sub OldPattern_Click(ByVal sender As Object, ByVal e As EventArgs) Handles OldPattern.Click
         Try
             mVersionTypeId = Version.OldVer
             Dim lFileName As String = ""
-            Select Case mFormType
-                Case ""
-                    dg.Visible = True
-                    dgNewLoad.Visible = False
-                    If mVersionTypeId = Version.OldVer Then
-                        lFileName = "MPPostTransLoad"
-                    ElseIf mVersionTypeId = Version.NewVer Then
-                        lFileName = "MPPostTransLoadNew.xls"
-                    End If
-                Case "MPFeederLoad"
-                    lFileName = "MPFeederLoad"
-                    dgMPFeeder.Visible = True
-                    dgMPFeederNew.Visible = False
-                Case "MPPostEnergy"
-                    lFileName = "MPPostEnergy"
-                Case "MPFeederEnergy"
-                    lFileName = "MPFeederEnergy"
-                Case "Subscribers"
-                    lFileName = "SubscribersInfo"
-                Case "ViewLPPostLoad"
-                    lFileName = "LPPostLoad.xls"
-            End Select
+            If mFormType = "" Then
+                dg.Visible = True
+                dgNewLoad.Visible = False
+                If mVersionTypeId = Version.OldVer Then
+                    lFileName = "MPPostTransLoad"
+                ElseIf mVersionTypeId = Version.NewVer Then
+                    lFileName = "MPPostTransLoadNew.xls"
+                End If
+            ElseIf mFormType = "MPFeederLoad" Then
+                lFileName = "MPFeederLoad"
+                dgMPFeeder.Visible = True
+                dgMPFeederNew.Visible = False
+            ElseIf mFormType = "MPPostEnergy" Then
+                lFileName = "MPPostEnergy"
+            ElseIf mFormType = "MPFeederEnergy" Then
+                lFileName = "MPFeederEnergy"
+            ElseIf mFormType = "Subscribers" Then
+                lFileName = "SubscribersInfo"
+            ElseIf mFormType = "ViewLPPostLoad" Then
+                lFileName = "LPPostLoad.xls"
+            End If
             If mExcel Is Nothing Then
                 mExcel = New CExcelManager
             Else
@@ -4525,21 +4429,20 @@ Public Class frmImportMPPostTransLoad
         End Try
     End Sub
 
-    Private Sub NewPattern_Click(sender As Object, e As EventArgs) Handles NewPattern.Click
+    Private Sub NewPattern_Click(ByVal sender As Object, ByVal e As EventArgs) Handles NewPattern.Click
         Try
             mVersionTypeId = Version.NewVer
             Dim lFileName As String = ""
-            Select Case mFormType
-                Case ""
-                    mSheet = "اصل"
-                    dg.Visible = False
-                    dgNewLoad.Visible = True
-                    lFileName = "MPPostTransLoadNew.xls"
-                Case "MPFeederLoad"
-                    dgMPFeeder.Visible = False
-                    dgMPFeederNew.Visible = True
-                    lFileName = "MPFeederLoadNew.xls"
-            End Select
+            If mFormType = "" Then
+                mSheet = "اصل"
+                dg.Visible = False
+                dgNewLoad.Visible = True
+                lFileName = "MPPostTransLoadNew.xls"
+            ElseIf mFormType = "MPFeederLoad" Then
+                dgMPFeeder.Visible = False
+                dgMPFeederNew.Visible = True
+                lFileName = "MPFeederLoadNew.xls"
+            End If
             If mExcel Is Nothing Then
                 mExcel = New CExcelManager
             Else
@@ -4558,6 +4461,164 @@ Public Class frmImportMPPostTransLoad
         Catch ex As Exception
             ShowError(ex)
         End Try
+    End Sub
+    ''' '''''''''''''''''''''''''''''''''''''''''''' PostFeederLoad
+    '-------------By Omid---------------
+    Private Sub initializeExcel()
+        ' ----- Initialize Excel Model DataTable
+        mTbl_PostFeederExcel = New DataTable("PostFeederExcel")
+        ' ----- Initialize Excel Model Columns
+        Me.columns = New List(Of ExcelCol)
+        columns.Add(New ExcelCol("LPFeederCode", GetType(String), "B"))
+        columns.Add(New ExcelCol("LPFeederName", GetType(String), "C"))
+        columns.Add(New ExcelCol("LPPostName", GetType(String), "D"))
+        columns.Add(New ExcelCol("LoadDateTimePersian", GetType(String), "E"))
+        columns.Add(New ExcelCol("LoadTime", GetType(String), "F"))
+        columns.Add(New ExcelCol("RFuse", GetType(String), "G"))
+        columns.Add(New ExcelCol("SFuse", GetType(String), "H"))
+        columns.Add(New ExcelCol("TFuse", GetType(String), "I"))
+        columns.Add(New ExcelCol("FeederRCurrent", GetType(String), "J"))
+        columns.Add(New ExcelCol("FeederSCurrent", GetType(String), "K"))
+        columns.Add(New ExcelCol("FeederTCurrent", GetType(String), "L"))
+        columns.Add(New ExcelCol("FeederTcurrent", GetType(String), "M"))
+        columns.Add(New ExcelCol("FeederEndlineVoltage", GetType(String), "N"))
+        columns.Add(New ExcelCol("PostRCurrent", GetType(String), "O"))
+        columns.Add(New ExcelCol("PostSCurrent", GetType(String), "P"))
+        columns.Add(New ExcelCol("PostTCurrent", GetType(String), "Q"))
+        columns.Add(New ExcelCol("PostNolCurrent", GetType(String), "R"))
+        columns.Add(New ExcelCol("PostvRN", GetType(String), "S"))
+        columns.Add(New ExcelCol("PostvSN", GetType(String), "T"))
+        columns.Add(New ExcelCol("PostvTN", GetType(String), "U"))
+        columns.Add(New ExcelCol("PostvRS", GetType(String), "V"))
+        columns.Add(New ExcelCol("PostvTR", GetType(String), "W"))
+        columns.Add(New ExcelCol("PostvTS", GetType(String), "X"))
+        ' ----- Initialize Excel Model
+        Me.excel = New ExcelModel(columns)
+        '-------Make DataGrid Visible
+        dgPostFeeder.Visible = True
+    End Sub
+    Private Sub ParseExcel()
+        Dim i As Integer = 3
+        Dim lLastNullRecord As Integer = 0
+        Dim LPFeederCode As String
+        Dim objList As List(Of Object)
+        For Each column As ExcelCol In columns
+            mTbl_PostFeederExcel.Columns.Add(column.name, column.type)
+        Next
+        '------- Adding Rows to DataTable & Excel Model
+        Try
+            Do
+                LPFeederCode = mExcel.ReadCellRC(mSheet, i, 2)
+                If lLastNullRecord >= 5 Then
+                    Exit Do
+                End If
+                If LPFeederCode = "" Then
+                    lLastNullRecord += 1
+                    Continue Do
+                End If
+                objList = New List(Of Object)
+                Dim row As ExcelRow = New ExcelRow()
+                For Each column As ExcelCol In columns
+                    Dim item As ExcelRowItem = New ExcelRowItem(column)
+                    item.value = mExcel.ReadCell(mSheet, column.excelColumn & i)
+                    row.Add(item)
+                    objList.Add(item.value)
+                Next
+                excel.rows.Add(row)
+                mTbl_PostFeederExcel.Rows.Add(objList)
+                If lLastNullRecord >= 5 Then
+                    Exit Do
+                End If
+                i += 1
+            Loop While True
+        Catch e As Exception
+            ShowError(e)
+        End Try
+    End Sub
+    Private Function GetIdsFromFeederCodes() As List(Of String)
+        Dim codeList As List(Of String) = New List(Of String)
+        For Each row As ExcelRow In excel.rows
+            For Each item As ExcelRowItem In row.items
+                If item.column.name = "LPFeederCode" Then
+                    codeList.Add(item.value)
+                End If
+            Next
+        Next
+        Return codeList
+    End Function
+    Private Sub MakeDataSetPostFeeeder01()
+        Dim codes As List(Of String) = GetIdsFromFeederCodes()
+        Dim lWhere As String = ""
+        For Each code As String In codes
+            lWhere += ",'" + code + "'"
+        Next
+        Dim lSQL As String = "SELECT LPFeederId FROM Tbl_LPFeeder WHERE LPFeederCode IN (" + lWhere.Substring(1) + ")"
+        BindingTable(lSQL, mCnn, mDs, "Tbl_LPFeederId", aIsClearTable:=True)
+        BindingTable("Select * From Tbl_Fuse", mCnn, mDs, "Tbl_Fuse", aIsClearTable:=True)
+    End Sub
+    Private Sub MakeDataSetPostFeeeder02()
+        Dim lWhere As String = ""
+        For Each row As DataRow In mDs.Tables("Tbl_LPFeederId").Rows
+            lWhere += "," + row("LPFeederId").ToString()
+        Next
+        Dim lSQL As String = "EXEC [dbo].[Sp-PostFeederSelect] '" + lWhere.Substring(1) + "' , 1;"
+        BindingTable(lSQL, mCnn, mDs, "TblLPFeederLoad", aIsClearTable:=True)
+        lSQL = "EXEC [dbo].[Sp-PostFeederSelect] '" + lWhere.Substring(1) + "' , 2;"
+        BindingTable(lSQL, mCnn, mDs, "TblLPPostLoad", aIsClearTable:=True)
+        lSQL = "EXEC [dbo].[Sp-PostFeederSelect]  '' , 3;"
+        BindingTable(lSQL, mCnn, mDs, "Tbl_Fuse", aIsClearTable:=True)
+    End Sub
+
+    Private Sub CheckPostFeederDataIntegrity()
+        Dim excelColExists As Boolean
+        Dim excelCol As String
+        Dim fuseDict As New Dictionary(Of String, String)
+        '------------Fill Fuse Dictinary
+        For Each row As DataRow In mDs.Tables("Tbl_Fuse").Rows
+            fuseDict.Add(row("Fuse"), row("FuseId"))
+        Next
+        pg.Maximum = 2 * mTbl_PostFeederExcel.Rows.Count
+        For Each table As String In {"TblLPPostLoad", "TblLPFeederLoad"}
+            For Each row As DataRow In mTbl_PostFeederExcel.Rows
+                '--------check for existence
+                Dim lDtRow As DataRow() = If(table = "TblLPFeederLoad",
+                    mDs.Tables(table).Select("LPFeederCode=" + row("LPFeederCode") +
+                            " AND LoadDateTimePersian=" + row("LoadDateTimePersian") + "AND LoadTime=" + row("LoadTime")),
+                    mDs.Tables(table).Select("LPFeederCode=" + row("LPFeederCode") +
+                            " AND LoadDateTimePersian=" + row("LoadDateTimePersian")))
+                '---------Select or New Row
+                Dim lNewRow As DataRow = If(lDtRow.Length > 0, lDtRow(0), mDs.Tables(table).NewRow())
+                '--------Fill the Fields
+                For Each col As String In TblDBColumns.Item(table)
+                    excelColExists = TblFieldsToExcelConverter.Item(table).ContainsKey(col)
+                    excelCol = TblFieldsToExcelConverter.Item(table).Item(col)
+                    '------------Fuse Id 
+                    If excelColExists AndAlso row(excelCol).Contains("Fuse") Then
+                        lNewRow(col) = If(excelColExists, fuseDict.Item(row(excelCol)), Nothing)
+                        Continue For
+                    End If
+                    lNewRow(col) = If(excelColExists, row(excelCol), Nothing)
+                Next
+                If lDtRow.Length = 0 Then
+                    mDs.Tables(table).Rows.Add(lNewRow)
+                End If
+                Dim lUpdate As New frmUpdateDataSetBT
+                lUpdate.UpdateDataSet(table, mDs)
+                '--------Progress Bar
+                'AdvanceProgress(pg)
+            Next
+        Next
+    End Sub
+    Private Sub MakeDataSetPostFeeeder()
+        MakeDataSetPostFeeeder01()
+        MakeDataSetPostFeeeder02()
+    End Sub
+    Private Sub FillPostFeederDataGrid()
+        MakeDataSetPostFeeeder()
+        'CheckPostFeederDataIntegrity()
+    End Sub
+    Private Sub SavePostFeederInfo()
+        ' Blah blah
     End Sub
 
     '''''''''''''''''''''''''''''''''''''''''''''''''
@@ -5343,7 +5404,7 @@ Public Class frmImportMPPostTransLoad
         pg.Visible = False
     End Sub
 
-    Private Sub btnHelp_Click(sender As Object, e As EventArgs) Handles btnHelp.Click
+    Private Sub btnHelp_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnHelp.Click
         Dim lMsg As String = ""
         lMsg = "دستورالعمل بسيار مهم" & vbCrLf & "---------------------------------------"
         lMsg &= vbCrLf & "1. ابتدا بايد يکي از آيتم های منحصر به فرد انتخاب گردد تا ورود اطلاعات بر اساس آن صورت پذيرد. در انتخاب اين آيتم دقت نماييد. انتخاب اشتباه اين آيتم منجر به تکراری شدن اطلاعات مي گردد"
@@ -5356,25 +5417,26 @@ Public Class frmImportMPPostTransLoad
         lDlg.ShowDialog()
         lDlg.Dispose()
     End Sub
+
     ' --------------------------By Omid----------------------
     Private Sub InitializeDBColumns()
         Me.TblFieldsToExcelConverter = New Dictionary(Of String, Object)
         Me.TblDBColumns = New Dictionary(Of String, List(Of String))
         Select Case mFormType
             Case "PostFeeder"
-                Dim lConverterFeederLoad As Dictionary(Of String, String) = New Dictionary(Of String, String) From {
+                Dim lConverterFeederLoad As New Dictionary(Of String, String) From {
                     {"LoadDateTimePersian", "LoadDateTimePersian"}, {"LoadTime", "LoadTime"}, {"RFuseId", "RFuse"},
                     {"SFuseId", "SFuse"}, {"TFuseId", "TFuse"}, {"RCurrent", "FeederRCurrent"},
                     {"SCurrent", "FeederSCurrent"}, {"TCurrent", "FeederTCurrent"}, {"EndLineVoltage", "FeederEndlineVoltage"}
                     }
-                Dim lConverterPostLoad As Dictionary(Of String, String) = New Dictionary(Of String, String) From {
-                    {"LoadDateTimePersian", "LoadDateTimePersian"}, {"", ""}, {"", ""},
+                Dim lConverterPostLoad As New Dictionary(Of String, String) From {
+                    {"LoadDateTimePersian", "LoadDateTimePersian"},
                     {"LoadTime", "LoadTime"}, {"RCurrent", "PostRCurrent"}, {"SCurrent", "PostSCurrent"},
                     {"TCurrent", "PostTCurrent"}, {"NolCurrent", "PostNolCurrent"}, {"vTS", "PostvTS"},
                     {"vRN", "PostvRN"}, {"vTN", "PostvTN"}, {"vRS", "PostvRS"},
                     {"vTR", "PostvTR"}
                     }
-                Dim lColsFeederLoad As List(Of String) = New List(Of String) From {
+                Dim lColsFeederLoad As New List(Of String) From {
                     "LPFeederLoadId", "LPFeederId", "FeederPeakCurrent", "ConductorSize", "RCurrent", "SCurrent",
                     "TCurrent", "NolCurrent", "RFuseId", "SFuseId", "TFuseId", "KelidCurrent",
                     "LoadDT", "LoadDateTimePersian", "LoadTime", "FazSatheMaghtaId", "CountFazSatheMaghta", "NolSatheMaghtaId",
@@ -5384,7 +5446,7 @@ Public Class frmImportMPPostTransLoad
                     "vSN", "veRS", "veTS", "veTR", "veRN", "veTN",
                     "veSN", "IsTakFaze", "CosinPhi", "EarthValue"
                     }
-                Dim lColsPostLoad As List(Of String) = New List(Of String) From {
+                Dim lColsPostLoad As New List(Of String) From {
                     "LPPostLoadId", "LPPostId", "PostCapacity", "LoadDT", "LoadDateTimePersian", "LoadTime",
                     "FazSatheMaghtaId", "CountFazSatheMaghta", "NolSatheMaghtaId", "CountNolSatheMaghta", "PostPeakCurrent", "RCurrent",
                     "SCurrent", "TCurrent", "NolCurrent", "KelidCurrent", "DEDT", "DEDatePersian",
@@ -5400,24 +5462,24 @@ Public Class frmImportMPPostTransLoad
 End Class
 
 Public Class CAreaInfo
-    Public Property Area As String
+    Public Property Area() As String
     Public Property CityId As Integer
 End Class
 
 Public Class CMPPostInfo
-    Public Property MPPostId As Integer
+    Public Property MPPostId() As Integer
     Public Property MPPostName As String
 End Class
 
 Public Class CMPFeederInfo
-    Public Property MPFeederId As Integer
+    Public Property MPFeederId() As Integer
     Public Property MPFeederName As String
     Public Property MPPostId As Integer
     Public Property MPPostName As String
 End Class
 
 Public Class CLPPostInfo
-    Public Property LPPostId As Integer
+    Public Property LPPostId() As Integer
     Public Property LPPostName As String
     Public Property MPFeederId As Integer
     Public Property MPFeederName As String
@@ -5426,7 +5488,7 @@ Public Class CLPPostInfo
 End Class
 
 Public Class CLPFeederInfo
-    Public Property LPFeederId As Integer
+    Public Property LPFeederId() As Integer
     Public Property LPFeederName As String
     Public Property LPPostId As Integer
     Public Property LPPostName As String
