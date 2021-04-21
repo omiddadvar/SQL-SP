@@ -42,6 +42,12 @@ exec [dbo].[Sp-PostFeederSelect] '' , 3;
 exec [dbo].[Sp-PostFeederSelect] '20053814,20053813' , 1;
 
 
+SELECT COLUMN_NAME
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'TblLPPostLoad'
+ORDER BY ORDINAL_POSITION
+
+
 /*
 
 

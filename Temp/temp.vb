@@ -65,6 +65,8 @@ Public Class frmImportMPPostTransLoad
     Private mTbl_PostFeederExcel As DataTable
     Private excel As ExcelModel
     Private columns As List(Of ExcelCol)
+    Private TblFieldsToExcelConverter As Dictionary(Of String, Object)
+    Private TblDBColumns As Dictionary(Of String, List(Of String))
 
     Dim mSortedSubscriber As New SortedList(Of String, DataRow)
     Dim mUseSorted As Boolean = False
@@ -97,7 +99,7 @@ Public Class frmImportMPPostTransLoad
         InitializeComponent()
         mFormType = aFormType
         'Add any initialization after the InitializeComponent() call
-
+        InitializeDBColumns()
     End Sub
 
     'Form overrides dispose to clean up the component list.
@@ -1021,7 +1023,7 @@ Public Class frmImportMPPostTransLoad
                     SaveInfo()
                 End If
             Case "PostFeeder"
-                'jijdfe9
+                SavePostFeederInfo()
             Case "MPFeederLoad"
                 If dgMPFeederNew.RowCount > 0 And mVersionTypeId = Version.NewVer Then
                     SaveMPFeederLoadInfoNew()
@@ -1070,7 +1072,6 @@ Public Class frmImportMPPostTransLoad
                 dg.Visible = False
                 dgNewLoad.Visible = False
                 initializeExcel()
-                ParseExcel()
                 mSheet = "بارگیری پست و فیدر"
             Case "MPFeederLoad"
                 Me.Text = "ورود بارگيري فيدرهاي فشار متوسط از فايل اکسل"
@@ -1418,23 +1419,23 @@ Public Class frmImportMPPostTransLoad
         End If
         Try
             mExcel.OpenWorkBook(mOfd.FileName)
-            lValidFromExcel = mExcel.ReadCell(mSheet, "B2")
-            lValidFromExcel &= mExcel.ReadCell(mSheet, "C2")
-            lValidFromExcel &= mExcel.ReadCell(mSheet, "D2")
-            lValidFromExcel &= mExcel.ReadCell(mSheet, "E2")
-            lValidFromExcel &= mExcel.ReadCell(mSheet, "F2")
-            lValidFromExcel &= mExcel.ReadCell(mSheet, "G2")
+            Dim dict As Dictionary(Of String, String)
+            dict.Add("Default", "BCDEFG")
+            dict.Add("ViewLPPostLoad", "HIJKL")
+            dict.Add("PostFeeder", "HIJKLMNOPQRSTUVWX")
+            lValidFromExcel = ""
+            For Each c As Char In dict.Item("Default").ToCharArray()
+                lValidFromExcel &= mExcel.ReadCell(mSheet, c + "2")
+            Next
             If lValidFromExcel = lValTemp Then
                 For Each i As String In lArrHour
                     lValidFromExcel &= mExcel.ReadCell(mSheet, i)
                 Next
                 lValidFromExcel &= mExcel.ReadCell(mSheet, "AF2")
-            ElseIf mFormType = "ViewLPPostLoad" Then
-                lValidFromExcel &= mExcel.ReadCell(mSheet, "H2")
-                lValidFromExcel &= mExcel.ReadCell(mSheet, "I2")
-                lValidFromExcel &= mExcel.ReadCell(mSheet, "J2")
-                lValidFromExcel &= mExcel.ReadCell(mSheet, "K2")
-                lValidFromExcel &= mExcel.ReadCell(mSheet, "L2")
+            ElseIf dict.ContainsKey(mFormType) Then
+                For Each c As Char In dict.Item(mFormType).ToCharArray()
+                    lValidFromExcel &= mExcel.ReadCell(mSheet, c + "2")
+                Next
             Else
                 lValidFromExcel &= mExcel.ReadCell(mSheet, "H2")
             End If
@@ -1474,6 +1475,11 @@ Public Class frmImportMPPostTransLoad
                     Else
                         ShowError("اطلاعاتي دريافت نشد")
                     End If
+                End If
+            Case "PostFeeder"
+                ParseExcel()
+                If excel.rows.Count > 0 Then
+                    FillPostFeederDataGrid()
                 End If
             Case "MPFeederLoad"
                 If mVersionTypeId = Version.OldVer AndAlso MakeTableMPFeederLoadExcel() > 0 Then
@@ -4057,6 +4063,7 @@ Public Class frmImportMPPostTransLoad
             For Each column As ExcelCol In columns
                 Dim item As ExcelRowItem = New ExcelRowItem(column)
                 item.value = mExcel.ReadCell(mSheet, column.excelColumn & i)
+                SaveLog(item.value) ' Lllllllllllloooooooooooooooooooogggggggggggg
                 row.Add(item)
                 objList.Add(item.value)
             Next
@@ -4068,7 +4075,7 @@ Public Class frmImportMPPostTransLoad
             i += 1
         Loop While True
     End Sub
-    Private Function GetIdsFromCodes() As List(Of String)
+    Private Function GetIdsFromFeederCodes() As List(Of String)
         Dim codeList As List(Of String) = New List(Of String)
         For Each row As ExcelRow In excel.rows
             For Each item As ExcelRowItem In row.items
@@ -4080,7 +4087,7 @@ Public Class frmImportMPPostTransLoad
         Return codeList
     End Function
     Private Sub MakeDataSetPostFeeeder01()
-        Dim codes As List(Of String) = GetIdsFromCodes()
+        Dim codes As List(Of String) = GetIdsFromFeederCodes()
         Dim lWhere As String = ""
         For Each code As String In codes
             lWhere += ",'" + code + "'"
@@ -4104,8 +4111,30 @@ Public Class frmImportMPPostTransLoad
         MakeDataSetPostFeeeder01()
         MakeDataSetPostFeeeder02()
     End Sub
+    'Me.TblFieldsToExcelConverter = New Dictionary(Of String, Object)
+    'Me.TblDBColumns = New Dictionary(Of String, List(Of String))
+    'TblFieldsToExcelConverter.Add("TblLPFeederLoad", lConverterFeederLoad)
+    'TblFieldsToExcelConverter.Add("TblLPPostLoad", lConverterPostLoad)
+    '    lSubscribersRows = mDs.Tables("TblSubscribers").Select("AreaId = " & lRow("AreaId") & " AND YearMonth = '" & lYear & "/" & lMonth & "'")
+    'If lSubscribersRows.Length > 0 Then
+    '    lNewRow = lSubscribersRows(0)
+    '    lNewRow("TotalSubscriberCount") = lSubscribersRows(0)("PrevMonthSubscriberCount") + lRow("Count") - lRow("Ebtali")
+    Private Sub CheckPostFeederDataIntegrity()
+        For Each table As String In {"TblLPPostLoad", "TblLPFeederLoad"}
+            For Each row As DataRow In mTbl_PostFeederExcel.Rows
+                Dim lDtRow As DataRow() = mDs.Tables(table).Select("")
+                If lDtRow.Length > 0 Then ''''Update
+                    For Each col As String In TblDBColumns.Item(table)
+
+                    Next
+                Else Then ''' Insert
+                End If
+            Next
+        Next
+    End Sub
     Private Sub FillPostFeederDataGrid()
-        ' Blah blah
+        MakeDataSetPostFeeeder()
+        CheckPostFeederDataIntegrity()
     End Sub
     Private Sub SavePostFeederInfo()
         ' Blah blah
@@ -5326,6 +5355,47 @@ Public Class frmImportMPPostTransLoad
         Dim lDlg As New frmShowInfoInGrid()
         lDlg.ShowDialog()
         lDlg.Dispose()
+    End Sub
+    ' --------------------------By Omid----------------------
+    Private Sub InitializeDBColumns()
+        Me.TblFieldsToExcelConverter = New Dictionary(Of String, Object)
+        Me.TblDBColumns = New Dictionary(Of String, List(Of String))
+        Select Case mFormType
+            Case "PostFeeder"
+                Dim lConverterFeederLoad As Dictionary(Of String, String) = New Dictionary(Of String, String) From {
+                    {"LoadDateTimePersian", "LoadDateTimePersian"}, {"LoadTime", "LoadTime"}, {"RFuseId", "RFuse"},
+                    {"SFuseId", "SFuse"}, {"TFuseId", "TFuse"}, {"RCurrent", "FeederRCurrent"},
+                    {"SCurrent", "FeederSCurrent"}, {"TCurrent", "FeederTCurrent"}, {"EndLineVoltage", "FeederEndlineVoltage"}
+                    }
+                Dim lConverterPostLoad As Dictionary(Of String, String) = New Dictionary(Of String, String) From {
+                    {"LoadDateTimePersian", "LoadDateTimePersian"}, {"", ""}, {"", ""},
+                    {"LoadTime", "LoadTime"}, {"RCurrent", "PostRCurrent"}, {"SCurrent", "PostSCurrent"},
+                    {"TCurrent", "PostTCurrent"}, {"NolCurrent", "PostNolCurrent"}, {"vTS", "PostvTS"},
+                    {"vRN", "PostvRN"}, {"vTN", "PostvTN"}, {"vRS", "PostvRS"},
+                    {"vTR", "PostvTR"}
+                    }
+                Dim lColsFeederLoad As List(Of String) = New List(Of String) From {
+                    "LPFeederLoadId", "LPFeederId", "FeederPeakCurrent", "ConductorSize", "RCurrent", "SCurrent",
+                    "TCurrent", "NolCurrent", "RFuseId", "SFuseId", "TFuseId", "KelidCurrent",
+                    "LoadDT", "LoadDateTimePersian", "LoadTime", "FazSatheMaghtaId", "CountFazSatheMaghta", "NolSatheMaghtaId",
+                    "CountNolSatheMaghta", "PostPeakCurrent", "FazSatheMaghta2Id", "CountFazSatheMaghta2", "NolSatheMaghta2Id", "CountNolSatheMaghta2",
+                    "LPPostLoadId", "DEDT", "DEDatePersian", "DETime", "AreaUserId", "EndLineVoltage",
+                    "spcCableTypeId", "vRS", "vTS", "vTR", "vRN", "vTN",
+                    "vSN", "veRS", "veTS", "veTR", "veRN", "veTN",
+                    "veSN", "IsTakFaze", "CosinPhi", "EarthValue"
+                    }
+                Dim lColsPostLoad As List(Of String) = New List(Of String) From {
+                    "LPPostLoadId", "LPPostId", "PostCapacity", "LoadDT", "LoadDateTimePersian", "LoadTime",
+                    "FazSatheMaghtaId", "CountFazSatheMaghta", "NolSatheMaghtaId", "CountNolSatheMaghta", "PostPeakCurrent", "RCurrent",
+                    "SCurrent", "TCurrent", "NolCurrent", "KelidCurrent", "DEDT", "DEDatePersian",
+                    "DETime", "AreaUserId", "vRS", "vTS", "vTR", "vRN",
+                    "vTN", "vSN", "IsTakFaze", "EarthValue", "EarthValueE", "LPTransId"
+                    }
+                TblFieldsToExcelConverter.Add("TblLPFeederLoad", lConverterFeederLoad)
+                TblFieldsToExcelConverter.Add("TblLPPostLoad", lConverterPostLoad)
+                TblDBColumns.Add("TblLPFeederLoad", lColsFeederLoad)
+                TblDBColumns.Add("TblLPPostLoad", lColsPostLoad)
+        End Select
     End Sub
 End Class
 
