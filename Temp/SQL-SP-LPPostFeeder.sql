@@ -13,14 +13,12 @@ BEGIN
 	Declare @lsql2 AS NVARCHAR(4000) --**** Post
 	Declare @lsql3 AS NVARCHAR(4000) --**** Fuse
 	------------------------- Feeder Load
-	SET @lsql1 = 'SELECT f.LPFeederCode
-		, fl.*
+	SET @lsql1 = 'SELECT fl.* , f.LPFeederCode
 		FROM  Tbl_LPFeeder f
 		INNER JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
 		WHERE f.LPFeederId IN (' + @feederIds + ')'
 	------------------------- Post Load
-	SET @lsql2 = 'SELECT DISTINCT f.LPFeederCode , p.LPPostName
-		, pl.* 
+	SET @lsql2 = 'SELECT DISTINCT pl.* , f.LPFeederCode , p.LPPostName
 		FROM  Tbl_LPFeeder f
 		INNER JOIN Tbl_LPPost p ON p.LPPostId = f.LPPostId
 		LEFT JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
@@ -48,6 +46,8 @@ FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = 'TblLPPostLoad'
 ORDER BY ORDINAL_POSITION
 
+select top(2) * from TblLPFeederLoad
+select top(2) * from TblLPPostLoad
 
 /*
 

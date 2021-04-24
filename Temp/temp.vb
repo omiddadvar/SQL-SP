@@ -758,7 +758,7 @@ Public Class frmImportMPPostTransLoad
 
 #End Region
 
-    Private Sub frmImportMPPostTransLoad_Activated(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Activated
+    Private Sub frmImportMPPostTransLoad_Activated(sender As Object, e As EventArgs) Handles Me.Activated
 
         If Not mIsFirstActivated Then Exit Sub
         mIsFirstActivated = False
@@ -4387,7 +4387,7 @@ Public Class frmImportMPPostTransLoad
         End Try
     End Sub
 
-    Private Sub OldPattern_Click(ByVal sender As Object, ByVal e As EventArgs) Handles OldPattern.Click
+    Private Sub OldPattern_Click(sender As Object, e As EventArgs) Handles OldPattern.Click
         Try
             mVersionTypeId = Version.OldVer
             Dim lFileName As String = ""
@@ -4432,7 +4432,7 @@ Public Class frmImportMPPostTransLoad
         End Try
     End Sub
 
-    Private Sub NewPattern_Click(ByVal sender As Object, ByVal e As EventArgs) Handles NewPattern.Click
+    Private Sub NewPattern_Click(sender As Object, e As EventArgs) Handles NewPattern.Click
         Try
             mVersionTypeId = Version.NewVer
             Dim lFileName As String = ""
@@ -4560,13 +4560,13 @@ Public Class frmImportMPPostTransLoad
         For Each code As String In codes
             lWhere += ",'" + code + "'"
         Next
-        Dim lSQL As String = "SELECT LPFeederId FROM Tbl_LPFeeder WHERE LPFeederCode IN (" + lWhere.Substring(1) + ")"
-        BindingTable(lSQL, mCnn, mDs, "Tbl_LPFeederId", aIsClearTable:=True)
+        Dim lSQL As String = "SELECT * FROM Tbl_LPFeeder WHERE LPFeederCode IN (" + lWhere.Substring(1) + ")"
+        BindingTable(lSQL, mCnn, mDs, "Tbl_LPFeeder", aIsClearTable:=True)
         BindingTable("Select * From Tbl_Fuse", mCnn, mDs, "Tbl_Fuse", aIsClearTable:=True)
     End Sub
     Private Sub MakeDataSetPostFeeeder02()
         Dim lWhere As String = ""
-        For Each row As DataRow In mDs.Tables("Tbl_LPFeederId").Rows
+        For Each row As DataRow In mDs.Tables("Tbl_LPFeeder").Rows
             lWhere += "," + row("LPFeederId").ToString()
         Next
         Dim lSQL As String = "EXEC [dbo].[Sp-PostFeederSelect] '" + lWhere.Substring(1) + "' , 1;"
@@ -4580,9 +4580,12 @@ Public Class frmImportMPPostTransLoad
     Private Sub CheckPostFeederDataIntegrity()
         '-----------------Initialize TblFieldsToExcelConverter & TblDBColumns
         InitializeDBColumns()
+        Dim lNothingSubstitute As Object = Nothing
+        Dim lIsEmpty As Boolean
         Dim excelColExists As Boolean
         Dim excelCol As String
         Dim fuseDict As New Dictionary(Of String, String)
+        Dim lFeederRow As DataRow()
         '------------Fill Fuse Dictinary
         For Each row As DataRow In mDs.Tables("Tbl_Fuse").Rows
             If Not fuseDict.ContainsKey(row("Fuse")) Then
@@ -4592,33 +4595,65 @@ Public Class frmImportMPPostTransLoad
         pg.Maximum = 2 * mTbl_PostFeederExcel.Rows.Count
         For Each table As String In {"TblLPPostLoad", "TblLPFeederLoad"}
             For Each row As DataRow In mTbl_PostFeederExcel.Rows
-                '--------check for existence
-                Dim lDtRow As DataRow() = If(table = "TblLPFeederLoad",
-                    mDs.Tables(table).Select("LPFeederCode=" + row("LPFeederCode") +
-                            " AND LoadDateTimePersian=" + row("LoadDateTimePersian") + "AND LoadTime=" + row("LoadTime")),
-                    mDs.Tables(table).Select("LPFeederCode=" + row("LPFeederCode") +
-                            " AND LoadDateTimePersian=" + row("LoadDateTimePersian")))
+                '--------check for existence :
+                '----------PostLoad 
+                Dim lDtRow1 As DataRow() = mDs.Tables(table).Select("LPFeederCode='" + row("LPFeederCode") + "'" +
+                        " AND LoadDateTimePersian='" + row("LoadDateTimePersian") + "'")
+                '---------FeederLoad
+                Dim lDtRow2 As DataRow() = mDs.Tables(table).Select("LPFeederCode='" + row("LPFeederCode") + "'" +
+                        " AND LoadDateTimePersian='" + row("LoadDateTimePersian") + "' AND LoadTime='" + row("LoadTime") + "'")
+                '---------Take out LPFeederId ,LPPostId , LPFeederCode
+                lFeederRow = mDs.Tables("Tbl_LPFeeder").Select("LPFeederCode = '" & row("LPFeederCode") & "'")
+                If lFeederRow.Length = 0 Then
+                    Continue For
+                End If
                 '---------Select or Add New Row
-                Dim lNewRow As DataRow = If(lDtRow.Length > 0, lDtRow(0), mDs.Tables(table).NewRow())
+                Dim lNewRow As DataRow = If(lDtRow1.Length > 0, lDtRow1(0), mDs.Tables(table).NewRow())
                 '--------Fill the Fields
                 For Each col As String In TblDBColumns.Item(table)
+                    lIsEmpty = True
+                    lNothingSubstitute = Nothing
                     excelColExists = TblFieldsToExcelConverter.Item(table).ContainsKey(col)
-                    excelCol = TblFieldsToExcelConverter.Item(table).Item(col)
-                    '------------Fuse Id 
-                    If excelColExists AndAlso row(excelCol).Contains("Fuse") Then
-                        lNewRow(col) = If(excelColExists, fuseDict.Item(row(excelCol)), Nothing)
-                        Continue For
+                    excelCol = If(excelColExists, TblFieldsToExcelConverter.Item(table).Item(col), Nothing)
+                    If excelColExists Then
+                        If col.Contains("Fuse") Then
+                            lNewRow(col) = If(excelColExists, CInt(fuseDict.Item(row(excelCol))), Nothing)
+                            lIsEmpty = False
+                        End If
                     End If
-                    lNewRow(col) = If(excelColExists, row(excelCol), If(lDtRow.Length > 0, lNewRow(col), Nothing))
+                    Select Case col
+                        Case "LPPostId"
+                            lNewRow(col) = lFeederRow(0)("LPPostId")
+                            lIsEmpty = False
+                        Case "LPFeederId"
+                            lNewRow(col) = lFeederRow(0)("LPFeederId")
+                            lIsEmpty = False
+                        Case "LPPostLoadId"
+                            If table = "TblLPPostLoad" Then
+                                lNewRow(col) = If(lDtRow1.Length > 0, lDtRow1(0)("LPPostLoadId"), GetAutoInc())
+                                lIsEmpty = False
+                            ElseIf table = "TblLPFeederLoad" Then
+                                lNewRow(col) = If(lDtRow1.Length > 0, lDtRow1(0)("LPPostLoadId"), DBNull.Value)
+                                lIsEmpty = False
+                            End If
+                        Case "LPFeederLoadId"
+                            lNewRow(col) = GetAutoInc()
+                            lIsEmpty = False
+                    End Select
+                    If lIsEmpty Then
+                        lNewRow(col) = If(excelColExists, row(excelCol),
+                            If(lDtRow1.Length > 0, lNewRow(col), DBNull.Value))
+                    End If
                 Next
-                If lDtRow.Length = 0 Then
+                If lDtRow1.Length = 0 Then
                     mDs.Tables(table).Rows.Add(lNewRow)
                 End If
-                Dim lUpdate As New frmUpdateDataSetBT
-                lUpdate.UpdateDataSet(table, mDs)
+
                 '--------Progress Bar
                 'AdvanceProgress(pg)
             Next
+            Dim lUpdate As New frmUpdateDataSetBT
+            lUpdate.UpdateDataSet(table, mDs)
         Next
     End Sub
     Private Sub MakeDataSetPostFeeeder()
@@ -5416,7 +5451,7 @@ Public Class frmImportMPPostTransLoad
         pg.Visible = False
     End Sub
 
-    Private Sub btnHelp_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnHelp.Click
+    Private Sub btnHelp_Click(sender As Object, e As EventArgs) Handles btnHelp.Click
         Dim lMsg As String = ""
         lMsg = "دستورالعمل بسيار مهم" & vbCrLf & "---------------------------------------"
         lMsg &= vbCrLf & "1. ابتدا بايد يکي از آيتم های منحصر به فرد انتخاب گردد تا ورود اطلاعات بر اساس آن صورت پذيرد. در انتخاب اين آيتم دقت نماييد. انتخاب اشتباه اين آيتم منجر به تکراری شدن اطلاعات مي گردد"
@@ -5437,16 +5472,19 @@ Public Class frmImportMPPostTransLoad
         Select Case mFormType
             Case "PostFeeder"
                 Dim lConverterFeederLoad As New Dictionary(Of String, String) From {
+                    {"LPFeederName", "LPFeederName"},
                     {"LoadDateTimePersian", "LoadDateTimePersian"}, {"LoadTime", "LoadTime"}, {"RFuseId", "RFuse"},
                     {"SFuseId", "SFuse"}, {"TFuseId", "TFuse"}, {"RCurrent", "FeederRCurrent"},
-                    {"SCurrent", "FeederSCurrent"}, {"TCurrent", "FeederTCurrent"}, {"EndLineVoltage", "FeederEndlineVoltage"}
+                    {"SCurrent", "FeederSCurrent"}, {"TCurrent", "FeederTCurrent"}, {"EndLineVoltage", "FeederEndlineVoltage"},
+                    {"LPFeederId", "LPFeederId"}, {"LPFeederLoadId", "LPFeederLoadId"}
                     }
                 Dim lConverterPostLoad As New Dictionary(Of String, String) From {
-                    {"LoadDateTimePersian", "LoadDateTimePersian"},
+                    {"LPPostName", "LPPostName"},
+                    {"LoadDateTimePersian", "LoadDateTimePersian"}, {"LPPostId", "LPPostId"},
                     {"LoadTime", "LoadTime"}, {"RCurrent", "PostRCurrent"}, {"SCurrent", "PostSCurrent"},
                     {"TCurrent", "PostTCurrent"}, {"NolCurrent", "PostNolCurrent"}, {"vTS", "PostvTS"},
                     {"vRN", "PostvRN"}, {"vTN", "PostvTN"}, {"vRS", "PostvRS"},
-                    {"vTR", "PostvTR"}
+                    {"vTR", "PostvTR"}, {"LPPostLoadId", "LPPostLoadId"}
                     }
                 Dim lColsFeederLoad As New List(Of String) From {
                     "LPFeederLoadId", "LPFeederId", "FeederPeakCurrent", "ConductorSize", "RCurrent", "SCurrent",
@@ -5475,24 +5513,24 @@ Public Class frmImportMPPostTransLoad
 End Class
 
 Public Class CAreaInfo
-    Public Property Area() As String
+    Public Property Area As String
     Public Property CityId As Integer
 End Class
 
 Public Class CMPPostInfo
-    Public Property MPPostId() As Integer
+    Public Property MPPostId As Integer
     Public Property MPPostName As String
 End Class
 
 Public Class CMPFeederInfo
-    Public Property MPFeederId() As Integer
+    Public Property MPFeederId As Integer
     Public Property MPFeederName As String
     Public Property MPPostId As Integer
     Public Property MPPostName As String
 End Class
 
 Public Class CLPPostInfo
-    Public Property LPPostId() As Integer
+    Public Property LPPostId As Integer
     Public Property LPPostName As String
     Public Property MPFeederId As Integer
     Public Property MPFeederName As String
@@ -5501,7 +5539,7 @@ Public Class CLPPostInfo
 End Class
 
 Public Class CLPFeederInfo
-    Public Property LPFeederId() As Integer
+    Public Property LPFeederId As Integer
     Public Property LPFeederName As String
     Public Property LPPostId As Integer
     Public Property LPPostName As String
