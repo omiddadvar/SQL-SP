@@ -55,13 +55,14 @@ Public Class frmImportMPPostTransLoad
     Private mSortedSpec As New SortedList
     Private mSortedUseType As New SortedList
 
-    '----------------By Omid--------------------
+    '----------------------<Omid>---------------
     Private mTbl_PostFeeder As DataTable
     Private mTbl_PostFeederExcel As DataTable
     Private excel As ExcelModel
     Private columns As List(Of ExcelCol)
     Private TblFieldsToExcelConverter As Dictionary(Of String, Object)
     Private TblDBColumns As Dictionary(Of String, List(Of String))
+    '----------------------</Omid>---------------
 
     Private mSortedMPPost As New SortedList(Of String, CMPPostInfo)
     Private mSortedMPFeeder As New SortedList(Of String, CMPFeederInfo)
@@ -1003,6 +1004,7 @@ Public Class frmImportMPPostTransLoad
                         End If
                     Case "PostFeeder"
                         mTbl_PostFeederExcel.Rows.Clear()
+                        mTbl_PostFeederExcel.Columns.Clear()
                     Case "MPFeederLoad"
                         If mVersionTypeId = Version.OldVer Then
                             mTbl_MPFeederLoad.Rows.Clear()
@@ -1101,10 +1103,11 @@ Public Class frmImportMPPostTransLoad
                 dgNewLoad.Visible = False
             Case "PostFeeder"
                 Me.Text = "ورود بارگيري پست های توزیع و فيدرهاي فشار متوسط از فايل اکسل"
+                mSheet = "بارگیری پست و فیدر"
                 dg.Visible = False
                 dgNewLoad.Visible = False
+                dgPostFeeder.Visible = True
                 initializeExcel()
-                mSheet = "بارگیری پست و فیدر"
             Case "MPFeederLoad"
                 Me.Text = "ورود بارگيري فيدرهاي فشار متوسط از فايل اکسل"
                 dg.Visible = False
@@ -4463,7 +4466,7 @@ Public Class frmImportMPPostTransLoad
         End Try
     End Sub
     ''' '''''''''''''''''''''''''''''''''''''''''''' PostFeederLoad
-    '-------------By Omid---------------
+    '-------------<Omid>---------------
     Private Sub initializeExcel()
         ' ----- Initialize Excel Model DataTable
         mTbl_PostFeederExcel = New DataTable("PostFeederExcel")
@@ -4495,19 +4498,21 @@ Public Class frmImportMPPostTransLoad
         ' ----- Initialize Excel Model
         Me.excel = New ExcelModel(columns)
         '-------Make DataGrid Visible
-        dgPostFeeder.Visible = True
     End Sub
     Private Sub ParseExcel()
         Dim i As Integer = 3
         Dim lLastNullRecord As Integer = 0
         Dim LPFeederCode As String
-        Dim objList As List(Of Object)
+        'Dim lObjList As List(Of String)
+        Dim lDataRow As DataRow
         For Each column As ExcelCol In columns
             mTbl_PostFeederExcel.Columns.Add(column.name, column.type)
         Next
         '------- Adding Rows to DataTable & Excel Model
         Try
             Do
+                Dim lObjList(columns.Count - 1) As Object
+                lDataRow = mTbl_PostFeederExcel.NewRow
                 LPFeederCode = mExcel.ReadCellRC(mSheet, i, 2)
                 If lLastNullRecord >= 5 Then
                     Exit Do
@@ -4516,16 +4521,19 @@ Public Class frmImportMPPostTransLoad
                     lLastNullRecord += 1
                     Continue Do
                 End If
-                objList = New List(Of Object)
+                'lObjList = New List(Of String)
                 Dim row As ExcelRow = New ExcelRow()
+                Dim counter As Integer = 0
                 For Each column As ExcelCol In columns
                     Dim item As ExcelRowItem = New ExcelRowItem(column)
                     item.value = mExcel.ReadCell(mSheet, column.excelColumn & i)
                     row.Add(item)
-                    objList.Add(item.value)
+                    'lObjList.Add(item.value.ToString())
+                    lObjList(counter) = item.value
+                    counter += 1
                 Next
                 excel.rows.Add(row)
-                mTbl_PostFeederExcel.Rows.Add(objList)
+                mTbl_PostFeederExcel.Rows.Add(lObjList)
                 If lLastNullRecord >= 5 Then
                     Exit Do
                 End If
@@ -4570,12 +4578,16 @@ Public Class frmImportMPPostTransLoad
     End Sub
 
     Private Sub CheckPostFeederDataIntegrity()
+        '-----------------Initialize TblFieldsToExcelConverter & TblDBColumns
+        InitializeDBColumns()
         Dim excelColExists As Boolean
         Dim excelCol As String
         Dim fuseDict As New Dictionary(Of String, String)
         '------------Fill Fuse Dictinary
         For Each row As DataRow In mDs.Tables("Tbl_Fuse").Rows
-            fuseDict.Add(row("Fuse"), row("FuseId"))
+            If Not fuseDict.ContainsKey(row("Fuse")) Then
+                fuseDict.Add(row("Fuse"), row("FuseId"))
+            End If
         Next
         pg.Maximum = 2 * mTbl_PostFeederExcel.Rows.Count
         For Each table As String In {"TblLPPostLoad", "TblLPFeederLoad"}
@@ -4586,7 +4598,7 @@ Public Class frmImportMPPostTransLoad
                             " AND LoadDateTimePersian=" + row("LoadDateTimePersian") + "AND LoadTime=" + row("LoadTime")),
                     mDs.Tables(table).Select("LPFeederCode=" + row("LPFeederCode") +
                             " AND LoadDateTimePersian=" + row("LoadDateTimePersian")))
-                '---------Select or New Row
+                '---------Select or Add New Row
                 Dim lNewRow As DataRow = If(lDtRow.Length > 0, lDtRow(0), mDs.Tables(table).NewRow())
                 '--------Fill the Fields
                 For Each col As String In TblDBColumns.Item(table)
@@ -4597,7 +4609,7 @@ Public Class frmImportMPPostTransLoad
                         lNewRow(col) = If(excelColExists, fuseDict.Item(row(excelCol)), Nothing)
                         Continue For
                     End If
-                    lNewRow(col) = If(excelColExists, row(excelCol), Nothing)
+                    lNewRow(col) = If(excelColExists, row(excelCol), If(lDtRow.Length > 0, lNewRow(col), Nothing))
                 Next
                 If lDtRow.Length = 0 Then
                     mDs.Tables(table).Rows.Add(lNewRow)
@@ -4615,12 +4627,12 @@ Public Class frmImportMPPostTransLoad
     End Sub
     Private Sub FillPostFeederDataGrid()
         MakeDataSetPostFeeeder()
-        'CheckPostFeederDataIntegrity()
+        CheckPostFeederDataIntegrity()
     End Sub
     Private Sub SavePostFeederInfo()
         ' Blah blah
     End Sub
-
+    '-------------</Omid>---------------
     '''''''''''''''''''''''''''''''''''''''''''''''''
     Private Sub MakeTableSubscriber()
         mTbl_Subscriber = mDs.Tables("_Tbl_Subscriber")
@@ -5418,7 +5430,7 @@ Public Class frmImportMPPostTransLoad
         lDlg.Dispose()
     End Sub
 
-    ' --------------------------By Omid----------------------
+    '-----------------------------<Omid>---------------
     Private Sub InitializeDBColumns()
         Me.TblFieldsToExcelConverter = New Dictionary(Of String, Object)
         Me.TblDBColumns = New Dictionary(Of String, List(Of String))
@@ -5459,6 +5471,7 @@ Public Class frmImportMPPostTransLoad
                 TblDBColumns.Add("TblLPPostLoad", lColsPostLoad)
         End Select
     End Sub
+    '-------------</Omid>---------------
 End Class
 
 Public Class CAreaInfo

@@ -28,7 +28,7 @@ BEGIN
 		WHERE f.LPFeederId IN (' + @feederIds + ')
 		ORDER BY pl.LPPostLoadId DESC';
 	------------------------- Fuse Info
-	SET @lsql3 = 'SELECT * FROM Tbl_Fuse';
+	SET @lsql3 = 'SELECT * FROM Tbl_Fuse ORDER BY Fuse DESC';
 	IF @state = 1
 		EXEC(@lsql1)
 	ELSE IF @state = 2
