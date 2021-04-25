@@ -44,9 +44,5 @@ select TblLPFeederLoad.* from TblLPFeederLoad
 select * from Tbl_TableName
 
 
-Select * from  TblSpec where SpecTypeId = 53
-
 Select * from  Tbl_SatheMaghta
-
-
-	
+Select * from  TblSpec where SpecTypeId = 53

@@ -1426,7 +1426,7 @@ Public Class frmImportMPPostTransLoad
                 lValTemp = "نام بهره بردارنوع پستکد پست توزیعنام پست توزیعنام ترانستاریخ"
                 lValidWordOLdVer = "کدپستفوقتوزيعنامپستفوقتوزيعنامترانستاريخبارگيريساعتبارگيريباراکتيو(Mw)بارراکتيو(Mvar)".Replace("ی", "ي").Replace("ك", "ک")
             Case "PostFeeder"
-                lValidWord = "کدGISفيدرفشارضعيفنامفيدرفشارضعيفنامپستتوزيعتاريخبارگيريساعتبارگيريفيوزمنصوبهRفيوزمنصوبهSفيوزمنصوبهTجريانفازRجريانفازSجريانفازTجرياننولفيدرولتاژانتهايفيدرجريانفازRپستجريانفازSپستجريانفازTپستجرياننولپستولتاژRNپستولتاژSNپستولتاژTNپستولتاژRSپستولتاژRTپستولتاژSTپست".Replace("ی", "ي").Replace("ك", "ک")
+                lValidWord = "کدGISفيدرفشارضعيفنامفيدرفشارضعيفنامپستتوزيعتاريخبارگيريساعتبارگيريفيوزمنصوبهRفيوزمنصوبهSفيوزمنصوبهTجريانفازRجريانفازSجريانفازTجرياننولفيدرولتاژانتهايفيدرسطحمقطعکابلفازتعدادرشتهسطحمقطعکابلنولتعدادرشتهنوعکابلآمپراژکليدفيدرمقاومتارتفيدرجريانفازRپستجريانفازSپستجريانفازTپستجرياننولپستولتاژRNپستولتاژSNپستولتاژTNپستولتاژRSپستولتاژRTپستولتاژSTپستآمپراژکليداصلی".Replace("ی", "ي").Replace("ك", "ک")
             Case "MPFeederLoad"
                 If mVersionTypeId > -1 Then
                     Return True
@@ -1458,7 +1458,7 @@ Public Class frmImportMPPostTransLoad
             Dim dict As New Dictionary(Of String, String)
             dict.Add("Default", "BCDEFG")
             dict.Add("ViewLPPostLoad", "HIJKL")
-            dict.Add("PostFeeder", "HIJKLMNOPQRSTUVWX")
+            dict.Add("PostFeeder", "HIJKLMNOPQRSTUVWXYZ")
             lValidFromExcel = ""
             For Each c As Char In dict.Item("Default").ToCharArray()
                 lValidFromExcel &= mExcel.ReadCell(mSheet, c + "2")
@@ -1474,6 +1474,12 @@ Public Class frmImportMPPostTransLoad
                 Next
             Else
                 lValidFromExcel &= mExcel.ReadCell(mSheet, "H2")
+            End If
+            '--------Remainings
+            If mFormType = "PostFeeder" Then
+                For Each c As Char In "ABCDEF".ToCharArray()
+                    lValidFromExcel &= mExcel.ReadCell(mSheet, "A" + c + "2")
+                Next
             End If
 
             lValidFromExcel = lValidFromExcel.Replace(" ", "").Replace("ی", "ي").Replace("ك", "ک")
@@ -5363,7 +5369,6 @@ Public Class frmImportMPPostTransLoad
                             lNewRowsInfo("DebtType") = lRow("DebtType")
                             mDs.Tables("Tbl_SubscriberInfo").Rows.Add(lNewRowsInfo)
                         End If
-
                     Else
                         lNewRow("IsUpdate") = 0
                         lNewRow("IsInsert") = 0
