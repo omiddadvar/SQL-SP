@@ -9,36 +9,40 @@ CREATE PROCEDURE [dbo].[Sp-PostFeederSelect]
 AS
 BEGIN
 	Declare @lsql AS NVARCHAR(1000)
-	Declare @lsql1 AS NVARCHAR(4000) --**** Feeder
-	Declare @lsql2 AS NVARCHAR(4000) --**** Post
-	Declare @lsql3 AS NVARCHAR(4000) --**** Fuse
-	------------------------- Feeder Load
-	SET @lsql1 = 'SELECT fl.* , f.LPFeederCode
-		FROM  Tbl_LPFeeder f
-		INNER JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
-		WHERE f.LPFeederId IN (' + @feederIds + ')'
+	Declare @lsql1 AS NVARCHAR(4000) --**** Post 
+	Declare @lsql2 AS NVARCHAR(4000) --**** Feeder
 	------------------------- Post Load
-	SET @lsql2 = 'SELECT DISTINCT pl.* , f.LPFeederCode , p.LPPostName
+	SET @lsql1 = 'SELECT DISTINCT pl.* , f.LPFeederCode , p.LPPostName
 		FROM  Tbl_LPFeeder f
 		INNER JOIN Tbl_LPPost p ON p.LPPostId = f.LPPostId
 		LEFT JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
 		LEFT JOIN TblLPPostLoad pl ON p.LPPostId = pl.LPPostId
 		WHERE f.LPFeederId IN (' + @feederIds + ')
 		ORDER BY pl.LPPostLoadId DESC';
-	------------------------- Fuse Info
-	SET @lsql3 = 'SELECT * FROM Tbl_Fuse ORDER BY Fuse DESC';
+	------------------------- Feeder Load
+	SET @lsql2 = 'SELECT fl.* , f.LPFeederCode
+		FROM  Tbl_LPFeeder f
+		INNER JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
+		WHERE f.LPFeederId IN (' + @feederIds + ')'
 	IF @state = 1
 		EXEC(@lsql1)
 	ELSE IF @state = 2
 		EXEC(@lsql2)
-	ELSE IF @state = 3
-		EXEC(@lsql3)
 END
 GO
 
-exec [dbo].[Sp-PostFeederSelect] '' , 3;
 exec [dbo].[Sp-PostFeederSelect] '20050983,20051023' , 1;
 
+exec [dbo].[Sp-PostFeederSelect] '20050983,20051023' , 2;
+
+exec [dbo].[Sp-PostFeederSelect] '' , 3;
+
+select * from Tbl_LPFeeder where LPFeederId = 20050983
+select * from TblLPFeederLoad where LPFeederId = 9900000990180523
+
+
+
+Delete from TblLPFeederLoad where LoadDateTimePersian = '1387/04/22'
 
 
 SELECT COLUMN_NAME

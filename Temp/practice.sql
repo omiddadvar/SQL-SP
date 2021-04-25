@@ -42,4 +42,11 @@ select TblLPFeederLoad.* from TblLPFeederLoad
 	
 	fl.LPPostLoadId
 select * from Tbl_TableName
+
+
+Select * from  TblSpec where SpecTypeId = 53
+
+Select * from  Tbl_SatheMaghta
+
+
 	
