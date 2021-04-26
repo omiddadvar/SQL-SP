@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 'Imports System.Linq
+Imports System.Data
 Imports System.Data.SqlClient
 Imports Microsoft.VisualBasic.Compatibility
 Imports System.Collections.Generic
@@ -4598,68 +4599,113 @@ Public Class frmImportMPPostTransLoad
         lSQL = "Select * from  Tbl_SatheMaghta;"
         BindingTable(lSQL, mCnn, mDs, "Tbl_SatheMaghta", aIsClearTable:=True)
     End Sub
-    Private Sub PostFeederDataChecker(ByRef aDict As Dictionary(Of String, Dictionary(Of String, String)))
+    Private Function PostFeederDataChecker(ByRef aDict As Dictionary(Of String, Dictionary(Of String, String))) As Boolean
         Dim lErrorFlag As Boolean
-        Dim lColName As String
+        Dim lColName, lMessage, lCaption As String
         Dim lSatheMaghta = New String() {"FazSatheMaghtaId", "NolSatheMaghtaId"}
         Dim lDateTime = New String() {"", "Error"}
+        Dim lok = New String() {"FeederOk", "PostOk"}
         Dim lNumericsFeeder = New String() {"FeederRCurrent", "FeederSCurrent", "FeederTCurrent", "FeederNolcurrent",
             "FeederEndlineVoltage", "CountFazSatheMaghta", "CountNolSatheMaghta", "FeederKelidCurrent", "EarthValue"}
         Dim lNumericsPost = New String() {"PostRCurrent", "PostSCurrent", "PostTCurrent", "PostNolCurrent",
             "PostvRN", "PostvSN", "PostvTN", "PostvRS", "PostvTR", "PostvTS", "PostKelidCurrent"}
         Dim lPostColCounter As UInteger
-        For Each lRow As DataRow In mTbl_PostFeederExcel.Rows
-            lPostColCounter = lNumericsFeeder.Length
-            lErrorFlag = False
-            For Each lCol As DataColumn In mTbl_PostFeederExcel.Columns
-                lColName = lCol.ColumnName
-                If lColName = "LoadTime" AndAlso lDateTime.Contains(ValidTime(lRow(lCol))) Then
-                    lErrorFlag = True
-                    Continue For
-                ElseIf lColName = "LoadDateTimePersian" AndAlso lDateTime.Contains(ValidTime(lRow(lCol))) Then
-                    lErrorFlag = True
-                    Continue For
-                ElseIf lColName.Contains("Fuse") AndAlso
-                    Not aDict.Item("Tbl_Fuse").Item(lColName).Length > 0 Then
-                    lErrorFlag = True
-                    Continue For
-                ElseIf lSatheMaghta.Contains(lColName) AndAlso
-                    Not aDict.Item("Tbl_SatheMaghta").Item(lColName).Length > 0 Then
-                    lErrorFlag = True
-                    Continue For
-                ElseIf lColName.Contains("spcCable") AndAlso
-                    Not aDict.Item("TblSpec").Item(lColName).Length > 0 Then
-                    lErrorFlag = True
-                    Continue For
-                ElseIf lNumericsFeeder.Contans(lColName) AndAlso
-                    (lRow(lCol) = "" Or Not Val(lRow(lCol)) > 0) Then
-                    lErrorFlag = True
-                    Continue For
-                ElseIf lNumericsPost.Contans(lColName) AndAlso
-                    (lRow(lCol) = "" Or Not Val(lRow(lCol)) > 0) Then
-                    lPostColCounter -= 1
-                    Continue For
-                End If
-            Next
-            lRow("PostOk") = True
-            lRow("FeederOk") = True
-            If lPostColCounter < lNumericsFeeder.Length Then
-                For Each lStr As String In lNumericsPost
-                    lRow(lStr) = DBNull.Value
-                    lRow("PostOk") = False
-                    Continue For
+        Try
+            For Each lRow As DataRow In mTbl_PostFeederExcel.Rows
+                lPostColCounter = lNumericsPost.Length
+                lErrorFlag = False
+                For Each lCol As DataColumn In mTbl_PostFeederExcel.Columns
+                    lColName = lCol.ColumnName
+                    'Try
+                    '    If Array.IndexOf(lNumericsPost, lColName) > -1 AndAlso
+                    '     (lRow.IsNull(lCol) Or IsNothing(lRow(lCol)) Or Not Val(lRow(lCol)) > 0) Then
+                    '        lPostColCounter -= 1
+                    '        Continue For
+                    '    End If
+                    'Catch ex As Exception
+                    '    ShowError(lRow(lCol) & lColName)
+                    '    Return False
+                    'End Try
+                    If lColName = "LoadTime" AndAlso Array.IndexOf(lDateTime, ValidTime(lRow(lCol))) > -1 Then
+                        lErrorFlag = True
+                        Continue For
+                    ElseIf lColName = "LoadDateTimePersian" AndAlso Array.IndexOf(lDateTime, ValidDate(lRow(lCol))) > -1 Then
+                        lErrorFlag = True
+                        Continue For
+                    ElseIf (lRow.IsNull(lCol) Or IsNothing(lRow(lCol))) And Not lColName.Contains("Post") And
+                            Not Array.IndexOf(lOk, lColName) > -1 Then
+                        lErrorFlag = True
+                        Continue For
+                    ElseIf lColName.Contains("Fuse") Then
+                        If lRow.IsNull(lCol) Or IsNothing(lRow(lCol)) Or lRow(lCol).ToString.Length = 0 Then
+                            lErrorFlag = True
+                            Continue For
+                        ElseIf Not aDict.Item("Tbl_Fuse").ContainsKey(lRow(lCol)) Then
+                            lErrorFlag = True
+                            Continue For
+                        End If
+                    ElseIf Array.IndexOf(lSatheMaghta, lColName) > -1 Then
+                        If lRow.IsNull(lCol) Or IsNothing(lRow(lCol)) Then
+                            lErrorFlag = True
+                            Continue For
+                        ElseIf Not aDict.Item("Tbl_SatheMaghta").ContainsKey(lRow(lCol)) Then
+                            lErrorFlag = True
+                            Continue For
+                        End If
+                    ElseIf lColName.Contains("spcCable") Then
+                        If lRow.IsNull(lCol) Or IsNothing(lRow(lCol)) Then
+                            lErrorFlag = True
+                            Continue For
+                        ElseIf Not aDict.Item("TblSpec").ContainsKey(lRow(lCol)) Then
+                            lErrorFlag = True
+                            Continue For
+                        End If
+                    ElseIf Array.IndexOf(lNumericsPost, lColName) > -1 Then
+                        If lRow.IsNull(lCol) Or IsNothing(lRow(lCol)) Then
+                            lPostColCounter -= 1
+                            Continue For
+                        ElseIf Not Val(lRow(lCol)) > 0 Then
+                            lPostColCounter -= 1
+                            Continue For
+                        End If
+                    ElseIf Array.IndexOf(lNumericsFeeder, lColName) > -1 Then
+                        If lRow.IsNull(lCol) Or IsNothing(lRow(lCol)) Then
+                            lErrorFlag = True
+                            Continue For
+                        ElseIf Not Val(lRow(lCol)) > 0 Then
+                            lErrorFlag = True
+                            Continue For
+                        End If
+                    End If
                 Next
-            End If
-            If lErrorFlag Then
-                mErrorCounter += 1
-                lRow("FeederOk") = False
-            End If
+                lRow("PostOk") = True
+                lRow("FeederOk") = True
+                If lPostColCounter < lNumericsPost.Length Then
+                    For Each lStr As String In lNumericsPost
+                        lRow(lStr) = DBNull.Value
+                        lRow("PostOk") = False
+                        Continue For
+                    Next
+                End If
+                If lErrorFlag Then
+                    mErrorCounter += 1
+                    lRow("FeederOk") = False
+                End If
 
-        Next
-        If mErrorCounter > 0 Then
-            ShowError(" خطا در اضافه کردن" + mErrorCounter + " سطر به پایگاه داده")
-        End If
-    End Sub
+            Next
+            lCaption = "ویرایش و افزودن رکورد بارگیری"
+            lMessage = "تعداد رکورد قابل قبول: " + (mTbl_PostFeederExcel.Rows.Count - mErrorCounter).ToString +
+            vbCrLf + "تعداد رکورد غیر قابل قبول: " + mErrorCounter.ToString
+            If MsgBoxF(lMessage, lCaption,
+            MessageBoxButtons.YesNo, MsgBoxIcon.MsgIcon_Question, MessageBoxDefaultButton.Button1) = DialogResult.Yes Then
+                Return True
+            End If
+            Return False
+        Catch ex As Exception
+            ShowError(ex)
+            Return False
+        End Try
+    End Function
     Private Sub SavePostFeederInfo()
         '-----------------Initialize TblFieldsToExcelConverter & TblDBColumns
         InitializeDBColumns()
@@ -4682,7 +4728,9 @@ Public Class frmImportMPPostTransLoad
         pg.Maximum = 2 * mTbl_PostFeederExcel.Rows.Count
         '-----------------Check Raw-DataTable validation
         mErrorCounter = 0
-        PostFeederDataChecker(lDict)
+        If Not PostFeederDataChecker(lDict) Then
+            Exit Sub
+        End If
 
         For Each lTable As String In {"TblLPPostLoad", "TblLPFeederLoad"}
 
@@ -4799,7 +4847,7 @@ Public Class frmImportMPPostTransLoad
                 aNewRow(aCol) = If(aDtRow1.Length > 0, aDtRow1(0)("LPPostId"), aFeederRow(0)("LPPostId"))
                 aIsEmpty = False
             Case "LPFeederId"
-                aNewRow(aCol) = If(aDtRow2.Length > 0, aDtRow2(0)("LPFeederId"), aDtRow2(0)("LPFeederId"))
+                aNewRow(aCol) = If(aDtRow2.Length > 0, aDtRow2(0)("LPFeederId"), aFeederRow(0)("LPFeederId"))
                 aIsEmpty = False
             Case "LPPostLoadId"
                 If aTable = "TblLPPostLoad" Then
@@ -4859,12 +4907,7 @@ Public Class frmImportMPPostTransLoad
             ShowError(ex)
         End Try
     End Sub
-    'Private Sub FillPostFeederDataGrid()
-    '    MakeDataSetPostFeeeder()
-    'End Sub
-    'Private Sub SavePostFeederInfo()
-    '    CheckPostFeederDataIntegrity()
-    'End Sub
+
     '-------------</Omid>---------------
     '''''''''''''''''''''''''''''''''''''''''''''''''
     Private Sub MakeTableSubscriber()
