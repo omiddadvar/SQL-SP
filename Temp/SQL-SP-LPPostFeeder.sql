@@ -42,7 +42,8 @@ select * from TblLPFeederLoad where LPFeederId = 9900000990180523
 
 
 
-Delete from TblLPFeederLoad where LoadDateTimePersian = '1387/04/22'
+select TOP(10) * from TblLPFeederLoad where EarthValue IS Not NULL
+select TOP(10) * from TblLPPostLoad 
 
 
 SELECT COLUMN_NAME
