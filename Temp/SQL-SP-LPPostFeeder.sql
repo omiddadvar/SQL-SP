@@ -1,4 +1,5 @@
 USE CcRequesterSetad
+--USE CcRequester
 GO
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[Sp-PostFeederSelect]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].[Sp-PostFeederSelect] 
@@ -8,42 +9,49 @@ CREATE PROCEDURE [dbo].[Sp-PostFeederSelect]
 	@state as INT
 AS
 BEGIN
-	Declare @lsql AS NVARCHAR(1000)
-	Declare @lsql1 AS NVARCHAR(4000) --**** Post 
-	Declare @lsql2 AS NVARCHAR(4000) --**** Feeder
+	Declare @lsql AS NVARCHAR(4000)
 	------------------------- Post Load
-	SET @lsql1 = 'SELECT DISTINCT pl.* , f.LPFeederCode , p.LPPostName
-		FROM  Tbl_LPFeeder f
-		INNER JOIN Tbl_LPPost p ON p.LPPostId = f.LPPostId
-		LEFT JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
-		LEFT JOIN TblLPPostLoad pl ON p.LPPostId = pl.LPPostId
-		WHERE f.LPFeederId IN (' + @feederIds + ')
+	IF @state = 1
+		SET @lsql = 'SELECT DISTINCT pl.* , f.LPFeederCode , p.LPPostName
+		, P.PostCapacity AS LPPostPostCapacity, P.IsTakFaze AS LPPostIsTakFaze
+			FROM  Tbl_LPFeeder f
+			INNER JOIN Tbl_LPPost p ON p.LPPostId = f.LPPostId
+			LEFT JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
+			LEFT JOIN TblLPPostLoad pl ON p.LPPostId = pl.LPPostId
+			WHERE f.LPFeederId IN (' + @feederIds + ')
 		ORDER BY pl.LPPostLoadId DESC';
 	------------------------- Feeder Load
-	SET @lsql2 = 'SELECT fl.* , f.LPFeederCode
-		FROM  Tbl_LPFeeder f
-		INNER JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
-		WHERE f.LPFeederId IN (' + @feederIds + ')'
-	IF @state = 1
-		EXEC(@lsql1)
 	ELSE IF @state = 2
-		EXEC(@lsql2)
+		SET @lsql = 'SELECT fl.* , f.LPFeederCode
+			FROM  Tbl_LPFeeder f
+			INNER JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
+			WHERE f.LPFeederId IN (' + @feederIds + ')'
+	------------------------- LoadDateTimePersian
+	ELSE IF @state = 3
+		SET @lsql = 'Select Distinct fl.LoadDateTimePersian , 
+			f.LPFeederCode from  TblLPFeederLoad fl
+			Inner join Tbl_LPFeeder f on f.LPFeederId = fl.LPFeederId
+			WHERE fl.LPFeederId IN (' + @feederIds + ')'
+	EXEC(@lsql)
 END
 GO
 
-exec [dbo].[Sp-PostFeederSelect] '20050983,20051023' , 1;
+exec [dbo].[Sp-PostFeederSelect] '20050983,20051023', 1;
 
 exec [dbo].[Sp-PostFeederSelect] '20050983,20051023' , 2;
 
-exec [dbo].[Sp-PostFeederSelect] '' , 3;
+exec [dbo].[Sp-PostFeederSelect] '20050983,20051023' , 3;
 
 select * from Tbl_LPFeeder where LPFeederId = 20050983
 select * from TblLPFeederLoad where LPFeederId = 9900000990180523
 
-
-
 select TOP(10) * from TblLPFeederLoad where EarthValue IS Not NULL
+
+select TOP(10) * from Tbl_LPFeeder where LPFeederId IN ('20050983','20051023')
+
 select TOP(10) * from TblLPPostLoad 
+
+select TOP(10) * from Tbl_LPPost 
 
 
 SELECT COLUMN_NAME
@@ -54,28 +62,14 @@ ORDER BY ORDINAL_POSITION
 select top(2) * from TblLPFeederLoad
 select top(2) * from TblLPPostLoad
 
-/*
+
+Select f.* , fl.LPFeederLoadId from  Tbl_LPFeeder f
+Inner join TblLPFeederLoad fl on f.LPFeederId = fl.LPFeederId
+WHERE fl.LPFeederId IN ('20050983','20051023')
+
+Select f.* from  Tbl_LPFeeder f
+WHERE f.LPFeederId IN ('20050983','20051023')
 
 
-ALTER VIEW dbo.View_FeederPost
-AS
-SELECT f.LPFeederCode , f.LPFeederName
-	, p.LPPostName , fl.LPFeederId , pl.LPPostId
-	, fl.LoadDateTimePersian , fl.LoadTime 
-	, fl.RCurrent AS FeederRCurrent , fl.SCurrent AS FeederSCurrent
-	, fl.TCurrent AS FeederTCurrent, fl.NolCurrent AS FeederNolcurrent
-	, ISNULL(fl.EndlineVoltage,0) AS FeederEndlineVoltage
-	, pl.RCurrent AS PostRCurrent, pl.SCurrent AS PostSCurrent
-	, pl.TCurrent AS PostTCurrent, pl.NolCurrent AS PostNolCurrent
-	, ISNULL(pl.vRN,0) AS PostvRN , ISNULL(pl.vSN,0) AS PostvSN, ISNULL(pl.vTN,0) AS PostvTN
-	, ISNULL(pl.vRS,0) AS PostvRS, ISNULL(pl.vTR,0) AS PostvTR, ISNULL(pl.vTS,0) AS PostvTS
-	, rf.Fuse AS RFuse, sf.Fuse AS SFuse , tf.Fuse AS TFuse
-	FROM  Tbl_LPFeeder f
-	INNER JOIN Tbl_LPPost p ON p.LPPostId = f.LPPostId  
-	LEFT JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
-	LEFT JOIN TblLPPostLoad pl ON p.LPPostId = pl.LPPostId
-	INNER JOIN Tbl_Fuse rf ON rf.FuseId = fl.RFuseId
-	INNER JOIN Tbl_Fuse sf ON sf.FuseId = fl.SFuseId
-	INNER JOIN Tbl_Fuse tf ON tf.FuseId = fl.TFuseId
-go
-*/
+SELECT PostPeakCurrent As Peak , * FROM Tbl_LPPost WHERE LPPostId IN (10050860,20051020);
+SELECT FeederPeakCurrent As Peak , * FROM Tbl_LPFeeder WHERE LPFeederId IN ('20050983','20051023')
