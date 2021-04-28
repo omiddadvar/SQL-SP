@@ -4698,12 +4698,18 @@ Public Class frmImportMPPostTransLoad
                 lRow("FeederOk") = True
                 If lPostColCounter < lNumericsPost.Length Then
                     For Each lStr As String In lNumericsPost
-                        lRow(lStr) = DBNull.Value
+                        'lRow(lStr) = DBNull.Value
+                        lRow(lStr) = "-----"
                         lRow("PostOk") = False
                         Continue For
                     Next
                 End If
                 If lErrorFlag Then
+                    'For Each lStr As String In lNumericsFeeder
+                    For i As Integer = 5 To mTbl_PostFeederExcel.Columns.Count - 3
+                        'lRow(lStr) = DBNull.Value
+                        lRow(i) = "-----"
+                    Next
                     mErrorCounter += 1
                     lRow("FeederOk") = False
                 End If
@@ -4743,10 +4749,8 @@ Public Class frmImportMPPostTransLoad
         Dim lDtRow1 As DataRow()
         Dim lDtRow2 As DataRow()
         Dim lNewRow As DataRow
-        Dim lTrans As SqlTransaction
         Dim lTime As CTimeInfo
         Dim lIsSaveOk As Boolean = True
-        Dim lUpdate As New frmUpdateDataSetBT
         '------------Fill Dictionaries
         IntegrityPostFeederHelper01("Tbl_Fuse", "Fuse", "FuseId")
         IntegrityPostFeederHelper01("TblSpec", "SpecValue", "SpecId")
@@ -4761,16 +4765,17 @@ Public Class frmImportMPPostTransLoad
         If mCnn.State <> ConnectionState.Open Then
             mCnn.Open()
         End If
-        lTrans = mCnn.BeginTransaction
+        Dim buffRow As DataRow
         Try
             For Each lTable As String In {"TblLPPostLoad", "TblLPFeederLoad"}
                 For Each lRow As DataRow In mTbl_PostFeederExcel.Rows
+                    buffRow = lRow
                     '--------check for existence && Select-OR-Add NewRow
                     If Not lRow("FeederOk") Then
-                        'AdvanceProgress(pg, mTbl_PostFeederExcel.Rows.Count)
+                        AdvanceProgress(pg, mTbl_PostFeederExcel.Rows.Count)
                         Continue For
-                    ElseIf lRow("PostOk") Then
-                        'AdvanceProgress(pg, mTbl_PostFeederExcel.Rows.Count)
+                    ElseIf Not lRow("PostOk") Then
+                        AdvanceProgress(pg, mTbl_PostFeederExcel.Rows.Count)
                     End If
                     If (Not IntegrityPostFeederHelper02(lDtRow1, lDtRow2, lNewRow, lFeederRow, lTable, lRow)) Then
                         Continue For
@@ -4797,19 +4802,18 @@ Public Class frmImportMPPostTransLoad
                         mDs.Tables(lTable).Rows.Add(lNewRow)
                     End If
                     '--------Progress Bar
-                    'AdvanceProgress(pg)
+                    AdvanceProgress(pg)
                 Next
                 '--------------Give to DB :D
-                IntegrityPostFeederHelper07(lTrans, lUpdate, lTable, lIsSaveOk)
+                IntegrityPostFeederHelper07(lTable)
             Next
             '--------------Update Post & Feeder PeakCurrent
-            IntegrityPostFeederHelper08(lTrans, lUpdate, lIsSaveOk)
-            '--------------Do Transaction
-            IntegrityPostFeederHelper09(lTrans, lIsSaveOk)
+            IntegrityPostFeederHelper08()
+            IntegrityPostFeederHelper07("Tbl_LPPost")
+            IntegrityPostFeederHelper07("Tbl_LPFeeder")
+            Me.Dispose()
         Catch ex As Exception
-            If Not IsNothing(lTrans) Then
-                lTrans.Rollback()
-            End If
+            ShowError(buffRow("LPFeederCode") + vbCrLf + buffRow("LoadTime"))
             ShowError(ex)
         End Try
     End Sub
@@ -4853,14 +4857,14 @@ Public Class frmImportMPPostTransLoad
     Private Sub IntegrityPostFeederHelper03(ByRef aNewRow As DataRow, ByRef aFeederRow As DataRow(),
                     ByRef aExcelColExists As Boolean, ByRef aExcelCol As String,
                     aTable As String, aCol As String, ByRef aIsEmpty As Boolean, ByRef aRow As DataRow)
-        '-------Don't touch PostLoad if it's notOk
-        If aCol.Contains("Post") AndAlso Not aRow("PostOk") Then
-            Exit Sub
-        End If
         Dim lBuffer As Integer
         aIsEmpty = True
         aExcelColExists = TblFieldsToExcelConverter.Item(aTable).ContainsKey(aCol)
-        aExcelCol = If(aExcelColExists, TblFieldsToExcelConverter.Item(aTable).Item(aCol), Nothing)
+        aExcelCol = If(aExcelColExists, TblFieldsToExcelConverter.Item(aTable).Item(aCol), "")
+        '-------Don't touch PostLoad if it's notOk
+        If aExcelCol.Contains("Post") AndAlso Not aRow("PostOk") Then
+            Exit Sub
+        End If
         If aExcelColExists Then
             If aCol.Contains("Fuse") Then
                 lBuffer = If(aExcelColExists, CInt(mDict.Item("Tbl_Fuse").Item(aRow(aExcelCol))), -1)
@@ -4915,7 +4919,10 @@ Public Class frmImportMPPostTransLoad
                  aCol As String, ByRef aIsEmpty As Boolean, aTable As String, aBuffer As Object,
                   ByRef aExcelColExists As Boolean, ByRef aExcelCol As String, ByRef aRow As DataRow)
         '-------Don't touch PostLoad if it's notOk
-        If aCol.Contains("Post") AndAlso Not aRow("PostOk") Then
+        aExcelColExists = TblFieldsToExcelConverter.Item(aTable).ContainsKey(aCol)
+        aExcelCol = If(aExcelColExists, TblFieldsToExcelConverter.Item(aTable).Item(aCol), "")
+        '-------Don't touch PostLoad if it's notOk
+        If aExcelCol.Contains("Post") AndAlso Not aRow("PostOk") Then
             Exit Sub
         End If
         If aIsEmpty Then
@@ -4957,13 +4964,31 @@ Public Class frmImportMPPostTransLoad
                     aNewRow("ConductorSize") = 0
                 End If
     End Sub
-    Private Sub IntegrityPostFeederHelper07(ByRef aTrans As SqlTransaction, ByRef aUpdate As frmUpdateDataSetBT,
-                                            aTable As String, ByRef aIsSaveOk As Boolean)
-        Dim noti As String = If(aTable = "TblLPPostLoad", " پست ", " فيدر ")
-        aIsSaveOk = aIsSaveOk And aUpdate.UpdateDataSet(aTable, mDs, , , aTrans)
+    Private Sub IntegrityPostFeederHelper07(ByVal aTable As String)
+        Dim lTrans As SqlTransaction
+        Dim lUpdate As New frmUpdateDataSetBT
+        Dim lIsSaveOk As Boolean
+        Dim lDict As New Dictionary(Of String, String) From {{"TblLPPostLoad", "بارگيري پست"},
+             {"TblLPFeederLoad", "بارگيري فيدر"}, {"Tbl_LPPost", "پست"}, {"Tbl_LPFeeder", "فيدر"}}
+        Dim lNoti As String = "ذخيره اطلاعات " + lDict.Item(aTable) + " با موفقيت صورت گرفت"
+        Try
+            lTrans = mCnn.BeginTransaction
+            lIsSaveOk = lUpdate.UpdateDataSet(aTable, mDs, , , lTrans)
+            lTrans.Commit()
+            If lIsSaveOk Then
+                Dim lDlg As New frmInformUserAction(lNoti)
+                lDlg.ShowDialog()
+                lDlg.Dispose()
+            Else
+                lTrans.Rollback()
+            End If
+        Catch ex As Exception
+            If Not IsNothing(lTrans) Then
+                lTrans.Rollback()
+            End If
+        End Try
     End Sub
-    Private Sub IntegrityPostFeederHelper08(ByRef aTrans As SqlTransaction, ByRef aUpdate As frmUpdateDataSetBT,
-                                            ByRef aIsSaveOk As Boolean)
+    Private Sub IntegrityPostFeederHelper08()
         mPostIds = New List(Of String)
         mFeederIds = New List(Of String)
         Dim lWherePost As String = ""
@@ -4983,9 +5008,9 @@ Public Class frmImportMPPostTransLoad
             End If
         Next
         Dim lSQL As String = "SELECT * FROM Tbl_LPPost WHERE LPPostId IN (" + lWherePost.Substring(1) + ");"
-        BindingTable(lSQL, mCnn, mDs, "Tbl_LPPost", aIsClearTable:=True, aTrans:=aTrans)
+        BindingTable(lSQL, mCnn, mDs, "Tbl_LPPost", aIsClearTable:=True)
         lSQL = "SELECT * FROM Tbl_LPFeeder WHERE LPFeederId IN (" + lWhereFeeder.Substring(1) + ");"
-        BindingTable(lSQL, mCnn, mDs, "Tbl_LPFeeder", aIsClearTable:=True, aTrans:=aTrans)
+        BindingTable(lSQL, mCnn, mDs, "Tbl_LPFeeder", aIsClearTable:=True)
 
         For Each lRow As DataRow In mDs.Tables("Tbl_LPPost").Rows
             lDTRow = mDs.Tables("TblLPPostLoad").Select("LPPostId = " + lRow("LPPostId").ToString, "LoadDateTimePersian DESC")(0)
@@ -5005,19 +5030,6 @@ Public Class frmImportMPPostTransLoad
                 lRow("FeederPeakCurrent") = lDTRow("FeederPeakCurrent")
             End If
         Next
-        aIsSaveOk = aIsSaveOk And aUpdate.UpdateDataSet("Tbl_LPPost", mDs, , , aTrans)
-        aIsSaveOk = aIsSaveOk And aUpdate.UpdateDataSet("Tbl_LPFeeder", mDs, , , aTrans)
-    End Sub
-    Private Sub IntegrityPostFeederHelper09(ByRef aTrans As SqlTransaction, ByRef aIsSaveOk As Boolean)
-        aTrans.Commit()
-        If aIsSaveOk Then
-            Dim lDlg As New frmInformUserAction("ذخيره اطلاعات با موفقيت صورت گرفت")
-            lDlg.ShowDialog()
-            lDlg.Dispose()
-            Me.Dispose()
-        Else
-            aTrans.Rollback()
-        End If
     End Sub
 
     '-------------</Omid>---------------
