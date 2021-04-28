@@ -36,9 +36,13 @@ BEGIN
 END
 GO
 
-exec [dbo].[Sp-PostFeederSelect] '20050983,20051023', 1;
+exec [dbo].[Sp-PostFeederSelect] '20050983,20051023,20054050,
+	20051067,20054053', 1;
 
-exec [dbo].[Sp-PostFeederSelect] '20050983,20051023' , 2;
+exec [dbo].[Sp-PostFeederSelect] '20050983,20051023,20054050,
+	20051067,20054053' , 2;
+
+
 
 exec [dbo].[Sp-PostFeederSelect] '20050983,20051023' , 3;
 
@@ -49,10 +53,11 @@ select TOP(10) * from TblLPFeederLoad where EarthValue IS Not NULL
 
 select TOP(10) * from Tbl_LPFeeder where LPFeederId IN ('20050983','20051023')
 
-select TOP(10) * from TblLPPostLoad 
+select  Count(*) from TblLPPostLoad 
 
 select TOP(10) * from Tbl_LPPost 
 
+delete from TblLPPostLoad where LPPostId Is Null
 
 SELECT COLUMN_NAME
 FROM INFORMATION_SCHEMA.COLUMNS
@@ -60,7 +65,8 @@ WHERE TABLE_NAME = 'TblLPPostLoad'
 ORDER BY ORDINAL_POSITION
 
 select top(2) * from TblLPFeederLoad
-select top(2) * from TblLPPostLoad
+select top(2) * from TblLPPostLoad where LPPostId Is Null
+
 
 
 Select f.* , fl.LPFeederLoadId from  Tbl_LPFeeder f
@@ -69,6 +75,12 @@ WHERE fl.LPFeederId IN ('20050983','20051023')
 
 Select f.* from  Tbl_LPFeeder f
 WHERE f.LPFeederId IN ('20050983','20051023')
+
+Select top(20) * from  Tbl_LPFeeder where LPFeederCode Is NOT NULL Order by LPFeederId desc
+exec [dbo].[Sp-PostFeederSelect] '20054589', 1;
+exec [dbo].[Sp-PostFeederSelect] '20054589' , 2;
+select * from Tbl_LPPost where LPPostId = 10050844
+
 
 
 SELECT PostPeakCurrent As Peak , * FROM Tbl_LPPost WHERE LPPostId IN (10050860,20051020);

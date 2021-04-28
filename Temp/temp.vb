@@ -4566,6 +4566,7 @@ Public Class frmImportMPPostTransLoad
             ShowError(e)
         End Try
     End Sub
+
     Private Sub GetIdsFromFeederCodes()
         mCodeList = New List(Of String)
         For Each row As ExcelRow In excel.rows
@@ -4582,9 +4583,10 @@ Public Class frmImportMPPostTransLoad
         For Each lCode As String In mCodeList
             lWhere += ",'" + lCode + "'"
         Next
-        Dim lSQL As String = "SELECT * FROM Tbl_LPFeeder WHERE LPFeederCode IN (" + lWhere.Substring(1) + ")"
+        Dim lSQL As String = "SELECT F.* , P.PostCapacity, P.IsTakFaze FROM Tbl_LPFeeder F "
+            INNER JOIN Tbl_LPPost P ON P.LPPostId = F.LPPostId
+            WHERE F.LPFeederCode IN (" + lWhere.Substring(1) + ")"
         BindingTable(lSQL, mCnn, mDs, "Tbl_LPFeeder", aIsClearTable:=True)
-        BindingTable("Select * From Tbl_Fuse", mCnn, mDs, "Tbl_Fuse", aIsClearTable:=True)
     End Sub
     Private Sub MakeDataSetPostFeeeder02()
         Dim lWhere As String = ""
@@ -4605,10 +4607,16 @@ Public Class frmImportMPPostTransLoad
         BindingTable(lSQL, mCnn, mDs, "Tbl_SatheMaghta", aIsClearTable:=True)
 
         Dim lDictionary As New Dictionary(Of String, String)
-        For Each lRow As DataRow In mDs.Tables("Tbl_LPFeeder").Rows
-            Dim dr As DataRow() = mDs.Tables("Tbl_GetDate").Select("LPFeederCode = " + lRow("LPFeederCode"),
-                "LoadDateTimePersian DESC")
-            lDictionary.Add(dr(0)("LPFeederCode"), dr(0)("LoadDateTimePersian"))
+        For Each row As ExcelRow In excel.rows
+            For Each item As ExcelRowItem In row.items
+                If item.column.name = "LPFeederCode" And lDictionary.ContainsKey(item.value) Then
+                    Continue For
+                End If
+                If item.column.name = "LPFeederCode" Then
+                    Dim dr As DataRow() = mDs.Tables("Tbl_GetDate").Select("LPFeederCode = " + item.value, "LoadDateTimePersian DESC")
+                    lDictionary.Add(item.value, If(dr.Length > 0, dr(0)("LoadDateTimePersian"), "1370/01/01"))
+                End If
+            Next
         Next
         mDict.Add("Tbl_GetDate", lDictionary)
     End Sub
@@ -4672,7 +4680,7 @@ Public Class frmImportMPPostTransLoad
                         If lRow.IsNull(lCol) Or IsNothing(lRow(lCol)) Then
                             lPostColCounter -= 1
                             Continue For
-                        ElseIf Not Val(lRow(lCol)) > 0 Then
+                        ElseIf Not IsNumeric(lRow(lCol)) Then
                             lPostColCounter -= 1
                             Continue For
                         End If
@@ -4680,7 +4688,7 @@ Public Class frmImportMPPostTransLoad
                         If lRow.IsNull(lCol) Or IsNothing(lRow(lCol)) Then
                             lErrorFlag = True
                             Continue For
-                        ElseIf Not Val(lRow(lCol)) > 0 Then
+                        ElseIf Not IsNumeric(lRow(lCol)) Then
                             lErrorFlag = True
                             Continue For
                         End If
@@ -4717,6 +4725,7 @@ Public Class frmImportMPPostTransLoad
             Return False
         End Try
     End Function
+    '----------Save--------------
     Private Sub SavePostFeederInfo()
         '-----------------Initialize TblFieldsToExcelConverter & TblDBColumns
         InitializeDBColumns()
@@ -4766,6 +4775,9 @@ Public Class frmImportMPPostTransLoad
                     If (Not IntegrityPostFeederHelper02(lDtRow1, lDtRow2, lNewRow, lFeederRow, lTable, lRow)) Then
                         Continue For
                     End If
+                    If lDtRow1.Length = 0 And Not lRow("PostOk") Then
+                        Continue For
+                    End If
                     '--------Fill the Fields
                     For Each lCol As String In TblDBColumns.Item(lTable)
                         '-----------Excel-Check and Fuse
@@ -4778,7 +4790,7 @@ Public Class frmImportMPPostTransLoad
                         IntegrityPostFeederHelper05(lDtRow1, lDtRow2, lNewRow, lCol, lIsEmpty,
                                                 lTable, lBuffer, lExcelColExists, lExcelCol, lRow)
                     Next
-                    IntegrityPostFeederHelper06(lNewRow, lTime, lDtRow1, lTable)
+                    IntegrityPostFeederHelper06(lNewRow, lTime, lDtRow1, lFeederRow, lTable)
 
                     If If(lTable = "TblLPPostLoad", lDtRow1.Length, lDtRow2.Length) = 0 And
                     (lTable = "TblLPFeederLoad" Or lRow("PostOk")) Then
@@ -4919,7 +4931,7 @@ Public Class frmImportMPPostTransLoad
                     End If
     End Sub
     Private Sub IntegrityPostFeederHelper06(ByRef aNewRow As DataRow, ByRef aTime As CTimeInfo,
-                                            ByRef aDtRow1 As DataRow(), aTable As String)
+                                            ByRef aDtRow1 As DataRow(), ByRef aFeederRow As DataRow(), aTable As String)
         Dim ltxtDate As New PersianMaskedEditor
         Dim ltxtTime As New TimeMaskedEditor
         ltxtDate.Text = aNewRow("LoadDateTimePersian")
@@ -4935,13 +4947,15 @@ Public Class frmImportMPPostTransLoad
         aNewRow(If(aTable = "TblLPPostLoad", "PostPeakCurrent", "FeederPeakCurrent")) =
             (aNewRow("RCurrent") + aNewRow("SCurrent") + aNewRow("TCurrent")) / 3
         aNewRow("AreaUserId") = WorkingUserId
-        aNewRow("IsTakFaze") = If(aDtRow1.Length > 0, aDtRow1(0)("LPPostIsTakFaze"), 0)
-        If aTable = "TblLPPostLoad" Then
-            aNewRow("PostCapacity") = If(aDtRow1.Length > 0, aDtRow1(0)("LPPostPostCapacity"), 0)
-        Else
-            aNewRow("PostPeakCurrent") = If(aDtRow1.Length > 0, aDtRow1(0)("PostPeakCurrent"), DBNull.Value)
-            aNewRow("ConductorSize") = 0
-        End If
+        aNewRow("IsTakFaze") = If(aDtRow1.Length > 0, aDtRow1(0)("LPPostIsTakFaze"),
+            If(aFeederRow.Length > 0, aFeederRow(0)("IsTakFaze"), 0))
+            If aTable = "TblLPPostLoad" Then
+            aNewRow("PostCapacity") = If(aDtRow1.Length > 0, aDtRow1(0)("LPPostPostCapacity"),
+                If(aFeederRow.Length > 0, aFeederRow(0)("PostCapacity"), 0))
+                Else
+                    aNewRow("PostPeakCurrent") = If(aDtRow1.Length > 0, aDtRow1(0)("PostPeakCurrent"), DBNull.Value)
+                    aNewRow("ConductorSize") = 0
+                End If
     End Sub
     Private Sub IntegrityPostFeederHelper07(ByRef aTrans As SqlTransaction, ByRef aUpdate As frmUpdateDataSetBT,
                                             aTable As String, ByRef aIsSaveOk As Boolean)
@@ -4957,13 +4971,13 @@ Public Class frmImportMPPostTransLoad
         Dim lDTRow As DataRow
         Dim lMonth As Integer
         For Each lRow As DataRow In mDs.Tables("TblLPPostLoad").Rows
-            If Not mPostIds.Contains(lRow("LPPostId")) Then
+            If Not IsDBNull(lRow("LPPostId")) AndAlso Not mPostIds.Contains(lRow("LPPostId")) Then
                 mPostIds.Add(lRow("LPPostId"))
                 lWherePost += "," + lRow("LPPostId").ToString
             End If
         Next
         For Each lRow As DataRow In mDs.Tables("TblLPFeederLoad").Rows
-            If Not mFeederIds.Contains(lRow("LPFeederId")) Then
+            If Not IsDBNull(lRow("LPFeederId")) AndAlso Not mFeederIds.Contains(lRow("LPFeederId")) Then
                 mFeederIds.Add(lRow("LPFeederId"))
                 lWhereFeeder += "," + lRow("LPFeederId").ToString
             End If
