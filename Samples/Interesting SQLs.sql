@@ -1,0 +1,8 @@
+use CcRequesterSetad
+go
+-------------Find the Columns----------
+SELECT *
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'TblRequest'
+ORDER BY COLUMN_NAME
+--ORDER BY ORDINAL_POSITION
