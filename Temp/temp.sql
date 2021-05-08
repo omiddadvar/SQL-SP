@@ -87,7 +87,7 @@ AS
 	SET @TamirStr = N'؟'
 	SET @FogheToziTypeId = -1
 	--declare @dt as DateTime=dateadd(day,-1,getdate())
-	declare @dt as DateTime=dateadd(hour,-12,getdate())
+	declare @dt as DateTime = dateadd(hour,-12,getdate())
 	--print 'spSendSMSDCManager start' + convert(nvarchar(100),getdate(),21)
 	
 	SELECT TOP 1 
@@ -101,8 +101,9 @@ AS
 		LEFT OUTER JOIN TblTamirRequestConfirm ON TblRequest.RequestId = TblTamirRequestConfirm.RequestId
 		LEFT OUTER JOIN TblTamirRequest ON TblTamirRequestConfirm.TamirRequestId = TblTamirRequest.TamirRequestId
 		LEFT OUTER JOIN TblTamirRequest TblTamirRequestEmergency ON TblRequest.RequestId = TblTamirRequestEmergency.EmergencyRequestId
+		LEFT OUTER JOIN TblRequestPostFeeder PostFeeder On PostFeeder.RequestId = TblRequest.RequestId
 	WHERE 
-		tblRequest.DisconnectDT >=@dt and 
+		tblRequest.DisconnectDT >= @dt and 
 		( 
 			(TblRequest.IsSingleSubscriber = 0 OR TblRequest.IsSingleSubscriber IS NULL OR (TblRequest.IsSingleSubscriber = 1 AND @IsSingleSubscriberShow = 1)) 
 			OR TblRequest.IsMPRequest = 1 OR TblRequest.IsFogheToziRequest = 1
@@ -114,7 +115,7 @@ AS
 			WHERE 
 				NOT RequestId IS NULL 
 				AND ManagerSMSDCId =  @ManagerSMSDCId 
-				AND (ISNULL(RequestTypeId,@RequestTypeId) > 0 OR (@RequestTypeId = 0 AND ISNULL(RequestTypeId,@RequestTypeId) = 0))
+				AND ((ISNULL(RequestTypeId,@RequestTypeId) > 0 AND ISNULL(RequestTypeId,@RequestTypeId) <> 14) OR (@RequestTypeId = 0 AND ISNULL(RequestTypeId,@RequestTypeId) = 0) OR (@RequestTypeId = 14 AND ISNULL(RequestTypeId,@RequestTypeId) = 14))
 		) 
 		
 		AND 
@@ -141,6 +142,7 @@ AS
 
 			OR ((@RequestTypeId = 5 OR (@RequestTypeId = 12 AND ISNULL(TblMPRequest.IsTotalLPPostDisconnected,0) = 0) OR (@RequestTypeId = 13 AND TblMPRequest.IsTotalLPPostDisconnected = 1)) AND IsMPRequest = 1 AND IsTamir=0)
 			
+			OR(@RequestTypeId = 14 AND (ISNULL(PostFeeder.LocationTypeId,0) = 2 AND TblRequest.IsMPRequest = 0 AND TblRequest.IsLPRequest = 0 AND TblRequest.IsFogheToziRequest = 0 AND TblRequest.IsTamir = 0))
 		)
 		AND 
 		(
@@ -154,7 +156,7 @@ AS
 		)
 	ORDER BY 
 		TblRequest.DisconnectDT
-	if ISNULL(@RequestId,0) <=0
+	if ISNULL(@RequestId,0) <= 0
 		return 0;
 	SELECT TOP 1 
 		@RequestId = TblRequest.RequestId, 
@@ -471,6 +473,11 @@ AS
 		SET @RequestType = 'SMSLPNotTamirSingle' 
 		SELECT @SMS = ConfigText FROM Tbl_Config WHERE ConfigName = @RequestType
 	END
+	ELSE IF @RequestTypeId = 14 -- NewRequestMP
+	BEGIN
+		SET @RequestType = 'SMSNewRequestMP'
+		SELECT @SMS = ConfigText FROM Tbl_Config WHERE ConfigName = @RequestType
+	END
 	
 	IF @SMS = '' OR @SMS IS NULL RETURN 0;
 	
@@ -525,8 +532,6 @@ GO
 
 
 
-
-
 select * from TblRequestPostFeeder 
 
 select * from Tbl_LocationType
@@ -535,9 +540,15 @@ select top(10) * from TblRequest
 
 select top(10) * from TblManagerSMSDC
 
+select * from Tbl_Config
+
+select top(10) * from Tbl_EventLogCenter
+
 -------------Find the Columns----------
 SELECT *
 FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = 'TblRequest'
 ORDER BY COLUMN_NAME
 --ORDER BY ORDINAL_POSITION
+
+
