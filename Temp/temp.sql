@@ -68,3 +68,12 @@ select * from Tbl_NetworkType
 select NetworkTypeId , count(*) from TblErjaRequest
 inner  join TblRequest on TblRequest.RequestId = TblErjaRequest.RequestId
 where IsLightRequest = 1
+group by NetworkTypeId
+
+
+
+
+
+
+-----------------------------------
+SELECT TblRequest.AreaId,Tbl_ReferTo.ReferTo,Tbl_Area.Area, AVG(case when TblRequest.IsLightRequest = 1 then TblErjaRequest.ErjaInterval end) AS LightAvg , AVG(case when TblErjaRequest.NetworkTypeId IN (1,2) AND TblErjaRequest.IsLightRequest = 0 then TblErjaRequest.ErjaInterval end) AS MPIntervalAvg , AVG(case when TblErjaRequest.NetworkTypeId = 1 AND TblErjaRequest.IsLightRequest = 0 then TblErjaRequest.ErjaInterval end) AS MPAirAvg , AVG(case when TblErjaRequest.NetworkTypeId = 2 AND TblErjaRequest.IsLightRequest = 0 then TblErjaRequest.ErjaInterval end) AS MPLandAvg , AVG(case when TblErjaRequest.NetworkTypeId IN (3,4) AND TblErjaRequest.IsLightRequest = 0 then TblErjaRequest.ErjaInterval end) AS LPIntervalAvg, AVG(case when TblErjaRequest.NetworkTypeId = 3 AND TblErjaRequest.IsLightRequest = 0 then TblErjaRequest.ErjaInterval end) AS LPAirAvg, AVG(case when TblErjaRequest.NetworkTypeId = 4 AND TblErjaRequest.IsLightRequest = 0 then TblErjaRequest.ErjaInterval end) AS LPLandAvg, AVG(case when TblErjaRequest.NetworkTypeId = 5 AND TblErjaRequest.IsLightRequest = 0 then TblErjaRequest.ErjaInterval end) AS FTIntervalAvg, AVG(case when TblErjaRequest.NetworkTypeId = 6 AND TblErjaRequest.IsLightRequest = 0 then TblErjaRequest.ErjaInterval end) AS MoshtarekIntervalAvg FROM TblErjaRequest INNER JOIN TblRequest ON TblErjaRequest.RequestId = TblRequest.RequestId INNER JOIN Tbl_Area ON Tbl_Area.AreaId = TblRequest.AreaId INNER JOIN Tbl_ReferTo ON TblErjaRequest.ReferToId=Tbl_ReferTo.ReferToId WHERE TblErjaRequest.ErjaStateId = 4 GROUP BY TblRequest.AreaId,Tbl_ReferTo.ReferTo,Tbl_Area.Area ORDER BY TblRequest.AreaId,Tbl_ReferTo.ReferTo
