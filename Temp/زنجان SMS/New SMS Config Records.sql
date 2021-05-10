@@ -596,5 +596,5 @@ GO
 -- ارسال پيامک خاموشيهاي بي برنامه جدید که در هنگام ثبت اولیه فیدر فشار متوسط آن انتخاب شده است
 -- SMSNewRequestMP
 IF NOT EXISTS (SELECT * FROM Tbl_Config WHERE ConfigId = 83)
-INSERT Tbl_Config (ConfigId,ConfigName,ConfigValue,ConfigText) VALUES (83,N'SMSNewRequestMP',NULL,N'خاموشي بي برنامه جديد که در هنگام ثبت اوليه فيدر فشار متوسط آن انتخاب شده است به شماره ReqNo بيش از Minutes دقيقه قطع مي باشد. CRLFآدرس: DBAddress CRLFمنطقه : Area')
+INSERT Tbl_Config (ConfigId,ConfigName,ConfigValue,ConfigText) VALUES (83,N'SMSNewRequestMP',NULL,N'فيدر MPFeederName از پست فوق توزيع MPPostName در ساعت DTTime بر اثر اتصال در مسیر تغذیه قطع گرديد.')
 GO
