@@ -61,3 +61,10 @@ SELECT G.DiscONnectGroupId ,G.DiscONnectGroup , AVG(TblLPRequest.DisconnectInter
 		GROUP BY G.DiscONnectGroupId , G.DiscONnectGroup 
 		HAVING COUNT(*) >= @aMinTimes
 	ORDER BY DisconnectGroupId ASC
+	
+	
+select * from Tbl_NetworkType
+
+select NetworkTypeId , count(*) from TblErjaRequest
+inner  join TblRequest on TblRequest.RequestId = TblErjaRequest.RequestId
+where IsLightRequest = 1
