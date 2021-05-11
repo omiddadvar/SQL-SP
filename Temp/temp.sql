@@ -3,7 +3,6 @@ GO
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spName]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].[spOmid]
 GO
---Report_ErjaList_OperationAvrageInterval
 CREATE PROCEDURE [dbo].[spOmid] 
 	@aFROMDate as varchar(10),
 	@aToDate as varchar(10),
@@ -68,5 +67,24 @@ SELECT G.DiscONnectGroupId ,G.DiscONnectGroup ,COUNT(*) AS Times,
 	
 	
 	
-	
-select * FROM Tbl_DiscONnectGroupSet order by SortOrder
+------------------------------------------------------------
+
+USE CcRequesterSetad
+GO
+DECLARE @aFROMDate as varchar(10)
+DECLARE @aToDate as varchar(10)
+DECLARE @aMinTimes as int
+Set @aFROMDate = '1397/12/01'
+Set @aToDate = '1400/02/01'
+Set @aMinTimes = 2
+
+SELECT COUNT(*) AS OutageCount, TblMPRequest.MPFeederId ,
+	dbo.omidFunc(TblMPRequest.MPFeederId,@aFROMDate ,@aToDate ) As Reasons
+	FROM TblMPRequest
+		INNER JOIN TblRequest ON TblRequest.MPRequestId = TblMPRequest.MPRequestId
+		WHERE TblMPRequest.DiscONnectDatePersian >= @aFROMDate AND
+				TblMPRequest.DisconnectDatePersian <= @aToDate
+		GROUP BY TblMPRequest.MPFeederId
+		HAVING COUNT(*) >= @aMinTimes
+		ORDER BY OutageCount DESC
+
