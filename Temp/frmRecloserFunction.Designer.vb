@@ -43,7 +43,7 @@ Partial Class frmRecloserFunction
         Me.ButtonSave = New System.Windows.Forms.Button()
         Me.cboKeyType = New Bargh_Common.ComboBoxPersian()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.cboKeyName = New Bargh_Common.ComboBoxPersian()
+        Me.cboRecloser = New Bargh_Common.ComboBoxPersian()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cboRecloserType = New Bargh_Common.ComboBoxPersian()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -95,7 +95,6 @@ Partial Class frmRecloserFunction
         Me.cboMPPost.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboMPPost.BackColor = System.Drawing.Color.White
-        Me.cboMPPost.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.mDs, "Tbl_MPPost.MPPostId", True))
         Me.cboMPPost.DisplayMember = "MPPostName"
         Me.cboMPPost.IsReadOnly = False
         Me.cboMPPost.Location = New System.Drawing.Point(7, 58)
@@ -109,7 +108,6 @@ Partial Class frmRecloserFunction
         Me.cboArea.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboArea.BackColor = System.Drawing.Color.White
-        Me.cboArea.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.mDs, "Tbl_Area.AreaId", True))
         Me.cboArea.DisplayMember = "Area"
         Me.cboArea.IsReadOnly = False
         Me.cboArea.Location = New System.Drawing.Point(7, 30)
@@ -123,7 +121,6 @@ Partial Class frmRecloserFunction
         Me.cboMPFeeder.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboMPFeeder.BackColor = System.Drawing.Color.White
-        Me.cboMPFeeder.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.mDs, "Tbl_MPFeeder.MPFeederId", True))
         Me.cboMPFeeder.DisplayMember = "MPFeederName"
         Me.cboMPFeeder.IsReadOnly = False
         Me.cboMPFeeder.Location = New System.Drawing.Point(7, 87)
@@ -136,9 +133,10 @@ Partial Class frmRecloserFunction
         '
         Me.txtBoxAddress.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtBoxAddress.Location = New System.Drawing.Point(8, 243)
+        Me.txtBoxAddress.Location = New System.Drawing.Point(7, 243)
         Me.txtBoxAddress.Multiline = True
         Me.txtBoxAddress.Name = "txtBoxAddress"
+        Me.txtBoxAddress.ReadOnly = True
         Me.txtBoxAddress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtBoxAddress.Size = New System.Drawing.Size(296, 69)
         Me.txtBoxAddress.TabIndex = 4
@@ -297,7 +295,6 @@ Partial Class frmRecloserFunction
         Me.cboKeyType.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboKeyType.BackColor = System.Drawing.Color.White
-        Me.cboKeyType.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.mDs, "Tbl_MPCloserType.MPCloserTypeId", True))
         Me.cboKeyType.DisplayMember = "MPCloserType"
         Me.cboKeyType.IsReadOnly = False
         Me.cboKeyType.Location = New System.Drawing.Point(5, 118)
@@ -319,19 +316,18 @@ Partial Class frmRecloserFunction
         Me.Label4.TabIndex = 55
         Me.Label4.Text = "نوع کليد"
         '
-        'cboKeyName
+        'cboRecloser
         '
-        Me.cboKeyName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.cboRecloser.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cboKeyName.BackColor = System.Drawing.Color.White
-        Me.cboKeyName.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.mDs, "Tbl_MPFeederKey.MPFeederKeyId", True))
-        Me.cboKeyName.DisplayMember = "KeyName - KeyCode"
-        Me.cboKeyName.IsReadOnly = False
-        Me.cboKeyName.Location = New System.Drawing.Point(5, 149)
-        Me.cboKeyName.Name = "cboKeyName"
-        Me.cboKeyName.Size = New System.Drawing.Size(296, 21)
-        Me.cboKeyName.TabIndex = 56
-        Me.cboKeyName.ValueMember = "MPFeederKeyId"
+        Me.cboRecloser.BackColor = System.Drawing.Color.White
+        Me.cboRecloser.DisplayMember = "KeyName"
+        Me.cboRecloser.IsReadOnly = False
+        Me.cboRecloser.Location = New System.Drawing.Point(5, 149)
+        Me.cboRecloser.Name = "cboRecloser"
+        Me.cboRecloser.Size = New System.Drawing.Size(296, 21)
+        Me.cboRecloser.TabIndex = 56
+        Me.cboRecloser.ValueMember = "MPFeederKeyId"
         '
         'Label5
         '
@@ -351,13 +347,13 @@ Partial Class frmRecloserFunction
         Me.cboRecloserType.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboRecloserType.BackColor = System.Drawing.Color.White
-        Me.cboRecloserType.DisplayMember = "MPPostName"
+        Me.cboRecloserType.DisplayMember = "SpecValue"
         Me.cboRecloserType.IsReadOnly = False
         Me.cboRecloserType.Location = New System.Drawing.Point(5, 181)
         Me.cboRecloserType.Name = "cboRecloserType"
         Me.cboRecloserType.Size = New System.Drawing.Size(296, 21)
         Me.cboRecloserType.TabIndex = 58
-        Me.cboRecloserType.ValueMember = "MPPostId"
+        Me.cboRecloserType.ValueMember = "SpecTypeId"
         '
         'Label6
         '
@@ -377,13 +373,13 @@ Partial Class frmRecloserFunction
         Me.cboRecloserModel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboRecloserModel.BackColor = System.Drawing.Color.White
-        Me.cboRecloserModel.DisplayMember = "MPPostName"
+        Me.cboRecloserModel.DisplayMember = "SpecValue"
         Me.cboRecloserModel.IsReadOnly = False
         Me.cboRecloserModel.Location = New System.Drawing.Point(5, 213)
         Me.cboRecloserModel.Name = "cboRecloserModel"
         Me.cboRecloserModel.Size = New System.Drawing.Size(296, 21)
         Me.cboRecloserModel.TabIndex = 60
-        Me.cboRecloserModel.ValueMember = "MPPostId"
+        Me.cboRecloserModel.ValueMember = "SpecTypeId"
         '
         'Label7
         '
@@ -407,7 +403,7 @@ Partial Class frmRecloserFunction
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.cboRecloserType)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.cboKeyName)
+        Me.Controls.Add(Me.cboRecloser)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.cboKeyType)
         Me.Controls.Add(Me.Label4)
@@ -430,7 +426,7 @@ Partial Class frmRecloserFunction
         Me.Controls.Add(Me.cboMPPost)
         Me.Controls.Add(Me.cboArea)
         Me.Name = "frmRecloserFunction"
-        Me.Text = "عملکرد ریکلوزر"
+        Me.Text = "ثبت کارکرد ریکلوزر"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -456,7 +452,7 @@ Partial Class frmRecloserFunction
     Friend WithEvents ButtonSave As Button
     Friend WithEvents cboKeyType As ComboBoxPersian
     Friend WithEvents Label4 As Label
-    Friend WithEvents cboKeyName As ComboBoxPersian
+    Friend WithEvents cboRecloser As ComboBoxPersian
     Friend WithEvents Label5 As Label
     Friend WithEvents cboRecloserType As ComboBoxPersian
     Friend WithEvents Label6 As Label
