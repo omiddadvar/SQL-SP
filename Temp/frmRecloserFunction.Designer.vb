@@ -51,6 +51,7 @@ Partial Class frmRecloserFunction
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnReadDate = New Bargh_Common.DateButton()
         Me.txtReadTime = New Bargh_Common.mdlPersianMaskedEditor.TimeMaskedEditor()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label2
@@ -99,9 +100,9 @@ Partial Class frmRecloserFunction
         Me.cboMPPost.BackColor = System.Drawing.Color.White
         Me.cboMPPost.DisplayMember = "MPPostName"
         Me.cboMPPost.IsReadOnly = False
-        Me.cboMPPost.Location = New System.Drawing.Point(7, 58)
+        Me.cboMPPost.Location = New System.Drawing.Point(12, 58)
         Me.cboMPPost.Name = "cboMPPost"
-        Me.cboMPPost.Size = New System.Drawing.Size(296, 21)
+        Me.cboMPPost.Size = New System.Drawing.Size(291, 21)
         Me.cboMPPost.TabIndex = 2
         Me.cboMPPost.ValueMember = "MPPostId"
         '
@@ -112,9 +113,9 @@ Partial Class frmRecloserFunction
         Me.cboArea.BackColor = System.Drawing.Color.White
         Me.cboArea.DisplayMember = "Area"
         Me.cboArea.IsReadOnly = False
-        Me.cboArea.Location = New System.Drawing.Point(7, 30)
+        Me.cboArea.Location = New System.Drawing.Point(12, 30)
         Me.cboArea.Name = "cboArea"
-        Me.cboArea.Size = New System.Drawing.Size(296, 21)
+        Me.cboArea.Size = New System.Drawing.Size(291, 21)
         Me.cboArea.TabIndex = 1
         Me.cboArea.ValueMember = "AreaId"
         '
@@ -125,9 +126,9 @@ Partial Class frmRecloserFunction
         Me.cboMPFeeder.BackColor = System.Drawing.Color.White
         Me.cboMPFeeder.DisplayMember = "MPFeederName"
         Me.cboMPFeeder.IsReadOnly = False
-        Me.cboMPFeeder.Location = New System.Drawing.Point(7, 87)
+        Me.cboMPFeeder.Location = New System.Drawing.Point(12, 87)
         Me.cboMPFeeder.Name = "cboMPFeeder"
-        Me.cboMPFeeder.Size = New System.Drawing.Size(296, 21)
+        Me.cboMPFeeder.Size = New System.Drawing.Size(291, 21)
         Me.cboMPFeeder.TabIndex = 3
         Me.cboMPFeeder.ValueMember = "MPFeederId"
         '
@@ -135,13 +136,13 @@ Partial Class frmRecloserFunction
         '
         Me.txtBoxAddress.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtBoxAddress.Location = New System.Drawing.Point(7, 243)
+        Me.txtBoxAddress.Location = New System.Drawing.Point(12, 243)
         Me.txtBoxAddress.Multiline = True
         Me.txtBoxAddress.Name = "txtBoxAddress"
         Me.txtBoxAddress.ReadOnly = True
         Me.txtBoxAddress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtBoxAddress.Size = New System.Drawing.Size(296, 69)
-        Me.txtBoxAddress.TabIndex = 4
+        Me.txtBoxAddress.Size = New System.Drawing.Size(291, 69)
+        Me.txtBoxAddress.TabIndex = 8
         '
         'Label8
         '
@@ -188,7 +189,7 @@ Partial Class frmRecloserFunction
         Me.txtReadDate.ShadowColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(160, Byte), Integer))
         Me.txtReadDate.ShamsiDT = "____/__/__"
         Me.txtReadDate.Size = New System.Drawing.Size(84, 20)
-        Me.txtReadDate.TabIndex = 5
+        Me.txtReadDate.TabIndex = 9
         Me.txtReadDate.Text = "____/__/__"
         Me.txtReadDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.txtReadDate.TimeMaskedEditorOBJ = Nothing
@@ -201,7 +202,7 @@ Partial Class frmRecloserFunction
         Me.txtRestartNumber.Name = "txtRestartNumber"
         Me.txtRestartNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtRestartNumber.Size = New System.Drawing.Size(84, 20)
-        Me.txtRestartNumber.TabIndex = 6
+        Me.txtRestartNumber.TabIndex = 11
         Me.txtRestartNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label10
@@ -225,7 +226,7 @@ Partial Class frmRecloserFunction
         Me.txtTripNumber.Name = "txtTripNumber"
         Me.txtTripNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtTripNumber.Size = New System.Drawing.Size(84, 20)
-        Me.txtTripNumber.TabIndex = 7
+        Me.txtTripNumber.TabIndex = 12
         Me.txtTripNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label11
@@ -249,7 +250,7 @@ Partial Class frmRecloserFunction
         Me.txtFaultNumber.Name = "txtFaultNumber"
         Me.txtFaultNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtFaultNumber.Size = New System.Drawing.Size(84, 20)
-        Me.txtFaultNumber.TabIndex = 8
+        Me.txtFaultNumber.TabIndex = 13
         Me.txtFaultNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label12
@@ -275,7 +276,7 @@ Partial Class frmRecloserFunction
         Me.BttnReturn.Location = New System.Drawing.Point(7, 462)
         Me.BttnReturn.Name = "BttnReturn"
         Me.BttnReturn.Size = New System.Drawing.Size(75, 23)
-        Me.BttnReturn.TabIndex = 10
+        Me.BttnReturn.TabIndex = 15
         Me.BttnReturn.Text = "&بازگشت"
         Me.BttnReturn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -288,7 +289,7 @@ Partial Class frmRecloserFunction
         Me.ButtonSave.Location = New System.Drawing.Point(324, 462)
         Me.ButtonSave.Name = "ButtonSave"
         Me.ButtonSave.Size = New System.Drawing.Size(75, 23)
-        Me.ButtonSave.TabIndex = 9
+        Me.ButtonSave.TabIndex = 14
         Me.ButtonSave.Text = "&ذخيره"
         Me.ButtonSave.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -299,10 +300,10 @@ Partial Class frmRecloserFunction
         Me.cboKeyType.BackColor = System.Drawing.Color.White
         Me.cboKeyType.DisplayMember = "MPCloserType"
         Me.cboKeyType.IsReadOnly = False
-        Me.cboKeyType.Location = New System.Drawing.Point(5, 118)
+        Me.cboKeyType.Location = New System.Drawing.Point(10, 118)
         Me.cboKeyType.Name = "cboKeyType"
-        Me.cboKeyType.Size = New System.Drawing.Size(296, 21)
-        Me.cboKeyType.TabIndex = 54
+        Me.cboKeyType.Size = New System.Drawing.Size(291, 21)
+        Me.cboKeyType.TabIndex = 4
         Me.cboKeyType.ValueMember = "MPCloserTypeId"
         '
         'Label4
@@ -325,10 +326,10 @@ Partial Class frmRecloserFunction
         Me.cboRecloser.BackColor = System.Drawing.Color.White
         Me.cboRecloser.DisplayMember = "KeyName"
         Me.cboRecloser.IsReadOnly = False
-        Me.cboRecloser.Location = New System.Drawing.Point(5, 149)
+        Me.cboRecloser.Location = New System.Drawing.Point(10, 149)
         Me.cboRecloser.Name = "cboRecloser"
-        Me.cboRecloser.Size = New System.Drawing.Size(296, 21)
-        Me.cboRecloser.TabIndex = 56
+        Me.cboRecloser.Size = New System.Drawing.Size(291, 21)
+        Me.cboRecloser.TabIndex = 5
         Me.cboRecloser.ValueMember = "MPFeederKeyId"
         '
         'Label5
@@ -351,11 +352,11 @@ Partial Class frmRecloserFunction
         Me.cboRecloserType.BackColor = System.Drawing.Color.White
         Me.cboRecloserType.DisplayMember = "SpecValue"
         Me.cboRecloserType.IsReadOnly = False
-        Me.cboRecloserType.Location = New System.Drawing.Point(5, 181)
+        Me.cboRecloserType.Location = New System.Drawing.Point(10, 181)
         Me.cboRecloserType.Name = "cboRecloserType"
-        Me.cboRecloserType.Size = New System.Drawing.Size(296, 21)
-        Me.cboRecloserType.TabIndex = 58
-        Me.cboRecloserType.ValueMember = "SpecTypeId"
+        Me.cboRecloserType.Size = New System.Drawing.Size(291, 21)
+        Me.cboRecloserType.TabIndex = 6
+        Me.cboRecloserType.ValueMember = "SpecId"
         '
         'Label6
         '
@@ -377,11 +378,11 @@ Partial Class frmRecloserFunction
         Me.cboRecloserModel.BackColor = System.Drawing.Color.White
         Me.cboRecloserModel.DisplayMember = "SpecValue"
         Me.cboRecloserModel.IsReadOnly = False
-        Me.cboRecloserModel.Location = New System.Drawing.Point(5, 213)
+        Me.cboRecloserModel.Location = New System.Drawing.Point(10, 213)
         Me.cboRecloserModel.Name = "cboRecloserModel"
-        Me.cboRecloserModel.Size = New System.Drawing.Size(296, 21)
-        Me.cboRecloserModel.TabIndex = 60
-        Me.cboRecloserModel.ValueMember = "SpecTypeId"
+        Me.cboRecloserModel.Size = New System.Drawing.Size(291, 21)
+        Me.cboRecloserModel.TabIndex = 7
+        Me.cboRecloserModel.ValueMember = "SpecId"
         '
         'Label7
         '
@@ -411,7 +412,7 @@ Partial Class frmRecloserFunction
         Me.txtReadTime.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtReadTime.IsShadow = False
         Me.txtReadTime.IsShowCurrentTime = False
-        Me.txtReadTime.Location = New System.Drawing.Point(95, 328)
+        Me.txtReadTime.Location = New System.Drawing.Point(59, 325)
         Me.txtReadTime.MaxLength = 5
         Me.txtReadTime.MiladiDT = Nothing
         Me.txtReadTime.Name = "txtReadTime"
@@ -420,15 +421,29 @@ Partial Class frmRecloserFunction
         Me.txtReadTime.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtReadTime.ShadowColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(160, Byte), Integer))
         Me.txtReadTime.Size = New System.Drawing.Size(40, 20)
-        Me.txtReadTime.TabIndex = 63
+        Me.txtReadTime.TabIndex = 10
         Me.txtReadTime.Text = "__:__"
         Me.txtReadTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label13
+        '
+        Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label13.AutoSize = True
+        Me.Label13.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Label13.Font = New System.Drawing.Font("Mitra", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.Label13.Location = New System.Drawing.Point(118, 325)
+        Me.Label13.Name = "Label13"
+        Me.Label13.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label13.Size = New System.Drawing.Size(54, 18)
+        Me.Label13.TabIndex = 64
+        Me.Label13.Text = "زمان قرائت"
         '
         'frmRecloserFunction
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(407, 497)
+        Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.txtReadTime)
         Me.Controls.Add(Me.btnReadDate)
         Me.Controls.Add(Me.cboRecloserModel)
@@ -492,4 +507,5 @@ Partial Class frmRecloserFunction
     Friend WithEvents Label7 As Label
     Friend WithEvents btnReadDate As DateButton
     Friend txtReadTime As TimeMaskedEditor
+    Friend WithEvents Label13 As Label
 End Class

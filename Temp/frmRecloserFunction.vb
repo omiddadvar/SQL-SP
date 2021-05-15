@@ -4,19 +4,29 @@ Public Class frmRecloserFunction
     Private mRecloserFunctionId As Integer
     Private mCnn As SqlConnection = New SqlConnection(GetConnection())
     Private mDs As New DataSet()
-    Private mNewRecord As DataRow
+    'Private mDs As New DatasetCcRequester()
+    Private mDataRow As DataRow
     Private mEntryDT As DTContainer
     Private mInputDT As DTContainer
+    Private mSaveErrorMsg As String
     Private mAreaId, mMPPostId, mMPFeederId, mMPCloserTypeId, mRecloserId, mRecloserTypeId, mRecloserModelId As Int64
     Private mRelatedTables As String() = New String() {"Tbl_Area", "Tbl_MPPost", "Tbl_MPFeeder", "Tbl_MPFeederKey"}
-    'Public Sub New(aRecloserFunctionId? As Integer)
-    '    Me.mRecloserFunctionId = If(aRecloserFunctionId, -1)
-    'End Sub
+    Public Sub New(aRecloserFunctionId As Integer)
+        MyBase.New()
+        InitializeComponent()
+        Me.mRecloserFunctionId = aRecloserFunctionId
+        Me.mSaveErrorMsg = "خطا در ثبت اطلاعات"
+    End Sub
     Private Sub frmRecloserFunction_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        loadRecloserTypeData()
-        loadRecloserModelData()
-        loadAreaData()
-        'fillRow()
+        Try
+            loadRecloserTypeData()
+            loadRecloserModelData()
+            loadAreaData()
+            fillRow()
+        Catch ex As Exception
+            ShowError(ex)
+            Me.Dispose()
+        End Try
     End Sub
     Private Sub cboArea_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboArea.SelectedIndexChanged
         mAreaId = cboArea.SelectedValue
@@ -133,13 +143,18 @@ Public Class frmRecloserFunction
         End If
     End Sub
     Private Sub fillRow()
-        If Not mRecloserFunctionId Then
-            mNewRecord = mDs.Tables("TblRecloserFunction").NewRow()
+        Dim lSQL As String
+        If mRecloserFunctionId < 0 Then
+            lSQL = "SELECT TOP 0 * FROM TblRecloserFunction"
+            BindingTable(lSQL, mCnn, mDs, "TblRecloserFunction", , , , , , , True)
+            mDataRow = mDs.Tables("TblRecloserFunction").NewRow()
+            mDataRow("RecloserFunctionId") = GetAutoInc()
+            mDs.Tables("TblRecloserFunction").Rows.Add(mDataRow)
             Exit Sub
         End If
-        Dim lSQL As String = "SELECT * FROM TblRecloserFunction WHERE RecloserFunctionId = " + mRecloserFunctionId.ToString
+        lSQL = "SELECT * FROM TblRecloserFunction WHERE RecloserFunctionId = " + mRecloserFunctionId.ToString
         BindingTable(lSQL, mCnn, mDs, "TblRecloserFunction", aIsClearTable:=True)
-        mNewRecord = mDs.Tables("TblRecloserFunction").Rows(0)
+        mDataRow = mDs.Tables("TblRecloserFunction").Rows(0)
         '-------------------------Initialize GUI
         lSQL = "select a.AreaId, a.Area ,p.MPPostId ,p.MPPostName ,f.MPFeederId , f.MPFeederName ,
              t.MPCloserTypeId , t.MPCloserType , k.MPFeederKeyId , k.KeyName
@@ -148,7 +163,7 @@ Public Class frmRecloserFunction
             inner join Tbl_MPPost p on p.MPPostId = f.MPPostId
             inner join Tbl_Area a on a.AreaId = p.AreaId
             inner join Tbl_MPCloserType t on t.MPCloserTypeId = k.MPCloserTypeId
-            where MPFeederKeyId = " + mNewRecord("MPFeederKeyId")
+            where MPFeederKeyId = " + mDataRow("MPFeederKeyId").ToString
         BindingTable(lSQL, mCnn, mDs, "TblLoadCache", aIsClearTable:=True)
         If mDs.Tables("TblLoadCache").Rows.Count = 0 Then
             Exit Sub
@@ -160,54 +175,66 @@ Public Class frmRecloserFunction
         cboMPPost_SelectedIndexChanged(cboMPPost, EventArgs.Empty)
         cboMPFeeder.SelectedValue = lLoadData("MPFeederId")
         cboMPFeeder_SelectedIndexChanged(cboMPFeeder, EventArgs.Empty)
-        cboRecloser.SelectedValue = lLoadData("MPFeederKeyId")
+        cboKeyType.SelectedValue = lLoadData("MPCloserTypeId")
         cboKeyType_SelectedIndexChanged(cboKeyType, EventArgs.Empty)
-        cboKeyType.SelectedValue = lLoadData("MPCloserType")
+        cboRecloser.SelectedValue = lLoadData("MPFeederKeyId")
         cboRecloser_SelectedIndexChanged(cboRecloser, EventArgs.Empty)
-        cboRecloserType.SelectedValue = mNewRecord("spcRecloserTypeId")
-        cboRecloserModel.SelectedValue = mNewRecord("spcRecloserModelId")
-        txtReadDate.Text = mNewRecord("ReadDatePersian")
-        txtReadTime.Text = mNewRecord("ReadTime")
-        txtRestartNumber.Text = mNewRecord("RestartCounterCount")
-        txtTripNumber.Text = mNewRecord("TripCounterCount")
-        txtFaultNumber.Text = mNewRecord("FaultCounterCount")
+        cboRecloserType.SelectedValue = mDataRow("spcRecloserTypeId")
+        cboRecloserModel.SelectedValue = mDataRow("spcRecloserModelId")
+        txtReadDate.Text = mDataRow("ReadDatePersian")
+        txtReadTime.Text = mDataRow("ReadTime")
+        txtRestartNumber.Text = mDataRow("RestartCounterCount")
+        txtTripNumber.Text = mDataRow("TripCounterCount")
+        txtFaultNumber.Text = mDataRow("FaultCounterCount")
     End Sub
     Private Sub save()
-        Dim lDBManipulate As New frmUpdateDataset
-        Dim lDs As DataSet = mDs
-        For Each lTable As DataTable In lDs.Tables
-            If Not lTable.TableName = "TblRecloserFunction" Then
-                lDs.Tables.Remove(lTable.TableName)
-            End If
-        Next
+        Try
+            Dim lDBManipulate As New frmUpdateDataSetBT
 
-        prepareTimes()
+            prepareTimes()
+            'mDataRow.MPFeederId = ""   ===> this can be also done!
+            mDataRow("MPFeederId") = cboMPFeeder.SelectedValue
+            mDataRow("MPFeederKeyId") = cboRecloser.SelectedValue
+            mDataRow("spcRecloserTypeId") = cboRecloserType.SelectedValue
+            mDataRow("spcRecloserModelId") = cboRecloserModel.SelectedValue
+            mDataRow("ReadDT") = mInputDT.MiladiDate
+            mDataRow("ReadDatePersian") = mInputDT.ShamsiDate
+            mDataRow("ReadTime") = mInputDT.Time
+            mDataRow("RestartCounterCount") = Val(txtRestartNumber.Text)
+            mDataRow("TripCounterCount") = Val(txtTripNumber.Text)
+            mDataRow("FaultCounterCount") = Val(txtFaultNumber.Text)
+            mDataRow("DataEntryDT") = mEntryDT.MiladiDate
+            mDataRow("DataEntryDatePersian") = mEntryDT.ShamsiDate
+            mDataRow("DataEntryTime") = mEntryDT.Time
+            mDataRow("AreaUserId") = WorkingUserId
 
-        mNewRecord("MPFeederId") = cboMPFeeder.SelectedValue
-        mNewRecord("MPFeederKeyId") = cboRecloser.SelectedValue
-        mNewRecord("spcRecloserTypeId") = cboRecloserType.SelectedValue
-        mNewRecord("spcRecloserModelId") = cboRecloserModel.SelectedValue
-        mNewRecord("ReadDT") = mInputDT.MiladiDate
-        mNewRecord("ReadDatePersian") = mInputDT.ShamsiDate
-        mNewRecord("ReadTime") = mInputDT.Time
-        mNewRecord("RestartCounterCount") = Val(txtRestartNumber.Text)
-        mNewRecord("TripCounterCount") = Val(txtTripNumber.Text)
-        mNewRecord("FaultCounterCount") = Val(txtFaultNumber.Text)
-        mNewRecord("DataEntryDT") = mEntryDT.MiladiDate
-        mNewRecord("DataEntryDatePersian") = mEntryDT.ShamsiDate
-        mNewRecord("DataEntryTime") = mEntryDT.Time
-        mNewRecord("AreaUserId") = WorkingUserId
-
-        'lDBManipulate.UpdateDataSet(lDs,)
+            lDBManipulate.UpdateDataSet("TblRecloserFunction", mDs)
+        Catch ex As Exception
+            ShowError(mSaveErrorMsg)
+            Me.mSaveErrorMsg = "خطا در ثبت اطلاعات"
+        End Try
     End Sub
     Private Sub prepareTimes()
+        Select Case False
+            Case txtReadDate.IsOK
+                mSaveErrorMsg = "خطا در ورود تاريخ "
+                txtReadDate.Focus()
+                Throw New Exception()
+            Case txtReadTime.IsOK
+                mSaveErrorMsg = "خطا در ورود زمان "
+                txtReadTime.Focus()
+                Throw New Exception()
+        End Select
+
+        Dim lServerDT As CTimeInfo = GetServerTimeInfo()
+
         mInputDT = New DTContainer
         txtReadDate.InsertTime(txtReadTime)
         mInputDT.ShamsiDate = txtReadDate.Text
         mInputDT.MiladiDate = txtReadDate.MiladiDT
         mInputDT.Time = txtReadTime.Text
 
-        Dim lServerDT As CTimeInfo = GetServerTimeInfo()
+        mEntryDT = New DTContainer
         mEntryDT = New DTContainer
         mEntryDT.ShamsiDate = lServerDT.ShamsiDate
         mEntryDT.MiladiDate = lServerDT.MiladiDate
