@@ -4,7 +4,6 @@ select * from Tbl_MPCloserType
 
 select * from Tbl_MPFeederKey
 
-
 select * from Tbl_RecloserAction
 
 select * from Tbl_Area
@@ -28,3 +27,6 @@ inner join Tbl_MPFeeder f on f.MPFeederId = k.MPFeederId
 inner join Tbl_MPPost p on p.MPPostId = f.MPPostId
 inner join Tbl_Area a on a.AreaId = p.AreaId
 inner join Tbl_MPCloserType t on t.MPCloserTypeId = k.MPCloserTypeId
+
+
+select * from TblRecloserFunction
