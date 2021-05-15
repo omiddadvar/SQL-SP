@@ -22,11 +22,22 @@ select * from TblSpec where SpecTypeId in (107,108)
 select * from TblRecloserFunction
 
 
-select a.Area ,p.MPPostName ,f.MPFeederName , t.MPCloserType , k.*   from Tbl_MPFeederKey k
+select a.AreaId, a.Area ,p.MPPostId ,p.MPPostName ,f.MPFeederId , f.MPFeederName ,
+ t.MPCloserTypeId , t.MPCloserType , k.MPFeederKeyId , k.KeyName
+   from Tbl_MPFeederKey k
 inner join Tbl_MPFeeder f on f.MPFeederId = k.MPFeederId
 inner join Tbl_MPPost p on p.MPPostId = f.MPPostId
 inner join Tbl_Area a on a.AreaId = p.AreaId
 inner join Tbl_MPCloserType t on t.MPCloserTypeId = k.MPCloserTypeId
+where MPFeederKeyId = 99000000000003
 
 
-select * from TblRecloserFunction
+select * from TblRecloserFunction 
+
+
+
+SELECT *
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'TblRecloserFunction'
+--ORDER BY COLUMN_NAME
+ORDER BY ORDINAL_POSITION

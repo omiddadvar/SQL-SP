@@ -49,6 +49,8 @@ Partial Class frmRecloserFunction
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cboRecloserModel = New Bargh_Common.ComboBoxPersian()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.btnReadDate = New Bargh_Common.DateButton()
+        Me.txtReadTime = New Bargh_Common.mdlPersianMaskedEditor.TimeMaskedEditor()
         Me.SuspendLayout()
         '
         'Label2
@@ -394,11 +396,41 @@ Partial Class frmRecloserFunction
         Me.Label7.TabIndex = 61
         Me.Label7.Text = "مدل ريکلوزر"
         '
+        'btnReadDate
+        '
+        Me.btnReadDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnReadDate.Location = New System.Drawing.Point(189, 326)
+        Me.btnReadDate.Name = "btnReadDate"
+        Me.btnReadDate.Size = New System.Drawing.Size(24, 22)
+        Me.btnReadDate.TabIndex = 62
+        Me.btnReadDate.Text = "..."
+        '
+        'txtReadTime
+        '
+        Me.txtReadTime.BackColor = System.Drawing.SystemColors.Window
+        Me.txtReadTime.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtReadTime.IsShadow = False
+        Me.txtReadTime.IsShowCurrentTime = False
+        Me.txtReadTime.Location = New System.Drawing.Point(95, 328)
+        Me.txtReadTime.MaxLength = 5
+        Me.txtReadTime.MiladiDT = Nothing
+        Me.txtReadTime.Name = "txtReadTime"
+        Me.txtReadTime.ReadOnly = True
+        Me.txtReadTime.ReadOnlyMaskedEdit = False
+        Me.txtReadTime.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtReadTime.ShadowColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.txtReadTime.Size = New System.Drawing.Size(40, 20)
+        Me.txtReadTime.TabIndex = 63
+        Me.txtReadTime.Text = "__:__"
+        Me.txtReadTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'frmRecloserFunction
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(407, 497)
+        Me.Controls.Add(Me.txtReadTime)
+        Me.Controls.Add(Me.btnReadDate)
         Me.Controls.Add(Me.cboRecloserModel)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.cboRecloserType)
@@ -458,4 +490,6 @@ Partial Class frmRecloserFunction
     Friend WithEvents Label6 As Label
     Friend WithEvents cboRecloserModel As ComboBoxPersian
     Friend WithEvents Label7 As Label
+    Friend WithEvents btnReadDate As DateButton
+    Friend txtReadTime As TimeMaskedEditor
 End Class

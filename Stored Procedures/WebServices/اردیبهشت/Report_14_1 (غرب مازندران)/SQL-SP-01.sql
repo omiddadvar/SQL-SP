@@ -1,6 +1,6 @@
 -- > Create StoredProcedure
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spGMaz_Report_14_1]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-  DROP PROCEDURE [dbo].[spName]
+  DROP PROCEDURE [dbo].[spGMaz_Report_14_1]
 GO
 
 CREATE PROCEDURE [dbo].[spGMaz_Report_14_1] 
