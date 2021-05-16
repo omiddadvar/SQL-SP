@@ -25,7 +25,7 @@ Public Class frmRecloserFunction
             fillRow()
         Catch ex As Exception
             ShowError(ex)
-            Me.Dispose()
+            Me.Close()
         End Try
     End Sub
     Private Sub cboArea_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboArea.SelectedIndexChanged
@@ -62,7 +62,7 @@ Public Class frmRecloserFunction
         mRecloserModelId = cboRecloserModel.SelectedValue
     End Sub
     Private Sub BttnReturn_Click(sender As Object, e As EventArgs) Handles BttnReturn.Click
-        Me.Dispose()
+        Me.Close()
     End Sub
 
     Private Sub ButtonSave_Click(sender As Object, e As EventArgs) Handles ButtonSave.Click
@@ -113,6 +113,7 @@ Public Class frmRecloserFunction
         Me.cboRecloser.SelectedIndex = -1
     End Sub
     Private Sub loadAddressData()
+        Me.txtBoxAddress.Text = ""
         Dim lDataRow As DataRow() = mDs.Tables("Tbl_MPFeederKey").Select("MPFeederKeyId = " + mRecloserId.ToString)
         If lDataRow.Length > 0 AndAlso Not IsDBNull(lDataRow(0).Item("Address")) Then
             txtBoxAddress.Text = lDataRow(0).Item("Address")
@@ -169,6 +170,7 @@ Public Class frmRecloserFunction
             Exit Sub
         End If
         Dim lLoadData As DataRow = mDs.Tables("TblLoadCache").Rows(0)
+
         cboArea.SelectedValue = lLoadData("AreaId")
         cboArea_SelectedIndexChanged(cboArea, EventArgs.Empty)
         cboMPPost.SelectedValue = lLoadData("MPPostId")
@@ -190,42 +192,36 @@ Public Class frmRecloserFunction
     Private Sub save()
         Try
             Dim lDBManipulate As New frmUpdateDataSetBT
-
-            prepareTimes()
+            If Not isSaveOk() Then
+                Throw New Exception()
+            End If
             'mDataRow.MPFeederId = ""   ===> this can be also done!
             mDataRow("MPFeederId") = cboMPFeeder.SelectedValue
             mDataRow("MPFeederKeyId") = cboRecloser.SelectedValue
-            mDataRow("spcRecloserTypeId") = cboRecloserType.SelectedValue
-            mDataRow("spcRecloserModelId") = cboRecloserModel.SelectedValue
+            mDataRow("spcRecloserTypeId") = If(cboRecloserType.SelectedValue, DBNull.Value)
+            mDataRow("spcRecloserModelId") = If(cboRecloserModel.SelectedValue, DBNull.Value)
             mDataRow("ReadDT") = mInputDT.MiladiDate
             mDataRow("ReadDatePersian") = mInputDT.ShamsiDate
             mDataRow("ReadTime") = mInputDT.Time
-            mDataRow("RestartCounterCount") = Val(txtRestartNumber.Text)
-            mDataRow("TripCounterCount") = Val(txtTripNumber.Text)
-            mDataRow("FaultCounterCount") = Val(txtFaultNumber.Text)
+            mDataRow("RestartCounterCount") = If(txtRestartNumber.Text.Length > 0, Val(txtRestartNumber.Text), 0)
+            mDataRow("TripCounterCount") = If(txtTripNumber.Text.Length > 0, Val(txtTripNumber.Text), 0)
+            mDataRow("FaultCounterCount") = If(txtFaultNumber.Text.Length > 0, Val(txtFaultNumber.Text), 0)
             mDataRow("DataEntryDT") = mEntryDT.MiladiDate
             mDataRow("DataEntryDatePersian") = mEntryDT.ShamsiDate
             mDataRow("DataEntryTime") = mEntryDT.Time
             mDataRow("AreaUserId") = WorkingUserId
 
-            lDBManipulate.UpdateDataSet("TblRecloserFunction", mDs)
+            If lDBManipulate.UpdateDataSet("TblRecloserFunction", mDs) Then
+                ShowInfo("ثبت با موفقیت انجام شد.")
+                Me.DialogResult = DialogResult.OK
+                Me.Close()
+            End If
         Catch ex As Exception
             ShowError(mSaveErrorMsg)
             Me.mSaveErrorMsg = "خطا در ثبت اطلاعات"
         End Try
     End Sub
     Private Sub prepareTimes()
-        Select Case False
-            Case txtReadDate.IsOK
-                mSaveErrorMsg = "خطا در ورود تاريخ "
-                txtReadDate.Focus()
-                Throw New Exception()
-            Case txtReadTime.IsOK
-                mSaveErrorMsg = "خطا در ورود زمان "
-                txtReadTime.Focus()
-                Throw New Exception()
-        End Select
-
         Dim lServerDT As CTimeInfo = GetServerTimeInfo()
 
         mInputDT = New DTContainer
@@ -235,11 +231,39 @@ Public Class frmRecloserFunction
         mInputDT.Time = txtReadTime.Text
 
         mEntryDT = New DTContainer
-        mEntryDT = New DTContainer
         mEntryDT.ShamsiDate = lServerDT.ShamsiDate
         mEntryDT.MiladiDate = lServerDT.MiladiDate
         mEntryDT.Time = lServerDT.HourMin
     End Sub
+
+    Private Function isSaveOk() As Boolean
+        Dim returnVal As Boolean = True
+        If cboRecloser.SelectedIndex < 0 Then
+            cboArea.Focus()
+            cboArea.SelectedIndex = -1
+            cboMPPost.SelectedIndex = -1
+            cboMPFeeder.SelectedIndex = -1
+            cboKeyType.SelectedIndex = -1
+            mSaveErrorMsg += vbCrLf + "• " + "ریکلوزر"
+            returnVal = False
+        End If
+        If Not txtReadDate.IsOK Then
+            mSaveErrorMsg += vbCrLf + "• " + "تاريخ"
+            returnVal = False
+        End If
+        If Not txtReadTime.IsOK Then
+            mSaveErrorMsg += vbCrLf + "• " + "زمان"
+            returnVal = False
+        End If
+
+        prepareTimes()
+
+        If mInputDT.MiladiDate > mEntryDT.MiladiDate Then
+            mSaveErrorMsg += vbCrLf + "• " + "تاریخ و زمان"
+            returnVal = False
+        End If
+        Return returnVal
+    End Function
 End Class
 
 Public Structure DTContainer

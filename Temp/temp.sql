@@ -33,11 +33,20 @@ where MPFeederKeyId = 99000000000003
 
 
 select * from TblRecloserFunction 
+Tbl_ErjaPart
 
-
-
+exec sp_help TblRecloserFunction
+go
+exec sp_columns TblRecloserFunction
+go
 SELECT *
 FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = 'TblRecloserFunction'
 --ORDER BY COLUMN_NAME
 ORDER BY ORDINAL_POSITION
+
+select * from ViewLPPostLoad
+
+SELECT rf.*,f.MPFeederName, k.KeyName From TblRecloserFunction rf
+INNER JOIN tbl_MPfeeder f ON f.MPFeederId = rf.MPFeederId
+INNER JOIN Tbl_MPFeederKey k ON k.MPFeederKeyId = rf.MPFeederKeyId

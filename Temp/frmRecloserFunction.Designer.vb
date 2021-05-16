@@ -52,6 +52,7 @@ Partial Class frmRecloserFunction
         Me.btnReadDate = New Bargh_Common.DateButton()
         Me.txtReadTime = New Bargh_Common.mdlPersianMaskedEditor.TimeMaskedEditor()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label2
@@ -102,6 +103,7 @@ Partial Class frmRecloserFunction
         Me.cboMPPost.IsReadOnly = False
         Me.cboMPPost.Location = New System.Drawing.Point(12, 58)
         Me.cboMPPost.Name = "cboMPPost"
+        Me.cboMPPost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.cboMPPost.Size = New System.Drawing.Size(291, 21)
         Me.cboMPPost.TabIndex = 2
         Me.cboMPPost.ValueMember = "MPPostId"
@@ -115,6 +117,7 @@ Partial Class frmRecloserFunction
         Me.cboArea.IsReadOnly = False
         Me.cboArea.Location = New System.Drawing.Point(12, 30)
         Me.cboArea.Name = "cboArea"
+        Me.cboArea.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.cboArea.Size = New System.Drawing.Size(291, 21)
         Me.cboArea.TabIndex = 1
         Me.cboArea.ValueMember = "AreaId"
@@ -128,6 +131,7 @@ Partial Class frmRecloserFunction
         Me.cboMPFeeder.IsReadOnly = False
         Me.cboMPFeeder.Location = New System.Drawing.Point(12, 87)
         Me.cboMPFeeder.Name = "cboMPFeeder"
+        Me.cboMPFeeder.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.cboMPFeeder.Size = New System.Drawing.Size(291, 21)
         Me.cboMPFeeder.TabIndex = 3
         Me.cboMPFeeder.ValueMember = "MPFeederId"
@@ -140,6 +144,7 @@ Partial Class frmRecloserFunction
         Me.txtBoxAddress.Multiline = True
         Me.txtBoxAddress.Name = "txtBoxAddress"
         Me.txtBoxAddress.ReadOnly = True
+        Me.txtBoxAddress.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtBoxAddress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtBoxAddress.Size = New System.Drawing.Size(291, 69)
         Me.txtBoxAddress.TabIndex = 8
@@ -302,6 +307,7 @@ Partial Class frmRecloserFunction
         Me.cboKeyType.IsReadOnly = False
         Me.cboKeyType.Location = New System.Drawing.Point(10, 118)
         Me.cboKeyType.Name = "cboKeyType"
+        Me.cboKeyType.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.cboKeyType.Size = New System.Drawing.Size(291, 21)
         Me.cboKeyType.TabIndex = 4
         Me.cboKeyType.ValueMember = "MPCloserTypeId"
@@ -328,6 +334,7 @@ Partial Class frmRecloserFunction
         Me.cboRecloser.IsReadOnly = False
         Me.cboRecloser.Location = New System.Drawing.Point(10, 149)
         Me.cboRecloser.Name = "cboRecloser"
+        Me.cboRecloser.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.cboRecloser.Size = New System.Drawing.Size(291, 21)
         Me.cboRecloser.TabIndex = 5
         Me.cboRecloser.ValueMember = "MPFeederKeyId"
@@ -354,6 +361,7 @@ Partial Class frmRecloserFunction
         Me.cboRecloserType.IsReadOnly = False
         Me.cboRecloserType.Location = New System.Drawing.Point(10, 181)
         Me.cboRecloserType.Name = "cboRecloserType"
+        Me.cboRecloserType.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.cboRecloserType.Size = New System.Drawing.Size(291, 21)
         Me.cboRecloserType.TabIndex = 6
         Me.cboRecloserType.ValueMember = "SpecId"
@@ -380,6 +388,7 @@ Partial Class frmRecloserFunction
         Me.cboRecloserModel.IsReadOnly = False
         Me.cboRecloserModel.Location = New System.Drawing.Point(10, 213)
         Me.cboRecloserModel.Name = "cboRecloserModel"
+        Me.cboRecloserModel.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.cboRecloserModel.Size = New System.Drawing.Size(291, 21)
         Me.cboRecloserModel.TabIndex = 7
         Me.cboRecloserModel.ValueMember = "SpecId"
@@ -427,7 +436,6 @@ Partial Class frmRecloserFunction
         '
         'Label13
         '
-        Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Label13.Font = New System.Drawing.Font("Mitra", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
@@ -438,11 +446,24 @@ Partial Class frmRecloserFunction
         Me.Label13.TabIndex = 64
         Me.Label13.Text = "زمان قرائت"
         '
+        'Label14
+        '
+        Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label14.Font = New System.Drawing.Font("Mitra", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.Label14.ForeColor = System.Drawing.Color.Red
+        Me.Label14.Location = New System.Drawing.Point(312, 261)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(82, 52)
+        Me.Label14.TabIndex = 65
+        Me.Label14.Text = "آدرس ريکلوزر با انتخاب ريکلوزر به صورت خودکار پر خواهد شد"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'frmRecloserFunction
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(407, 497)
+        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.txtReadTime)
         Me.Controls.Add(Me.btnReadDate)
@@ -473,6 +494,8 @@ Partial Class frmRecloserFunction
         Me.Controls.Add(Me.cboMPPost)
         Me.Controls.Add(Me.cboArea)
         Me.Name = "frmRecloserFunction"
+        Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "ثبت کارکرد ریکلوزر"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -508,4 +531,5 @@ Partial Class frmRecloserFunction
     Friend WithEvents btnReadDate As DateButton
     Friend txtReadTime As TimeMaskedEditor
     Friend WithEvents Label13 As Label
+    Friend WithEvents Label14 As Label
 End Class
