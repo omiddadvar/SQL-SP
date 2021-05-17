@@ -146,7 +146,7 @@ Partial Class frmRecloserFunction
         Me.txtBoxAddress.ReadOnly = True
         Me.txtBoxAddress.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtBoxAddress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtBoxAddress.Size = New System.Drawing.Size(291, 69)
+        Me.txtBoxAddress.Size = New System.Drawing.Size(291, 94)
         Me.txtBoxAddress.TabIndex = 8
         '
         'Label8
@@ -168,7 +168,7 @@ Partial Class frmRecloserFunction
         Me.Label9.AutoSize = True
         Me.Label9.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Label9.Font = New System.Drawing.Font("Mitra", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Label9.Location = New System.Drawing.Point(309, 326)
+        Me.Label9.Location = New System.Drawing.Point(309, 353)
         Me.Label9.Name = "Label9"
         Me.Label9.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label9.Size = New System.Drawing.Size(56, 18)
@@ -184,7 +184,7 @@ Partial Class frmRecloserFunction
         Me.txtReadDate.IntegerDate = 0
         Me.txtReadDate.IsShadow = False
         Me.txtReadDate.IsShowCurrentDate = False
-        Me.txtReadDate.Location = New System.Drawing.Point(219, 325)
+        Me.txtReadDate.Location = New System.Drawing.Point(219, 352)
         Me.txtReadDate.MaxLength = 10
         Me.txtReadDate.MiladiDT = CType(resources.GetObject("txtReadDate.MiladiDT"), Object)
         Me.txtReadDate.Name = "txtReadDate"
@@ -203,7 +203,7 @@ Partial Class frmRecloserFunction
         '
         Me.txtRestartNumber.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtRestartNumber.Location = New System.Drawing.Point(218, 355)
+        Me.txtRestartNumber.Location = New System.Drawing.Point(218, 382)
         Me.txtRestartNumber.Name = "txtRestartNumber"
         Me.txtRestartNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtRestartNumber.Size = New System.Drawing.Size(84, 20)
@@ -216,7 +216,7 @@ Partial Class frmRecloserFunction
         Me.Label10.AutoSize = True
         Me.Label10.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Label10.Font = New System.Drawing.Font("Mitra", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label10.Location = New System.Drawing.Point(308, 355)
+        Me.Label10.Location = New System.Drawing.Point(308, 382)
         Me.Label10.Name = "Label10"
         Me.Label10.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label10.Size = New System.Drawing.Size(103, 18)
@@ -227,7 +227,7 @@ Partial Class frmRecloserFunction
         '
         Me.txtTripNumber.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtTripNumber.Location = New System.Drawing.Point(218, 384)
+        Me.txtTripNumber.Location = New System.Drawing.Point(218, 411)
         Me.txtTripNumber.Name = "txtTripNumber"
         Me.txtTripNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtTripNumber.Size = New System.Drawing.Size(84, 20)
@@ -240,7 +240,7 @@ Partial Class frmRecloserFunction
         Me.Label11.AutoSize = True
         Me.Label11.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Label11.Font = New System.Drawing.Font("Mitra", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label11.Location = New System.Drawing.Point(308, 384)
+        Me.Label11.Location = New System.Drawing.Point(308, 411)
         Me.Label11.Name = "Label11"
         Me.Label11.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label11.Size = New System.Drawing.Size(91, 18)
@@ -251,7 +251,7 @@ Partial Class frmRecloserFunction
         '
         Me.txtFaultNumber.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFaultNumber.Location = New System.Drawing.Point(218, 413)
+        Me.txtFaultNumber.Location = New System.Drawing.Point(218, 440)
         Me.txtFaultNumber.Name = "txtFaultNumber"
         Me.txtFaultNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtFaultNumber.Size = New System.Drawing.Size(84, 20)
@@ -264,7 +264,7 @@ Partial Class frmRecloserFunction
         Me.Label12.AutoSize = True
         Me.Label12.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Label12.Font = New System.Drawing.Font("Mitra", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label12.Location = New System.Drawing.Point(307, 413)
+        Me.Label12.Location = New System.Drawing.Point(307, 440)
         Me.Label12.Name = "Label12"
         Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label12.Size = New System.Drawing.Size(95, 18)
@@ -278,7 +278,7 @@ Partial Class frmRecloserFunction
         Me.BttnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BttnReturn.Image = CType(resources.GetObject("BttnReturn.Image"), System.Drawing.Image)
         Me.BttnReturn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BttnReturn.Location = New System.Drawing.Point(7, 462)
+        Me.BttnReturn.Location = New System.Drawing.Point(7, 475)
         Me.BttnReturn.Name = "BttnReturn"
         Me.BttnReturn.Size = New System.Drawing.Size(75, 23)
         Me.BttnReturn.TabIndex = 15
@@ -291,7 +291,7 @@ Partial Class frmRecloserFunction
         Me.ButtonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ButtonSave.Image = CType(resources.GetObject("ButtonSave.Image"), System.Drawing.Image)
         Me.ButtonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ButtonSave.Location = New System.Drawing.Point(324, 462)
+        Me.ButtonSave.Location = New System.Drawing.Point(324, 475)
         Me.ButtonSave.Name = "ButtonSave"
         Me.ButtonSave.Size = New System.Drawing.Size(75, 23)
         Me.ButtonSave.TabIndex = 14
@@ -409,7 +409,7 @@ Partial Class frmRecloserFunction
         'btnReadDate
         '
         Me.btnReadDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnReadDate.Location = New System.Drawing.Point(189, 326)
+        Me.btnReadDate.Location = New System.Drawing.Point(189, 353)
         Me.btnReadDate.Name = "btnReadDate"
         Me.btnReadDate.Size = New System.Drawing.Size(24, 22)
         Me.btnReadDate.TabIndex = 62
@@ -421,7 +421,7 @@ Partial Class frmRecloserFunction
         Me.txtReadTime.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtReadTime.IsShadow = False
         Me.txtReadTime.IsShowCurrentTime = False
-        Me.txtReadTime.Location = New System.Drawing.Point(59, 325)
+        Me.txtReadTime.Location = New System.Drawing.Point(59, 352)
         Me.txtReadTime.MaxLength = 5
         Me.txtReadTime.MiladiDT = Nothing
         Me.txtReadTime.Name = "txtReadTime"
@@ -439,7 +439,7 @@ Partial Class frmRecloserFunction
         Me.Label13.AutoSize = True
         Me.Label13.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Label13.Font = New System.Drawing.Font("Mitra", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Label13.Location = New System.Drawing.Point(118, 325)
+        Me.Label13.Location = New System.Drawing.Point(118, 352)
         Me.Label13.Name = "Label13"
         Me.Label13.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label13.Size = New System.Drawing.Size(54, 18)
@@ -453,7 +453,7 @@ Partial Class frmRecloserFunction
         Me.Label14.ForeColor = System.Drawing.Color.Red
         Me.Label14.Location = New System.Drawing.Point(312, 261)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(82, 52)
+        Me.Label14.Size = New System.Drawing.Size(82, 76)
         Me.Label14.TabIndex = 65
         Me.Label14.Text = "آدرس ريکلوزر با انتخاب ريکلوزر به صورت خودکار پر خواهد شد"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -462,7 +462,7 @@ Partial Class frmRecloserFunction
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(407, 497)
+        Me.ClientSize = New System.Drawing.Size(407, 510)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.txtReadTime)

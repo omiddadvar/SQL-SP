@@ -9,12 +9,14 @@ Public Class frmRecloserFunction
     Private mEntryDT As DTContainer
     Private mInputDT As DTContainer
     Private mSaveErrorMsg As String
+    Private mMPFeederKeyId As Long
     Private mAreaId, mMPPostId, mMPFeederId, mMPCloserTypeId, mRecloserId, mRecloserTypeId, mRecloserModelId As Int64
     Private mRelatedTables As String() = New String() {"Tbl_Area", "Tbl_MPPost", "Tbl_MPFeeder", "Tbl_MPFeederKey"}
-    Public Sub New(aRecloserFunctionId As Integer)
+    Public Sub New(aRecloserFunctionId As Integer, Optional aMPFeederKeyId As Long = -1)
         MyBase.New()
         InitializeComponent()
         Me.mRecloserFunctionId = aRecloserFunctionId
+        Me.mMPFeederKeyId = aMPFeederKeyId
         Me.mSaveErrorMsg = "خطا در ثبت اطلاعات"
     End Sub
     Private Sub frmRecloserFunction_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -22,7 +24,7 @@ Public Class frmRecloserFunction
             loadRecloserTypeData()
             loadRecloserModelData()
             loadAreaData()
-            fillRow()
+            loadData()
         Catch ex As Exception
             ShowError(ex)
             Me.Close()
@@ -143,7 +145,7 @@ Public Class frmRecloserFunction
             ClearTable(mDs, "Tbl_MPFeederKey")
         End If
     End Sub
-    Private Sub fillRow()
+    Private Sub loadData()
         Dim lSQL As String
         If mRecloserFunctionId < 0 Then
             lSQL = "SELECT TOP 0 * FROM TblRecloserFunction"
@@ -235,7 +237,6 @@ Public Class frmRecloserFunction
         mEntryDT.MiladiDate = lServerDT.MiladiDate
         mEntryDT.Time = lServerDT.HourMin
     End Sub
-
     Private Function isSaveOk() As Boolean
         Dim returnVal As Boolean = True
         If cboRecloser.SelectedIndex < 0 Then
