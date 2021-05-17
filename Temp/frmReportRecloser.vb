@@ -5,6 +5,7 @@ Public Class frmReportRecloser
     Private mDs As New DataSet()
     Private mWhere As String
     Private mErrorMessage As String
+    Private mFilterInfo As String
     Public Sub New()
 
         ' This call is required by the designer.
@@ -59,6 +60,7 @@ Public Class frmReportRecloser
     End Sub
     Private Sub AssignFilters(ByRef aSQL As String)
         mWhere = ""
+        mFilterInfo = ""
         Dim lFilterFlag As Boolean = False
         Dim lAreaIDs As String = cmbArea.GetDataList()
         Dim lPostIDs As String = cmbMPPost.GetDataList()
@@ -67,6 +69,7 @@ Public Class frmReportRecloser
         Dim lFaultNumberTxt As String = txtFaultNumber.Text
         If lAreaIDs.Length > 0 Then
             AddFilter("A.AreaId", lAreaIDs, aIsRange:=True)
+            mFilterInfo = " - نواحی " & cmbArea.GetDataTextList()
             lFilterFlag = True
         End If
         If lPostIDs.Length > 0 Then
@@ -83,14 +86,17 @@ Public Class frmReportRecloser
         End If
         If lFaultNumberTxt.Length > 0 Then
             AddFilter("RF.FaultCounterCount", Val(lFaultNumberTxt), aOperation:=">")
+            mFilterInfo = " - حداقل تعداد قطعی Fault " & Val(lFaultNumberTxt)
             lFilterFlag = True
         End If
         If txtFromDate.Text <> "____/__/__" Then
             AddFilter("RF.ReadDatePersian", "'" & txtFromDate.Text & "'", aOperation:=">")
+            mFilterInfo &= " - از تاريخ " & txtFromDate.Text
             lFilterFlag = True
         End If
         If txtToDate.Text <> "____/__/__" Then
             AddFilter("RF.ReadDatePersian", "'" & txtToDate.Text & "'", aOperation:="<")
+            mFilterInfo &= " - تا تاريخ " & txtToDate.Text
             lFilterFlag = True
         End If
         mWhere &= " ORDER BY RF.FaultCounterCount DESC"
@@ -141,10 +147,22 @@ Public Class frmReportRecloser
             End If
             AssignFilters(lSQL)
             BindingTable(lSQL, mCnn, mDs, "Tbl_Report", aIsClearTable:=True)
+            MakeReport()
             Dim p As Int16 = 10
         Catch ex As Exception
             ShowError(mErrorMessage + vbCrLf + vbCrLf + vbCrLf + ex.Message)
         End Try
+    End Sub
+    Private Sub MakeReport()
+        Dim Desktop As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        If Not mDs.Tables.Contains("Tbl_Report") Then
+            Exit Sub
+        End If
+        mDs.WriteXml(Desktop & "/Report_Recloser_Function.xml", XmlWriteMode.WriteSchema)
+        Dim lDlg As New frmReportPreviewStim("", Desktop & "\Report_Recloser_Function.mrt", "گزارش آماري عملکرد ريکلوزرهای فشار متوسط", "گزارش عملکرد ريکلوزرهای فشار متوسط", , mFilterInfo, , "عملکرد ريکلوزر", , , mDs)
+        'mDs.WriteXml(ReportsXMLPath & "Report_14_4.xml", XmlWriteMode.WriteSchema)
+        'Dim lDlg As New frmReportPreviewStim("", "Reports\Report_14_4.mrt", "گزارش آماري عملکرد ريکلوزرهای فشار متوسط", "گزارش عملکرد ريکلوزرهای فشار متوسط", , mFilterInfo, , , , , mDs)
+        lDlg.Show()
     End Sub
     Private Sub AddFilter(aFilter As String, aValue As String, Optional aIsRange As Boolean = False)
         mWhere &= " AND " & aFilter

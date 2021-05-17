@@ -1,0 +1,429 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Tbl_Area">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="AreaId" type="xs:int" minOccurs="0" />
+                <xs:element name="Area" type="xs:string" minOccurs="0" />
+                <xs:element name="CityId" type="xs:int" minOccurs="0" />
+                <xs:element name="HostIP" type="xs:string" minOccurs="0" />
+                <xs:element name="ParentAreaId" type="xs:int" minOccurs="0" />
+                <xs:element name="IsCenter" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsSetad" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsHCLS3000" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Server121Id" type="xs:int" minOccurs="0" />
+                <xs:element name="LastUpdateDT" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="LSUserName" type="xs:string" minOccurs="0" />
+                <xs:element name="LSPassword" type="xs:string" minOccurs="0" />
+                <xs:element name="ServerIP" type="xs:string" minOccurs="0" />
+                <xs:element name="IsAllowParentArea" type="xs:boolean" minOccurs="0" />
+                <xs:element name="AreaCode" type="xs:string" minOccurs="0" />
+                <xs:element name="IsSpecialCenter" type="xs:boolean" minOccurs="0" />
+                <xs:element name="TemperatureId" type="xs:int" minOccurs="0" />
+                <xs:element name="AltitudeId" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Tbl_RecloserModel">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SpecId" type="xs:int" minOccurs="0" />
+                <xs:element name="SpecTypeId" type="xs:int" minOccurs="0" />
+                <xs:element name="SpecValue" type="xs:string" minOccurs="0" />
+                <xs:element name="IsActive" type="xs:boolean" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Tbl_Report">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Area" type="xs:string" minOccurs="0" />
+                <xs:element name="MPPostName" type="xs:string" minOccurs="0" />
+                <xs:element name="MPFeederName" type="xs:string" minOccurs="0" />
+                <xs:element name="Recloser" type="xs:string" minOccurs="0" />
+                <xs:element name="Address" type="xs:string" minOccurs="0" />
+                <xs:element name="RecloserModel" type="xs:string" minOccurs="0" />
+                <xs:element name="RecloserType" type="xs:string" minOccurs="0" />
+                <xs:element name="ReadDate" type="xs:string" minOccurs="0" />
+                <xs:element name="ReadTime" type="xs:string" minOccurs="0" />
+                <xs:element name="RestartCounterCount" type="xs:int" minOccurs="0" />
+                <xs:element name="TripCounterCount" type="xs:int" minOccurs="0" />
+                <xs:element name="FaultCounterCount" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Tbl_Area>
+    <AreaId>1</AreaId>
+    <Area>121 - مركز</Area>
+    <CityId>1</CityId>
+    <HostIP>10.10.10.13</HostIP>
+    <IsCenter>true</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>1</Server121Id>
+    <LastUpdateDT>2021-05-17T16:51:34.56+04:30</LastUpdateDT>
+    <LSUserName>abedi</LSUserName>
+    <LSPassword>123</LSPassword>
+    <ServerIP>10.118.96.15</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>sd</AreaCode>
+    <IsSpecialCenter>true</IsSpecialCenter>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>2</AreaId>
+    <Area>امور شرق اراك</Area>
+    <CityId>1</CityId>
+    <HostIP>10.118.129.15</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>1</Server121Id>
+    <LastUpdateDT>2021-05-17T16:51:34.56+04:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.118.129.15</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>12</AreaCode>
+    <IsSpecialCenter>false</IsSpecialCenter>
+    <TemperatureId>5</TemperatureId>
+    <AltitudeId>8</AltitudeId>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>3</AreaId>
+    <Area>امور غرب اراك</Area>
+    <CityId>1</CityId>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>1</Server121Id>
+    <LastUpdateDT>1999-06-15T12:27:49.21+04:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.118.133.143</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>11</AreaCode>
+    <IsSpecialCenter>false</IsSpecialCenter>
+    <TemperatureId>2</TemperatureId>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>4</AreaId>
+    <Area>ساوه</Area>
+    <CityId>3</CityId>
+    <HostIP>10.118.39.10</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>2</Server121Id>
+    <LastUpdateDT>2019-07-29T12:58:13.203+04:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.118.39.10</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>21</AreaCode>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>5</AreaId>
+    <Area>خمين</Area>
+    <CityId>4</CityId>
+    <HostIP>10.118.36.10</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>6</Server121Id>
+    <LastUpdateDT>2014-03-04T15:53:55.78+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.118.36.10</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>31</AreaCode>
+    <IsSpecialCenter>false</IsSpecialCenter>
+    <TemperatureId>5</TemperatureId>
+    <AltitudeId>6</AltitudeId>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>6</AreaId>
+    <Area>شازند</Area>
+    <CityId>5</CityId>
+    <HostIP>10.118.132.11</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>4</Server121Id>
+    <LastUpdateDT>2014-03-04T15:54:13.263+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.118.132.11</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>41</AreaCode>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>7</AreaId>
+    <Area>تفرش</Area>
+    <CityId>2</CityId>
+    <HostIP>10.118.132.143</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>9</Server121Id>
+    <LastUpdateDT>2014-03-04T15:53:51.607+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.118.132.143</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>51</AreaCode>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>8</AreaId>
+    <Area>دليجان</Area>
+    <CityId>6</CityId>
+    <HostIP>192.168.10.240</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>8</Server121Id>
+    <LastUpdateDT>2014-03-04T15:54:06.183+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>192.168.10.240</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>33</AreaCode>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>9</AreaId>
+    <Area>محلات</Area>
+    <CityId>7</CityId>
+    <HostIP>192.168.9.240</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>7</Server121Id>
+    <LastUpdateDT>2014-03-04T15:54:02.92+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>192.168.9.1</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>32</AreaCode>
+    <IsSpecialCenter>false</IsSpecialCenter>
+    <TemperatureId>8</TemperatureId>
+    <AltitudeId>8</AltitudeId>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>10</AreaId>
+    <Area>آشتيان</Area>
+    <CityId>8</CityId>
+    <HostIP>10.118.42.10</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>13</Server121Id>
+    <LastUpdateDT>2014-03-04T15:54:06.153+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.118.42.10</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>52</AreaCode>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>11</AreaId>
+    <Area>فرمهين</Area>
+    <CityId>9</CityId>
+    <HostIP>10.118.133.143</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>10</Server121Id>
+    <LastUpdateDT>2014-03-04T15:53:45.64+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.118.133.143</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>53</AreaCode>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>12</AreaId>
+    <Area>كميجان</Area>
+    <CityId>10</CityId>
+    <HostIP>192.168.16.240</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>3</Server121Id>
+    <LastUpdateDT>2014-03-04T15:53:45.09+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>192.168.16.240</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>13</AreaCode>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>13</AreaId>
+    <Area>خنداب</Area>
+    <CityId>11</CityId>
+    <HostIP>10.118.44.138</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>11</Server121Id>
+    <LastUpdateDT>2014-03-04T15:53:55.42+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.188.44.138</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>42</AreaCode>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>14</AreaId>
+    <Area>مامونيه</Area>
+    <CityId>12</CityId>
+    <HostIP>192.168.6.240</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>12</Server121Id>
+    <LastUpdateDT>2014-03-04T15:53:47.14+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>192.168.6.240</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>22</AreaCode>
+    <IsSpecialCenter>false</IsSpecialCenter>
+    <TemperatureId>1</TemperatureId>
+    <AltitudeId>1</AltitudeId>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>15</AreaId>
+    <Area>غرق آباد</Area>
+    <CityId>13</CityId>
+    <HostIP>192.168.7.240</HostIP>
+    <IsCenter>false</IsCenter>
+    <IsSetad>false</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>14</Server121Id>
+    <LastUpdateDT>2014-03-04T15:53:58.67+03:30</LastUpdateDT>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>192.168.7.240</ServerIP>
+    <IsAllowParentArea>false</IsAllowParentArea>
+    <AreaCode>23</AreaCode>
+  </Tbl_Area>
+  <Tbl_Area>
+    <AreaId>99</AreaId>
+    <Area>ستاد</Area>
+    <CityId>1</CityId>
+    <HostIP>10.118.128.24</HostIP>
+    <IsCenter>true</IsCenter>
+    <IsSetad>true</IsSetad>
+    <IsHCLS3000>true</IsHCLS3000>
+    <Server121Id>99</Server121Id>
+    <LSUserName>guest</LSUserName>
+    <ServerIP>10.118.128.24</ServerIP>
+    <IsAllowParentArea>true</IsAllowParentArea>
+  </Tbl_Area>
+  <Tbl_RecloserModel>
+    <SpecId>990185697</SpecId>
+    <SpecTypeId>108</SpecTypeId>
+    <SpecValue>pppppp</SpecValue>
+    <IsActive>true</IsActive>
+  </Tbl_RecloserModel>
+  <Tbl_RecloserModel>
+    <SpecId>990185698</SpecId>
+    <SpecTypeId>108</SpecTypeId>
+    <SpecValue>gggggggggggg</SpecValue>
+    <IsActive>true</IsActive>
+  </Tbl_RecloserModel>
+  <Tbl_RecloserModel>
+    <SpecId>990185701</SpecId>
+    <SpecTypeId>108</SpecTypeId>
+    <SpecValue>recloser model</SpecValue>
+    <IsActive>true</IsActive>
+  </Tbl_RecloserModel>
+  <Tbl_Report>
+    <Area>امور غرب اراك</Area>
+    <MPPostName>اراك 3</MPPostName>
+    <MPFeederName>226-</MPFeederName>
+    <Recloser>كليد شماره 2</Recloser>
+    <Address>كوچه بعدي</Address>
+    <RecloserModel>pppppp</RecloserModel>
+    <RecloserType>cccccccccccccc</RecloserType>
+    <ReadDate>1400/02/26</ReadDate>
+    <ReadTime>09:19</ReadTime>
+    <RestartCounterCount>1</RestartCounterCount>
+    <TripCounterCount>2</TripCounterCount>
+    <FaultCounterCount>3</FaultCounterCount>
+  </Tbl_Report>
+  <Tbl_Report>
+    <Area>شازند</Area>
+    <MPPostName>مهاجران</MPPostName>
+    <MPFeederName>03-</MPFeederName>
+    <Recloser>تست اشتراكي</Recloser>
+    <RecloserModel>pppppp</RecloserModel>
+    <RecloserType>cccccccccccccc</RecloserType>
+    <ReadDate>1400/02/26</ReadDate>
+    <ReadTime>09:20</ReadTime>
+    <RestartCounterCount>5</RestartCounterCount>
+    <TripCounterCount>5</TripCounterCount>
+    <FaultCounterCount>66</FaultCounterCount>
+  </Tbl_Report>
+  <Tbl_Report>
+    <Area>امور شرق اراك</Area>
+    <MPPostName>اراك 1</MPPostName>
+    <MPFeederName>102-</MPFeederName>
+    <Recloser>كليد فيدر شماره 1</Recloser>
+    <Address>yht</Address>
+    <RecloserModel>recloser model</RecloserModel>
+    <RecloserType>cccccccccccccc</RecloserType>
+    <ReadDate>1400/02/25</ReadDate>
+    <ReadTime>10:20</ReadTime>
+    <RestartCounterCount>5</RestartCounterCount>
+    <TripCounterCount>0</TripCounterCount>
+    <FaultCounterCount>0</FaultCounterCount>
+  </Tbl_Report>
+  <Tbl_Report>
+    <Area>امور شرق اراك</Area>
+    <MPPostName>اراك 1</MPPostName>
+    <MPFeederName>102-</MPFeederName>
+    <Recloser>كليد شماره 1</Recloser>
+    <RecloserModel>gggggggggggg</RecloserModel>
+    <RecloserType>recloser type</RecloserType>
+    <ReadDate>1400/02/26</ReadDate>
+    <ReadTime>11:20</ReadTime>
+    <RestartCounterCount>1</RestartCounterCount>
+    <TripCounterCount>2</TripCounterCount>
+    <FaultCounterCount>3</FaultCounterCount>
+  </Tbl_Report>
+  <Tbl_Report>
+    <Area>امور شرق اراك</Area>
+    <MPPostName>اراك 1</MPPostName>
+    <MPFeederName>102-</MPFeederName>
+    <Recloser>كليد فيدر شماره 1</Recloser>
+    <Address>yht</Address>
+    <RecloserModel>gggggggggggg</RecloserModel>
+    <RecloserType>recloser type</RecloserType>
+    <ReadDate>1400/04/13</ReadDate>
+    <ReadTime>14:31</ReadTime>
+    <RestartCounterCount>12</RestartCounterCount>
+    <TripCounterCount>8</TripCounterCount>
+    <FaultCounterCount>9</FaultCounterCount>
+  </Tbl_Report>
+  <Tbl_Report>
+    <Area>امور شرق اراك</Area>
+    <MPPostName>اراك 1</MPPostName>
+    <MPFeederName>102-</MPFeederName>
+    <Recloser>فيدر شماره 2</Recloser>
+    <RecloserModel>recloser model</RecloserModel>
+    <RecloserType>cccccccccccccc</RecloserType>
+    <ReadDate>1400/02/26</ReadDate>
+    <ReadTime>12:50</ReadTime>
+    <RestartCounterCount>5</RestartCounterCount>
+    <TripCounterCount>6</TripCounterCount>
+    <FaultCounterCount>0</FaultCounterCount>
+  </Tbl_Report>
+  <Tbl_Report>
+    <Area>امور شرق اراك</Area>
+    <MPPostName>اراك 1</MPPostName>
+    <MPFeederName>102-</MPFeederName>
+    <Recloser>كليد فيدر شماره 1</Recloser>
+    <Address>yht</Address>
+    <RecloserModel>gggggggggggg</RecloserModel>
+    <RecloserType>cccccccccccccc</RecloserType>
+    <ReadDate>1400/02/26</ReadDate>
+    <ReadTime>16:05</ReadTime>
+    <RestartCounterCount>2</RestartCounterCount>
+    <TripCounterCount>3</TripCounterCount>
+    <FaultCounterCount>6</FaultCounterCount>
+  </Tbl_Report>
+</NewDataSet>
