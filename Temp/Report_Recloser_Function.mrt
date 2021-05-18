@@ -139,7 +139,7 @@
             <Text1 Ref="11" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>23.2,0,4.4,1.8</ClientRectangle>
+              <ClientRectangle>23.4,0,4.2,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <Guid>fcfddebd4aeb4635afa6e5303fe26a8d</Guid>
@@ -157,7 +157,7 @@
             <Text2 Ref="12" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>20.8,0,2.4,1.8</ClientRectangle>
+              <ClientRectangle>21,0,2.4,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>0934270ce35349bf9647baeaf45add31</Guid>
@@ -175,7 +175,7 @@
             <Text4 Ref="13" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>18.8,0,2,1.8</ClientRectangle>
+              <ClientRectangle>19,0,2,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>24cedd3d13b84eb68e4c9b08a846e84c</Guid>
@@ -192,8 +192,8 @@
             </Text4>
             <Text5 Ref="14" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
-              <Brush>[198:217:240]</Brush>
-              <ClientRectangle>16.8,0,2,1.8</ClientRectangle>
+              <Brush>[235:241:221]</Brush>
+              <ClientRectangle>17,0,2,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>32cb8ac4506647ed8d2a23f99ec74f10</Guid>
@@ -210,8 +210,8 @@
             </Text5>
             <Text6 Ref="15" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
-              <Brush>[198:217:240]</Brush>
-              <ClientRectangle>14.8,0,2,1.8</ClientRectangle>
+              <Brush>[235:241:221]</Brush>
+              <ClientRectangle>15,0,2,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>42f7afdd94ca4ab4b67e38d88e1a21a4</Guid>
@@ -228,8 +228,8 @@
             </Text6>
             <Text7 Ref="16" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
-              <Brush>[198:217:240]</Brush>
-              <ClientRectangle>12.8,0,2,1.8</ClientRectangle>
+              <Brush>[235:241:221]</Brush>
+              <ClientRectangle>13,0,2,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>db226ae889544f86b86006b5aecb9237</Guid>
@@ -247,7 +247,7 @@
             <Text11 Ref="17" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>8,0,4.8,1.8</ClientRectangle>
+              <ClientRectangle>8.2,0,4.8,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>bfef4d8f0b6b4482abd461538dd99740</Guid>
@@ -265,7 +265,7 @@
             <Text13 Ref="18" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>6.4,0,1.6,1.8</ClientRectangle>
+              <ClientRectangle>6.2,0,2,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>401b5832d1c04e0a83d976a44d5f1505</Guid>
@@ -283,7 +283,7 @@
             <Text14 Ref="19" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>5,0,1.4,1.8</ClientRectangle>
+              <ClientRectangle>4.8,0,1.4,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>be3b08e89b4346ffb8cf2bf33848ace6</Guid>
@@ -300,8 +300,8 @@
             </Text14>
             <Text15 Ref="20" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
-              <Brush>[204:193:217]</Brush>
-              <ClientRectangle>3.4,0,1.6,1.8</ClientRectangle>
+              <Brush>[219:229:241]</Brush>
+              <ClientRectangle>3.2,0,1.6,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>06021f66d4344509ad5628e187e98a6e</Guid>
@@ -318,8 +318,8 @@
             </Text15>
             <Text16 Ref="21" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
-              <Brush>[204:193:217]</Brush>
-              <ClientRectangle>1.8,0,1.6,1.8</ClientRectangle>
+              <Brush>[219:229:241]</Brush>
+              <ClientRectangle>1.6,0,1.6,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>5234cf5cfaf043d984011c8a8886244e</Guid>
@@ -336,8 +336,8 @@
             </Text16>
             <Text17 Ref="22" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
-              <Brush>[204:193:217]</Brush>
-              <ClientRectangle>0,0,1.8,1.8</ClientRectangle>
+              <Brush>[219:229:241]</Brush>
+              <ClientRectangle>0,0,1.6,1.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,10,Bold</Font>
               <Guid>6d2bb2aec05b4f3f990c775f37d3075e</Guid>
@@ -360,14 +360,13 @@
         </PageHeaderBand2>
         <DataBand1 Ref="23" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
-          <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,6,27.7,0.8</ClientRectangle>
           <Components isList="true" count="12">
             <Text3 Ref="24" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>23.2,0,4.4,0.8</ClientRectangle>
+              <ClientRectangle>23.4,0,4.2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -378,6 +377,7 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.Area}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text3>
@@ -385,7 +385,7 @@
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>20.8,0,2.4,0.8</ClientRectangle>
+              <ClientRectangle>21,0,2.4,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -396,13 +396,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.MPPostName}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text12>
             <Text18 Ref="26" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>18.8,0,2,0.8</ClientRectangle>
+              <ClientRectangle>19,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -413,13 +414,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.MPFeederName}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text18>
             <Text19 Ref="27" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>16.8,0,2,0.8</ClientRectangle>
+              <ClientRectangle>17,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -430,13 +432,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.Recloser}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text19>
             <Text20 Ref="28" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>14.8,0,2,0.8</ClientRectangle>
+              <ClientRectangle>15,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -447,13 +450,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.RecloserType}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text20>
             <Text21 Ref="29" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>12.8,0,2,0.8</ClientRectangle>
+              <ClientRectangle>13,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -464,13 +468,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.RecloserModel}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text21>
             <Text22 Ref="30" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>8,0,4.8,0.8</ClientRectangle>
+              <ClientRectangle>8.2,0,4.8,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -481,13 +486,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.Address}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text22>
             <Text23 Ref="31" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>6.4,0,1.6,0.8</ClientRectangle>
+              <ClientRectangle>6.2,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -498,13 +504,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.ReadDate}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text23>
             <Text24 Ref="32" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>5,0,1.4,0.8</ClientRectangle>
+              <ClientRectangle>4.8,0,1.4,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -515,13 +522,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.ReadTime}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text24>
             <Text25 Ref="33" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>3.4,0,1.6,0.8</ClientRectangle>
+              <ClientRectangle>3.2,0,1.6,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -532,13 +540,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.RestartCounterCount}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text25>
             <Text26 Ref="34" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>1.8,0,1.6,0.8</ClientRectangle>
+              <ClientRectangle>1.6,0,1.6,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -549,13 +558,14 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.TripCounterCount}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text26>
             <Text27 Ref="35" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
-              <ClientRectangle>0,0,1.8,0.8</ClientRectangle>
+              <ClientRectangle>0,0,1.6,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,11,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -566,12 +576,13 @@
               <Parent isRef="23" />
               <Text>{Tbl_Report.FaultCounterCount}</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </Text27>
           </Components>
           <Conditions isList="true" count="0" />
           <DataRelationName isNull="true" />
-          <DataSourceName>Tbl_14_4</DataSourceName>
+          <DataSourceName>Tbl_Report</DataSourceName>
           <Filters isList="true" count="0" />
           <Name>DataBand1</Name>
           <Page isRef="4" />
@@ -609,10 +620,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>5/17/2021 5:00:06 PM</ReportChanged>
+  <ReportChanged>5/18/2021 9:19:12 AM</ReportChanged>
   <ReportCreated>9/15/2018 5:36:13 PM</ReportCreated>
   <ReportFile>C:\Users\dadvar\Desktop\Report_Recloser_Function.mrt</ReportFile>
-  <ReportGuid>ec45fb0d37104365bdb8814d5ac62eb0</ReportGuid>
+  <ReportGuid>651e38b507d242dabe294cdc6d7e9868</ReportGuid>
   <ReportImage isNull="true" />
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>

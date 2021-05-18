@@ -69,5 +69,4 @@ SELECT A.Area ,P.MPPostName ,F.MPFeederName ,
             INNER JOIN TblSpec RM on RM.SpecId = RF.spcRecloserModelId 
             INNER JOIN TblSpec RT on RT.SpecId = RF.spcRecloserTypeId 
             INNER JOIN Tbl_MPCloserType CT on ct.MPCloserTypeId = FK.MPCloserTypeId 
-            WHERE AND RF.ReadDatePersian > '1400/02/12' ORDER BY RF.FaultCounterCount DESC
-
+            ORDER BY RF.FaultCounterCount DESC
