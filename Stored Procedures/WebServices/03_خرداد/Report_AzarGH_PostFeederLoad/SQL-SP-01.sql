@@ -10,8 +10,8 @@ AS
 BEGIN
 	IF @aISPostLoad = 1
 	  BEGIN
-		  SELECT TOP(@aLimit) P.LPPostName, P.LPPostCode, PL.PostCapacity, 
-				PL.RCurrent, PL.SCurrent, PL.TCurrent, PL.NolCurrent, 
+		  SELECT TOP(@aLimit) P.LPPostName, P.LPPostCode, PL.PostCapacity, PL.PostPeakCurrent,
+				PL.RCurrent, PL.SCurrent, PL.TCurrent, PL.NolCurrent,
 				PL.LoadDateTimePersian AS PostLoadDate, PL.LoadTime AS PostLoadTime
 			FROM Tbl_LPPost P
 			INNER JOIN TblLPPostLoad PL ON PL.LPPostId = P.LPPostId
@@ -20,7 +20,7 @@ BEGIN
 	  END
 	ELSE
 	  BEGIN
-		  SELECT F.LPFeederName, F.LPFeederCode, F.LPFeederId, Fl.FeederPeakCurrent,
+		  SELECT F.LPFeederName, F.LPFeederCode, Fl.FeederPeakCurrent,
 				FL.RCurrent , FL.SCurrent , FL.TCurrent , FL.NolCurrent,
 				FL.LoadDateTimePersian AS FeederLoadDate, FL.LoadTime AS FeederLoadTime
 			FROM Tbl_LPFeeder F
@@ -33,6 +33,5 @@ BEGIN
 	  END
 END
 GO
-
 --TEST :
 --EXEC spGetReport_PostFeederLoad '11-0259hg', 3, 1
