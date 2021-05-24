@@ -1,0 +1,138 @@
+Reports/azargh_postfeederload-------------------------------------------
+**************Input*******************
+{
+	"MinCount" : "2", ->[OPTIONAL] latest ones
+	"Code" : "11-0259hg" -> PostCode
+}
+**************output*******************
+{
+    "IsSuccess": true,
+    "ErrorMessage": "",
+    "Data": {
+        "PostLoad": [
+            {
+                "LPPostName": "0259شهرك حميد استخر اتحاد",
+                "LPPostCode": "11-0259hg",
+                "PostCapacity": 315,
+                "RCurrent": 185,
+                "SCurrent": 230,
+                "TCurrent": 210,
+                "NolCurrent": 65,
+                "PostLoadDate": "1392/12/10",
+                "PostLoadTime": "10:50"
+            },
+            {
+                "LPPostName": "0259شهرك حميد استخر اتحاد",
+                "LPPostCode": "11-0259hg",
+                "PostCapacity": 315,
+                "RCurrent": 342,
+                "SCurrent": 435,
+                "TCurrent": 333,
+                "NolCurrent": 80,
+                "PostLoadDate": "1392/04/27",
+                "PostLoadTime": "21:50"
+            }
+        ],
+        "FeederLoad": [
+            {
+                "LPFeederName": "3-سمت استخراتحاد و بلوار اجتهاد",
+                "LPFeederCode": null,
+                "LPFeederId": 30054441,
+                "FeederPeakCurrent": 44,
+                "RCurrent": 40,
+                "SCurrent": 52,
+                "TCurrent": 40,
+                "NolCurrent": 20,
+                "FeederLoadDate": "1392/12/10",
+                "FeederLoadTime": "10:50"
+            },
+            {
+                "LPFeederName": "3-سمت استخراتحاد و بلوار اجتهاد",
+                "LPFeederCode": null,
+                "LPFeederId": 30054441,
+                "FeederPeakCurrent": 106,
+                "RCurrent": 90,
+                "SCurrent": 128,
+                "TCurrent": 101,
+                "NolCurrent": 27,
+                "FeederLoadDate": "1392/04/27",
+                "FeederLoadTime": "21:50"
+            },
+            {
+                "LPFeederName": "2-سمت چپ ابتداي ش حميد",
+                "LPFeederCode": null,
+                "LPFeederId": 30054442,
+                "FeederPeakCurrent": 103,
+                "RCurrent": 100,
+                "SCurrent": 100,
+                "TCurrent": 110,
+                "NolCurrent": 50,
+                "FeederLoadDate": "1392/12/10",
+                "FeederLoadTime": "10:50"
+            },
+            {
+                "LPFeederName": "2-سمت چپ ابتداي ش حميد",
+                "LPFeederCode": null,
+                "LPFeederId": 30054442,
+                "FeederPeakCurrent": 170,
+                "RCurrent": 153,
+                "SCurrent": 205,
+                "TCurrent": 151,
+                "NolCurrent": 76,
+                "FeederLoadDate": "1392/04/27",
+                "FeederLoadTime": "21:50"
+            },
+            {
+                "LPFeederName": "1-استخراتحاد",
+                "LPFeederCode": null,
+                "LPFeederId": 30054443,
+                "FeederPeakCurrent": 50,
+                "RCurrent": 61,
+                "SCurrent": 41,
+                "TCurrent": 49,
+                "NolCurrent": 16,
+                "FeederLoadDate": "1392/12/10",
+                "FeederLoadTime": "10:50"
+            },
+            {
+                "LPFeederName": "1-استخراتحاد",
+                "LPFeederCode": null,
+                "LPFeederId": 30054443,
+                "FeederPeakCurrent": 50,
+                "RCurrent": 61,
+                "SCurrent": 41,
+                "TCurrent": 49,
+                "NolCurrent": 16,
+                "FeederLoadDate": "1391/12/07",
+                "FeederLoadTime": "18:40"
+            }
+        ]
+    }
+}
+
+Reports/azargh_feederpeak-------------------------------------------
+**************Input*******************
+{
+	"FromDate" : "1395/02",
+	"ToDate" : "1400/02",
+	"Code" : "20377" ->FeederCode
+}
+**************output*******************
+{
+    "IsSuccess": true,
+    "ErrorMessage": "",
+    "Data": [
+        {
+            "Peak": 100,
+            "LoadDatePersian": "1398/03/01"
+        },
+        {
+            "Peak": 300.1,
+            "LoadDatePersian": "1395/09/03"
+        },
+        {
+            "Peak": 13.1,
+            "LoadDatePersian": "1395/03/31"
+        }
+    ]
+}
