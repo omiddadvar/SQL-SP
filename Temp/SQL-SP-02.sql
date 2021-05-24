@@ -1,3 +1,5 @@
+USE CcRequesterSetad
+GO
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spGetReport_FeederPeak]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].[spGetReport_FeederPeak]
 GO

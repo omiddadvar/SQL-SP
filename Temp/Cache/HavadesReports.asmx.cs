@@ -2442,10 +2442,10 @@ namespace TZServicesCSharp
             lRes.ErrorMessage = "";
             try
             {
-                if (!AccessManager.IsAccess(AccessManager.AccessCodes.AzGharbi))
-                    throw new Exception("RPT - Access Denied");
+                //if (!AccessManager.IsAccess(AccessManager.AccessCodes.AzGharbi))
+                //    throw new Exception("RPT - Access Denied");
 
-                string lSQL = string.Format("exec spGetReport_FeederPeak '{0}', '{1}' , {2}", FeederCode, FromDate, ToDate);
+                string lSQL = string.Format("exec spGetReport_FeederPeak {0}, '{1}' , '{2}'", FeederCode, FromDate, ToDate);
                 mdl_Publics.BindingTable(lSQL, ref lCnn, lDs, "Result", aIsClearTable: true, aIsShowError: true);
                 SaveLog(string.Format("Result spGetReport_FeederPeak IS SUCCESS"));
                 lRes.Data = mdl_Publics.GetClassFromJson<object>(mdl_Publics.GetJSonString(lDs.Tables["Result"]));
@@ -2471,8 +2471,8 @@ namespace TZServicesCSharp
             lRes.ErrorMessage = "";
             try
             {
-                if (!AccessManager.IsAccess(AccessManager.AccessCodes.AzGharbi))
-                    throw new Exception("RPT - Access Denied");
+                //if (!AccessManager.IsAccess(AccessManager.AccessCodes.AzGharbi))
+                //    throw new Exception("RPT - Access Denied");
 
                 string lSQL = string.Format("exec spGetReport_PostFeederLoad '{0}', '{1}' , '{2}', {3}, {4}",
                     PostCode, FromDate, ToDate , MinCount , 1);
@@ -2481,7 +2481,7 @@ namespace TZServicesCSharp
                     PostCode, FromDate, ToDate, MinCount, 0);
                 mdl_Publics.BindingTable(lSQL, ref lCnn, lDs, "FeederLoad", aIsClearTable: true, aIsShowError: true);
                 SaveLog(string.Format("Result spGetReport_PostFeederLoad IS SUCCESS"));
-                lRes.Data = mdl_Publics.GetClassFromJson<object>(mdl_Publics.GetJSonString(lDs.Tables["Result"]));
+                lRes.Data = mdl_Publics.GetClassFromJson<object>(mdl_Publics.GetJSonString(lDs));
             }
             catch (Exception ex)
             {

@@ -623,6 +623,7 @@ namespace TZServicesCSharp.RestServices
             {
                 if (string.IsNullOrWhiteSpace(lParams.Code))
                     throw new Exception("Code is not Valid");
+                lCode = lParams.Code;
                 return this;
             }
             public Checker check_AreaID()

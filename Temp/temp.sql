@@ -13,8 +13,10 @@ EXEC spGetReport_PostFeederLoad '11-0259hg', 3 , '1392/01/01' , '1400/02/01' , 0
 
 
 
-
-
+use CcRequesterSetad
+go
+exec spGetReport_PostFeederLoad '11-0259hg', '1395/02/11' , '1400/02/11', 2, 0
+exec spGetReport_FeederPeak 20377, '1395/02/11' , '1400/02/11'
 
 
 DECLARE @From AS VARCHAR(11)
