@@ -20,7 +20,12 @@ SELECT
 FROM TblLPFeederLoad) t
 WHERE t.Row# < 4 
 ORDER BY LPFeederId,LoadDT DESC
-
+------------------------------------------------
+SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+  	WHERE TABLE_NAME = 'TblRequest'
+  	AND COLUMN_NAME LIKE '%Tamir%'
+  	
+---------------------------------------------------
 exec sp_help TblRecloserFunction
 exec sp_columns TblRecloserFunction
 
