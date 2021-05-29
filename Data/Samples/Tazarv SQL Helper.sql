@@ -53,7 +53,7 @@ SELECT DISTINCT 'V1.5.1(85/10/02)' AS Version, '85/10/02' AS PDate
 FROM         dbo.Tbl_Area
 
 -- > Create New View
-if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[ViewName]') and OBJECTPROPERTY(id, N'IsView') = 1)
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ViewName]') AND OBJECTPROPERTY(id, N'IsView') = 1)
 	DROP VIEW dbo.ViewName
 GO
 
