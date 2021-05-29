@@ -205,7 +205,7 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spName]') 
 GO
 
 CREATE PROCEDURE [dbo].[spName] 
-	@aParamNamne as varchar(10),
+	@aParamNamne AS VARCHAR(10),
 	...
 AS
 	...
@@ -216,12 +216,12 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[FnName]') 
   DROP FUNCTION [dbo].[FnName]
 GO
 
-CREATE FUNCTION dbo.FnName ( @aParam int )
-RETURNS int AS  
+CREATE FUNCTION dbo.FnName ( @aParam INT )
+RETURNS INT AS  
 BEGIN 
-	declare @lRet as int
+	DECLARE @lRet as INT
 	...
-	return @lRet
+	RETURN @lRet
 END
 GO
 
