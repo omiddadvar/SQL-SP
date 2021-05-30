@@ -1,13 +1,13 @@
 USE CcRequesterSetad
 GO
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[GetPercentANDLegalCurrent]') and OBJECTPROPERTY(id, N'IsScalarFunction') = 1)
-  DROP FUNCTION [dbo].[GetPercentANDLegalCurrent]
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[KHSH_GetPercentANDLegalCurrent]') and OBJECTPROPERTY(id, N'IsScalarFunction') = 1)
+  DROP FUNCTION [dbo].[KHSH_GetPercentANDLegalCurrent]
 GO
 
-CREATE FUNCTION dbo.GetPercentANDLegalCurrent ( 
+CREATE FUNCTION dbo.KHSH_GetPercentANDLegalCurrent ( 
 	@aTempK FLOAT, 
-	@aTempAreaK FLOAT , 
-	@aAltDec FLOAT, 
+	@aTempAreaK FLOAT ,
+	@aAltDec FLOAT,
 	@aAltAreaDec FLOAT , 
 	@aPostCapacity FLOAT ,
 	@aPeakCurrent FLOAT)
@@ -27,6 +27,6 @@ BEGIN
 			SET @lNumerator = @aPeakCurrent * 100
 			SET @lRes = CASE WHEN @lDenuminator > 0 THEN @lNumerator/@lDenuminator ELSE 0 END
 		END
-	RETURN @lRes
+	RETURN CONVERT(DECIMAL(10, 2), @lRes)
 END
 GO

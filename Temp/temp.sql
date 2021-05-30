@@ -29,3 +29,17 @@ FROM INFORMATION_SCHEMA.TABLES
 WHERE TABLE_NAME LIKE '%temp%'
 --ORDER BY COLUMN_NAME
 --ORDER BY ORDINAL_POSITION
+
+
+
+--Test
+EXEC spGetReport_LPPostLoadBalance '11-0109hg', '1387/01/01', '1393/01/01'
+
+--UPDATE TblLPPostLoad SET IsTakFaze = 1 WHERE LPPostLoadId IN (30101512,30091068,30111991,30119815)
+UPDATE TblLPPostLoad SET IsTakFaze = 0 WHERE LPPostId = 10050368
+
+select p.LPPostCode , p.LPPostName, PL.IsTakFaze AS TAK,PL.* from  TblLPPostLoad PL 
+INNER JOIN Tbl_LPPost P ON P.LPPostId = PL.LPPostId
+where PL.LPPostId = 10050368
+
+select convert(decimal(10, 2), 235.415);
