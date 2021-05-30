@@ -30,7 +30,7 @@ SELECT Area.Area
 		 ELSE 0 END AS IndicatorA
 	,CASE WHEN PL.IsTakFaze = 0 THEN dbo.KHSH_UnbalancedIndicatorB (PL.NolCurrent , PL.PostCapacity)
 		 ELSE 0 END AS IndicatorB
-	,PL.LoadDateTimePersian
+	,PL.LoadDateTimePersian AS LoadDate
 	,PL.LoadTime
 	,dbo.KHSH_GetPercentANDLegalCurrent(Temp.K , Temp_Area.K, Alt.DecreaseFactor ,
 		 Alt_Area.DecreaseFactor, PL.PostCapacity , PL.PostPeakCurrent) AS CurrentPercent
