@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Runtime.Serialization.Json;
 using System.Globalization;
 using TZServicesLib;
+//--------------------------
+using RestSharp;
 
 namespace TZServicesCSharp
 {
@@ -794,7 +796,7 @@ namespace TZServicesCSharp
                     throw new Exception("AreaId is not valid.");
                 if (aDCInfo.PeymankarId <= 0)
                     throw new Exception("PeymankarId is not valid.");
-                if (aDCInfo.DepartmentId <= 0)
+                if (aDCInfo.DepartmentId < 0)
                     throw new Exception("DepartmentId is not valid.");
                 if (!Regex.IsMatch(aDCInfo.NetworkType, "^(MP|LP)$", RegexOptions.IgnoreCase))
                     throw new Exception("NetworkType parameter is not valid.");
@@ -832,12 +834,18 @@ namespace TZServicesCSharp
                     if (lValidTime == "Error")
                         throw new Exception("ConnectTime is not valid.");
                 }
-                if (aDCInfo.MPPostId <=0 )
+                if (aDCInfo.MPPostId < 0 )
                     throw new Exception("MPPostId is not valid.");
-                if (aDCInfo.MPFeederId <= 0)
+                if (aDCInfo.MPFeederId < 0)
                     throw new Exception("MPFeederId is not valid.");
-                if (aDCInfo.NetworkType == "LP" && aDCInfo.LPPostId <= 0)
+                //----------------<omid>------
+                if (aDCInfo.MPCloserTypeId < 0)
+                    throw new Exception("MPCloserTypeId is not valid.");
+                //----------------</omid>-----
+                if (aDCInfo.NetworkType == "LP" && aDCInfo.LPPostId < 0)
                     throw new Exception("LPPostId is not valid");
+                if (aDCInfo.NetworkType == "LP" && aDCInfo.LPFeederId < 0)
+                    throw new Exception("LPFeederId is not valid");
 
                 if (aDCInfo.IsWarmLine < 0 || aDCInfo.IsWarmLine > 1)
                     throw new Exception("IsWarmLine is not valid.");
@@ -922,6 +930,14 @@ namespace TZServicesCSharp
                     if (lDs.Tables.Contains("Tbl_MPPost") &&  lDs.Tables["Tbl_MPPost"].Rows.Count == 0)
                         lErrMsg += " - MPPostId is invalid";
                 }
+                //----------------------------<omid>------------
+                if (aDCInfo.MPCloserTypeId > 0)
+                {
+                    TZServiceTools.mdl_Publics.BindingTable(lSQL + "MPCloserType WHERE MPCloserTypeId = " + aDCInfo.MPCloserTypeId, ref aCnn, lDs, "Tbl_MPCloserType");
+                    if (lDs.Tables.Contains("Tbl_MPCloserType") && lDs.Tables["Tbl_MPCloserType"].Rows.Count == 0)
+                        lErrMsg += " - MPCloserId is invalid";
+                }
+                //----------------------------</omid>-----------
                 if (aDCInfo.ReferToId > 0)
                 {
                     TZServiceTools.mdl_Publics.BindingTable(lSQL + "ReferTo WHERE ReferToId = " + aDCInfo.ReferToId, ref aCnn, lDs, "Tbl_ReferTo");
@@ -945,7 +961,50 @@ namespace TZServicesCSharp
                 lErrMsg = "Network Error: (" + lErrMsg + ")";
             return lErrMsg;
         }
-
+        [WebMethod]
+        //دریافت اطلاعات ثبت خاموشی __ مازندران
+        public int SetTamirRequestInfo_Maz(long TamirId, TamirInfo TamirRequestInfo)
+        {
+            //----------------------<omid/>---------------------------
+            TamirRequest lReq = new TamirRequest(TamirRequestInfo);
+            try {
+                lReq.setAccess()
+                    .setTamirID(TamirId)
+                    .setAreaID()
+                    .setTamirTypeID()
+                    .setPeymankarID()
+                    .setNetworkTypeID()
+                    .setDisconnectDT()
+                    .setConnectDT()
+                    .checkConnDisDT()
+                    .setDisconnectInterval()
+                    .setDisconnectPower()
+                    .setAreaUserID()
+                    .setDEDT()
+                    .setIsWatched()
+                    .setMPCloserTypeID()
+                    .setIsWarmLine()
+                    .setCurrentValue()
+                    .setWorkingAddress()
+                    .setGPS()
+                    .setIsManoeuvre()
+                    .setTamirRequestStateID()
+                    .checkTamirID()
+                    .setOperationList()
+                    .checkDuration()
+                    .setFiles()
+                    .sqlOperation();
+            }
+            catch (Exception ex) {
+                TZServiceTools.mdl_Publics.LogError(Server, ex.Message, "TZServices_Tamir_Logs");
+                lReq.catchOperation(ex);
+                throw new Exception(ex.Message + "\n" + ex.StackTrace);
+            }
+            finally {
+                lReq.finallyOperation();
+            }
+            return lReq.lTamirRow.PeymankarId;
+        }
         [WebMethod]
         //لغو خاموشی درخواست شده
         public String CancelTamir(long TamirId, string CancelReason)
@@ -1165,10 +1224,10 @@ namespace TZServicesCSharp
             lDT = lDT.AddSeconds(-lDT.Second).AddSeconds(0);
             return lDT;
         }
-
+        //------------------------<omid/>------------------
         private class TamirRequest
         {
-            //-------------Fields---------------------
+            //--------------------------Properties---------------------
             public string lMsg = "";
             public string lNType = "";
             public string lErr = "";
@@ -1186,7 +1245,8 @@ namespace TZServicesCSharp
             public SqlTransaction lTrans;
             public long TamirId;
             public SortedList<int, int> lTimes;
-            //-------------Methods---------------------
+            private List<DataRow> TamirReqFileRow;
+            //--------------------------Methods---------------------
             public TamirRequest(TamirInfo TamirRequestInfo)
             {
                 this.TamirRequestInfo = TamirRequestInfo;
@@ -1196,7 +1256,7 @@ namespace TZServicesCSharp
                 this.lCnn = new SqlConnection(TZServiceTools.mdl_Publics.mConnectionString);
                 this.lDCSaveInfo = TamirRequestInfo;
                 this.lUpdate = new frmUpdateDataset();
-                // this. = ;
+                this.TamirReqFileRow = new List<DataRow>();
             }
             public TamirRequest setAccess()
             {
@@ -1209,7 +1269,7 @@ namespace TZServicesCSharp
             public TamirRequest setTamirID(long aTamirId)
             {
                 this.TamirId = aTamirId;
-                if (aTamirId <= 0) goto Skip;
+                if (aTamirId <= 0) goto Skip; 
 
                 string lSSQL = "SELECT * From TblTamirRequest WHERE TamirRequestId = " + TamirId;
                 TZServiceTools.mdl_Publics.BindingTable(lSSQL, ref lCnn, lDs, "TblTamirRequest");
@@ -1261,11 +1321,13 @@ namespace TZServicesCSharp
             public TamirRequest setPeymankarID()
             {
                 lTamirRow.PeymankarId = TamirRequestInfo.PeymankarId;
+                lTamirRow.Peymankar = "";
                 return this;
             }
             public TamirRequest setDepartmentID()
             {
-                lTamirRow.DepartmentId = TamirRequestInfo.DepartmentId;
+                if (TamirRequestInfo.PeymankarId > 0)
+                    lTamirRow.DepartmentId = TamirRequestInfo.DepartmentId;
                 return this;
             }
             public TamirRequest setNetworkTypeID()
@@ -1334,16 +1396,22 @@ namespace TZServicesCSharp
                 lTamirRow.IsWatched = state;
                return this;
             }
-            public TamirRequest setMPPostID(){
-                lTamirRow.MPPostId = TamirRequestInfo.MPPostId;
+            public TamirRequest setMPPostID(bool optional = true){
+                if (TamirRequestInfo.MPPostId > 0)
+                    lTamirRow.MPPostId = TamirRequestInfo.MPPostId;
+                else if (!optional)
+                    throw new Exception("MPPostId is invalid");
                return this;
             }
-            public TamirRequest setMPFeederID()
+            public TamirRequest setMPFeederID(bool optional = true)
             {
-                lTamirRow.MPFeederId = TamirRequestInfo.MPFeederId;
-               return this;
+                if (TamirRequestInfo.MPPostId > 0)
+                    lTamirRow.MPFeederId = TamirRequestInfo.MPFeederId;
+                else if (!optional)
+                    throw new Exception("MPFeederId is invalid");
+                return this;
             }
-            public TamirRequest setFeederPartID()
+            public TamirRequest setFeederPartID(bool optional = true)
             {
                 if (TamirRequestInfo.FeederPartId > 0 && TamirRequestInfo.NetworkType == "MP")
                     lTamirRow.FeederPartId = TamirRequestInfo.FeederPartId;
@@ -1358,16 +1426,28 @@ namespace TZServicesCSharp
                 }
                return this;
             }
-            public TamirRequest setLPPostID()
+            public TamirRequest setLPPostID(bool optional = true)
             {
-                if (TamirRequestInfo.LPPostId > 0)
-                    lTamirRow.LPPostId = TamirRequestInfo.LPPostId;
+               if (TamirRequestInfo.LPPostId > 0)
+                   lTamirRow.LPPostId = TamirRequestInfo.LPPostId;
+               else if (!optional)
+                   throw new Exception("LPPostId is invalid");
                return this;
             }
-            public TamirRequest setLPFeederID()
+            public TamirRequest setLPFeederID(bool optional = true)
             {
                 if (TamirRequestInfo.LPFeederId > 0 && TamirRequestInfo.NetworkType == "LP")
                     lTamirRow.LPFeederId = TamirRequestInfo.LPFeederId;
+                else if (!optional)
+                    throw new Exception("LPFeederId is invalid");
+                return this;
+            }
+            public TamirRequest setMPCloserTypeID(bool optional = true)
+            {
+                if (TamirRequestInfo.MPCloserTypeId > 0)
+                    lTamirRow.MPCloserTypeId = TamirRequestInfo.MPCloserTypeId;
+                else if (!optional)
+                    throw new Exception("MPCloserTypeId is invalid");
                 return this;
             }
             public TamirRequest setIsWarmLine()
@@ -1542,11 +1622,41 @@ namespace TZServicesCSharp
 
                 lUpdate.UpdateDataSet("TblTamirOperationList", lDs, lTamirRow.AreaId, -1, true, lTrans);
 
+                lUpdate.UpdateDataSet("TblTamirRequestFile", lDs, lTamirRow.AreaId, -1, true, lTrans);
+
                 lTrans.Commit();
 
                 lRowResult.ResultCode = (short)TZServicesLib.CFunctions.TZResultCodes.Success;
                 lRowResult.ResultValue = lTamirRow.TamirRequestId.ToString();
 
+                return this;
+            }
+            public TamirRequest setFiles()
+            {
+                try
+                {
+                    object lAddress = CConfig.ReadConfig("TZServicesFileServerAddress", "").ToString();
+                    if (lAddress == null || lAddress == "")
+                    {
+                        throw new Exception("TZServicesFileServerAddress Url Is Invalid");
+                    }
+
+                    RestClient lClient = new RestClient(lAddress.ToString());
+                    RestRequest lRequest = new RestRequest("PostFile", Method.POST);
+
+                    lClient.Encoding = System.Text.Encoding.UTF8;
+                    byte[] byteArray = System.Convert.FromBase64String(TamirRequestInfo.files[0].base64);
+
+                    lRequest.AddFile(TamirRequestInfo.files[0].name, byteArray, TamirRequestInfo.files[0].type);
+                    getTamirRequestFileRow(); //----create new row
+                    RestResponse lRes2 = lClient.Execute(lRequest) as RestResponse;
+                    List<FSResult> FsRes = mdl_Publics.GetClassFromJson<List<FSResult>>(lRes2.Content);
+                    TamirReqFileRow[0]["TamirRequestFileId"] = mdl_Publics.GetAutoInc();
+                    TamirReqFileRow[0]["FileServerId"] = FsRes[0].FileId;
+                    TamirReqFileRow[0]["TamirRequestId"] = lTamirRow.TamirRequestId;
+                    lDs.Tables["TblTamirRequestFile"].Rows.Add(TamirReqFileRow[0]);
+                }
+                catch (Exception ex) { }
                 return this;
             }
             public TamirRequest catchOperation(Exception ex) {
@@ -1564,6 +1674,14 @@ namespace TZServicesCSharp
             }
             public string getResult() {
                 return TZServicesLib.CFunctions.GetJsonDataTable(lTblResult);
+            }
+            private void getTamirRequestFileRow() {
+                if (lDs.Tables.Contains("TblTamirRequestFile")) goto GetRow;
+
+                string lSQL = "SELECT * FROM TblTamirRequestFile WHERE TamirRequestFileId = -1";
+                TZServiceTools.mdl_Publics.BindingTable(lSQL, ref lCnn, lDs, "TblTamirRequestFile");
+            GetRow:
+                TamirReqFileRow.Add(lDs.Tables["TblTamirRequestFile"].NewRow());
             }
         }
     }
@@ -1589,8 +1707,6 @@ public class TamirInfo
                 mNetworkType = "";
         }
     }
-    
-    
     public int AreaId;
     public int MPPostId;
     public int MPFeederId;
@@ -1598,6 +1714,7 @@ public class TamirInfo
     public int LPPostId;
     public int LPFeederId;
 
+    public int MPCloserTypeId;
     public int ReferToId;
 
     public int IsWarmLine;
@@ -1611,6 +1728,12 @@ public class TamirInfo
     public string ManoeuvreDesc;
     public int ManoeuvreTypeId;
     public  OperationInfo[] OperationList;
+    public List<FileServer> files;
+}
+public class FileServer{
+    public string base64;
+    public string name;
+    public string type;
 }
 public class OperationInfo
 {
@@ -1619,4 +1742,13 @@ public class OperationInfo
     public int GroupCount;
     public int OperationGroupId;
 
+}
+public class FSResult
+{
+    public string FileName;
+    public string CreateDT;
+    public long FileId;
+    public long FileSize;
+    public bool IsSuccess;
+    public string ResultMessage;
 }
