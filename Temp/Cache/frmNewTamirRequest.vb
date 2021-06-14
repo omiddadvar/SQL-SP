@@ -9433,6 +9433,9 @@ Public Class frmNewTamirRequest
     End Sub
     '------------------------------<omid>
     Private Sub LoadInfo_Init()
+        If Not mDs.TblTamirRequest.Columns.Contains("ReturnTimeoutDT") Then
+            mDs.TblTamirRequest.Columns.Add("ReturnTimeoutDT")
+        End If
         Dim lSQL As String
         lSQL = "SELECT * FROM TblTamirRequest WHERE TamirRequestId = " & mTamirRequestId
         BindingTable(lSQL, mCnn, mDs, "TblTamirRequest")
@@ -9472,6 +9475,7 @@ Public Class frmNewTamirRequest
         BindingTable(lSQL, mCnn, mDsView, "ViewTamirOperationList")
     End Sub
     Private Sub LoadInfo_TblTamirRequest(ByRef aRow As DataRow)
+        Dim lSQL As String
         aRow = mEditingRow
         GetDBValue(txtTamirRequestNumber, aRow("TamirRequestNo"), , -1)
 
@@ -9661,6 +9665,7 @@ Public Class frmNewTamirRequest
 
     End Sub
     Private Sub LoadInfo_TblTamirRequestConfirm(ByRef aRow As DataRow)
+        Dim lSQL As String
         aRow = mEditingRowConfirm
         If Not mEditingRowConfirm Is Nothing Then
             If Not aRow("IsConfirm") Is DBNull.Value Then
@@ -9833,7 +9838,7 @@ Public Class frmNewTamirRequest
         mIsNewRequest = False
         mIsAddRow = True
         mIsUpdateCurrentValue = False
-        mEditingRow = mDs.TblTamirRequest.Rows(0)
+        mEditingRow = mDs.Tables("TblTamirRequest").Rows(0)
         If mDs.TblTamirRequestDisconnect.Count > 0 Then
             mEditingRowManovr = mDs.TblTamirRequestDisconnect(0)
         End If
@@ -9860,7 +9865,8 @@ Public Class frmNewTamirRequest
         mIsAddRow = False
         chkIsSendToSetad.Visible = True
 
-        mEditingRow = mDs.TblTamirRequest.NewRow
+        'mEditingRow = mDs.TblTamirRequest.NewRow
+        mEditingRow = mDs.Tables("TblTamirRequest").NewRow
         aTRequestId = GetAutoInc()
         mEditingRow("TamirRequestId") = aTRequestId
         mEditingRow("TamirRequestNo") = -1
@@ -9933,7 +9939,7 @@ Public Class frmNewTamirRequest
             lIsCheckSendSMSSensitive = CConfig.ReadConfig("IsCheckSendSMSSensitive", False)
             chkIsSendSMSSensitive.Checked = lIsCheckSendSMSSensitive
 
-            If mTamirRequestId > -1 AndAlso mDs.TblTamirRequest.Rows.Count > 0 Then
+            If mTamirRequestId > -1 AndAlso mDs.Tables("TblTamirRequest").Rows.Count > 0 Then
                 SaveLog("TamirRequestId: " & mTamirRequestId, "TNT.log")
                 Try
                     SaveLog("TamirRequestNo: " & mEditingRow("TamirRequestNo"), "TNT.log")
@@ -10063,7 +10069,7 @@ Public Class frmNewTamirRequest
                 cmbManoeuvreType.SelectedIndex = -1
             End If
 
-            If mTamirRequestId = -1 OrElse mDs.TblTamirRequest.Rows.Count = 0 Then
+            If mTamirRequestId = -1 OrElse mDs.Tables("TblTamirRequest").Rows.Count = 0 Then
                 cmbMPPost.SelectedIndex = -1
                 cmbMPPost.SelectedIndex = -1
                 cmbMPFeeder.SelectedIndex = -1
@@ -10150,6 +10156,7 @@ Public Class frmNewTamirRequest
     End Sub
     '-------------------<omid>---------------Just To Clean this God-Damn Code !!!!!
     Private Sub SaveInfo_TblTamirRequest(ByRef aRow As DataRow)
+        Dim lSQL As String
         'TblTamirRequest:
         aRow = mEditingRow
         GetDBValue(txtTamirRequestNumber, aRow("TamirRequestNo"), , -1)
@@ -10337,6 +10344,495 @@ Public Class frmNewTamirRequest
             mEditingRowManovr("CurrentValue") = DBNull.Value
         End If
     End Sub
+
+    Private Sub IsSaveOk_DisDateValidity(ByRef aMsg As String, ByRef aNow As CTimeInfo, ByRef aState As TamirRequestStates)
+        '--> Check Disconnect Date Validity <--
+        If aMsg = "" Then
+            Dim lDT As DateTime = txtDateDisconnect.MiladiDT
+            Dim lDTNow As DateTime = aNow.MiladiDate
+
+            'Dim lDay1 As Long = lDTNow.DayOfYear + (lDTNow.Year - 1) * 365
+            'Dim lDay2 As Long = lDT.DayOfYear + (lDT.Year - 1) * 365
+            'Dim lDiff As Long = lDay2 - lDay1
+
+            Dim lDay1 As String = lDTNow.ToShortDateString()
+            Dim lDay2 As String = lDT.ToShortDateString()
+            Dim lDiff As Long = DateDiff(DateInterval.Day, Convert.ToDateTime(lDay1), Convert.ToDateTime(lDay2))
+            Dim lDiffHour As Integer = DateDiff(DateInterval.Hour, Convert.ToDateTime(lDTNow), Convert.ToDateTime(lDT))
+            Dim lDiffMin As Long = DateDiff(DateInterval.Minute, lDTNow, lDT)
+            Dim lIsBaMovafeghatLimit As Boolean = Convert.ToBoolean(CConfig.ReadConfig("IsBaMovafeghatLimit", False))
+            Dim lIsLPTamirLimit As Boolean = Not Convert.ToBoolean(CConfig.ReadConfig("NoLPTamirLimit", False))
+            Dim lIsCheckTimeForAll As Boolean = CConfig.ReadConfig("IsCheckTimeForAll", True)
+            Dim lIsCheckHoliday As Boolean = CConfig.ReadConfig("IsCheckHoliday", False)
+            Dim lIsHolidayThursday As Boolean = CConfig.ReadConfig("IsHolidayThursday", False)
+            Dim lIsHolidayFriday As Boolean = CConfig.ReadConfig("IsHolidayFriday", False)
+            Dim lIsNotTamirForHoliday As Boolean = CConfig.ReadConfig("IsNotTamirForHoliday", False)
+
+            Dim lIsCheckHolidayWL As Boolean = CConfig.ReadConfig("IsCheckHolidayWL", False)
+            Dim lIsHolidayThursdayWL As Boolean = CConfig.ReadConfig("IsHolidayThursdayWL", False)
+            Dim lIsHolidayFridayWL As Boolean = CConfig.ReadConfig("IsHolidayFridayWL", False)
+            Dim lIsNotTamirForHolidayWL As Boolean = CConfig.ReadConfig("IsNotTamirForHolidayWL", False)
+
+            Dim lIsHoliday As Boolean = False
+
+            Dim lHoliDayStr As String = ""
+            Dim lIsCheckReturnTimeInNewTamir As Boolean = CConfig.ReadConfig("IsCheckReturnTimeInNewTamir", False)
+
+            If Not chkIsWarmLine.Checked Then
+
+                If lIsNotTamirForHoliday Then
+                    lIsHoliday = IsHoliday(lDT, True, lIsHolidayThursday, lIsHolidayFriday)
+                    If lIsHoliday Then
+                        If Not chkIsEmergency.Checked And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
+                            aMsg &= "- متأسفانه شما نمي توانيد براي روز تعطيل، درخواست خاموشي ثبت نماييد"
+                        End If
+                    End If
+                End If
+
+                Dim lIsDiffHour As Integer = Val(CConfig.ReadConfig("IsTamirLimitHour", 0))
+
+                If Not lIsHoliday Then
+                    Dim lHoliDays As Integer = GetHolidays(lDTNow.AddDays(1), lDT, lIsCheckHoliday, lIsHolidayThursday, lIsHolidayFriday)
+
+                    If lIsDiffHour = 0 Then
+
+                        lDiff -= lHoliDays
+                        If lHoliDays > 0 Then
+                            lHoliDayStr = " (با توجه به " & lHoliDays & " روز تعطيلي تا تاريخ خاموشي )"
+                        End If
+
+
+                        If lDiff >= 0 And lDiffMin > 0 Then
+                            If (Not rbIsReturned.Checked Or (rbIsReturned.Checked And lIsCheckReturnTimeInNewTamir And Not mIsForConfirm)) And
+                                (Not rbIsReturnedWL.Checked Or (rbIsReturnedWL.Checked And lIsCheckReturnTimeInNewTamir And Not mIsConfirmEndWarmLine)) Then
+
+                                If Not chkIsEmergency.Checked And (cmbTamirNetworkType.SelectedValue <> TamirNetworkType.LP Or lIsLPTamirLimit) Then
+
+                                    If lIsCheckTimeForAll Or Not mIsForConfirm Then
+
+                                        Dim lIsTimeLimit As Boolean = Convert.ToBoolean(CConfig.ReadConfig("TamirTimeLimit", True))
+
+                                        If lIsTimeLimit And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
+                                            Dim lBeforeHour As Integer = Val(CConfig.ReadConfig("IsTamirBeforeHour", 0))
+                                            Dim lTamirBeforeDay As Integer = 0
+
+                                            Dim lIsBeforeHour As Boolean = lBeforeHour > 0 And lBeforeHour < 24
+
+                                            If lIsBeforeHour Then
+                                                If mDs.Tables("TblTamirRequest").Rows.Count > 0 AndAlso Not IsDBNull(mDs.Tables("TblTamirRequest").Rows(0)("IsReturned")) AndAlso mDs.Tables("TblTamirRequest").Rows(0)("IsReturned") Then
+                                                    lTamirBeforeDay = Val(CConfig.ReadConfig("TamirBeforeOdatDay", 1))
+                                                Else
+                                                    lTamirBeforeDay = Val(CConfig.ReadConfig("TamirBeforeDay", 1))
+                                                End If
+                                            End If
+
+                                            If lDiff < lTamirBeforeDay Then
+                                                aMsg &= "- تاريخ درخواست خاموشي حداقل بايد قبل از ساعت " & lBeforeHour & "، " & lTamirBeforeDay & " روز قبل باشد" & lHoliDayStr
+                                            ElseIf lDiff = lTamirBeforeDay Then
+                                                If lDTNow.Hour >= lBeforeHour Then
+                                                    aMsg &= "- تاريخ درخواست خاموشي حداقل بايد قبل از ساعت " & lBeforeHour & "، " & lTamirBeforeDay & " روز قبل باشد" & lHoliDayStr
+                                                End If
+                                            End If
+
+                                        End If
+
+                                    End If
+                                End If
+                            End If
+                        ElseIf Not rbIsNotConfirm.Checked And aState < mdlHashemi.TamirRequestStates.trs_Confirm Then
+                            aMsg &= "- زمان خاموشي درخواست شده معتبر نمي‌باشد."
+                        End If
+                    Else
+                        lDiffHour -= (lHoliDays * 24)
+                        If lHoliDays > 0 Then
+                            lHoliDayStr = " (با توجه به " & lHoliDays & " روز تعطيلي تا تاريخ خاموشي )"
+                        End If
+
+                        If lDiff >= 0 And lDiffMin > 0 Then
+                            If (Not rbIsReturned.Checked Or (rbIsReturned.Checked And lIsCheckReturnTimeInNewTamir And Not mIsForConfirm)) And
+                                (Not rbIsReturnedWL.Checked Or (rbIsReturnedWL.Checked And lIsCheckReturnTimeInNewTamir And Not mIsConfirmEndWarmLine)) Then
+
+                                If Not chkIsEmergency.Checked And (cmbTamirNetworkType.SelectedValue <> TamirNetworkType.LP Or lIsLPTamirLimit) Then
+
+                                    If lIsCheckTimeForAll Or Not mIsForConfirm Then
+
+                                        Dim lIsTimeLimit As Boolean = Convert.ToBoolean(CConfig.ReadConfig("TamirTimeLimit", True))
+
+                                        If lIsTimeLimit And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
+                                            If lDiffHour < lIsDiffHour Then
+                                                aMsg &= "- تاريخ درخواست خاموشي حداقل بايد " & lIsDiffHour & " ساعت قبل از خاموشي باشد" & lHoliDayStr
+                                            End If
+                                        End If
+
+                                    End If
+                                End If
+                            End If
+                        ElseIf Not rbIsNotConfirm.Checked And aState < mdlHashemi.TamirRequestStates.trs_Confirm Then
+                            aMsg &= "- زمان خاموشي درخواست شده معتبر نمي‌باشد."
+                        End If
+                    End If
+                End If
+
+
+
+            Else
+
+                If lIsNotTamirForHolidayWL Then
+                    lIsHoliday = IsHoliday(lDT, True, lIsHolidayThursdayWL, lIsHolidayFridayWL)
+                    If lIsHoliday Then
+                        If Not chkIsEmergency.Checked And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
+                            aMsg &= "- متأسفانه شما نمي توانيد براي روز تعطيل، درخواست عمليات خط گرم ثبت نماييد"
+                        End If
+                    End If
+                End If
+
+                Dim lIsDiffHourWL As Integer = Val(CConfig.ReadConfig("IsTamirLimitHourWL", 0))
+
+                If Not lIsHoliday Then
+                    Dim lHoliDays As Integer = GetHolidays(lDTNow.AddDays(1), lDT, lIsCheckHolidayWL, lIsHolidayThursdayWL, lIsHolidayFridayWL)
+
+                    If lIsDiffHourWL = 0 Then
+
+                        lDiff -= lHoliDays
+                        If lHoliDays > 0 Then
+                            lHoliDayStr = " (با توجه به " & lHoliDays & " روز تعطيلي تا زمان شروع عمليات خط گرم )"
+                        End If
+
+                        If lDiff >= 0 And lDiffMin > 0 Then
+                            If (Not rbIsReturned.Checked Or (rbIsReturned.Checked And lIsCheckReturnTimeInNewTamir And Not mIsForConfirm)) And
+                                (Not rbIsReturnedWL.Checked Or (rbIsReturnedWL.Checked And lIsCheckReturnTimeInNewTamir And Not mIsConfirmEndWarmLine)) Then
+
+                                If Not chkIsEmergency.Checked And (cmbTamirNetworkType.SelectedValue <> TamirNetworkType.LP Or lIsLPTamirLimit) Then
+
+                                    If lIsCheckTimeForAll Or (Not mIsForWarmLineConfirm And Not mIsForConfirm) Then
+
+                                        Dim lIsTimeLimitWL As Boolean = Convert.ToBoolean(CConfig.ReadConfig("TamirTimeLimitWL", True))
+
+                                        If lIsTimeLimitWL And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
+                                            Dim lBeforeHourWL As Integer = Val(CConfig.ReadConfig("IsTamirBeforeHourWL", 0))
+                                            Dim lTamirBeforeDayWL As Integer = 0
+                                            Dim lIsBeforeHourWL As Boolean = lBeforeHourWL > 0 And lBeforeHourWL < 24
+
+                                            If lIsBeforeHourWL Then
+                                                If mDs.Tables("TblTamirRequest").Rows.Count > 0 AndAlso Not IsDBNull(mDs.Tables("TblTamirRequest").Rows(0)("IsReturned")) AndAlso mDs.Tables("TblTamirRequest").Rows(0)("IsReturned") Then
+                                                    lTamirBeforeDayWL = Val(CConfig.ReadConfig("TamirBeforeOdatDayWL", 1))
+                                                Else
+                                                    lTamirBeforeDayWL = Val(CConfig.ReadConfig("TamirBeforeDayWL", 1))
+                                                End If
+                                            End If
+
+                                            If lDiff < lTamirBeforeDayWL Then
+                                                aMsg &= "- تاريخ درخواست عمليات خط گرم حداقل بايد قبل از ساعت " & lBeforeHourWL & "، " & lTamirBeforeDayWL & " روز قبل باشد" & lHoliDayStr
+                                            ElseIf lDiff = lTamirBeforeDayWL Then
+                                                If lDTNow.Hour >= lBeforeHourWL Then
+                                                    aMsg &= "- تاريخ درخواست عمليات خط گرم حداقل بايد قبل از ساعت " & lBeforeHourWL & "، " & lTamirBeforeDayWL & " روز قبل باشد" & lHoliDayStr
+                                                End If
+                                            End If
+                                        End If
+
+                                    End If
+                                End If
+                            End If
+                        ElseIf Not rbIsNotConfirm.Checked And aState < mdlHashemi.TamirRequestStates.trs_Confirm Then
+                            aMsg &= "- زمان عمليات درخواست شده معتبر نمي‌باشد."
+                        End If
+                    Else
+
+                        lDiffHour -= (lHoliDays * 24)
+                        If lHoliDays > 0 Then
+                            lHoliDayStr = " (با توجه به " & lHoliDays & " روز تعطيلي تا زمان شروع عمليات خط گرم )"
+                        End If
+
+                        If lDiff >= 0 And lDiffMin > 0 Then
+                            If (Not rbIsReturned.Checked Or (rbIsReturned.Checked And lIsCheckReturnTimeInNewTamir And Not mIsForConfirm)) And
+                                (Not rbIsReturnedWL.Checked Or (rbIsReturnedWL.Checked And lIsCheckReturnTimeInNewTamir And Not mIsConfirmEndWarmLine)) Then
+
+                                If Not chkIsEmergency.Checked And (cmbTamirNetworkType.SelectedValue <> TamirNetworkType.LP Or lIsLPTamirLimit) Then
+
+                                    If lIsCheckTimeForAll Or (Not mIsForWarmLineConfirm And Not mIsForConfirm) Then
+
+                                        Dim lIsTimeLimitWL As Boolean = Convert.ToBoolean(CConfig.ReadConfig("TamirTimeLimit", True))
+
+                                        If lIsTimeLimitWL And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
+                                            If lDiffHour < lIsDiffHourWL Then
+                                                aMsg &= "- تاريخ عمليات خط گرم حداقل بايد " & lIsDiffHourWL & " ساعت قبل از خاموشي باشد " & lHoliDayStr
+                                            End If
+                                        End If
+
+                                    End If
+                                End If
+                            End If
+                        ElseIf Not rbIsNotConfirm.Checked And aState < mdlHashemi.TamirRequestStates.trs_Confirm Then
+                            aMsg &= "- زمان عمليات درخواست شده معتبر نمي‌باشد."
+                        End If
+                    End If
+                End If
+
+            End If
+
+        End If
+    End Sub
+    Private Function IsSaveOk_DateDiff(ByRef aMsg As String, ByRef aWarningMsg As String,
+                                       ByRef IsSaveOK As Boolean,
+                                       ByRef aNow As CTimeInfo) As Boolean
+        If aMsg = "" Then
+            If DateDiff(DateInterval.Day, aNow.MiladiDate, txtDateDisconnect.MiladiDT) >= 50 Then
+                aWarningMsg = "شما در حال درخواست خاموشي، براي بيش از 50 روز آينده هستيد " & vbCrLf &
+                        "آيا از درخواست خود اطمينان داريد؟"
+                Dim lAns As DialogResult = MsgBoxF(aWarningMsg, "هشدار", MessageBoxButtons.YesNo, MsgBoxIcon.MsgIcon_Exclamation, MessageBoxDefaultButton.Button1)
+                If lAns = DialogResult.No Then
+                    IsSaveOK = False
+                    Return False
+                End If
+            ElseIf DateDiff(DateInterval.Day, aNow.MiladiDate, txtDateDisconnect.MiladiDT) > 30 Then
+                aWarningMsg = "شما در حال درخواست خاموشي، براي بيش از 30 روز آينده هستيد " & vbCrLf &
+                        "آيا از درخواست خود اطمينان داريد؟"
+                Dim lAns As DialogResult = MsgBoxF(aWarningMsg, "هشدار", MessageBoxButtons.YesNo, MsgBoxIcon.MsgIcon_Exclamation, MessageBoxDefaultButton.Button1)
+                If lAns = DialogResult.No Then
+                    IsSaveOK = False
+                    Return False
+                End If
+            End If
+            If DateDiff(DateInterval.Day, aNow.MiladiDate, txtDateDisconnect.MiladiDT) >= 60 Then
+                aWarningMsg = "شما اجازه ثبت درخواست خاموشي براي بيش از 60 روز آينده را نداريد "
+                ShowError(aWarningMsg)
+                IsSaveOK = False
+                Return False
+            End If
+        End If
+        Return True
+    End Function
+    Private Function IsSaveOk_MPFeederDC(ByRef aMsg As String, ByRef aWarningMsg As String,
+                                       ByRef IsSaveOK As Boolean) As Boolean
+
+        '--------------------------------------
+        '           Checking MPFeeder DC
+        '--------------------------------------
+        If aMsg = "" Then
+            Dim lLastDaysOfMPFeederDC As Integer = CConfig.ReadConfig("LastDaysOfMPFeederDC", 0)
+            Dim lSumMPFeederDC As Integer
+            Dim lDT As DateTime = txtDateDisconnect.MiladiDT
+            Dim lTxt As String = "درخواست"
+            If lLastDaysOfMPFeederDC > 0 Then
+                If mIsForConfirm Then
+                    lTxt = "تأييد"
+                End If
+
+                If cmbTamirNetworkType.SelectedValue = TamirNetworkType.MP AndAlso
+                cmbFeederPart.SelectedIndex = -1 AndAlso
+                Not chkIsWarmLine.Checked AndAlso
+                cmbLPPost.SelectedIndex = -1 Then
+                    Dim lSQL As String = ""
+                    lSQL =
+                        " SELECT SUM(cntDCMPFeeder) AS sumDC FROM ( " &
+                        " SELECT COUNT(*) as cntDCMPFeeder FROM TblMPRequest " &
+                        " INNER JOIN TblRequest ON TblMPRequest.MPRequestId = TblRequest.MPRequestId " &
+                        " WHERE TblRequest.IsDisconnectMPFeeder = 1 " &
+                        " AND DATEDIFF(DAY,TblMPRequest.DisconnectDT, '" & lDT.Date & "') <= " & lLastDaysOfMPFeederDC &
+                        " AND TblMPRequest.MPFeederId = " & cmbMPFeeder.SelectedValue &
+                        " AND ISNULL(TblMPRequest.IsWarmLine,0) = 0 " &
+                        " UNION " &
+                        " SELECT COUNT(*) as cntMPFeederDC FROM TblRequest " &
+                        " INNER JOIN TblFogheToziDisconnect ON TblRequest.FogheToziDisconnectId = TblFogheToziDisconnect.FogheToziDisconnectId " &
+                        " WHERE TblFogheToziDisconnect.IsFeederMode = 0 " &
+                        " AND DATEDIFF(DAY,TblFogheToziDisconnect.DisconnectDT, '" & lDT.Date & "') <= " & lLastDaysOfMPFeederDC &
+                        " AND TblFogheToziDisconnect.MPPostId = " & cmbMPPost.SelectedValue &
+                        " UNION " &
+                        " SELECT COUNT(*) as cntMPFeederDC FROM TblRequest " &
+                        " INNER JOIN TblFogheToziDisconnect ON TblRequest.FogheToziDisconnectId = TblFogheToziDisconnect.FogheToziDisconnectId " &
+                        " INNER JOIN TblFogheToziDisconnectMPFeeder ON TblFogheToziDisconnect.FogheToziDisconnectId = TblFogheToziDisconnectMPFeeder.FogheToziDisconnectId " &
+                        " WHERE TblFogheToziDisconnect.IsFeederMode = 1 " &
+                        " AND DATEDIFF(DAY,TblFogheToziDisconnectMPFeeder.DisconnectDT, '" & lDT.Date & "') <= " & lLastDaysOfMPFeederDC &
+                        " AND TblFogheToziDisconnectMPFeeder.MPFeederId = " & cmbMPFeeder.SelectedValue &
+                        ") t1 "
+                    BindingTable(lSQL, mCnn, mDs, "TblGetLastMPFeederDC", , , , , , , True)
+                    If mDs.Tables("TblGetLastMPFeederDC").Rows.Count > 0 Then
+                        lSumMPFeederDC = mDs.Tables("TblGetLastMPFeederDC").Rows(0)("sumDC")
+                        If lSumMPFeederDC > 0 Then
+                            aWarningMsg =
+                                "در " & lLastDaysOfMPFeederDC & " روز گذشته، فيدر " & cmbMPFeeder.Text & " به تعداد " & lSumMPFeederDC & " بار خاموش شده است " & vbCrLf &
+                                "آيا خاموشي ديگري را بر روي اين فيدر " & lTxt & " مي کنيد؟"
+                            Dim lAns As DialogResult = MsgBoxF(aWarningMsg, "هشدار", MessageBoxButtons.YesNo, MsgBoxIcon.MsgIcon_Exclamation, MessageBoxDefaultButton.Button1)
+                            If lAns = DialogResult.No Then
+                                IsSaveOK = False
+                                Return False
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        End If
+        Return True
+    End Function
+    Private Function IsSaveInfo_MaxPower(ByRef aMsg As String, ByRef aWarningMsg As String,
+                                       ByRef IsSaveOK As Boolean,
+                                       ByRef aState As TamirRequestStates) As Boolean
+        '--------------------------------------
+        '           Checking MaxPower
+        '--------------------------------------
+
+        If aMsg = "" Then
+
+            If Not ((mIsForConfirm And rbIsNotConfirm.Checked) Or mIsForWarmLineConfirm) Then
+
+                Dim lKh As New KhayamDateTime
+                Dim lSaturdayDT As DateTime
+                Dim lSaturdayPDate As String
+                Dim lExtraPower As Double = 0
+
+                lSaturdayDT = GetFirstDateOfTamirScope(txtDateDisconnect.MiladiDT)
+                lKh.SetMiladyDate(lSaturdayDT)
+                lSaturdayPDate = lKh.GetShamsiDateStr
+
+                If rbIsRequestByFogheTozi.Checked And cmbTamirNetworkType.SelectedValue = TamirNetworkType.FT Then
+
+                ElseIf aState < mdlHashemi.TamirRequestStates.trs_Confirm AndAlso Not chkIsWarmLine.Checked Then
+
+                    Dim lPower As Double = txtPower.Text
+
+                    Try
+                        If chkIsManoeuvre.Checked And Val(txtPowerManovr.Text) > 0 Then
+                            lPower += Val(txtPowerManovr.Text)
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    If lblPowerUnit.Text.ToLower = "kwh" Then lPower /= 1000
+
+                    If mIsTamirPowerMonthly Then
+                        mEditingWeakPowerRow = GetWeakPowerInfoMonthly(cmbArea.SelectedValue, lSaturdayDT, lSaturdayPDate, lPower)
+                    Else
+                        mEditingWeakPowerRow = GetWeakPowerInfo(cmbArea.SelectedValue, lSaturdayDT, lSaturdayPDate, lPower)
+                    End If
+
+                    If Not mEditingWeakPowerRow Is Nothing Then
+                        lExtraPower = mEditingWeakPowerRow.LastExtraPower + mEditingWeakPowerRow.UsedPower - mEditingWeakPowerRow.MaxPower
+                        If Not IsSetadMode Then
+                            lExtraPower += Val(txtWaitPower.Text.Trim)
+                        End If
+                    Else
+                        lExtraPower = 0.000000001
+                    End If
+
+                    If lExtraPower > 0 Then
+                        aMsg =
+                            "مقدار خاموشي درخواستي، از سهميه خاموشي " & mWeakPowerName & " شما به ميزان " & lExtraPower.ToString("0.##") & " مگاوات ساعت بيشتر شده است." & vbCrLf &
+                            "آيا درخواست را ثبت ميکنيد؟"
+                        Dim lAns As DialogResult = MsgBoxF(aMsg, "هشدار", MessageBoxButtons.OKCancel, MsgBoxIcon.MsgIcon_Hand, MessageBoxDefaultButton.Button1)
+                        If lAns = DialogResult.Cancel Then
+                            IsSaveOK = False
+                            Return False
+                        Else
+                            aMsg = ""
+                        End If
+                    End If
+
+                    If Not chkIsLPPostFeederPart.Checked And cmbTamirNetworkType.SelectedValue <> TamirNetworkType.FT Then
+
+                        Dim lVRow As DataRowView = cmbMPFeeder.SelectedItem
+                        If Not IsDBNull(lVRow("MaxDCCount")) Then
+
+                            Dim lCurDt As DateTime = txtDateDisconnect.MiladiDT
+                            Dim lKhDT As New KhayamDateTime
+                            Dim lPDate1 As String, lPDate2 As String
+                            Dim lDays As Integer, lMonthDays As Integer
+
+                            lKhDT.SetMiladyDate(lCurDt)
+                            lPDate1 = lKhDT.GetShamsiDateStr()
+                            lDays = Val(lPDate1.Substring(8, 2))
+                            lMonthDays = MonthDays(Val(lPDate1.Substring(5, 2)) - 1)
+
+                            lCurDt = lCurDt.AddDays(-lDays + 1)
+                            lKhDT.SetMiladyDate(lCurDt)
+                            lPDate1 = lKhDT.GetShamsiDateStr()
+
+                            lCurDt = lCurDt.AddDays(lMonthDays - 1)
+                            lKhDT.SetMiladyDate(lCurDt)
+                            lPDate2 = lKhDT.GetShamsiDateStr()
+
+                            Dim lDCCount As Integer = 0
+                            Dim lReqCount As Integer = 0
+                            Dim lMaxFeederDC As Integer = lVRow("MaxDCCount")
+
+                            Dim lSQL As String =
+                                "SELECT Count(RequestId) As Cnt FROM ViewAllRequest WHERE" &
+                                " IsTamir = 1 AND IsDisconnectMPFeeder = 1 " &
+                                " AND MPFeederId = " & lVRow("MPFeederId") &
+                                " AND (DisconnectDatePersian >= '" & lPDate1 & "')" &
+                                " AND (DisconnectDatePersian <= '" & lPDate2 & "')"
+                            RemoveMoreSpaces(lSQL)
+                            BindingTable(lSQL, mCnn, mDsReq, "ViewTamirCount")
+
+                            If mDsReq.Tables.Contains("ViewTamirCount") AndAlso mDsReq.Tables("ViewTamirCount").Rows.Count > 0 Then
+                                lDCCount = mDsReq.Tables("ViewTamirCount").Rows(0)("Cnt")
+                            End If
+
+                            lSQL =
+                                " SELECT COUNT(TblTamirRequest.TamirRequestId) AS Cnt " &
+                                " FROM TblTamirRequest INNER JOIN TblTamirRequestConfirm ON TblTamirRequest.TamirRequestId = TblTamirRequestConfirm.TamirRequestId " &
+                                " WHERE " &
+                                " 	TblTamirRequestConfirm.IsConfirm = 1 AND " &
+                                " 	TblTamirRequest.MPFeederId = " & lVRow("MPFeederId") &
+                                " 	AND (TblTamirRequest.DisconnectDatePersian >= '" & lPDate1 & "') " &
+                                " 	AND (TblTamirRequest.DisconnectDatePersian <= '" & lPDate2 & "') " &
+                                " 	AND TblTamirRequest.FeederPartId IS NULL AND TblTamirRequest.LPPostId IS NULL"
+                            RemoveMoreSpaces(lSQL)
+                            BindingTable(lSQL, mCnn, mDsReq, "ViewRequestCount")
+
+                            If mDsReq.Tables.Contains("ViewRequestCount") AndAlso mDsReq.Tables("ViewRequestCount").Rows.Count > 0 Then
+                                lReqCount = mDsReq.Tables("ViewRequestCount").Rows(0)("Cnt")
+                            End If
+
+                            If (lDCCount + lReqCount) >= lMaxFeederDC Then
+
+                                aMsg =
+                                    "تعداد خاموشي بابرنامه روي فيدر " &
+                                    cmbMPFeeder.Text &
+                                    "، از حداکثر تعداد خاموشي مجاز براي آن فيدر (" & lMaxFeederDC & ") بيشتر شده است." & vbCrLf &
+                                    "آيا درخواست را ثبت ميکنيد؟"
+                                Dim lAns As DialogResult = MsgBoxF(aMsg, "هشدار", MessageBoxButtons.OKCancel, MsgBoxIcon.MsgIcon_Warning, MessageBoxDefaultButton.Button1)
+                                If lAns = DialogResult.Cancel Then
+                                    IsSaveOK = False
+                                    Return False
+                                Else
+                                    aMsg = ""
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            ElseIf mIsForConfirm And rbIsNotConfirm.Checked Then
+                If chkIsEmergency.Checked Then
+                    Dim lUser As String = ""
+                    Dim lSQL As String = "SELECT * FROM Tbl_AreaUser WHERE AreaUserId = " & Val(mEditingRow("AreaUserId"))
+                    BindingTable(lSQL, mCnn, mDs, "Tbl_AreaUser")
+                    If mDs.Tables.Contains("Tbl_AreaUser") AndAlso mDs.Tables("Tbl_AreaUser").Rows.Count > 0 Then
+                        lUser = mDs.Tables("Tbl_AreaUser").Rows(0)("UserName")
+                    End If
+                    aMsg =
+                        "اين درخواست توسط کاربر <" & lUser & "> به صورت خاموشي بدون تأييد ثبت شده و خاموشي آن از قبل ايجاد شده و ممکن است انجام نيز شده باشد." & vbCrLf &
+                        "آيا از عدم تأييد درخواست اطمينان داريد؟"
+                    Dim lAns As DialogResult = MsgBoxF(aMsg, "هشدار", MessageBoxButtons.YesNo, MsgBoxIcon.MsgIcon_Exclamation, MessageBoxDefaultButton.Button1)
+                    If lAns = DialogResult.No Then
+                        IsSaveOK = False
+                        Exit Function
+                    Else
+                        aMsg = ""
+                    End If
+                End If
+            End If
+        End If
+        Return True
+    End Function
+    Private Sub IsSaveInfo_ReturnTime(ByRef aMsg As String, ByRef aNow As CTimeInfo)
+        If IsDBNull(mEditingRow("ReturnTimeoutDT")) Then Exit Sub
+        If aNow.MiladiDate > mEditingRow("ReturnTimeoutDT") Or
+            mEditingRow("DisconnectDT") > mEditingRow("ReturnTimeoutDT") Then
+            ShowError("وقت رسیدگی به عودت تمام شده است." & vbCrLf & "این پرونده به حالت عدم تایید تغییر وضعیت داد!")
+            mEditingRow("TamirRequestStateId") = 8 '-----عدم تایید
+        End If
+    End Sub
+    '------------------</omid>-------------------------
     Private Sub LoadOperationList()
         Try
             For Each lRow As DataRow In mDsView.ViewTamirOperationList.Rows
@@ -10688,497 +11184,27 @@ Public Class frmNewTamirRequest
             End If
         End If
         '======================
-
+        '-------------<omid>------
         '--> Check Disconnect Date Validity <--
-        If lMsg = "" Then
-            txtDateDisconnect.InsertTime(txtTimeDisconnect)
-
-            Dim lDT As DateTime = txtDateDisconnect.MiladiDT
-            Dim lDTNow As DateTime = lNow.MiladiDate
-
-            'Dim lDay1 As Long = lDTNow.DayOfYear + (lDTNow.Year - 1) * 365
-            'Dim lDay2 As Long = lDT.DayOfYear + (lDT.Year - 1) * 365
-            'Dim lDiff As Long = lDay2 - lDay1
-
-            Dim lDay1 As String = lDTNow.ToShortDateString()
-            Dim lDay2 As String = lDT.ToShortDateString()
-            Dim lDiff As Long = DateDiff(DateInterval.Day, Convert.ToDateTime(lDay1), Convert.ToDateTime(lDay2))
-            Dim lDiffHour As Integer = DateDiff(DateInterval.Hour, Convert.ToDateTime(lDTNow), Convert.ToDateTime(lDT))
-            Dim lDiffMin As Long = DateDiff(DateInterval.Minute, lDTNow, lDT)
-            Dim lIsBaMovafeghatLimit As Boolean = Convert.ToBoolean(CConfig.ReadConfig("IsBaMovafeghatLimit", False))
-            Dim lIsLPTamirLimit As Boolean = Not Convert.ToBoolean(CConfig.ReadConfig("NoLPTamirLimit", False))
-            Dim lIsCheckTimeForAll As Boolean = CConfig.ReadConfig("IsCheckTimeForAll", True)
-            Dim lIsCheckHoliday As Boolean = CConfig.ReadConfig("IsCheckHoliday", False)
-            Dim lIsHolidayThursday As Boolean = CConfig.ReadConfig("IsHolidayThursday", False)
-            Dim lIsHolidayFriday As Boolean = CConfig.ReadConfig("IsHolidayFriday", False)
-            Dim lIsNotTamirForHoliday As Boolean = CConfig.ReadConfig("IsNotTamirForHoliday", False)
-
-            Dim lIsCheckHolidayWL As Boolean = CConfig.ReadConfig("IsCheckHolidayWL", False)
-            Dim lIsHolidayThursdayWL As Boolean = CConfig.ReadConfig("IsHolidayThursdayWL", False)
-            Dim lIsHolidayFridayWL As Boolean = CConfig.ReadConfig("IsHolidayFridayWL", False)
-            Dim lIsNotTamirForHolidayWL As Boolean = CConfig.ReadConfig("IsNotTamirForHolidayWL", False)
-
-            Dim lIsHoliday As Boolean = False
-
-            Dim lHoliDayStr As String = ""
-            Dim lIsCheckReturnTimeInNewTamir As Boolean = CConfig.ReadConfig("IsCheckReturnTimeInNewTamir", False)
-
-            If Not chkIsWarmLine.Checked Then
-
-                If lIsNotTamirForHoliday Then
-                    lIsHoliday = IsHoliday(lDT, True, lIsHolidayThursday, lIsHolidayFriday)
-                    If lIsHoliday Then
-                        If Not chkIsEmergency.Checked And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
-                            lMsg &= "- متأسفانه شما نمي توانيد براي روز تعطيل، درخواست خاموشي ثبت نماييد"
-                        End If
-                    End If
-                End If
-
-                Dim lIsDiffHour As Integer = Val(CConfig.ReadConfig("IsTamirLimitHour", 0))
-
-                If Not lIsHoliday Then
-                    Dim lHoliDays As Integer = GetHolidays(lDTNow.AddDays(1), lDT, lIsCheckHoliday, lIsHolidayThursday, lIsHolidayFriday)
-
-                    If lIsDiffHour = 0 Then
-
-                        lDiff -= lHoliDays
-                        If lHoliDays > 0 Then
-                            lHoliDayStr = " (با توجه به " & lHoliDays & " روز تعطيلي تا تاريخ خاموشي )"
-                        End If
-
-
-                        If lDiff >= 0 And lDiffMin > 0 Then
-                            If (Not rbIsReturned.Checked Or (rbIsReturned.Checked And lIsCheckReturnTimeInNewTamir And Not mIsForConfirm)) And
-                                (Not rbIsReturnedWL.Checked Or (rbIsReturnedWL.Checked And lIsCheckReturnTimeInNewTamir And Not mIsConfirmEndWarmLine)) Then
-
-                                If Not chkIsEmergency.Checked And (cmbTamirNetworkType.SelectedValue <> TamirNetworkType.LP Or lIsLPTamirLimit) Then
-
-                                    If lIsCheckTimeForAll Or Not mIsForConfirm Then
-
-                                        Dim lIsTimeLimit As Boolean = Convert.ToBoolean(CConfig.ReadConfig("TamirTimeLimit", True))
-
-                                        If lIsTimeLimit And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
-                                            Dim lBeforeHour As Integer = Val(CConfig.ReadConfig("IsTamirBeforeHour", 0))
-                                            Dim lTamirBeforeDay As Integer = 0
-
-                                            Dim lIsBeforeHour As Boolean = lBeforeHour > 0 And lBeforeHour < 24
-
-                                            If lIsBeforeHour Then
-                                                If mDs.Tables("TblTamirRequest").Rows.Count > 0 AndAlso Not IsDBNull(mDs.Tables("TblTamirRequest").Rows(0)("IsReturned")) AndAlso mDs.Tables("TblTamirRequest").Rows(0)("IsReturned") Then
-                                                    lTamirBeforeDay = Val(CConfig.ReadConfig("TamirBeforeOdatDay", 1))
-                                                Else
-                                                    lTamirBeforeDay = Val(CConfig.ReadConfig("TamirBeforeDay", 1))
-                                                End If
-                                            End If
-
-                                            If lDiff < lTamirBeforeDay Then
-                                                lMsg &= "- تاريخ درخواست خاموشي حداقل بايد قبل از ساعت " & lBeforeHour & "، " & lTamirBeforeDay & " روز قبل باشد" & lHoliDayStr
-                                            ElseIf lDiff = lTamirBeforeDay Then
-                                                If lDTNow.Hour >= lBeforeHour Then
-                                                    lMsg &= "- تاريخ درخواست خاموشي حداقل بايد قبل از ساعت " & lBeforeHour & "، " & lTamirBeforeDay & " روز قبل باشد" & lHoliDayStr
-                                                End If
-                                            End If
-
-                                        End If
-
-                                    End If
-                                End If
-                            End If
-                        ElseIf Not rbIsNotConfirm.Checked And lState < mdlHashemi.TamirRequestStates.trs_Confirm Then
-                            lMsg &= "- زمان خاموشي درخواست شده معتبر نمي‌باشد."
-                        End If
-                    Else
-                        lDiffHour -= (lHoliDays * 24)
-                        If lHoliDays > 0 Then
-                            lHoliDayStr = " (با توجه به " & lHoliDays & " روز تعطيلي تا تاريخ خاموشي )"
-                        End If
-
-                        If lDiff >= 0 And lDiffMin > 0 Then
-                            If (Not rbIsReturned.Checked Or (rbIsReturned.Checked And lIsCheckReturnTimeInNewTamir And Not mIsForConfirm)) And
-                                (Not rbIsReturnedWL.Checked Or (rbIsReturnedWL.Checked And lIsCheckReturnTimeInNewTamir And Not mIsConfirmEndWarmLine)) Then
-
-                                If Not chkIsEmergency.Checked And (cmbTamirNetworkType.SelectedValue <> TamirNetworkType.LP Or lIsLPTamirLimit) Then
-
-                                    If lIsCheckTimeForAll Or Not mIsForConfirm Then
-
-                                        Dim lIsTimeLimit As Boolean = Convert.ToBoolean(CConfig.ReadConfig("TamirTimeLimit", True))
-
-                                        If lIsTimeLimit And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
-                                            If lDiffHour < lIsDiffHour Then
-                                                lMsg &= "- تاريخ درخواست خاموشي حداقل بايد " & lIsDiffHour & " ساعت قبل از خاموشي باشد" & lHoliDayStr
-                                            End If
-                                        End If
-
-                                    End If
-                                End If
-                            End If
-                        ElseIf Not rbIsNotConfirm.Checked And lState < mdlHashemi.TamirRequestStates.trs_Confirm Then
-                            lMsg &= "- زمان خاموشي درخواست شده معتبر نمي‌باشد."
-                        End If
-                    End If
-                End If
-
-
-
-            Else
-
-                If lIsNotTamirForHolidayWL Then
-                    lIsHoliday = IsHoliday(lDT, True, lIsHolidayThursdayWL, lIsHolidayFridayWL)
-                    If lIsHoliday Then
-                        If Not chkIsEmergency.Checked And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
-                            lMsg &= "- متأسفانه شما نمي توانيد براي روز تعطيل، درخواست عمليات خط گرم ثبت نماييد"
-                        End If
-                    End If
-                End If
-
-                Dim lIsDiffHourWL As Integer = Val(CConfig.ReadConfig("IsTamirLimitHourWL", 0))
-
-                If Not lIsHoliday Then
-                    Dim lHoliDays As Integer = GetHolidays(lDTNow.AddDays(1), lDT, lIsCheckHolidayWL, lIsHolidayThursdayWL, lIsHolidayFridayWL)
-
-                    If lIsDiffHourWL = 0 Then
-
-                        lDiff -= lHoliDays
-                        If lHoliDays > 0 Then
-                            lHoliDayStr = " (با توجه به " & lHoliDays & " روز تعطيلي تا زمان شروع عمليات خط گرم )"
-                        End If
-
-                        If lDiff >= 0 And lDiffMin > 0 Then
-                            If (Not rbIsReturned.Checked Or (rbIsReturned.Checked And lIsCheckReturnTimeInNewTamir And Not mIsForConfirm)) And
-                                (Not rbIsReturnedWL.Checked Or (rbIsReturnedWL.Checked And lIsCheckReturnTimeInNewTamir And Not mIsConfirmEndWarmLine)) Then
-
-                                If Not chkIsEmergency.Checked And (cmbTamirNetworkType.SelectedValue <> TamirNetworkType.LP Or lIsLPTamirLimit) Then
-
-                                    If lIsCheckTimeForAll Or (Not mIsForWarmLineConfirm And Not mIsForConfirm) Then
-
-                                        Dim lIsTimeLimitWL As Boolean = Convert.ToBoolean(CConfig.ReadConfig("TamirTimeLimitWL", True))
-
-                                        If lIsTimeLimitWL And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
-                                            Dim lBeforeHourWL As Integer = Val(CConfig.ReadConfig("IsTamirBeforeHourWL", 0))
-                                            Dim lTamirBeforeDayWL As Integer = 0
-                                            Dim lIsBeforeHourWL As Boolean = lBeforeHourWL > 0 And lBeforeHourWL < 24
-
-                                            If lIsBeforeHourWL Then
-                                                If mDs.Tables("TblTamirRequest").Rows.Count > 0 AndAlso Not IsDBNull(mDs.Tables("TblTamirRequest").Rows(0)("IsReturned")) AndAlso mDs.Tables("TblTamirRequest").Rows(0)("IsReturned") Then
-                                                    lTamirBeforeDayWL = Val(CConfig.ReadConfig("TamirBeforeOdatDayWL", 1))
-                                                Else
-                                                    lTamirBeforeDayWL = Val(CConfig.ReadConfig("TamirBeforeDayWL", 1))
-                                                End If
-                                            End If
-
-                                            If lDiff < lTamirBeforeDayWL Then
-                                                lMsg &= "- تاريخ درخواست عمليات خط گرم حداقل بايد قبل از ساعت " & lBeforeHourWL & "، " & lTamirBeforeDayWL & " روز قبل باشد" & lHoliDayStr
-                                            ElseIf lDiff = lTamirBeforeDayWL Then
-                                                If lDTNow.Hour >= lBeforeHourWL Then
-                                                    lMsg &= "- تاريخ درخواست عمليات خط گرم حداقل بايد قبل از ساعت " & lBeforeHourWL & "، " & lTamirBeforeDayWL & " روز قبل باشد" & lHoliDayStr
-                                                End If
-                                            End If
-                                        End If
-
-                                    End If
-                                End If
-                            End If
-                        ElseIf Not rbIsNotConfirm.Checked And lState < mdlHashemi.TamirRequestStates.trs_Confirm Then
-                            lMsg &= "- زمان عمليات درخواست شده معتبر نمي‌باشد."
-                        End If
-                    Else
-
-                        lDiffHour -= (lHoliDays * 24)
-                        If lHoliDays > 0 Then
-                            lHoliDayStr = " (با توجه به " & lHoliDays & " روز تعطيلي تا زمان شروع عمليات خط گرم )"
-                        End If
-
-                        If lDiff >= 0 And lDiffMin > 0 Then
-                            If (Not rbIsReturned.Checked Or (rbIsReturned.Checked And lIsCheckReturnTimeInNewTamir And Not mIsForConfirm)) And
-                                (Not rbIsReturnedWL.Checked Or (rbIsReturnedWL.Checked And lIsCheckReturnTimeInNewTamir And Not mIsConfirmEndWarmLine)) Then
-
-                                If Not chkIsEmergency.Checked And (cmbTamirNetworkType.SelectedValue <> TamirNetworkType.LP Or lIsLPTamirLimit) Then
-
-                                    If lIsCheckTimeForAll Or (Not mIsForWarmLineConfirm And Not mIsForConfirm) Then
-
-                                        Dim lIsTimeLimitWL As Boolean = Convert.ToBoolean(CConfig.ReadConfig("TamirTimeLimit", True))
-
-                                        If lIsTimeLimitWL And (cmbTamirType.SelectedValue = TamirTypes.BarnamehRiziShodeh Or (cmbTamirType.SelectedValue = TamirTypes.BaMovafeghat And lIsBaMovafeghatLimit)) Then
-                                            If lDiffHour < lIsDiffHourWL Then
-                                                lMsg &= "- تاريخ عمليات خط گرم حداقل بايد " & lIsDiffHourWL & " ساعت قبل از خاموشي باشد " & lHoliDayStr
-                                            End If
-                                        End If
-
-                                    End If
-                                End If
-                            End If
-                        ElseIf Not rbIsNotConfirm.Checked And lState < mdlHashemi.TamirRequestStates.trs_Confirm Then
-                            lMsg &= "- زمان عمليات درخواست شده معتبر نمي‌باشد."
-                        End If
-                    End If
-                End If
-
-            End If
-
-        End If
-
-        If lMsg = "" Then
-            If DateDiff(DateInterval.Day, lNow.MiladiDate, txtDateDisconnect.MiladiDT) >= 50 Then
-                Dim lWarningMsg As String =
-                        "شما در حال درخواست خاموشي، براي بيش از 50 روز آينده هستيد " & vbCrLf &
-                        "آيا از درخواست خود اطمينان داريد؟"
-                Dim lAns As DialogResult = MsgBoxF(lWarningMsg, "هشدار", MessageBoxButtons.YesNo, MsgBoxIcon.MsgIcon_Exclamation, MessageBoxDefaultButton.Button1)
-                If lAns = DialogResult.No Then
-                    IsSaveOK = False
-                    Exit Function
-                End If
-            ElseIf DateDiff(DateInterval.Day, lNow.MiladiDate, txtDateDisconnect.MiladiDT) > 30 Then
-                Dim lWarningMsg As String =
-                        "شما در حال درخواست خاموشي، براي بيش از 30 روز آينده هستيد " & vbCrLf &
-                        "آيا از درخواست خود اطمينان داريد؟"
-                Dim lAns As DialogResult = MsgBoxF(lWarningMsg, "هشدار", MessageBoxButtons.YesNo, MsgBoxIcon.MsgIcon_Exclamation, MessageBoxDefaultButton.Button1)
-                If lAns = DialogResult.No Then
-                    IsSaveOK = False
-                    Exit Function
-                End If
-            End If
-            If DateDiff(DateInterval.Day, lNow.MiladiDate, txtDateDisconnect.MiladiDT) >= 60 Then
-                Dim lWarningMsg As String =
-                        "شما اجازه ثبت درخواست خاموشي براي بيش از 60 روز آينده را نداريد "
-                ShowError(lWarningMsg)
-                IsSaveOK = False
-                Exit Function
-            End If
-        End If
-
-        '--------------------------------------
-        '           Checking MPFeeder DC
-        '--------------------------------------
-        If lMsg = "" Then
-            Dim lLastDaysOfMPFeederDC As Integer = CConfig.ReadConfig("LastDaysOfMPFeederDC", 0)
-            Dim lSumMPFeederDC As Integer
-            Dim lDT As DateTime = txtDateDisconnect.MiladiDT
-            Dim lTxt As String = "درخواست"
-            If lLastDaysOfMPFeederDC > 0 Then
-                If mIsForConfirm Then
-                    lTxt = "تأييد"
-                End If
-
-                If cmbTamirNetworkType.SelectedValue = TamirNetworkType.MP AndAlso
-                cmbFeederPart.SelectedIndex = -1 AndAlso
-                Not chkIsWarmLine.Checked AndAlso
-                cmbLPPost.SelectedIndex = -1 Then
-                    Dim lSQL As String = ""
-                    lSQL =
-                        " SELECT SUM(cntDCMPFeeder) AS sumDC FROM ( " &
-                        " SELECT COUNT(*) as cntDCMPFeeder FROM TblMPRequest " &
-                        " INNER JOIN TblRequest ON TblMPRequest.MPRequestId = TblRequest.MPRequestId " &
-                        " WHERE TblRequest.IsDisconnectMPFeeder = 1 " &
-                        " AND DATEDIFF(DAY,TblMPRequest.DisconnectDT, '" & lDT.Date & "') <= " & lLastDaysOfMPFeederDC &
-                        " AND TblMPRequest.MPFeederId = " & cmbMPFeeder.SelectedValue &
-                        " AND ISNULL(TblMPRequest.IsWarmLine,0) = 0 " &
-                        " UNION " &
-                        " SELECT COUNT(*) as cntMPFeederDC FROM TblRequest " &
-                        " INNER JOIN TblFogheToziDisconnect ON TblRequest.FogheToziDisconnectId = TblFogheToziDisconnect.FogheToziDisconnectId " &
-                        " WHERE TblFogheToziDisconnect.IsFeederMode = 0 " &
-                        " AND DATEDIFF(DAY,TblFogheToziDisconnect.DisconnectDT, '" & lDT.Date & "') <= " & lLastDaysOfMPFeederDC &
-                        " AND TblFogheToziDisconnect.MPPostId = " & cmbMPPost.SelectedValue &
-                        " UNION " &
-                        " SELECT COUNT(*) as cntMPFeederDC FROM TblRequest " &
-                        " INNER JOIN TblFogheToziDisconnect ON TblRequest.FogheToziDisconnectId = TblFogheToziDisconnect.FogheToziDisconnectId " &
-                        " INNER JOIN TblFogheToziDisconnectMPFeeder ON TblFogheToziDisconnect.FogheToziDisconnectId = TblFogheToziDisconnectMPFeeder.FogheToziDisconnectId " &
-                        " WHERE TblFogheToziDisconnect.IsFeederMode = 1 " &
-                        " AND DATEDIFF(DAY,TblFogheToziDisconnectMPFeeder.DisconnectDT, '" & lDT.Date & "') <= " & lLastDaysOfMPFeederDC &
-                        " AND TblFogheToziDisconnectMPFeeder.MPFeederId = " & cmbMPFeeder.SelectedValue &
-                        ") t1 "
-                    BindingTable(lSQL, mCnn, mDs, "TblGetLastMPFeederDC", , , , , , , True)
-                    If mDs.Tables("TblGetLastMPFeederDC").Rows.Count > 0 Then
-                        lSumMPFeederDC = mDs.Tables("TblGetLastMPFeederDC").Rows(0)("sumDC")
-                        If lSumMPFeederDC > 0 Then
-                            Dim lWarningMsg As String =
-                                "در " & lLastDaysOfMPFeederDC & " روز گذشته، فيدر " & cmbMPFeeder.Text & " به تعداد " & lSumMPFeederDC & " بار خاموش شده است " & vbCrLf &
-                                "آيا خاموشي ديگري را بر روي اين فيدر " & lTxt & " مي کنيد؟"
-                            Dim lAns As DialogResult = MsgBoxF(lWarningMsg, "هشدار", MessageBoxButtons.YesNo, MsgBoxIcon.MsgIcon_Exclamation, MessageBoxDefaultButton.Button1)
-                            If lAns = DialogResult.No Then
-                                IsSaveOK = False
-                                Exit Function
-                            End If
-                        End If
-                    End If
-                End If
-            End If
-
-        End If
-
-        '--------------------------------------
-        '           Checking MaxPower
-        '--------------------------------------
-
-        If lMsg = "" Then
-
-            If Not ((mIsForConfirm And rbIsNotConfirm.Checked) Or mIsForWarmLineConfirm) Then
-
-                Dim lKh As New KhayamDateTime
-                Dim lSaturdayDT As DateTime
-                Dim lSaturdayPDate As String
-                Dim lExtraPower As Double = 0
-
-                lSaturdayDT = GetFirstDateOfTamirScope(txtDateDisconnect.MiladiDT)
-                lKh.SetMiladyDate(lSaturdayDT)
-                lSaturdayPDate = lKh.GetShamsiDateStr
-
-                If rbIsRequestByFogheTozi.Checked And cmbTamirNetworkType.SelectedValue = TamirNetworkType.FT Then
-
-                ElseIf lState < mdlHashemi.TamirRequestStates.trs_Confirm AndAlso Not chkIsWarmLine.Checked Then
-
-                    Dim lPower As Double = txtPower.Text
-
-                    Try
-                        If chkIsManoeuvre.Checked And Val(txtPowerManovr.Text) > 0 Then
-                            lPower += Val(txtPowerManovr.Text)
-                        End If
-                    Catch ex As Exception
-                    End Try
-
-                    If lblPowerUnit.Text.ToLower = "kwh" Then lPower /= 1000
-
-                    If mIsTamirPowerMonthly Then
-                        mEditingWeakPowerRow = GetWeakPowerInfoMonthly(cmbArea.SelectedValue, lSaturdayDT, lSaturdayPDate, lPower)
-                    Else
-                        mEditingWeakPowerRow = GetWeakPowerInfo(cmbArea.SelectedValue, lSaturdayDT, lSaturdayPDate, lPower)
-                    End If
-
-                    If Not mEditingWeakPowerRow Is Nothing Then
-                        lExtraPower = mEditingWeakPowerRow.LastExtraPower + mEditingWeakPowerRow.UsedPower - mEditingWeakPowerRow.MaxPower
-                        If Not IsSetadMode Then
-                            lExtraPower += Val(txtWaitPower.Text.Trim)
-                        End If
-                    Else
-                        lExtraPower = 0.000000001
-                    End If
-
-                    If lExtraPower > 0 Then
-                        lMsg =
-                            "مقدار خاموشي درخواستي، از سهميه خاموشي " & mWeakPowerName & " شما به ميزان " & lExtraPower.ToString("0.##") & " مگاوات ساعت بيشتر شده است." & vbCrLf &
-                            "آيا درخواست را ثبت ميکنيد؟"
-                        Dim lAns As DialogResult = MsgBoxF(lMsg, "هشدار", MessageBoxButtons.OKCancel, MsgBoxIcon.MsgIcon_Hand, MessageBoxDefaultButton.Button1)
-                        If lAns = DialogResult.Cancel Then
-                            IsSaveOK = False
-                            Exit Function
-                        Else
-                            lMsg = ""
-                        End If
-                    End If
-
-                    If Not chkIsLPPostFeederPart.Checked And cmbTamirNetworkType.SelectedValue <> TamirNetworkType.FT Then
-
-                        Dim lVRow As DataRowView = cmbMPFeeder.SelectedItem
-                        If Not IsDBNull(lVRow("MaxDCCount")) Then
-
-                            Dim lCurDt As DateTime = txtDateDisconnect.MiladiDT
-                            Dim lKhDT As New KhayamDateTime
-                            Dim lPDate1 As String, lPDate2 As String
-                            Dim lDays As Integer, lMonthDays As Integer
-
-                            lKhDT.SetMiladyDate(lCurDt)
-                            lPDate1 = lKhDT.GetShamsiDateStr()
-                            lDays = Val(lPDate1.Substring(8, 2))
-                            lMonthDays = MonthDays(Val(lPDate1.Substring(5, 2)) - 1)
-
-                            lCurDt = lCurDt.AddDays(-lDays + 1)
-                            lKhDT.SetMiladyDate(lCurDt)
-                            lPDate1 = lKhDT.GetShamsiDateStr()
-
-                            lCurDt = lCurDt.AddDays(lMonthDays - 1)
-                            lKhDT.SetMiladyDate(lCurDt)
-                            lPDate2 = lKhDT.GetShamsiDateStr()
-
-                            Dim lDCCount As Integer = 0
-                            Dim lReqCount As Integer = 0
-                            Dim lMaxFeederDC As Integer = lVRow("MaxDCCount")
-
-                            Dim lSQL As String =
-                                "SELECT Count(RequestId) As Cnt FROM ViewAllRequest WHERE" &
-                                " IsTamir = 1 AND IsDisconnectMPFeeder = 1 " &
-                                " AND MPFeederId = " & lVRow("MPFeederId") &
-                                " AND (DisconnectDatePersian >= '" & lPDate1 & "')" &
-                                " AND (DisconnectDatePersian <= '" & lPDate2 & "')"
-                            RemoveMoreSpaces(lSQL)
-                            BindingTable(lSQL, mCnn, mDsReq, "ViewTamirCount")
-
-                            If mDsReq.Tables.Contains("ViewTamirCount") AndAlso mDsReq.Tables("ViewTamirCount").Rows.Count > 0 Then
-                                lDCCount = mDsReq.Tables("ViewTamirCount").Rows(0)("Cnt")
-                            End If
-
-                            lSQL =
-                                " SELECT COUNT(TblTamirRequest.TamirRequestId) AS Cnt " &
-                                " FROM TblTamirRequest INNER JOIN TblTamirRequestConfirm ON TblTamirRequest.TamirRequestId = TblTamirRequestConfirm.TamirRequestId " &
-                                " WHERE " &
-                                " 	TblTamirRequestConfirm.IsConfirm = 1 AND " &
-                                " 	TblTamirRequest.MPFeederId = " & lVRow("MPFeederId") &
-                                " 	AND (TblTamirRequest.DisconnectDatePersian >= '" & lPDate1 & "') " &
-                                " 	AND (TblTamirRequest.DisconnectDatePersian <= '" & lPDate2 & "') " &
-                                " 	AND TblTamirRequest.FeederPartId IS NULL AND TblTamirRequest.LPPostId IS NULL"
-                            RemoveMoreSpaces(lSQL)
-                            BindingTable(lSQL, mCnn, mDsReq, "ViewRequestCount")
-
-                            If mDsReq.Tables.Contains("ViewRequestCount") AndAlso mDsReq.Tables("ViewRequestCount").Rows.Count > 0 Then
-                                lReqCount = mDsReq.Tables("ViewRequestCount").Rows(0)("Cnt")
-                            End If
-
-                            If (lDCCount + lReqCount) >= lMaxFeederDC Then
-
-                                lMsg =
-                                    "تعداد خاموشي بابرنامه روي فيدر " &
-                                    cmbMPFeeder.Text &
-                                    "، از حداکثر تعداد خاموشي مجاز براي آن فيدر (" & lMaxFeederDC & ") بيشتر شده است." & vbCrLf &
-                                    "آيا درخواست را ثبت ميکنيد؟"
-                                Dim lAns As DialogResult = MsgBoxF(lMsg, "هشدار", MessageBoxButtons.OKCancel, MsgBoxIcon.MsgIcon_Warning, MessageBoxDefaultButton.Button1)
-                                If lAns = DialogResult.Cancel Then
-                                    IsSaveOK = False
-                                    Exit Function
-                                Else
-                                    lMsg = ""
-                                End If
-
-                            End If
-
-                        End If
-                    End If
-
-                End If
-
-            ElseIf mIsForConfirm And rbIsNotConfirm.Checked Then
-
-                If chkIsEmergency.Checked Then
-
-                    Dim lUser As String = ""
-                    Dim lSQL As String = "SELECT * FROM Tbl_AreaUser WHERE AreaUserId = " & Val(mEditingRow("AreaUserId"))
-                    BindingTable(lSQL, mCnn, mDs, "Tbl_AreaUser")
-                    If mDs.Tables.Contains("Tbl_AreaUser") AndAlso mDs.Tables("Tbl_AreaUser").Rows.Count > 0 Then
-                        lUser = mDs.Tables("Tbl_AreaUser").Rows(0)("UserName")
-                    End If
-
-                    lMsg =
-                        "اين درخواست توسط کاربر <" & lUser & "> به صورت خاموشي بدون تأييد ثبت شده و خاموشي آن از قبل ايجاد شده و ممکن است انجام نيز شده باشد." & vbCrLf &
-                        "آيا از عدم تأييد درخواست اطمينان داريد؟"
-                    Dim lAns As DialogResult = MsgBoxF(lMsg, "هشدار", MessageBoxButtons.YesNo, MsgBoxIcon.MsgIcon_Exclamation, MessageBoxDefaultButton.Button1)
-                    If lAns = DialogResult.No Then
-                        IsSaveOK = False
-                        Exit Function
-                    Else
-                        lMsg = ""
-                    End If
-                End If
-
-            End If
-        End If
-
+        IsSaveOk_DisDateValidity(lMsg, lNow, lState)
+
+        Dim lWarningMsg As String
+        If Not IsSaveOk_DateDiff(lMsg, lWarningMsg, IsSaveOK, lNow) Then Exit Function
+        If Not IsSaveOk_MPFeederDC(lMsg, lWarningMsg, IsSaveOK) Then Exit Function
+        If Not IsSaveInfo_MaxPower(lMsg, lWarningMsg, IsSaveOK, lState) Then Exit Function
+        IsSaveInfo_ReturnTime(lMsg, lNow)
+        '-------------</omid>------
         If lMsg = "" Then
             IsSaveOK = True
         Else
             lMsg = "لطفا موارد زير را تصحيح نماييد" & vbCrLf & lMsg.Replace("-", vbCrLf & "-")
             ShowError(lMsg, False, MsgBoxIcon.MsgIcon_Exclamation)
         End If
-
     End Function
     Private Function SaveInfo() As Boolean
         SaveInfo = False
+        txtDateDisconnect.InsertTime(txtTimeDisconnect)
+        txtDateConnect.InsertTime(txtTimeConnect)
         'If Not CheckEmergency() Then Exit Function
         If Not CheckUserAccess() Then Exit Function
         If Not IsSaveOK() Then Exit Function
@@ -11202,8 +11228,6 @@ Public Class frmNewTamirRequest
 
         Try
             mIsAutoChangeTamirType = True
-            txtDateDisconnect.InsertTime(txtTimeDisconnect)
-            txtDateConnect.InsertTime(txtTimeConnect)
             If mIsForceManovrDC Then
                 txtDateDisconnectManovr.InsertTime(txtTimeDisconnectManovr)
                 txtDateConnectManovr.InsertTime(txtTimeConnectManovr)
@@ -11401,7 +11425,7 @@ Public Class frmNewTamirRequest
             End If
 
             If mIsNewRequest And Not mIsAddRow Then
-                mDs.TblTamirRequest.Rows.Add(mEditingRow)
+                mDs.Tables("TblTamirRequest").Rows.Add(mEditingRow)
                 mIsAddRow = True
             End If
             If mIsNewManovr And Not mIsAddRowManovr Then
@@ -11975,7 +11999,6 @@ Public Class frmNewTamirRequest
             If chkIsManoeuvre.Checked Then
                 LoadPowerInfoMPManovr(aIsUpdateCurrentValue)
             End If
-
         End If
     End Sub
     Private Sub LoadPowerInfoMP(Optional ByVal aIsUpdateCurrentValue As Boolean = False)
@@ -13112,15 +13135,15 @@ Public Class frmNewTamirRequest
             Exit Function
         End If
         Try
-            Dim lDs As New DatasetTamir
-            Dim lRow As DatasetTamir.TblTamirRequestRow
+            Dim lDs As New DataSet
+            Dim lRow As DataRow
             Dim lSQL As String
 
             lSQL = "SELECT * FROM TblTamirRequest WHERE TamirRequestId = " & mTamirRequestId
             BindingTable(lSQL, mCnn, lDs, "TblTamirRequest", , , True)
 
-            If lDs.TblTamirRequest.Rows.Count > 0 Then
-                lRow = lDs.TblTamirRequest.Rows(0)
+            If lDs.Tables("TblTamirRequest").Rows.Count > 0 Then
+                lRow = lDs.Tables("TblTamirRequest").Rows(0)
                 lRow("NazerId") = IIf(cmbNazer.SelectedIndex > -1, cmbNazer.SelectedValue, DBNull.Value)
                 lRow("IsConfirmNazer") = chkIsConfirmNazer.Checked
                 If chkIsConfirmNazer.Checked Then
@@ -15279,7 +15302,7 @@ Public Class frmNewTamirRequest
                     lRow_TRF = mDs.TblTamirRequestFile.NewTblTamirRequestFileRow()
                     With lRow_TRF
                         .TamirRequestFileId = lRow_View.TamirRequestFileId
-                        .TamirRequestId = mDs.TblTamirRequest(0).TamirRequestId
+                        .TamirRequestId = mDs.Tables("TblTamirRequest").Rows(0)("TamirRequestId")
                         .FileServerId = lRow_View.FileServerId
                         .Item("Subject") = lRow_View("Subject")
                         .Item("Comment") = lRow_View("Comment")
