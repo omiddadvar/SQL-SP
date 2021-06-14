@@ -8731,6 +8731,9 @@ Public Class frmNewTamirRequest
     End Sub
 
     Private Sub Init()
+        If Not mDs.TblTamirRequest.Columns.Contains("ReturnTimeoutDT") Then
+            mDs.TblTamirRequest.Columns.Add("ReturnTimeoutDT")
+        End If
         Dim lSQl As String
         Dim lTbl As New DataTable("Tbl_Period")
 
@@ -9508,7 +9511,7 @@ Public Class frmNewTamirRequest
             lIsCheckSendSMSSensitive = CConfig.ReadConfig("IsCheckSendSMSSensitive", False)
             chkIsSendSMSSensitive.Checked = lIsCheckSendSMSSensitive
 
-            If mTamirRequestId > -1 AndAlso mDs.TblTamirRequest.Rows.Count > 0 Then
+            If mTamirRequestId > -1 AndAlso mDs.Tables("TblTamirRequest").Rows.Count > 0 Then
                 SaveLog("TamirRequestId: " & mTamirRequestId, "TNT.log")
                 Try
                     SaveLog("TamirRequestNo: " & mEditingRow("TamirRequestNo"), "TNT.log")
@@ -9519,7 +9522,7 @@ Public Class frmNewTamirRequest
                 mIsNewRequest = False
                 mIsAddRow = True
                 mIsUpdateCurrentValue = False
-                mEditingRow = mDs.TblTamirRequest.Rows(0)
+                mEditingRow = mDs.Tables("TblTamirRequest").Rows(0)
                 If mDs.TblTamirRequestDisconnect.Count > 0 Then
                     mEditingRowManovr = mDs.TblTamirRequestDisconnect(0)
                 End If
@@ -9628,7 +9631,7 @@ Public Class frmNewTamirRequest
                 mIsAddRow = False
                 chkIsSendToSetad.Visible = True
 
-                mEditingRow = mDs.TblTamirRequest.NewRow
+                mEditingRow = mDs.Tables("TblTamirRequest").NewRow
                 lTRequestId = GetAutoInc()
                 mEditingRow("TamirRequestId") = lTRequestId
                 mEditingRow("TamirRequestNo") = -1
@@ -10038,7 +10041,7 @@ Public Class frmNewTamirRequest
                 cmbManoeuvreType.SelectedIndex = -1
             End If
 
-            If mTamirRequestId = -1 OrElse mDs.TblTamirRequest.Rows.Count = 0 Then
+            If mTamirRequestId = -1 OrElse mDs.Tables("TblTamirRequest").Rows.Count = 0 Then
                 cmbMPPost.SelectedIndex = -1
                 cmbMPPost.SelectedIndex = -1
                 cmbMPFeeder.SelectedIndex = -1
@@ -10115,7 +10118,8 @@ Public Class frmNewTamirRequest
                     chkIsSendSMSSensitive.Text = "اطلاع رساني به مشترکين با SMS"
                 End If
             End If
-
+            '--------------omid
+            Check_ReturnTime(lNow)
         Catch ex As Exception
             ShowError(ex)
         Finally
@@ -10954,8 +10958,6 @@ Public Class frmNewTamirRequest
 
             End If
         End If
-        '---------omid
-        IsSaveInfo_ReturnTime(lMsg, lNow)
 
         If lMsg = "" Then
             IsSaveOK = True
@@ -11430,14 +11432,14 @@ Public Class frmNewTamirRequest
                 SetDBValue(txtUnConfirmReason, mEditingRow("ReturnDesc"))
                 mEditingRow("TamirRequestStateId") = TamirRequestStates.trs_PreNew
                 mEditingRow("IsNeedManovrDC") = DBNull.Value
-                '----------------omid
-                ReturnDT()
                 If mIsSendMessageForReturn Then
                     MakeMessageForUserReturn(mEditingRow("AreaUserId"), lTrans)
                 End If
             ElseIf mIsForWarmLineConfirm And rbIsReturnedWL.Checked Then
                 mEditingRow("TamirRequestStateId") = TamirRequestStates.trs_PreNew
             End If
+            '----------------omid
+            ReturnDT()
 
             '-------------------
             'TblTamirRequestAllow:
@@ -11477,7 +11479,7 @@ Public Class frmNewTamirRequest
             End If
 
             If mIsNewRequest And Not mIsAddRow Then
-                mDs.TblTamirRequest.Rows.Add(mEditingRow)
+                mDs.Tables("TblTamirRequest").Rows.Add(mEditingRow)
                 mIsAddRow = True
             End If
             If mIsNewManovr And Not mIsAddRowManovr Then
@@ -11658,12 +11660,23 @@ Public Class frmNewTamirRequest
         End Try
 
     End Function
-    Private Sub IsSaveInfo_ReturnTime(ByRef aMsg As String, ByRef aNow As CTimeInfo)
+    '-------------omid
+    Private Sub Check_ReturnTime(ByRef aNow As CTimeInfo)
+        If pnlConfirm.Enabled Then Exit Sub
+        If Not mEditingRow("TamirRequestStateId") = 2 Then Exit Sub
         If IsDBNull(mEditingRow("ReturnTimeoutDT")) Then Exit Sub
+        Dim lUpdate As New frmUpdateDataset
+        Dim lRemainingTime As New CTimeInfo(mEditingRow("DisconnectDT"))
+
         If aNow.MiladiDate > mEditingRow("ReturnTimeoutDT") Or
-            mEditingRow("DisconnectDT") > mEditingRow("ReturnTimeoutDT") Then
+            mEditingRow("DisconnectDT") < mEditingRow("ReturnTimeoutDT") Then
             ShowError("وقت رسیدگی به عودت تمام شده است." & vbCrLf & "این پرونده به حالت عدم تایید تغییر وضعیت داد!")
             mEditingRow("TamirRequestStateId") = 8 '-----عدم تایید
+            lUpdate.UpdateDataSet("TblTamirRequest", mDs, mEditingRow("AreaId"))
+            btnSave.Enabled = False
+        Else
+            ShowInfo("شما تا تاریخ " & lRemainingTime.ShamsiDate & "و زمان  " &
+                     lRemainingTime.HourMin & "برای تغییرات وقت دارید.")
         End If
     End Sub
     Private Function CheckWarmLineFeeder() As Boolean
@@ -13203,8 +13216,8 @@ Public Class frmNewTamirRequest
             lSQL = "SELECT * FROM TblTamirRequest WHERE TamirRequestId = " & mTamirRequestId
             BindingTable(lSQL, mCnn, lDs, "TblTamirRequest", , , True)
 
-            If lDs.TblTamirRequest.Rows.Count > 0 Then
-                lRow = lDs.TblTamirRequest.Rows(0)
+            If lDs.Tables("TblTamirRequest").Rows.Count > 0 Then
+                lRow = lDs.Tables("TblTamirRequest").Rows(0)
                 lRow("NazerId") = IIf(cmbNazer.SelectedIndex > -1, cmbNazer.SelectedValue, DBNull.Value)
                 lRow("IsConfirmNazer") = chkIsConfirmNazer.Checked
                 If chkIsConfirmNazer.Checked Then
@@ -15363,7 +15376,7 @@ Public Class frmNewTamirRequest
                     lRow_TRF = mDs.TblTamirRequestFile.NewTblTamirRequestFileRow()
                     With lRow_TRF
                         .TamirRequestFileId = lRow_View.TamirRequestFileId
-                        .TamirRequestId = mDs.TblTamirRequest(0).TamirRequestId
+                        .TamirRequestId = mDs.Tables("TblTamirRequest").Rows(0)("TamirRequestId")
                         .FileServerId = lRow_View.FileServerId
                         .Item("Subject") = lRow_View("Subject")
                         .Item("Comment") = lRow_View("Comment")
@@ -15521,7 +15534,9 @@ Public Class frmNewTamirRequest
         End If
     End Sub
     Private Sub ReturnDT()
-        Dim lMins As Integer = Integer.Parse(txtReturn.Text)
+        If Not pnlConfirm.Enabled Then Exit Sub
+        If Not rbIsReturned.Checked Then Exit Sub
+        Dim lMins As Integer = Val(txtReturn.Text)
         Dim lRetrunDT As DateTime = GetServerTimeInfo().MiladiDate.AddMinutes(lMins)
         If lRetrunDT > mEditingRow("ConnectDT") Then
             ShowInfo("مهلت زمان عودت از زمان قطع بیشتر می باشد")
