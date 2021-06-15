@@ -11662,8 +11662,9 @@ Public Class frmNewTamirRequest
     End Function
     '-------------omid
     Private Sub Check_ReturnTime(ByRef aNow As CTimeInfo)
-        If pnlConfirm.Enabled Then Exit Sub
-        If Not mEditingRow("TamirRequestStateId") = 2 Then Exit Sub
+        If mIsForConfirm Or mIsForWarmLineConfirm Then Exit Sub
+        If Not mEditingRow("TamirRequestStateId") = 0 Then Exit Sub
+        If mEditingRow("IsReturned") = 0 Then Exit Sub
         If IsDBNull(mEditingRow("ReturnTimeoutDT")) Then Exit Sub
         Dim lUpdate As New frmUpdateDataset
         Dim lRemainingTime As New CTimeInfo(mEditingRow("DisconnectDT"))
