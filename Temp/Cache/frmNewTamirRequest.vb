@@ -5,7 +5,7 @@ Imports System.IO
 Imports System.Collections.Generic
 Imports System.Linq
 Imports Janus.Windows.GridEX
-
+Imports Bargh_Common.MsgBoxFarsi
 Public Class frmNewTamirRequest
     Inherits FormBase
 
@@ -191,8 +191,11 @@ Public Class frmNewTamirRequest
     Friend WithEvents btnLPFeeder As Button
     Friend WithEvents txtFeederPart As TextBoxPersian
     Friend WithEvents picFeederPart As PictureBox
-    Friend WithEvents txtReturn As TextBox
     Friend WithEvents LabelRetrun As Label
+    Friend WithEvents LabelReturnAlarm As Label
+    Friend WithEvents LabelReturnMinute As Label
+    Friend WithEvents txtReturn As TextBoxPersian
+    Friend WithEvents LabelReturnInfo As Label
     Private mCntMPFeederKey As Integer
 #End Region
 
@@ -790,6 +793,9 @@ Public Class frmNewTamirRequest
         Me.txtTimeConfirm = New Bargh_Common.mdlPersianMaskedEditor.TimeMaskedEditor()
         Me.txtDateConfirm = New Bargh_Common.mdlPersianMaskedEditor.PersianMaskedEditor()
         Me.pnlConfirm = New Bargh_Common.PanelGroupBox()
+        Me.txtReturn = New Bargh_Common.TextBoxPersian()
+        Me.LabelReturnMinute = New System.Windows.Forms.Label()
+        Me.LabelReturnAlarm = New System.Windows.Forms.Label()
         Me.chkIsSendToInformApp = New System.Windows.Forms.CheckBox()
         Me.PicSendSMSSensitive = New System.Windows.Forms.PictureBox()
         Me.chkIsSendSMSSensitive = New System.Windows.Forms.CheckBox()
@@ -800,7 +806,6 @@ Public Class frmNewTamirRequest
         Me.Label30 = New System.Windows.Forms.Label()
         Me.lblNotConfirmReason = New System.Windows.Forms.Label()
         Me.rbIsReturned = New System.Windows.Forms.RadioButton()
-        Me.txtReturn = New System.Windows.Forms.TextBox()
         Me.LabelRetrun = New System.Windows.Forms.Label()
         Me.pnlAllow = New Bargh_Common.PanelGroupBox()
         Me.picIsAuotoNumber = New System.Windows.Forms.PictureBox()
@@ -1044,6 +1049,7 @@ Public Class frmNewTamirRequest
         Me.pnlEmergencyReason = New System.Windows.Forms.Panel()
         Me.lblEmergencyReason = New System.Windows.Forms.Label()
         Me.txtEmergency = New System.Windows.Forms.TextBox()
+        Me.LabelReturnInfo = New System.Windows.Forms.Label()
         Me.lnkRequestNumberManovr = New System.Windows.Forms.LinkLabel()
         Me.lblRequestNumberManovr = New System.Windows.Forms.Label()
         Me.txtEmergencyReasonDisplay = New System.Windows.Forms.TextBox()
@@ -2946,7 +2952,7 @@ Public Class frmNewTamirRequest
         Me.Label28.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Label28.Location = New System.Drawing.Point(283, 202)
+        Me.Label28.Location = New System.Drawing.Point(288, 190)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(104, 13)
         Me.Label28.TabIndex = 0
@@ -2960,7 +2966,7 @@ Public Class frmNewTamirRequest
         Me.txtTimeConfirm.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtTimeConfirm.IsShadow = False
         Me.txtTimeConfirm.IsShowCurrentTime = False
-        Me.txtTimeConfirm.Location = New System.Drawing.Point(157, 200)
+        Me.txtTimeConfirm.Location = New System.Drawing.Point(162, 188)
         Me.txtTimeConfirm.MaxLength = 5
         Me.txtTimeConfirm.MiladiDT = Nothing
         Me.txtTimeConfirm.Name = "txtTimeConfirm"
@@ -2982,7 +2988,7 @@ Public Class frmNewTamirRequest
         Me.txtDateConfirm.IntegerDate = 0
         Me.txtDateConfirm.IsShadow = False
         Me.txtDateConfirm.IsShowCurrentDate = False
-        Me.txtDateConfirm.Location = New System.Drawing.Point(200, 200)
+        Me.txtDateConfirm.Location = New System.Drawing.Point(205, 188)
         Me.txtDateConfirm.MaxLength = 10
         Me.txtDateConfirm.MiladiDT = CType(resources.GetObject("txtDateConfirm.MiladiDT"), Object)
         Me.txtDateConfirm.Name = "txtDateConfirm"
@@ -3006,6 +3012,9 @@ Public Class frmNewTamirRequest
         Me.pnlConfirm.CaptionForeColor = System.Drawing.Color.White
         Me.pnlConfirm.CaptionHeight = 16
         Me.pnlConfirm.CaptionText = "تأييديه نهايي"
+        Me.pnlConfirm.Controls.Add(Me.txtReturn)
+        Me.pnlConfirm.Controls.Add(Me.LabelReturnMinute)
+        Me.pnlConfirm.Controls.Add(Me.LabelReturnAlarm)
         Me.pnlConfirm.Controls.Add(Me.chkIsSendToInformApp)
         Me.pnlConfirm.Controls.Add(Me.PicSendSMSSensitive)
         Me.pnlConfirm.Controls.Add(Me.chkIsSendSMSSensitive)
@@ -3021,15 +3030,58 @@ Public Class frmNewTamirRequest
         Me.pnlConfirm.Controls.Add(Me.Label27)
         Me.pnlConfirm.Controls.Add(Me.lblNotConfirmReason)
         Me.pnlConfirm.Controls.Add(Me.rbIsReturned)
-        Me.pnlConfirm.Controls.Add(Me.txtReturn)
         Me.pnlConfirm.Controls.Add(Me.LabelRetrun)
         Me.pnlConfirm.Enabled = False
         Me.pnlConfirm.IsMoveable = False
         Me.pnlConfirm.IsWindowMove = False
         Me.pnlConfirm.Location = New System.Drawing.Point(316, 8)
         Me.pnlConfirm.Name = "pnlConfirm"
-        Me.pnlConfirm.Size = New System.Drawing.Size(404, 232)
+        Me.pnlConfirm.Size = New System.Drawing.Size(404, 255)
         Me.pnlConfirm.TabIndex = 0
+        '
+        'txtReturn
+        '
+        Me.txtReturn.CaptinText = ""
+        Me.txtReturn.HasCaption = False
+        Me.txtReturn.IsForceText = False
+        Me.txtReturn.IsFractional = False
+        Me.txtReturn.IsIP = False
+        Me.txtReturn.IsNumberOnly = True
+        Me.txtReturn.IsYear = False
+        Me.txtReturn.Location = New System.Drawing.Point(3, 187)
+        Me.txtReturn.Name = "txtReturn"
+        Me.txtReturn.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtReturn.Size = New System.Drawing.Size(46, 21)
+        Me.txtReturn.TabIndex = 56
+        Me.txtReturn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.GlobalToolTip.SetToolTip(Me.txtReturn, "درصورت ورود عدد (دقيقه)، به اين ميزان، " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "به ناحيه براي ارسال مجدد مهلت داده خواهد" &
+        " شد.")
+        Me.txtReturn.Visible = False
+        '
+        'LabelReturnMinute
+        '
+        Me.LabelReturnMinute.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LabelReturnMinute.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.LabelReturnMinute.ForeColor = System.Drawing.Color.Red
+        Me.LabelReturnMinute.Location = New System.Drawing.Point(58, 203)
+        Me.LabelReturnMinute.Name = "LabelReturnMinute"
+        Me.LabelReturnMinute.Size = New System.Drawing.Size(72, 18)
+        Me.LabelReturnMinute.TabIndex = 55
+        Me.LabelReturnMinute.Text = "(دقيقه)"
+        Me.LabelReturnMinute.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.LabelReturnMinute.Visible = False
+        '
+        'LabelReturnAlarm
+        '
+        Me.LabelReturnAlarm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LabelReturnAlarm.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.LabelReturnAlarm.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.LabelReturnAlarm.Location = New System.Drawing.Point(5, 227)
+        Me.LabelReturnAlarm.Name = "LabelReturnAlarm"
+        Me.LabelReturnAlarm.Size = New System.Drawing.Size(380, 22)
+        Me.LabelReturnAlarm.TabIndex = 54
+        Me.LabelReturnAlarm.Text = "درصورت عدم ورود مدت زمان مهلت عودت، محدوديت زماني اعمال نخواهد شد."
+        Me.LabelReturnAlarm.Visible = False
         '
         'chkIsSendToInformApp
         '
@@ -3037,7 +3089,7 @@ Public Class frmNewTamirRequest
         Me.chkIsSendToInformApp.Checked = True
         Me.chkIsSendToInformApp.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkIsSendToInformApp.Enabled = False
-        Me.chkIsSendToInformApp.Location = New System.Drawing.Point(107, 178)
+        Me.chkIsSendToInformApp.Location = New System.Drawing.Point(97, 165)
         Me.chkIsSendToInformApp.Name = "chkIsSendToInformApp"
         Me.chkIsSendToInformApp.Size = New System.Drawing.Size(196, 17)
         Me.chkIsSendToInformApp.TabIndex = 51
@@ -3049,7 +3101,7 @@ Public Class frmNewTamirRequest
         '
         Me.PicSendSMSSensitive.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PicSendSMSSensitive.Image = CType(resources.GetObject("PicSendSMSSensitive.Image"), System.Drawing.Image)
-        Me.PicSendSMSSensitive.Location = New System.Drawing.Point(283, 152)
+        Me.PicSendSMSSensitive.Location = New System.Drawing.Point(276, 142)
         Me.PicSendSMSSensitive.Name = "PicSendSMSSensitive"
         Me.PicSendSMSSensitive.Size = New System.Drawing.Size(20, 20)
         Me.PicSendSMSSensitive.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -3061,7 +3113,7 @@ Public Class frmNewTamirRequest
         'chkIsSendSMSSensitive
         '
         Me.chkIsSendSMSSensitive.Enabled = False
-        Me.chkIsSendSMSSensitive.Location = New System.Drawing.Point(79, 155)
+        Me.chkIsSendSMSSensitive.Location = New System.Drawing.Point(69, 142)
         Me.chkIsSendSMSSensitive.Name = "chkIsSendSMSSensitive"
         Me.chkIsSendSMSSensitive.Size = New System.Drawing.Size(224, 19)
         Me.chkIsSendSMSSensitive.TabIndex = 49
@@ -3071,7 +3123,7 @@ Public Class frmNewTamirRequest
         '
         Me.picLock.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.picLock.Image = CType(resources.GetObject("picLock.Image"), System.Drawing.Image)
-        Me.picLock.Location = New System.Drawing.Point(143, 55)
+        Me.picLock.Location = New System.Drawing.Point(144, 53)
         Me.picLock.Name = "picLock"
         Me.picLock.Size = New System.Drawing.Size(20, 20)
         Me.picLock.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -3093,7 +3145,7 @@ Public Class frmNewTamirRequest
         Me.txtUnConfirmReason.Location = New System.Drawing.Point(61, 87)
         Me.txtUnConfirmReason.Multiline = True
         Me.txtUnConfirmReason.Name = "txtUnConfirmReason"
-        Me.txtUnConfirmReason.Size = New System.Drawing.Size(232, 62)
+        Me.txtUnConfirmReason.Size = New System.Drawing.Size(232, 49)
         Me.txtUnConfirmReason.TabIndex = 3
         '
         'rbIsConfirm
@@ -3148,23 +3200,12 @@ Public Class frmNewTamirRequest
         Me.rbIsReturned.TabIndex = 2
         Me.rbIsReturned.Text = "عودت درخواست"
         '
-        'txtReturn
-        '
-        Me.txtReturn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtReturn.Location = New System.Drawing.Point(3, 199)
-        Me.txtReturn.Name = "txtReturn"
-        Me.txtReturn.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtReturn.Size = New System.Drawing.Size(51, 21)
-        Me.txtReturn.TabIndex = 53
-        Me.txtReturn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtReturn.Visible = False
-        '
         'LabelRetrun
         '
         Me.LabelRetrun.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LabelRetrun.AutoSize = True
         Me.LabelRetrun.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.LabelRetrun.Location = New System.Drawing.Point(57, 203)
+        Me.LabelRetrun.Location = New System.Drawing.Point(55, 190)
         Me.LabelRetrun.Name = "LabelRetrun"
         Me.LabelRetrun.Size = New System.Drawing.Size(101, 13)
         Me.LabelRetrun.TabIndex = 52
@@ -3969,9 +4010,9 @@ Public Class frmNewTamirRequest
         Me.pnlWarmLineConfirm.Enabled = False
         Me.pnlWarmLineConfirm.IsMoveable = False
         Me.pnlWarmLineConfirm.IsWindowMove = False
-        Me.pnlWarmLineConfirm.Location = New System.Drawing.Point(316, 246)
+        Me.pnlWarmLineConfirm.Location = New System.Drawing.Point(316, 269)
         Me.pnlWarmLineConfirm.Name = "pnlWarmLineConfirm"
-        Me.pnlWarmLineConfirm.Size = New System.Drawing.Size(396, 232)
+        Me.pnlWarmLineConfirm.Size = New System.Drawing.Size(396, 209)
         Me.pnlWarmLineConfirm.TabIndex = 0
         '
         'rbIsReturnedWL
@@ -3994,10 +4035,10 @@ Public Class frmNewTamirRequest
         Me.txtWarmLineReason.IsIP = False
         Me.txtWarmLineReason.IsNumberOnly = False
         Me.txtWarmLineReason.IsYear = False
-        Me.txtWarmLineReason.Location = New System.Drawing.Point(44, 88)
+        Me.txtWarmLineReason.Location = New System.Drawing.Point(47, 83)
         Me.txtWarmLineReason.Multiline = True
         Me.txtWarmLineReason.Name = "txtWarmLineReason"
-        Me.txtWarmLineReason.Size = New System.Drawing.Size(232, 104)
+        Me.txtWarmLineReason.Size = New System.Drawing.Size(232, 93)
         Me.txtWarmLineReason.TabIndex = 4
         '
         'rbConfirmWL
@@ -4035,7 +4076,7 @@ Public Class frmNewTamirRequest
         Me.Label45.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label45.AutoSize = True
         Me.Label45.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Label45.Location = New System.Drawing.Point(284, 202)
+        Me.Label45.Location = New System.Drawing.Point(287, 186)
         Me.Label45.Name = "Label45"
         Me.Label45.Size = New System.Drawing.Size(104, 13)
         Me.Label45.TabIndex = 0
@@ -4049,7 +4090,7 @@ Public Class frmNewTamirRequest
         Me.txtWarmLineTime.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtWarmLineTime.IsShadow = False
         Me.txtWarmLineTime.IsShowCurrentTime = False
-        Me.txtWarmLineTime.Location = New System.Drawing.Point(143, 200)
+        Me.txtWarmLineTime.Location = New System.Drawing.Point(146, 184)
         Me.txtWarmLineTime.MaxLength = 5
         Me.txtWarmLineTime.MiladiDT = Nothing
         Me.txtWarmLineTime.Name = "txtWarmLineTime"
@@ -4071,7 +4112,7 @@ Public Class frmNewTamirRequest
         Me.txtWarmLineDate.IntegerDate = 0
         Me.txtWarmLineDate.IsShadow = False
         Me.txtWarmLineDate.IsShowCurrentDate = False
-        Me.txtWarmLineDate.Location = New System.Drawing.Point(191, 200)
+        Me.txtWarmLineDate.Location = New System.Drawing.Point(194, 184)
         Me.txtWarmLineDate.MaxLength = 10
         Me.txtWarmLineDate.MiladiDT = CType(resources.GetObject("txtWarmLineDate.MiladiDT"), Object)
         Me.txtWarmLineDate.Name = "txtWarmLineDate"
@@ -4113,7 +4154,7 @@ Public Class frmNewTamirRequest
         Me.Label113.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label113.AutoSize = True
         Me.Label113.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.Label113.Location = New System.Drawing.Point(284, 88)
+        Me.Label113.Location = New System.Drawing.Point(287, 83)
         Me.Label113.Name = "Label113"
         Me.Label113.Size = New System.Drawing.Size(77, 13)
         Me.Label113.TabIndex = 0
@@ -6472,6 +6513,7 @@ Public Class frmNewTamirRequest
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.pnlEmergencyReason)
+        Me.Panel1.Controls.Add(Me.LabelReturnInfo)
         Me.Panel1.Controls.Add(Me.lnkRequestNumberManovr)
         Me.Panel1.Controls.Add(Me.lblRequestNumberManovr)
         Me.Panel1.Controls.Add(Me.txtEmergencyReasonDisplay)
@@ -6488,7 +6530,7 @@ Public Class frmNewTamirRequest
         '
         Me.pnlEmergencyReason.Controls.Add(Me.lblEmergencyReason)
         Me.pnlEmergencyReason.Controls.Add(Me.txtEmergency)
-        Me.pnlEmergencyReason.Location = New System.Drawing.Point(8, 8)
+        Me.pnlEmergencyReason.Location = New System.Drawing.Point(62, 5)
         Me.pnlEmergencyReason.Name = "pnlEmergencyReason"
         Me.pnlEmergencyReason.Size = New System.Drawing.Size(264, 66)
         Me.pnlEmergencyReason.TabIndex = 5
@@ -6516,6 +6558,18 @@ Public Class frmNewTamirRequest
         Me.txtEmergency.Name = "txtEmergency"
         Me.txtEmergency.Size = New System.Drawing.Size(258, 45)
         Me.txtEmergency.TabIndex = 4
+        '
+        'LabelReturnInfo
+        '
+        Me.LabelReturnInfo.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.LabelReturnInfo.ForeColor = System.Drawing.Color.Red
+        Me.LabelReturnInfo.Location = New System.Drawing.Point(11, 9)
+        Me.LabelReturnInfo.Name = "LabelReturnInfo"
+        Me.LabelReturnInfo.Size = New System.Drawing.Size(357, 64)
+        Me.LabelReturnInfo.TabIndex = 6
+        Me.LabelReturnInfo.Text = "خطای عوووووودت"
+        Me.LabelReturnInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.LabelReturnInfo.Visible = False
         '
         'lnkRequestNumberManovr
         '
@@ -6550,7 +6604,7 @@ Public Class frmNewTamirRequest
         Me.txtEmergencyReasonDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtEmergencyReasonDisplay.Font = New System.Drawing.Font("Tahoma", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
         Me.txtEmergencyReasonDisplay.ForeColor = System.Drawing.Color.Maroon
-        Me.txtEmergencyReasonDisplay.Location = New System.Drawing.Point(8, 8)
+        Me.txtEmergencyReasonDisplay.Location = New System.Drawing.Point(24, 9)
         Me.txtEmergencyReasonDisplay.Multiline = True
         Me.txtEmergencyReasonDisplay.Name = "txtEmergencyReasonDisplay"
         Me.txtEmergencyReasonDisplay.ReadOnly = True
@@ -7708,6 +7762,8 @@ Public Class frmNewTamirRequest
         txtUnConfirmReason.Enabled = rbIsNotConfirm.Checked Or rbIsReturned.Checked
         txtReturn.Visible = rbIsReturned.Checked
         LabelRetrun.Visible = rbIsReturned.Checked
+        LabelReturnAlarm.Visible = rbIsReturned.Checked
+        LabelReturnMinute.Visible = rbIsReturned.Checked
         If rbIsReturned.Checked Then
             lblNotConfirmReason.Text = "علت عودت"
         Else
@@ -10182,6 +10238,9 @@ Public Class frmNewTamirRequest
 
         Dim lState As TamirRequestStates = cmbState.SelectedValue
 
+        '----------------omid
+        If Not ReturnDT() Then Return False
+
         If (mIsForConfirm And Not mIsForWarmLineConfirm) AndAlso (rbIsNotConfirm.Checked Or rbIsReturned.Checked) Then
             If txtUnConfirmReason.Text.Trim.Length > 0 Then
                 If chkIsManoeuvre.Checked Then
@@ -10965,7 +11024,6 @@ Public Class frmNewTamirRequest
             lMsg = "لطفا موارد زير را تصحيح نماييد" & vbCrLf & lMsg.Replace("-", vbCrLf & "-")
             ShowError(lMsg, False, MsgBoxIcon.MsgIcon_Exclamation)
         End If
-
     End Function
     Private Function SaveInfo() As Boolean
         SaveInfo = False
@@ -11438,8 +11496,6 @@ Public Class frmNewTamirRequest
             ElseIf mIsForWarmLineConfirm And rbIsReturnedWL.Checked Then
                 mEditingRow("TamirRequestStateId") = TamirRequestStates.trs_PreNew
             End If
-            '----------------omid
-            ReturnDT()
 
             '-------------------
             'TblTamirRequestAllow:
@@ -11664,17 +11720,22 @@ Public Class frmNewTamirRequest
     Private Sub Check_ReturnTime(ByRef aNow As CTimeInfo)
         If mIsForConfirm Or mIsForWarmLineConfirm Then Exit Sub
         If Not mEditingRow("TamirRequestStateId") = 0 Then Exit Sub
-        If mEditingRow("IsReturned") = 0 Then Exit Sub
+        If IsDBNull(mEditingRow("IsReturned")) OrElse mEditingRow("IsReturned") = False Then Exit Sub
         If IsDBNull(mEditingRow("ReturnTimeoutDT")) Then Exit Sub
         Dim lUpdate As New frmUpdateDataset
-        Dim lRemainingTime As New CTimeInfo(mEditingRow("DisconnectDT"))
+        Dim lRemainingTime As New CTimeInfo(mEditingRow("ReturnTimeoutDT"))
+        Dim lErrMsg As String = "مهلت ارسال مجدد پرونده عودت داده شده به اتمام رسیده است." & vbCrLf &
+            "این پرونده به حالت عدم تایید تغییر وضعیت داد!" & vbCrLf &
+            "مهلت ارسال پرونده تا تاریخ " & lRemainingTime.ShamsiDate & " و ساعت " & lRemainingTime.HourMin & " بوده است."
 
         If aNow.MiladiDate > mEditingRow("ReturnTimeoutDT") Or
             mEditingRow("DisconnectDT") < mEditingRow("ReturnTimeoutDT") Then
-            ShowError("وقت رسیدگی به عودت تمام شده است." & vbCrLf & "این پرونده به حالت عدم تایید تغییر وضعیت داد!")
+            ShowError(lErrMsg)
+            LabelReturnInfo.Text = lErrMsg
+            LabelReturnInfo.Visible = True
+            btnSave.Enabled = False
             mEditingRow("TamirRequestStateId") = 8 '-----عدم تایید
             lUpdate.UpdateDataSet("TblTamirRequest", mDs, mEditingRow("AreaId"))
-            btnSave.Enabled = False
         Else
             ShowInfo("شما تا تاریخ " & lRemainingTime.ShamsiDate & "و زمان  " &
                      lRemainingTime.HourMin & "برای تغییرات وقت دارید.")
@@ -15527,23 +15588,25 @@ Public Class frmNewTamirRequest
         SelectLPFeeder()
     End Sub
     '-----------<omid/>
-    Private Sub txtReturn_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtReturn.KeyPress
-        If Asc(e.KeyChar) <> 8 And txtReturn.TextLength < 5 Then
-            If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 Then
-                e.Handled = True
-            End If
+    Private Function ReturnDT() As Boolean
+        If Not pnlConfirm.Enabled Then Return True
+        If Not rbIsReturned.Checked Then Return True
+        If txtReturn.Text.Length = 0 Then
+            mEditingRow("ReturnTimeoutDT") = DBNull.Value
+            Return True
         End If
-    End Sub
-    Private Sub ReturnDT()
-        If Not pnlConfirm.Enabled Then Exit Sub
-        If Not rbIsReturned.Checked Then Exit Sub
+        Dim lMsg As String = "مهلت زمان عودت از زمان قطع بیشتر می باشد." + vbCrLf + "آیا مایل به عودت می باشید؟"
         Dim lMins As Integer = Val(txtReturn.Text)
         Dim lRetrunDT As DateTime = GetServerTimeInfo().MiladiDate.AddMinutes(lMins)
-        If lRetrunDT > mEditingRow("ConnectDT") Then
-            ShowInfo("مهلت زمان عودت از زمان قطع بیشتر می باشد")
+        If lRetrunDT > mEditingRow("DisconnectDT") Then
+            If MsgBoxF(lMsg, "تاييد درخواست", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, True) =
+            DialogResult.No Then Return False
         End If
         mEditingRow("ReturnTimeoutDT") = lRetrunDT
-    End Sub
+        mEditingRow("IsReturned") = True
+        mEditingRow("TamirRequestStateId") = 0
+        Return True
+    End Function
 #End Region
 
 End Class
