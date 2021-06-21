@@ -1,10 +1,11 @@
-CREATE OR ALTER PROCEDURE spOmid(
+ALTER PROCEDURE spOmid(
   @aAreaIDs AS VARCHAR(100),
   @aDatePersian AS VARCHAR(10),
   @aDate AS VARCHAR(10)
   ) AS
   BEGIN
     DECLARE @lsql AS VARCHAR(2000) = '';
+    DECLARE @lArea AS NVARCHAR(50) = '';
     DECLARE @lHour1 AS VARCHAR(8), @lHour2 AS VARCHAR(8);
     DECLARE @lSumNTamir AS FLOAT,@lSumTamir1 AS FLOAT,@lSumTamir2 AS FLOAT,@lSumTamir3 AS FLOAT
     DECLARE @lDT1 AS DATETIME, @lDT2 AS DATETIME;
@@ -21,7 +22,7 @@ CREATE OR ALTER PROCEDURE spOmid(
       BEGIN
         SET @lHour1 = CONVERT(VARCHAR(8), @i) + ':00' 
         SET @lHour2 = CONVERT(VARCHAR(8), @i + 1) + ':00'
-        IF @i = 23 BEGIN SET @lHour2 = '23:59:59' END
+        IF @i = 23 BEGIN SET @lHour2 = '23:59' END
         SET @lDT1 = CONVERT(DATETIME, @aDate +' '+ @lHour1 , 102)
         SET @lDT2 = CONVERT(DATETIME, @aDate +' '+ @lHour2 , 102)
         IF CHARINDEX(',',@aAreaIDs) > 0  BEGIN  ----------------Many Areas
@@ -35,6 +36,7 @@ CREATE OR ALTER PROCEDURE spOmid(
           WHERE t.DisconnectInterval > 0 
                 AND t.ConnectDT IS NOT NULL
                 AND t.DisconnectDatePersian = @aDatePersian
+          SET @lArea = 'Â„Â ‰Ê«ÕÌ'
           END
         ELSE  BEGIN    ----------------One Area
           INSERT #tmpData SELECT a.Area, @i, @lHour1, @lHour2,
@@ -48,6 +50,7 @@ CREATE OR ALTER PROCEDURE spOmid(
                 AND t.ConnectDT IS NOT NULL
                 AND t.DisconnectDatePersian = @aDatePersian
           GROUP BY a.Area
+          SELECT @lArea = Area FROM Tbl_Area WHERE AreaId = @aAreaIDs
           END
         SET @i = @i + 1
       END
@@ -56,7 +59,7 @@ CREATE OR ALTER PROCEDURE spOmid(
       SELECT TOP(24) @lSumNTamir = SUM(cntNotTamir), @lSumTamir1 = SUM(cntTamir1) ,
          @lSumTamir2 = SUM(cntTamir2), @lSumTamir3 = SUM(cntTamir3)
         FROM #tmpData
-      INSERT #tmpData SELECT 'Ã„⁄' , -1 , '00:00','23:59:59', @lSumNTamir, @lSumTamir1 , @lSumTamir2, @lSumTamir3
+      INSERT #tmpData SELECT @lArea , 24 , '00:00','23:59', @lSumNTamir, @lSumTamir1 , @lSumTamir2, @lSumTamir3
       End_Calculation:
       -----------------</Calculate Sum>------------
       SELECT * FROM #tmpData
@@ -94,3 +97,5 @@ SELECT AreaId, Area FROM tbl_Area
 SELECT * FROM Tbl_TamirType 
 
 -------------------------Test---------------------
+
+  SELECT * FROM Tbl_Area
