@@ -1,7 +1,12 @@
-ALTER PROCEDURE spOmid(
+USE CcRequesterSetad
+Go
+CREATE PROCEDURE spDisHourly_Daily(
   @aAreaIDs AS VARCHAR(100),
   @aDatePersian AS VARCHAR(10),
-  @aDate AS VARCHAR(10)
+  @aDate AS VARCHAR(10),
+  @aIsLPReq AS BIT = 1,
+  @aIsMPReq AS BIT = 1,
+  @aIsFoghTReq AS BIT = 1
   ) AS
   BEGIN
     DECLARE @lsql AS VARCHAR(2000) = '';
@@ -12,6 +17,13 @@ ALTER PROCEDURE spOmid(
     DECLARE @i AS INT = 0;
     CREATE TABLE #tmpData (Area NVARCHAR(50),Hour INT ,HourFrom VARCHAR(8) ,HourTo VARCHAR(8), 
       cntNotTamir FLOAT, cntTamir1 FLOAT,cntTamir2 FLOAT, cntTamir3 FLOAT)
+    CREATE TABLE #tmpNet (IsLP BIT,IsMP Bit ,IsFT BIT)
+    IF @aIsMPReq = 1 AND @aIsFoghTReq = 1 AND @aIsLPReq = 1 BEGIN  
+    	SET @aIsFoghTReq = NULL
+      SET @aIsMPReq = NULL
+      SET @aIsLPReq = Null
+    END
+    INSERT #tmpNet SELECT @aIsLPReq, @aIsMPReq, @aIsFoghTReq
     CREATE TABLE #tmpArea (AreaId INT , Area NVARCHAR(50))
     	SET @lsql = ' SELECT AreaId, Area FROM tbl_Area '
     IF @aAreaIDs <> ''
@@ -36,6 +48,10 @@ ALTER PROCEDURE spOmid(
           WHERE t.DisconnectInterval > 0 
                 AND t.ConnectDT IS NOT NULL
                 AND t.DisconnectDatePersian = @aDatePersian
+                AND EXISTS (SELECT 1 FROM #tmpNet n WHERE (n.IsFT = t.IsFogheToziRequest 
+                      AND n.IsMP = t.IsMPRequest
+                      AND n.IsLP = t.IsLPRequest)
+                      OR n.IsFT IS NULL)
           SET @lArea = 'åãå äæÇÍí'
           END
         ELSE  BEGIN    ----------------One Area
@@ -49,6 +65,10 @@ ALTER PROCEDURE spOmid(
           WHERE t.DisconnectInterval > 0 
                 AND t.ConnectDT IS NOT NULL
                 AND t.DisconnectDatePersian = @aDatePersian
+                AND EXISTS (SELECT 1 FROM #tmpNet n WHERE (n.IsFT = t.IsFogheToziRequest 
+                      AND n.IsMP = t.IsMPRequest
+                      AND n.IsLP = t.IsLPRequest)
+                      OR n.IsFT IS NULL)
           GROUP BY a.Area
           SELECT @lArea = Area FROM Tbl_Area WHERE AreaId = @aAreaIDs
           END
@@ -65,10 +85,12 @@ ALTER PROCEDURE spOmid(
       SELECT * FROM #tmpData
       DROP TABLE #tmpData
       DROP TABLE #tmpArea
+      DROP TABLE  #tmpNet
     END TRY  
     BEGIN CATCH  
       DROP TABLE #tmpData
       DROP TABLE #tmpArea
+      DROP TABLE  #tmpNet
       SELECT   
           ERROR_NUMBER() AS ErrorNumber  
           ,ERROR_LINE() AS Line
@@ -76,10 +98,11 @@ ALTER PROCEDURE spOmid(
     END CATCH;
 END
 GO
-EXECUTE spOmid '2' ,'1387/06/10' , '2008/08/31'
+  -------------------------------------------------------------------------------------------------------
+EXECUTE spDisHourly_Daily '2' ,'1387/06/10' , '2008/08/31' , 1,0,0
 
 
-EXECUTE spOmid '2,3,5,6,8,9,4','1387/06/10' , '2008/08/31'
+EXECUTE spDisHourly_Daily '2,3,5,6,8,9,4','1387/06/10' , '2008/08/31' , 1 , 1 ,1
 
 
 
