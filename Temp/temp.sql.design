@@ -11,7 +11,7 @@
   <Connection Name="10.10.15.38">
     <Category>00000000-0000-0000-0000-000000000000</Category>
     <ConnectionString>Data Source=10.10.15.38;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
-    <Database>CcRequesterDepartment</Database>
+    <Database>CcRequesterSetad</Database>
   </Connection>
   <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="False" />
