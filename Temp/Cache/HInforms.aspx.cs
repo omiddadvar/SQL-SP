@@ -57,7 +57,7 @@ namespace TZServicesCSharp.RestServices
 					"|getsubscriberoutagebytrackingcode|getoutagelistfromaddress|getoutboundcall|endoutboundcall" +
 					"|getfaximage|getsubscriberoutagelistbycode|getoutagelistbycitydate|getzoneoutagelistfromtelno" +
 					"|getsubscriberpostfeederbyfileno|getsubscriberpostfeederbycode|getivrcodebytelno|getoutagesubscriberlist"+
-                    "|getsubscriberoutagelistbyBillMobAddr)$";
+                    "|getsubscriberoutagelistbybillmob)$";
 
                 string lNoParamMethods =
                     "^(getoutboundcall)$";
@@ -238,7 +238,7 @@ namespace TZServicesCSharp.RestServices
 						GISResult lGR = lExLink.GetOutageSubscribersFromGIS(lParams.RequestNumber);
 						lResult = mdl_Publics.GetJSonString(lGR);
 						break;
-                    case "getsubscriberoutagelistbyBillMobAddr": //---------------omid
+                    case "getsubscriberoutagelistbybillmob": //---------------omid
                         bool lIsNok = string.IsNullOrWhiteSpace(lParams.BillingId)
                             && string.IsNullOrWhiteSpace(lParams.MobileNo);
                         if (lIsNok) throw new Exception("ورودی برای یافتن پست و فیدر یافت نشد.");

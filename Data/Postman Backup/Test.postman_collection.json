@@ -1,0 +1,38 @@
+{
+	"id": "53a6616d-ea48-4175-a069-765dc137d761",
+	"name": "Test",
+	"description": null,
+	"auth": null,
+	"events": null,
+	"variables": null,
+	"order": [
+		"a8d6bc92-eb7b-4ba1-864f-80660c3f162c"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "a8d6bc92-eb7b-4ba1-864f-80660c3f162c",
+			"name": "Belali Test",
+			"url": "10.10.15.38/tzservices/ohm/get_ohm_areainfo",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}

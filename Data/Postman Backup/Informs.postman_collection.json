@@ -1,0 +1,39 @@
+{
+	"id": "6f545ee1-bb92-455e-be34-b6cbcc4c7aad",
+	"name": "Informs",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"f489fb69-2c8a-4054-b014-bf4f56dd2f9d"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "f489fb69-2c8a-4054-b014-bf4f56dd2f9d",
+			"name": "1400/06/04 Get Outage by Bill,Mob",
+			"url": "{{host}}/Inform/GetSubscriberOutageListbyBillMob",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": ""
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"BillingId\" : \"1234567890123\",\n\t\"MobileNo\" : \"09359564217\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}
