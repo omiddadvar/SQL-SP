@@ -371,10 +371,7 @@ namespace TZServicesCSharp
                             OutageStatus lStatus = (OutageStatus)Convert.ToInt32(lRow["Status"]);
                             lInfo.Status = lStatus;
 
-                        }
-                        catch (Exception)
-                        { }
-
+                        }catch (Exception) { }
                         lInfo.Desciption = "";
 
                         if (string.IsNullOrWhiteSpace(lInfo.EndTime))
@@ -1881,15 +1878,16 @@ namespace TZServicesCSharp
         public OutageListResult GetSubscriberOutageListByBillingID(string BillingId)
         {
             ServiceLog aoSLog = new ServiceLog();
+            string lErrorMsg = "";
             string lMsg = String.Format("Calling GetSubscriberOutageListByBillingID(BillingId={0})", BillingId);
             SaveLog(lMsg);
             CData.AddSLog(aoSLog, "SubscriberOutageListByBillingId", lMsg);
 
             OutageListResult lOutageListResult = null;
-            SubscriberGISInfo lSGi = GetSubscriberNetworkFromBillingID(BillingId, aoSLog);
-            
+            SubscriberGISInfo lSGi = new SubscriberGISInfo();
+            lErrorMsg = GetSubscriberNetworkFromBillingIDMobile(BillingId, null, aoSLog, lSGi);//----------omid
 
-            if (string.IsNullOrWhiteSpace(lSGi.ErrorMessage))
+            if (string.IsNullOrWhiteSpace(lErrorMsg))
             {
                 lSGi.BillingId = BillingId;
 
@@ -1914,7 +1912,7 @@ namespace TZServicesCSharp
             {
                 lOutageListResult = new OutageListResult();
                 lOutageListResult.IsSuccess = false;
-                lOutageListResult.ResultMessage = lSGi.ErrorMessage;
+                lOutageListResult.ResultMessage = lErrorMsg;
             }
 
             SaveLog(string.Format("GetSubscriberOutageListByFileNo Result ({0}): {1}", BillingId, mdl_Publics.GetJSonString(lOutageListResult)));
@@ -2045,32 +2043,43 @@ namespace TZServicesCSharp
             return lOutageListResult;
         }
         [WebMethod(Description="دریافت مشخصات پست و فیدر مشترک از روی شناسه قبض")]
-        private SubscriberGISInfo GetSubscriberNetworkFromBillingID(string BillingId, ServiceLog aSLog = null)
+        private string GetSubscriberNetworkFromBillingIDMobile(string BillingId, string MobileNo,
+            ServiceLog aSLog = null ,object outputObj = null)
         {
             SaveLog(String.Format("Calling GetSubscriberNetworkFromBillingID(BillingID={0})", BillingId));
             SubscriberGISInfo lSGi = new SubscriberGISInfo();
-
+            NetworkInfo lNet = new NetworkInfo();
+            bool isBilling = false;
+            string notFoundMsg = "", ErrorMessage = "";
             try
             {
-                int lLPFeederId = -1;
-                int lLPPostId = -1;
-                int lMPFeederId = -1;
-                int lMPPostId = -1;
-
+                int lLPFeederId = -1, lLPPostId = -1, lMPFeederId = -1, lMPPostId = -1;
+                string lLPFeederCode = "", lLPPostCode = "", lMPFeederCode = "", lMPPostCode = "";
+                string lSQL = ""; //-----omid
                 string lSkipGISPostFeederError = System.Configuration.ConfigurationManager.AppSettings["SkipGISPostFeederError"];
                 bool lIsSkipGISPostFeederError = false;
                 if (!string.IsNullOrWhiteSpace(lSkipGISPostFeederError))
                     lIsSkipGISPostFeederError = Convert.ToBoolean(lSkipGISPostFeederError);
 
-
                 DataSet lDs = new DataSet();
-                string lSQL = string.Format("select * from Homa.TblRegisterBillingID where BillingID = {0}", BillingId);
-                mdl_Publics.BindingTable(lSQL, ref mCnn, lDs, "TblRegisterBillingID", aIsClearTable: true);
-                if (lDs.Tables.Contains("TblRegisterBillingID") && lDs.Tables["TblRegisterBillingID"].Rows.Count > 0)
+                //---------<omid>
+                if (!string.IsNullOrWhiteSpace(BillingId))
                 {
-                    if (lDs.Tables["TblRegisterBillingID"].Rows[0]["LPFeederId"] != DBNull.Value)
+                    isBilling = true;
+                    lSQL = string.Format("SELECT * FROM Homa.TblRegisterBillingID WHERE BillingID = {0}", BillingId);
+                }
+                else if (!string.IsNullOrWhiteSpace(MobileNo))
+                    lSQL = string.Format("SELECT trbi.* FROM Homa.TblRegisterBillingID trbi " +
+                        "INNER JOIN Homa.TblRegister tr ON tr.RegisterId = trbi.RegisterId WHERE tr.MobileNo = {0}", MobileNo);
+                else
+                    throw new Exception(string.Format("Not enough information, BillingId: {0}, MobileNo :{1}", BillingId, MobileNo));
+                //---------</omid>
+                mdl_Publics.BindingTable(lSQL, ref mCnn, lDs, "TblOutput", aIsClearTable: true);
+                if (lDs.Tables.Contains("TblOutput") && lDs.Tables["TblOutput"].Rows.Count > 0)
+                {
+                    if (lDs.Tables["TblOutput"].Rows[0]["LPFeederId"] != DBNull.Value)
                     {
-                        lLPFeederId = (int)lDs.Tables["TblRegisterBillingID"].Rows[0]["LPFeederId"];
+                        lLPFeederId = (int)lDs.Tables["TblOutput"].Rows[0]["LPFeederId"];
                         if (lLPFeederId > -1)
                         {
                             lSQL = string.Format("SELECT * FROM Tbl_LPFeeder WHERE LPFeederId = {0}", lLPFeederId);
@@ -2078,10 +2087,11 @@ namespace TZServicesCSharp
                             if (mDs.Tables.Contains("ViewLPF") && mDs.Tables["ViewLPF"].Rows.Count > 0)
                             {
                                 lLPPostId = (int)mDs.Tables["ViewLPF"].Rows[0]["LPPostId"];
+                                lLPFeederCode = (string)lDs.Tables["ViewLPF"].Rows[0]["LPFeederCode"];
                             }
                         }
                         if (lLPPostId == -1)
-                            lLPPostId = (int)lDs.Tables["TblRegisterBillingID"].Rows[0]["LPPostId"];
+                            lLPPostId = (int)lDs.Tables["TblOutput"].Rows[0]["LPPostId"];
                         if (lLPPostId > -1)
                         {
                             lSQL = string.Format("SELECT * FROM Tbl_LPPost WHERE LPPostId = {0}", lLPPostId);
@@ -2089,24 +2099,26 @@ namespace TZServicesCSharp
                             if (mDs.Tables.Contains("ViewLPP") && mDs.Tables["ViewLPP"].Rows.Count > 0)
                             {
                                 lMPFeederId = (int)mDs.Tables["ViewLPP"].Rows[0]["MPFeederId"];
+                                lLPPostCode = (string)lDs.Tables["ViewLPP"].Rows[0]["LPPostCode"];
                             }
                         }
 
                         if (lMPFeederId > -1)
                         {
-                            lSQL = string.Format("SELECT * FROM Tbl_MPFeeder WHERE MPFeederId = {0}", lMPFeederId);
+                            lSQL = string.Format("SELECT P.MPPostCode, F.* FROM Tbl_MPFeeder F " +
+                                "INNER JOIN Tbl_MPPost P ON F.MPPostId = P.MPPostId WHERE MPFeederId = {0}", lMPFeederId);
                             mdl_Publics.BindingTable(lSQL, ref mCnn, mDs, "ViewMPF", aIsClearTable: true);
                             if (mDs.Tables.Contains("ViewMPF") && mDs.Tables["ViewMPF"].Rows.Count > 0)
                             {
                                 lMPPostId = (int)mDs.Tables["ViewMPF"].Rows[0]["MPPostId"];
+                                lMPFeederCode = (string)lDs.Tables["ViewMPF"].Rows[0]["MPFeederCode"];
+                                lMPPostCode = (string)lDs.Tables["ViewMPF"].Rows[0]["MPPostCode"];
                             }
                         }
-
                     }
-
-                    else if (lDs.Tables["TblRegisterBillingID"].Rows[0]["LPPostId"] != DBNull.Value)
+                    else if (lDs.Tables["TblOutput"].Rows[0]["LPPostId"] != DBNull.Value)
                     {
-                        lLPPostId = (int)lDs.Tables["TblRegisterBillingID"].Rows[0]["LPPostId"];
+                        lLPPostId = (int)lDs.Tables["TblOutput"].Rows[0]["LPPostId"];
                         if (lLPPostId > -1)
                         {
                             lSQL = string.Format("SELECT * FROM Tbl_LPPost WHERE LPPostId = {0}", lLPPostId);
@@ -2114,45 +2126,54 @@ namespace TZServicesCSharp
                             if (mDs.Tables.Contains("ViewLPP") && mDs.Tables["ViewLPP"].Rows.Count > 0)
                             {
                                 lMPFeederId = (int)mDs.Tables["ViewLPP"].Rows[0]["MPFeederId"];
+                                lLPPostCode = (string)lDs.Tables["ViewLPP"].Rows[0]["LPPostCode"];
                             }
                         }
-
                         if (lMPFeederId > -1)
                         {
-                            lSQL = string.Format("SELECT * FROM Tbl_MPFeeder WHERE MPFeederId = {0}", lMPFeederId);
+                            lSQL = string.Format("SELECT P.MPPostCode, F.* FROM Tbl_MPFeeder F " +
+                                "INNER JOIN Tbl_MPPost P ON F.MPPostId = P.MPPostId WHERE MPFeederId = {0}", lMPFeederId);
                             mdl_Publics.BindingTable(lSQL, ref mCnn, mDs, "ViewMPF", aIsClearTable: true);
                             if (mDs.Tables.Contains("ViewMPF") && mDs.Tables["ViewMPF"].Rows.Count > 0)
                             {
                                 lMPPostId = (int)mDs.Tables["ViewMPF"].Rows[0]["MPPostId"];
+                                lMPFeederCode = (string)lDs.Tables["ViewMPF"].Rows[0]["MPFeederCode"];
+                                lMPPostCode = (string)lDs.Tables["ViewMPF"].Rows[0]["MPPostCode"];
                             }
                         }
                     }
-
-
                 }
-
                 if (!lIsSkipGISPostFeederError && lMPPostId == -1)
                 {
-                    throw new Exception(string.Format("No Post and Feeder in BillingId {0}", BillingId));
+                    //------omid
+                    notFoundMsg = isBilling ? "BillingId" : "MobileNumber";
+                    throw new Exception(string.Format("No Post and Feeder found in " +
+                        notFoundMsg + " {0}", isBilling ? BillingId : MobileNo));
                 }
-
-
+                //-------------To SubscriberGISInfo
                 lSGi.MPPostId = lMPPostId;
                 lSGi.MPFeederId = lMPFeederId;
                 lSGi.LPPostId = lLPPostId;
                 lSGi.LPFeederId = lLPFeederId;
-
+                //-------------To NetworkInfo
+                lNet.LPFeederCode = lLPFeederCode;
+                lNet.LPPostCode = lLPPostCode;
+                lNet.MPFeederCode = lMPFeederCode;
+                lNet.MPPostCode = lMPPostCode;
+                lNet.BillingId = BillingId;
+                if (outputObj.GetType() == typeof(SubscriberInfo))
+                    outputObj = lSGi;
+                else if (outputObj.GetType() == typeof(NetworkInfo))
+                    outputObj = lNet;
             }
             catch (Exception ex)
             {
-                lSGi.ErrorMessage = ex.Message;
                 string lMsg = string.Format("GetSubscriberGISInfoFromGIS Error: {0}", ex.Message);
                 SaveLog(lMsg, System.Diagnostics.EventLogEntryType.Error);
+                ErrorMessage = ex.Message;
             }
-
-            return lSGi;
+            return ErrorMessage;
         }
-
         [WebMethod(Description = "دریافت فهرست خاموشی‌های جاری روی شبکه معرفی شده - طرح هما")]
         public OutageListResult Homa_GetOutageInfo(NetworkInfo NetworkData)
         {
@@ -2196,8 +2217,6 @@ namespace TZServicesCSharp
                     if (mDs.Tables.Contains("ViewLPF") && mDs.Tables["ViewLPF"].Rows.Count > 0)
                         lLPFeederId = (int)mDs.Tables["ViewLPF"].Rows[0]["LPFeederId"];
                 }
-
-
                 lSQL = string.Format(
                     "EXEC Homa.spFindSubscriberOutage " +
                     "@aLPFeederId = {0}, @aLPPostId = {1}, @aMPFeederId = {2}, @aBillingID = '{3}'",
@@ -2441,48 +2460,29 @@ namespace TZServicesCSharp
         }
         //---------------------omid
         [WebMethod(Description = "دریافت فهرست خاموشی‌های جاری و آینده مشترک از روی شناسه قبض")]
-        public OutageListResult GetSubscriberOutageListByBillMobAddr(string BillingId, string MobileNo, string Address)
+        public OutageListResult GetSubscriberOutageListByBillMobAddr(string BillingId, string MobileNo)
         {
             ServiceLog aoSLog = new ServiceLog();
+            string lErrorMsg = "";
             string lMsg = String.Format("Calling GetSubscriberOutageListByBillMobAddr(BillingId={0},"+
-                "MobileNo={1},Address={2})", BillingId,MobileNo,Address);
+                "MobileNo={1})", BillingId, MobileNo);
             SaveLog(lMsg);
-            CData.AddSLog(aoSLog, "GetSubscriberOutageListByBillMobAddr", lMsg);
+            CData.AddSLog(aoSLog, "Find Outages", "فراخوانی خاموشی‌های روی پست و فیدر یافت شده");
 
             OutageListResult lOutageListResult = null;
-            //---------------ToDo (The Rest):
-            SubscriberGISInfo lSGi = GetSubscriberNetworkFromBillingID(BillingId, aoSLog);
-
-            if (string.IsNullOrWhiteSpace(lSGi.ErrorMessage))
-            {
-                lSGi.BillingId = BillingId;
-
-                if (lSGi.MPPostId == -1)
-                {
-                    lOutageListResult = new OutageListResult();
-                    lOutageListResult.IsSuccess = true;
-                    List<OutageData> lOutageList = new List<OutageData>();
-                    lOutageListResult.OutageList = lOutageList;
-                    lOutageListResult.ResultMessage = "پست و فيدر مشترک از GIS دريافت نشد";
-                }
-                else
-                {
-                    lOutageListResult = Homa_GetOutagesByGISNetwork(lSGi, aoSLog);
-                    if (lOutageListResult.IsSuccess)
-                        CData.AddSLog(aoSLog, "SubscriberOutageListByBillingID", "SUCCESS: " + mdl_Publics.GetJSonString(lOutageListResult));
-                    else
-                        CData.AddSLog(aoSLog, "SubscriberOutageListByBillingID", "FAIL: " + lOutageListResult.ResultMessage);
-                }
-            }
+            NetworkInfo lNet = new NetworkInfo();
+            lErrorMsg = GetSubscriberNetworkFromBillingIDMobile(BillingId, MobileNo, aoSLog , lNet);
+            if (string.IsNullOrWhiteSpace(lErrorMsg))
+                lOutageListResult = GetOutageInfo(lNet);
             else
             {
                 lOutageListResult = new OutageListResult();
                 lOutageListResult.IsSuccess = false;
-                lOutageListResult.ResultMessage = lSGi.ErrorMessage;
+                lOutageListResult.ResultMessage = lErrorMsg;
             }
-
-            SaveLog(string.Format("GetSubscriberOutageListByFileNo Result ({0}): {1}", BillingId, mdl_Publics.GetJSonString(lOutageListResult)));
-
+            SaveLog(string.Format("GetSubscriberOutageListByBillMobAddr Result ({0},{1}): {2}", BillingId, MobileNo,
+                mdl_Publics.GetJSonString(lOutageListResult)));
+        
             return lOutageListResult;
         }
         /*-------------------------------*/
@@ -2922,5 +2922,6 @@ namespace TZServicesCSharp
             }
             return false;
         }
+        //------------omid
     }
 }

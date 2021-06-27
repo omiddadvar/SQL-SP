@@ -240,12 +240,11 @@ namespace TZServicesCSharp.RestServices
 						break;
                     case "getsubscriberoutagelistbyBillMobAddr": //---------------omid
                         bool lIsNok = string.IsNullOrWhiteSpace(lParams.BillingId)
-                            && string.IsNullOrWhiteSpace(lParams.MobileNo)
-                            && string.IsNullOrWhiteSpace(lParams.Address);
+                            && string.IsNullOrWhiteSpace(lParams.MobileNo);
                         if (lIsNok) throw new Exception("ورودی برای یافتن پست و فیدر یافت نشد.");
 
                         OutageListResult lResList = lInformService.GetSubscriberOutageListByBillMobAddr(
-                            lParams.BillingId, lParams.MobileNo , lParams.Address);
+                            lParams.BillingId, lParams.MobileNo);
                         lResult = mdl_Publics.GetJSonString(lResList);
                         break;
                     default:
