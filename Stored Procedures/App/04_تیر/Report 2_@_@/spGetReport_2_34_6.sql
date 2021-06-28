@@ -1,0 +1,174 @@
+CREATE PROCEDURE dbo.spGetReport_2_34_6
+	@lFromDatePersian as varchar(12),
+	@lToDatePersian as varchar(12),
+	@lAreaId as varchar(1000),
+	@lMPPostId as int,
+	@lMPFeederIds as varchar(1000),
+	@lLPPostId as int,
+	@lLPFeederId as int,
+	@lOwnershipId as int,
+	@lIsActive as int,
+	@lIsLight as bit,
+	@lBazdidMaster as varchar(1000),
+	@lMPFeederPart as varchar(1000),
+	@lPriority as varchar(20),
+	@lCheckLists as varchar(1000),
+	@aNotservice as int,
+	@lBazdidSpeciality as varchar(100) = '',
+	@lFromDateBazdid as varchar(12),
+	@lToDateBazdid as varchar(12),
+  @lIsWarmLine AS BIT = 0 ----------omid
+AS
+	DECLARE @lWhere as varchar(6000)
+	DECLARE @lServiceCheckList as varchar(8000)
+	DECLARE @lSql as varchar(8000)
+	DECLARE @lJoinSpecialitySql as varchar(500) = ''
+	
+	set @lServiceCheckList=' OR BTblServiceCheckList.ServiceStateId <> 3 '
+
+	set @lWhere = ''
+
+	if @lFromDatePersian <> ''
+		set @lWhere =  ' AND BTblBazdidResultAddress.StartDatePersian >= ''' + @lFromDatePersian +''''
+	if @lToDatePersian <> ''
+		set @lWhere = @lWhere + ' AND BTblBazdidResultAddress.StartDatePersian <= ''' + @lToDatePersian +''''
+		
+	if @lFromDateBazdid <> ''
+		SET @lWhere = @lWhere + ' AND BTblBazdidResultAddress.StartDatePersian >= ''' + @lFromDateBazdid +''''
+	if @lToDateBazdid <> ''
+		SET @lWhere = @lWhere + ' AND BTblBazdidResultAddress.StartDatePersian <= ''' + @lToDateBazdid +''''
+		
+	if @lAreaId <> ''
+		set @lWhere = @lwhere + ' AND Tbl_LPFeeder.AreaId IN ( ' + @lAreaId + ' )'
+	if @lLPFeederId > -1
+		set @lWhere = @lWhere + ' AND Tbl_LPFeeder.LPFeederId = ' + cast(@lLPFeederId as varchar)
+	else if @lLPPostId > -1
+		set @lWhere = @lWhere + ' AND Tbl_LPFeeder.LPPostId = ' + cast(@lLPPostId as varchar)
+	else if @lMPFeederIds <> ''
+		set @lWhere = @lWhere + ' AND Tbl_LPPost.MPFeederId IN ( ' + cast(@lMPFeederIds as varchar) + ' ) '
+	else if @lMPPostId > -1
+		set @lWhere = @lWhere + ' AND Tbl_MPFeeder.MPPostId = ' + cast(@lMPPostId as varchar)
+	if @lOwnershipId  > -1
+		set @lWhere = @lwhere + ' AND Tbl_LPFeeder.OwnershipId = ' + cast(@lOwnershipId as varchar)
+	if @lIsActive = 1
+		set @lWhere = @lWhere + ' AND Tbl_LPFeeder.IsActive = 1 '
+    if @lBazdidMaster <> ''
+		set @lWhere = @lWhere + ' AND BTblBazdidTiming.BazdidMasterId IN (' + @lBazdidMaster + ')'
+	if @lMPFeederPart <> ''
+		set @lWhere = @lWhere + ' AND BTblBazdidResult.BazdidBasketDetailId IN (' + @lMPFeederPart + ')'
+	if @lPriority <> ''
+		set @lWhere = @lWhere + ' AND BTblBazdidResultCheckList.Priority IN (' + @lPriority + ')'
+	if @lCheckLists <> ''
+		set @lWhere = @lWhere + ' AND BTblBazdidResultCheckList.BazdidCheckListId IN (' + @lCheckLists + ')'
+   if @aNotservice = 1
+		  set @lServiceCheckList = ''
+	if @lBazdidSpeciality <> ''
+	BEGIN
+		set @lWhere = @lWhere + ' AND ISNULL(tTS.BazdidSpecialityId,1) IN (' + @lBazdidSpeciality + ')'
+		SET @lJoinSpecialitySql = ' LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId '
+	END
+  IF @lIsWarmLine = 1  -----omid
+	BEGIN
+		SET @lWhere = @lWhere + ' AND BTblService.IsWarmLine = 1'
+		SET @lJoinSpecialitySql = ' LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId '
+	END
+	set @lSql =
+		'
+		SELECT 
+			Tbl_Area.AreaId,
+			Tbl_Area.Area,
+			Tbl_LPFeeder.LPPostId,
+			Tbl_LPPost.LPPostName,
+			Tbl_LPFeeder.LPFeederId,
+			Tbl_LPFeeder.LPFeederName,
+			BTblBazdidResult.BazdidResultId,
+			ISNULL(Tbl_LPFeeder.HavaeiLength,0) AS LPFeederHavaeiLen,
+			ISNULL(Tbl_LPFeeder.ZeminiLength,0) AS LPFeederZeminiLen,
+			ISNULL(FromToLengthHavayi,Tbl_LPFeeder.HavaeiLength) AS HavaeiLength,
+			ISNULL(FromToLengthZamini,Tbl_LPFeeder.ZeminiLength) AS ZeminiLength,
+			BTblBazdidResult.FromPathTypeId,
+			Tbl_PathType_From.PathType AS FromPathType,
+			BTblBazdidResult.FromPathTYpeValue,
+			BTblBazdidResult.ToPathTypeId,
+			Tbl_PathType_To.PathType AS ToPathType,
+			BTblBazdidResult.ToPathTypeValue,
+			BTblBazdidResultAddress.StartDatePersian,
+			BTblBazdidResultAddress.Address,
+			BTblBazdidResultAddress.GPSx,
+			BTblBazdidResultAddress.GPSy,
+			BTbl_BazdidCheckList.CheckListCode,
+			BTbl_BazdidCheckList.CheckListName,
+			BTblBazdidResultSubCheckList.BazdidResultSubCheckListId , 
+			BTbl_SubCheckList.SubCheckListName, 
+			CASE WHEN BTblBazdidResultCheckList.Priority = 4 THEN 
+				CAST(''ÚÏã æÌæÏ ÊÌåíÒ'' as nvarchar) 
+				ELSE CAST(BTblBazdidResultCheckList.Priority as nvarchar) END AS Priority,
+			Tbl_LPFeeder.IsLightFeeder,
+			BTbl_BazdidCheckListGroup.IsHavayi,
+			BTblBazdidTiming.BazdidName,
+			SUM(BTblBazdidResultCheckList.DefectionCount) as  DefectionCount,
+			SUM(BTblBazdidResultCheckList.DefectionCount - IsNull(BTblServiceCheckList.ServiceCount,0)) AS CheckListCount
+		FROM 
+			Tbl_LPFeeder
+			INNER JOIN Tbl_LPPost ON Tbl_LPFeeder.LPPostId = Tbl_LPPost.LPPostId
+			INNER JOIN Tbl_MPFeeder ON Tbl_LPPost.MPFeederId = Tbl_MPFeeder.MPFeederId
+			INNER JOIN BTblBazdidResult ON Tbl_LPFeeder.LPFeederId = BTblBazdidResult.LPFeederId
+			INNER JOIN Tbl_Area ON BTblBazdidResult.AreaId = Tbl_Area.AreaId
+			INNER JOIN BTblBazdidResultAddress ON BTblBazdidResult.BazdidResultId = BTblBazdidResultAddress.BazdidResultId
+			INNER JOIN BTblBazdidResultCheckList ON BTblBazdidResultAddress.BazdidResultAddressId = BTblBazdidResultCheckList.BazdidResultAddressId
+			LEFT JOIN BTblBazdidResultSUBCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblBazdidResultSUBCheckList.BazdidResultCheckListId
+			LEFT JOIN  BTbl_SubCheckList  ON BTblBazdidResultSUBCheckList.SubCheckListId = BTbl_SubCheckList.SubCheckListId 
+			
+			LEFT JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId
+			LEFT OUTER JOIN Tbl_PathType Tbl_PathType_From ON BTblBazdidResult.FromPathTypeId = Tbl_PathType_From.PathTypeId
+			LEFT OUTER JOIN Tbl_PathType Tbl_PathType_To ON BTblBazdidResult.ToPathTypeId = Tbl_PathType_To.PathTypeId
+			INNER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId
+			LEFT OUTER JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId
+			LEFT JOIN BTbl_BazdidCheckListGroup ON BTbl_BazdidCheckList.BazdidCheckListGroupId = BTbl_BazdidCheckListGroup.BazdidCheckListGroupId
+			' + @lJoinSpecialitySql + '
+		WHERE 
+			BTblBazdidResult.BazdidStateId IN (2,3)
+			AND BTblBazdidResult.BazdidTypeId = 3
+			AND BTblBazdidResultCheckList.Priority > 0
+			AND Tbl_LPFeeder.IsLightFeeder = ' + cast(@lIsLight as varchar) + '
+			AND 
+			(
+				BTblServiceCheckList.ServiceCheckListId IS NULL
+				' + @lServiceCheckList + '
+			)
+			' + @lWhere + '
+			Group By 
+			Tbl_Area.AreaId,
+			Tbl_Area.Area,
+			Tbl_LPFeeder.LPPostId,
+			Tbl_LPPost.LPPostName,
+			Tbl_LPFeeder.LPFeederId,
+			Tbl_LPFeeder.LPFeederName,
+			BTblBazdidResult.BazdidResultId,
+			Tbl_LPFeeder.HavaeiLength,
+			Tbl_LPFeeder.ZeminiLength,
+			FromToLengthHavayi,
+			Tbl_LPFeeder.HavaeiLength,
+			FromToLengthZamini,
+			Tbl_LPFeeder.ZeminiLength,
+			BTblBazdidResult.FromPathTypeId,
+			Tbl_PathType_From.PathType,
+			BTblBazdidResult.FromPathTYpeValue,
+			BTblBazdidResult.ToPathTypeId,
+			Tbl_PathType_To.PathType ,
+			BTblBazdidResult.ToPathTypeValue,
+			BTblBazdidResultAddress.StartDatePersian,
+			BTblBazdidResultAddress.Address,
+			BTblBazdidResultAddress.GPSx,
+			BTblBazdidResultAddress.GPSy,
+			BTbl_BazdidCheckList.CheckListCode,
+			BTbl_BazdidCheckList.CheckListName,
+			BTblBazdidResultSubCheckList.BazdidResultSubCheckListId , 
+			BTbl_SubCheckList.SubCheckListName, 
+			BTblBazdidResultCheckList.Priority,
+			Tbl_LPFeeder.IsLightFeeder,
+			BTbl_BazdidCheckListGroup.IsHavayi,
+			BTblBazdidTiming.BazdidName '
+
+	Exec(@lSql)
+GO

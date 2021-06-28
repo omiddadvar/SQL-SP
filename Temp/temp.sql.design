@@ -16,14 +16,7 @@
   <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="False" />
     <View Name="Code" Active="True" Visible="True">
-      <Data>
-        <Parameters>
-          <Parameter Name="@aMPPostCode" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aMPFeederCode" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aLPPostCode" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aLPFeederCode" Direction="Input" DbType="VarChar" />
-        </Parameters>
-      </Data>
+      <Data />
     </View>
     <View Name="Data" Visible="True" />
     <View Name="Profiler" Visible="True">
