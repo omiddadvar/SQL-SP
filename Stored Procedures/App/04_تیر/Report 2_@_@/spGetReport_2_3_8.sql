@@ -70,10 +70,7 @@ AS
 								' LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId '
 	END
   IF @lIsWarmLine = 1  -----omid
-	BEGIN
 		SET @lWhere = @lWhere + ' AND BTblService.IsWarmLine = 1'
-		SET @lJoinSpecialitySql = ' LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId '
-	END
 	if @lMinCheckList > 0
 		set @lHaving = ' HAVING SUM(CASE WHEN BTblServiceCheckList.ServiceCount Is Null OR BTblServiceCheckList.ServiceCount = 0 THEN 1 ELSE BTblServiceCheckList.ServiceCount END) >= ' + cast(@lMinCheckList as varchar)
 	set @lSql =

@@ -1,4 +1,4 @@
-CREATE PROCEDURE dbo.spGetReport_2_34_6
+ALTER PROCEDURE dbo.spGetReport_2_34_6
 	@lFromDatePersian as varchar(12),
 	@lToDatePersian as varchar(12),
 	@lAreaId as varchar(1000),

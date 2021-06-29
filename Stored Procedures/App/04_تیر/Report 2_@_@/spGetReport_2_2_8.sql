@@ -68,7 +68,6 @@ AS
 	IF @lIsWarmLine = 1  -----omid
 	BEGIN
 		SET @lWhere = @lWhere + ' AND BTblService.IsWarmLine = 1'
-		SET @lJoinSpecialitySql = ' LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId '
 	END
 	set @lSql =
 		'

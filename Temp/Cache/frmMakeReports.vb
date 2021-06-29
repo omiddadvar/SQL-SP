@@ -3695,6 +3695,7 @@ Public Class frmMakeReports
             mIsActive = 1
             mFilterInfo &= " حالت شبکه فعال "
         End If
+        '--------------omid----------
         If cmbIsWarmLine.SelectedIndex > -1 And cmbIsWarmLine.Visible Then
             mIsWarmLine = cmbIsWarmLine.SelectedIndex
             mIsWarmLineSP = 1
@@ -3755,15 +3756,22 @@ Public Class frmMakeReports
             mFilterInfo &= " - اولويتهاي: " & mPrs.Replace(",", " و ")
         End If
         mFF.AddFormulaFields("ReportMaker", """" & WorkingUserName & """")
-        If mIsWarmLine <> "" Then
-            mWhere &= " AND ISNULL(BTblService.IsWarmLine,0)  =  " & mIsWarmLine & " "
+        If mIsWarmLine = "1" Then
+            If Regex.IsMatch(mReportNo, "^4-[34]-[12]") Then
+                mWhereDT &= " AND ISNULL(BTblService.IsWarmLine,0)  =  " & mIsWarmLine & " "
+            Else
+                mWhere &= " AND ISNULL(BTblService.IsWarmLine,0)  =  " & mIsWarmLine & " "
+            End If
         End If
         mWorkCommand = ""
         If txtWorkCommandNo.Text <> "" Then
             mWorkCommand = txtWorkCommandNo.Text
             mFilterInfo &= " - دستور کار: " & mWorkCommand
         End If
-
+        '--------------omid----------
+        If Regex.IsMatch(mReportNo, "^2|^4-(?!1-5)") Then
+            mJoinSpecialitySql &= " LEFT JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId "
+        End If
         If Regex.IsMatch(mReportNo, "2-1-6") Or Regex.IsMatch(mReportNo, "[12]-[1234]-[34]") Or Regex.IsMatch(mReportNo, "[2]-[1234]-[89]") Then 'Visible Base Controil
             If mAddress <> "" Then
                 ' mWhere &= " AND dbo.MergeFarsiAndArabi('BTblBazdidResultAddress.Address'," & mAddress & ") "
@@ -3839,7 +3847,7 @@ Public Class frmMakeReports
                 If Regex.IsMatch(mReportNo, "[2]-[1234]-[34]") Or Regex.IsMatch(mReportNo, "[2]-[1234]-[89]") Then
                     mWhere &= " AND  BTblServiceCheckList.DoneDatePersian >= " & mFromDate
                     If Regex.IsMatch(mReportNo, "[2]-[1234]-[89]") Then
-                        mWhereDT = " BTblServiceSubCheckList.DataEntryDatePersian >= " & mFromDate
+                        mWhereDT &= " BTblServiceSubCheckList.DataEntryDatePersian >= " & mFromDate
                     End If
                 Else
                     mWhere &= " AND BTblBazdidResultAddress.StartDatePersian >= " & mFromDate
@@ -3862,16 +3870,16 @@ Public Class frmMakeReports
                 mWhere &= " AND BTblBazdidResultAddress.StartDatePersian <= " & mToDateBazdid
             End If
             If mBazdidSpeciality <> "" And Regex.IsMatch(mReportNo, "2-[123]-[69]") Then
-                '  mJoinSpecialitySql = " LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId "
+                '  mJoinSpecialitySql &= " LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId "
                 mWhere &= "  AND ISNULL(tTS.BazdidSpecialityId,1) IN ( " & mBazdidSpeciality & " )"
-                mJoinSpecialitySql = " LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId "
+                mJoinSpecialitySql &= " LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId "
             End If
 
             If Regex.IsMatch(mReportNo, "[1]-[1234]-[34]") And mBazdidSpeciality <> "" Then
-                mJoinSpecialitySql = " LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId "
+                mJoinSpecialitySql &= " LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId "
 
             ElseIf Regex.IsMatch(mReportNo, "[2]-[1234]-[34]") And mBazdidSpeciality <> "" Then
-                mJoinSpecialitySql = " LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId "
+                mJoinSpecialitySql &= " LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId "
 
                 '" LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId  " & _
             End If
@@ -3882,7 +3890,7 @@ Public Class frmMakeReports
         End If
         If Regex.IsMatch(mReportNo, "^3-") Then
             If mFromDate <> "''" Then
-                mWhereDT = " AND BTblBazdidResultAddress.StartDatePersian >= " & mFromDate
+                mWhereDT &= " AND BTblBazdidResultAddress.StartDatePersian >= " & mFromDate
             End If
             If mToDate <> "''" Then
                 mWhereDT &= " AND BTblBazdidResultAddress.StartDatePersian <= " & mToDate
@@ -3895,17 +3903,17 @@ Public Class frmMakeReports
 
         If Regex.IsMatch(mReportNo, "^4-") Then
             If mFromDate <> "''" Then
-                mWhereDT = " AND BTblServiceCheckList.DoneDatePersian >= " & mFromDate
+                mWhereDT &= " AND BTblServiceCheckList.DoneDatePersian >= " & mFromDate
                 If Regex.IsMatch(mReportNo, "^4-2-[34]") Then
                     mWhere &= " AND BTblServiceCheckList.DoneDatePersian >= " & mFromDate
-                    mWhere &= IIf(mIsWarmLine <> "", " AND BTblService.IsWarmLine  =  " & mIsWarmLine & " ", "")
+                    'mWhere &= IIf(mIsWarmLine <> "", " AND BTblService.IsWarmLine  =  " & mIsWarmLine & " ", "")
                 End If
             End If
             If mToDate <> "''" Then
                 mWhereDT &= " AND BTblServiceCheckList.DoneDatePersian <= " & mToDate
                 If Regex.IsMatch(mReportNo, "^4-2-[34]") Then
                     mWhere &= " AND BTblServiceCheckList.DoneDatePersian <= " & mToDate
-                    mWhere &= IIf(mIsWarmLine <> "", " AND BTblService.IsWarmLine  =  " & mIsWarmLine & " ", "")
+                    'mWhere &= IIf(mIsWarmLine <> "", " AND BTblService.IsWarmLine  =  " & mIsWarmLine & " ", "")
                 End If
             End If
             If mBazdidMasterIDs <> "" Then
@@ -3941,7 +3949,7 @@ Public Class frmMakeReports
             End If
             If mIsActive = 1 Then
                 mWhere = mWhere & " AND Tbl_MPFeeder.IsActive = 1 "
-                mWhereDT = mWhereDT & " AND Tbl_MPFeeder.IsActive = 1 "
+                mWhereDT &= " AND Tbl_MPFeeder.IsActive = 1 "
             End If
         ElseIf Regex.IsMatch(mReportNo, "3-2-[2345]") Or Regex.IsMatch(mReportNo, "[34]-[34]-[2]") Or Regex.IsMatch(mReportNo, "4-2-[234]") Then
 
@@ -3968,7 +3976,7 @@ Public Class frmMakeReports
             End If
             If mIsActive = 1 Then
                 mWhere = mWhere & " AND Tbl_LPPost.IsActive = 1 "
-                mWhereDT = mWhereDT & " AND Tbl_LPPost.IsActive = 1 "
+                mWhereDT &= " AND Tbl_LPPost.IsActive = 1 "
                 mWherePost = mWherePost & " AND Tbl_LPPost.IsActive = 1 "
             End If
         ElseIf Regex.IsMatch(mReportNo, "[34]-[34]-3") Then
@@ -3993,7 +4001,7 @@ Public Class frmMakeReports
             End If
             If mIsActive = 1 Then
                 mWhere = mWhere & " AND Tbl_LPFeeder.IsActive = 1 "
-                mWhereDT = mWhereDT & " AND Tbl_LPFeeder.IsActive = 1 "
+                mWhereDT &= " AND Tbl_LPFeeder.IsActive = 1 "
             End If
         ElseIf Regex.IsMatch(mReportNo, "[34]-[34]-[145]") Then
             If lAreaIDs <> "" Then
@@ -4013,7 +4021,7 @@ Public Class frmMakeReports
             End If
             If mIsActive = 1 Then
                 mWhere = mWhere & " AND Tbl_LPFeeder.IsActive = 1 "
-                mWhereDT = mWhereDT & " AND Tbl_LPFeeder.IsActive = 1 "
+                mWhereDT &= " AND Tbl_LPFeeder.IsActive = 1 "
             End If
         ElseIf Regex.IsMatch(mReportNo, "4-1-3") Then
             If mMPFeederIDs <> "" Then
@@ -4034,7 +4042,7 @@ Public Class frmMakeReports
             End If
             If mIsActive = 1 Then
                 mWhere = mWhere & " AND Tbl_MPFeeder.IsActive = 1 "
-                mWhereDT = mWhereDT & " AND Tbl_MPFeeder.IsActive = 1 "
+                mWhereDT &= " AND Tbl_MPFeeder.IsActive = 1 "
             End If
         End If
 
@@ -4055,11 +4063,11 @@ Public Class frmMakeReports
 
             If mBazdidSpeciality <> "" Then
                 If Not Regex.IsMatch(mReportNo, "4-[34]-5") Then
-                    mWhereDT = mWhereDT & " AND ISNULL(tTS.BazdidSpecialityId,1) IN (" & mBazdidSpeciality & ") "
+                    mWhereDT &= " AND ISNULL(tTS.BazdidSpecialityId,1) IN (" & mBazdidSpeciality & ") "
                 End If
             End If
             If mJoinSpecialitySql = "" Then
-                mJoinSpecialitySql = " LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId "
+                mJoinSpecialitySql &= " LEFT JOIN BTblTimingSpeciality tTS ON BTblBazdidTiming.BazdidTimingId = tTS.BazdidTimingId "
                 '" LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId " &
             End If
 
@@ -4884,7 +4892,6 @@ Public Class frmMakeReports
                 "	INNER JOIN Tbl_MPFeeder ON BTblBazdidResult.MPFeederId = Tbl_MPFeeder.MPFeederId " &
                 "	INNER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId " &
                 "	INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
-                "	LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId  " &
                 "	LEFT OUTER JOIN Tbl_Area ON BTblBazdidResult.AreaId = Tbl_Area.AreaId " &
                 "	LEFT OUTER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " &
                 "	LEFT OUTER JOIN Tbl_PathType Tbl_PathType_From ON BTblBazdidResult.FromPathTypeId = Tbl_PathType_From.PathTypeId " &
@@ -4971,7 +4978,6 @@ Public Class frmMakeReports
                 "	INNER JOIN Tbl_MPFeeder ON BTblBazdidResult.MPFeederId = Tbl_MPFeeder.MPFeederId " &
                 "	INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
                 "	INNER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId " &
-                "	LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId  " &
                 "	LEFT OUTER JOIN BTbl_BazdidMaster ON BTblService.BazdidMasterId = BTbl_BazdidMaster.BazdidMasterId " &
                 "	LEFT OUTER JOIN Tbl_Area ON BTblBazdidResult.AreaId = Tbl_Area.AreaId " &
                 "	LEFT OUTER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " &
@@ -5012,7 +5018,6 @@ Public Class frmMakeReports
                 "	INNER JOIN Tbl_MPFeeder ON BTblBazdidResult.MPFeederId = Tbl_MPFeeder.MPFeederId " &
                 "	INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
                 "	INNER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId " &
-                "	LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId  " &
                 "	LEFT OUTER JOIN BTbl_BazdidMaster ON BTblService.BazdidMasterId = BTbl_BazdidMaster.BazdidMasterId " &
                 "	LEFT OUTER JOIN Tbl_Area ON BTblBazdidResult.AreaId = Tbl_Area.AreaId " &
                 "	LEFT OUTER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " &
@@ -5114,7 +5119,6 @@ Public Class frmMakeReports
                   "     LEFT JOIN BTbl_SubCheckList ON BTblBazdidResultSubCheckList.SubCheckListId = BTbl_SubCheckList.SubCheckListId" &
                   "     LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId " &
                   " 	LEFT JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId" &
-                  " 	LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId" &
                   " 	LEFT OUTER JOIN Tbl_Area ON BTblBazdidResult.AreaId = Tbl_Area.AreaId" &
                   " 	LEFT OUTER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId" &
                   "	    LEFT OUTER JOIN Tbl_PathType Tbl_PathType_From ON BTblBazdidResult.FromPathTypeId = Tbl_PathType_From.PathTypeId" &
@@ -5393,7 +5397,6 @@ Public Class frmMakeReports
                  "	INNER JOIN BTblBazdidResultCheckList ON BTblBazdidResultAddress.BazdidResultAddressId = BTblBazdidResultCheckList.BazdidResultAddressId " &
                  "	INNER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId " &
                  "	INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
-                 "	LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId  " &
                  "  LEFT JOIN BTblBazdidTiming  ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId " &
                  "	" & mJoinSpecialitySql &
                  "	INNER JOIN  " &
@@ -5459,7 +5462,6 @@ Public Class frmMakeReports
                     "		INNER JOIN BTblBazdidResultAddress ON BTblBazdidResult.BazdidResultId = BTblBazdidResultAddress.BazdidResultId " &
                     "		INNER JOIN BTblBazdidResultCheckList ON BTblBazdidResultAddress.BazdidResultAddressId = BTblBazdidResultCheckList.BazdidResultAddressId " &
                     "		INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
-                    "		LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId  " &
                     "		LEFT OUTER JOIN BTblBazdidResultSubCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblBazdidResultSubCheckList.BazdidResultCheckListId " &
                     "		INNER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId " &
                     "		LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_Old ON BTblBazdidResultCheckList.SubCheckListId = BTbl_SubCheckList_Old.SubCheckListId " &
@@ -5494,9 +5496,7 @@ Public Class frmMakeReports
                     "		INNER JOIN Tbl_Area ON BTblBazdidResult.AreaId = Tbl_Area.AreaId " &
                     "		INNER JOIN BTblBazdidResultAddress ON BTblBazdidResult.BazdidResultId = BTblBazdidResultAddress.BazdidResultId " &
                     "		INNER JOIN BTblBazdidResultCheckList ON BTblBazdidResultAddress.BazdidResultAddressId = BTblBazdidResultCheckList.BazdidResultAddressId " &
-                    "		INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
-                    "		LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId  " &
-                    "		LEFT OUTER JOIN BTblBazdidResultSubCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblBazdidResultSubCheckList.BazdidResultCheckListId " &
+                    "		INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " & "		LEFT OUTER JOIN BTblBazdidResultSubCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblBazdidResultSubCheckList.BazdidResultCheckListId " &
                     "		INNER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId " &
                     "		LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_Old ON BTblBazdidResultCheckList.SubCheckListId = BTbl_SubCheckList_Old.SubCheckListId " &
                     "		LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_New ON BTblBazdidResultSubCheckList.SubCheckListId = BTbl_SubCheckList_New.SubCheckListId " &
@@ -5760,7 +5760,6 @@ Public Class frmMakeReports
                 "	LEFT OUTER JOIN Tbl_PathType Tbl_PathType_From ON BTblBazdidResult.FromPathTypeId = Tbl_PathType_From.PathTypeId " &
                 "	LEFT OUTER JOIN Tbl_PathType Tbl_PathType_To ON BTblBazdidResult.ToPathTypeId = Tbl_PathType_To.PathTypeId " &
                 "	INNER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId " &
-                "	LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId " &
                 "	LEFT JOIN BTbl_BazdidCheckListGroup ON BTbl_BazdidCheckList.BazdidCheckListGroupId = BTbl_BazdidCheckListGroup.BazdidCheckListGroupId " &
                 "   LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId " &
                 "	" & mJoinSpecialitySql &
@@ -5866,7 +5865,6 @@ Public Class frmMakeReports
                 "		LEFT OUTER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId " &
                 "		LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_Old ON BTblBazdidResultCheckList.SubCheckListId = BTbl_SubCheckList_Old.SubCheckListId " &
                 "		LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_New ON BTblBazdidResultSubCheckList.SubCheckListId = BTbl_SubCheckList_New.SubCheckListId " &
-                "		LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId " &
                 "		INNER JOIN Tbl_LPPost ON Tbl_LPFeeder.LPPostId = Tbl_LPPost.LPPostId " &
                 "		INNER JOIN Tbl_MPFeeder ON Tbl_LPPost.MPFeederId = Tbl_MPFeeder.MPFeederId " &
                 "	    INNER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " &
@@ -5925,7 +5923,6 @@ Public Class frmMakeReports
                 "		LEFT OUTER JOIN BTbl_BazdidCheckList ON BTblBazdidResultCheckList.BazdidCheckListId = BTbl_BazdidCheckList.BazdidCheckListId " &
                 "		LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_Old ON BTblBazdidResultCheckList.SubCheckListId = BTbl_SubCheckList_Old.SubCheckListId " &
                 "		LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_New ON BTblBazdidResultSubCheckList.SubCheckListId = BTbl_SubCheckList_New.SubCheckListId " &
-                "		LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId " &
                 "		INNER JOIN Tbl_LPPost ON Tbl_LPFeeder.LPPostId = Tbl_LPPost.LPPostId " &
                 "		INNER JOIN Tbl_MPFeeder ON Tbl_LPPost.MPFeederId = Tbl_MPFeeder.MPFeederId " &
                 "	    INNER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " &
@@ -7566,7 +7563,6 @@ Public Class frmMakeReports
             "	INNER JOIN BTblBazdidResult ON BTblBazdidResultAddress.BazdidResultId = BTblBazdidResult.BazdidResultId " &
             "	INNER JOIN Tbl_MPFeeder ON BTblBazdidResult.MPFeederId = Tbl_MPFeeder.MPFeederId " &
             "	LEFT JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
-            "	LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId  " &
             "	LEFT OUTER JOIN Tbl_Area ON BTblBazdidResult.AreaId = Tbl_Area.AreaId " &
             "   LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId " &
                 mJoinSpecialitySql &
@@ -7774,7 +7770,6 @@ Public Class frmMakeReports
             "	INNER JOIN BTblBazdidResultAddress ON BTblBazdidResult.BazdidResultId = BTblBazdidResultAddress.BazdidResultId " &
             "	INNER JOIN BTblBazdidResultCheckList ON BTblBazdidResultAddress.BazdidResultAddressId = BTblBazdidResultCheckList.BazdidResultAddressId " &
             "	INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
-            "	LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId " &
             "	LEFT OUTER JOIN BTblBazdidResultSubCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblBazdidResultSubCheckList.BazdidResultCheckListId " &
             "	LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_Old ON BTblBazdidResultCheckList.SubCheckListId = BTbl_SubCheckList_Old.SubCheckListId " &
             "	LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_New ON BTblBazdidResultSubCheckList.SubCheckListId = BTbl_SubCheckList_New.SubCheckListId " &
@@ -8188,7 +8183,6 @@ Public Class frmMakeReports
             "	INNER JOIN BTblBazdidResultAddress ON BTblBazdidResult.BazdidResultId = BTblBazdidResultAddress.BazdidResultId " &
             "	INNER JOIN BTblBazdidResultCheckList ON BTblBazdidResultAddress.BazdidResultAddressId = BTblBazdidResultCheckList.BazdidResultAddressId " &
             "	INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
-            "   LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId " &
             "	LEFT OUTER JOIN BTblBazdidResultSubCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblBazdidResultSubCheckList.BazdidResultCheckListId " &
             "	LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_Old ON BTblBazdidResultCheckList.SubCheckListId = BTbl_SubCheckList_Old.SubCheckListId " &
             "	LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_New ON BTblBazdidResultSubCheckList.SubCheckListId = BTbl_SubCheckList_New.SubCheckListId		 " &
@@ -8239,7 +8233,6 @@ Public Class frmMakeReports
             "	BTblBazdidResultAddress " &
             "	INNER JOIN BTblBazdidResult ON BTblBazdidResultAddress.BazdidResultId = BTblBazdidResult.BazdidResultId " &
             "	INNER JOIN BTblServicePartUse ON BTblBazdidResultAddress.BazdidResultAddressId = BTblServicePartUse.BazdidResultAddressId " &
-            "   LEFT JOIN BTblService on BTblServicePartUse.ServiceId = BTblService.ServiceId " &
             "	INNER JOIN BTbl_ServicePart ON BTblServicePartUse.ServicePartId = BTbl_ServicePart.ServicePartId " &
             "	LEFT OUTER JOIN Tbl_PartUnit ON BTbl_ServicePart.PartUnitId = Tbl_PartUnit.PartUnitId " &
             "	INNER JOIN Tbl_LPPost ON BTblBazdidResult.LPPostId = Tbl_LPPost.LPPostId " &
@@ -8273,7 +8266,6 @@ Public Class frmMakeReports
             "			INNER JOIN BTblBazdidResultAddress ON BTblBazdidResult.BazdidResultId = BTblBazdidResultAddress.BazdidResultId " &
             "			INNER JOIN BTblBazdidResultCheckList ON BTblBazdidResultAddress.BazdidResultAddressId = BTblBazdidResultCheckList.BazdidResultAddressId " &
             "			LEFT JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
-            "	        LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId " &
             "			INNER JOIN Tbl_LPPost ON BTblBazdidResult.LPPostId = Tbl_LPPost.LPPostId " &
             "			INNER JOIN Tbl_MPFeeder ON Tbl_LPPost.MPFeederId = Tbl_MPFeeder.MPFeederId " &
             "           INNER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " &
@@ -8761,7 +8753,6 @@ Public Class frmMakeReports
             "	INNER JOIN BTblBazdidResultAddress ON BTblBazdidResult.BazdidResultId = BTblBazdidResultAddress.BazdidResultId " &
             "	INNER JOIN BTblBazdidResultCheckList ON BTblBazdidResultAddress.BazdidResultAddressId = BTblBazdidResultCheckList.BazdidResultAddressId " &
             "	INNER JOIN BTblServiceCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblServiceCheckList.BazdidResultCheckListId " &
-            "	LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId " &
             "	LEFT OUTER JOIN BTblBazdidResultSubCheckList ON BTblBazdidResultCheckList.BazdidResultCheckListId = BTblBazdidResultSubCheckList.BazdidResultCheckListId " &
             "	LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_Old ON BTblBazdidResultCheckList.SubCheckListId = BTbl_SubCheckList_Old.SubCheckListId " &
             "	LEFT OUTER JOIN BTbl_SubCheckList AS BTbl_SubCheckList_New ON BTblBazdidResultSubCheckList.SubCheckListId = BTbl_SubCheckList_New.SubCheckListId " &
@@ -8837,15 +8828,14 @@ Public Class frmMakeReports
             "	BTblBazdidResultAddress " &
             "	INNER JOIN BTblBazdidResult ON BTblBazdidResultAddress.BazdidResultId = BTblBazdidResult.BazdidResultId " &
             "	INNER JOIN BTblServicePartUse ON BTblBazdidResultAddress.BazdidResultAddressId = BTblServicePartUse.BazdidResultAddressId " &
-            "   LEFT join BTblService on BTblServicePartUse.ServiceId = BTblService.ServiceId" &
             "	INNER JOIN BTbl_ServicePart ON BTblServicePartUse.ServicePartId = BTbl_ServicePart.ServicePartId " &
             "	LEFT OUTER JOIN Tbl_PartUnit ON BTbl_ServicePart.PartUnitId = Tbl_PartUnit.PartUnitId " &
             "	INNER JOIN Tbl_LPFeeder ON BTblBazdidResult.LPFeederId = Tbl_LPFeeder.LPFeederId " &
             "	INNER JOIN Tbl_LPPost ON Tbl_LPFeeder.LPPostId = Tbl_LPPost.LPPostId " &
             "	INNER JOIN Tbl_MPFeeder ON Tbl_LPPost.MPFeederId = Tbl_MPFeeder.MPFeederId " &
-            "   INNER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " & _
+            "   INNER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " &
             "	INNER JOIN Tbl_Area ON BTblBazdidResult.AreaId = Tbl_Area.AreaId " &
-            "   LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId " & _
+            "   LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId " &
                 mJoinSpecialitySql &
             "	INNER JOIN " &
             "	( " &
@@ -8879,8 +8869,8 @@ Public Class frmMakeReports
             "			INNER JOIN Tbl_LPFeeder ON BTblBazdidResult.LPFeederId = Tbl_LPFeeder.LPFeederId " &
             "			INNER JOIN Tbl_LPPost ON Tbl_LPFeeder.LPPostId = Tbl_LPPost.LPPostId " &
             "			INNER JOIN Tbl_MPFeeder ON Tbl_LPPost.MPFeederId = Tbl_MPFeeder.MPFeederId " &
-            "           INNER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " & _
-            "           LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId " & _
+            "           INNER JOIN Tbl_MPPost ON Tbl_MPFeeder.MPPostId = Tbl_MPPost.MPPostId " &
+            "           LEFT JOIN BTblBazdidTiming ON BTblBazdidResult.BazdidTimingId = BTblBazdidTiming.BazdidTimingId " &
                         mJoinSpecialitySql &
             "		WHERE " &
             "			BTblBazdidResult.BazdidTypeId = 3 " &
@@ -9057,6 +9047,10 @@ Public Class frmMakeReports
             "		OR (AreaId IN (" & aAreaIDs & ")) " &
             "	) "
         BindingTable(lSQL, mCnn, mDs, "TmpTbl_MPFeedersId", aIsClearTable:=True)
+    End Sub
+
+    Private Sub cmbReportName_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cmbReportName.SelectionChangeCommitted
+
     End Sub
 #End Region
 

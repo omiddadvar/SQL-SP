@@ -1,4 +1,4 @@
-CREATE PROCEDURE dbo.spGetReport_2_2_5
+ALTER PROCEDURE dbo.spGetReport_2_2_5
 	@lFromDatePersian as varchar(12),
 	@lToDatePersian as varchar(12),
 	@lAreaId as varchar(1000),
@@ -66,7 +66,6 @@ AS
    IF @lIsWarmLine = 1  -----omid
 	BEGIN
 		SET @lWhere = @lWhere + ' AND BTblService.IsWarmLine = 1'
-		SET @lJoinSpecialitySql = ' LEFT OUTER JOIN BTblService ON BTblServiceCheckList.ServiceId = BTblService.ServiceId '
 	END
 	if @lWorkCommand <> ''
 		set @lWhere = @lwhere + ' AND BTblService.WorkCommandNo = ''' + cast(@lWorkCommand as nvarchar) + ''''
