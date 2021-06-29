@@ -48,6 +48,7 @@ Public Class frmMakeReports
     Private mIsLightFeeder As Integer = -1
     Private mIsActive As Integer = 0
     Private mIsWarmLine As String = ""
+    Private mIsWarmLineSP As Int16 = 0
     Private mIsExistMap As Integer = -1
     Private mIsUpdateMap As Integer = -1
     Private mIsOKNetDesign As Integer = -1
@@ -242,8 +243,10 @@ Public Class frmMakeReports
         Me.btnCheckLists = New System.Windows.Forms.Button()
         Me.btnParts = New System.Windows.Forms.Button()
         Me.pnlMaster = New System.Windows.Forms.Panel()
+        Me.ckcmbBazdidMaster = New Bargh_Common.ChkCombo()
         Me.pnlBasketDetail = New System.Windows.Forms.Panel()
         Me.btnSerachFeederPart = New System.Windows.Forms.Button()
+        Me.ckcmbBasketDetail = New Bargh_Common.ChkCombo()
         Me.chkIsActive = New System.Windows.Forms.CheckBox()
         Me.pnlComplateInfo = New System.Windows.Forms.Panel()
         Me.chkIsExistMapYes = New System.Windows.Forms.CheckBox()
@@ -258,6 +261,9 @@ Public Class frmMakeReports
         Me.pnlIsNoValue = New System.Windows.Forms.Panel()
         Me.chkIsNoValue = New System.Windows.Forms.CheckBox()
         Me.pnlFeeder = New System.Windows.Forms.Panel()
+        Me.chkMPFeeder = New Bargh_Common.ChkCombo()
+        Me.chkMPPost = New Bargh_Common.ChkCombo()
+        Me.chkArea = New Bargh_Common.ChkCombo()
         Me.cmbArea = New Bargh_Common.ComboBoxPersian()
         Me.cmbMPFeeder = New Bargh_Common.ComboBoxPersian()
         Me.cmbMPPost = New Bargh_Common.ComboBoxPersian()
@@ -267,6 +273,9 @@ Public Class frmMakeReports
         Me.chkSeprateBasket = New System.Windows.Forms.CheckBox()
         Me.btnSubCheckList = New System.Windows.Forms.Button()
         Me.pnlOtherFilter = New Bargh_Common.PanelGroupBox()
+        Me.pnlIsWarmLine = New System.Windows.Forms.Panel()
+        Me.cmbIsWarmLine = New Bargh_Common.ComboBoxPersian()
+        Me.lblIsWarmLine = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtWorkCommandNo = New System.Windows.Forms.TextBox()
         Me.btnDateToBazdid = New Bargh_Common.DateButton()
@@ -295,17 +304,9 @@ Public Class frmMakeReports
         Me.txtSearchFeederPart = New Bargh_Common.TextBoxPersian()
         Me.lblBazdidSpeciality = New System.Windows.Forms.Label()
         Me.PnlServiceNumber = New System.Windows.Forms.Panel()
-        Me.cmbIsWarmLine = New Bargh_Common.ComboBoxPersian()
-        Me.lblIsWarmLine = New System.Windows.Forms.Label()
-        Me.pnlIsWarmLine = New System.Windows.Forms.Panel()
         Me.chkLPFeeder = New Bargh_Common.ChkCombo()
         Me.chkLPPost = New Bargh_Common.ChkCombo()
         Me.chkBazdidSpeciality = New Bargh_Common.ChkCombo()
-        Me.chkMPFeeder = New Bargh_Common.ChkCombo()
-        Me.chkMPPost = New Bargh_Common.ChkCombo()
-        Me.chkArea = New Bargh_Common.ChkCombo()
-        Me.ckcmbBazdidMaster = New Bargh_Common.ChkCombo()
-        Me.ckcmbBasketDetail = New Bargh_Common.ChkCombo()
         Me.pnlHavayiZamini.SuspendLayout()
         Me.pnlPriority.SuspendLayout()
         Me.pnlMaster.SuspendLayout()
@@ -315,8 +316,8 @@ Public Class frmMakeReports
         Me.pnlFeeder.SuspendLayout()
         Me.pnlAddress.SuspendLayout()
         Me.pnlOtherFilter.SuspendLayout()
-        Me.PnlServiceNumber.SuspendLayout()
         Me.pnlIsWarmLine.SuspendLayout()
+        Me.PnlServiceNumber.SuspendLayout()
         Me.SuspendLayout()
         '
         'HelpMaker
@@ -719,6 +720,22 @@ Public Class frmMakeReports
         Me.pnlMaster.Size = New System.Drawing.Size(379, 30)
         Me.pnlMaster.TabIndex = 9
         '
+        'ckcmbBazdidMaster
+        '
+        Me.ckcmbBazdidMaster.CheckComboDropDownWidth = 0
+        Me.ckcmbBazdidMaster.CheckGroup = CType(resources.GetObject("ckcmbBazdidMaster.CheckGroup"), System.Collections.ArrayList)
+        Me.ckcmbBazdidMaster.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
+        Me.ckcmbBazdidMaster.DropHeight = 500
+        Me.ckcmbBazdidMaster.IsGroup = False
+        Me.ckcmbBazdidMaster.IsMultiSelect = True
+        Me.ckcmbBazdidMaster.Location = New System.Drawing.Point(7, 1)
+        Me.ckcmbBazdidMaster.Name = "ckcmbBazdidMaster"
+        Me.ckcmbBazdidMaster.ReadOnlyList = ""
+        Me.ckcmbBazdidMaster.Size = New System.Drawing.Size(232, 23)
+        Me.ckcmbBazdidMaster.TabIndex = 7
+        Me.ckcmbBazdidMaster.Text = "ChkCombo1"
+        Me.ckcmbBazdidMaster.TreeImageList = Nothing
+        '
         'pnlBasketDetail
         '
         Me.pnlBasketDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -739,6 +756,23 @@ Public Class frmMakeReports
         Me.btnSerachFeederPart.Size = New System.Drawing.Size(20, 20)
         Me.btnSerachFeederPart.TabIndex = 218
         Me.GlobalToolTip.SetToolTip(Me.btnSerachFeederPart, "جستجوي سريع تکه فيدر")
+        '
+        'ckcmbBasketDetail
+        '
+        Me.ckcmbBasketDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ckcmbBasketDetail.CheckComboDropDownWidth = 0
+        Me.ckcmbBasketDetail.CheckGroup = CType(resources.GetObject("ckcmbBasketDetail.CheckGroup"), System.Collections.ArrayList)
+        Me.ckcmbBasketDetail.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
+        Me.ckcmbBasketDetail.DropHeight = 500
+        Me.ckcmbBasketDetail.IsGroup = False
+        Me.ckcmbBasketDetail.IsMultiSelect = True
+        Me.ckcmbBasketDetail.Location = New System.Drawing.Point(31, 0)
+        Me.ckcmbBasketDetail.Name = "ckcmbBasketDetail"
+        Me.ckcmbBasketDetail.ReadOnlyList = ""
+        Me.ckcmbBasketDetail.Size = New System.Drawing.Size(208, 23)
+        Me.ckcmbBasketDetail.TabIndex = 8
+        Me.ckcmbBasketDetail.Text = "ChkCombo1"
+        Me.ckcmbBasketDetail.TreeImageList = Nothing
         '
         'chkIsActive
         '
@@ -888,6 +922,56 @@ Public Class frmMakeReports
         Me.pnlFeeder.Size = New System.Drawing.Size(136, 84)
         Me.pnlFeeder.TabIndex = 4
         '
+        'chkMPFeeder
+        '
+        Me.chkMPFeeder.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chkMPFeeder.CheckComboDropDownWidth = 0
+        Me.chkMPFeeder.CheckGroup = CType(resources.GetObject("chkMPFeeder.CheckGroup"), System.Collections.ArrayList)
+        Me.chkMPFeeder.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
+        Me.chkMPFeeder.DropHeight = 500
+        Me.chkMPFeeder.IsGroup = False
+        Me.chkMPFeeder.IsMultiSelect = True
+        Me.chkMPFeeder.Location = New System.Drawing.Point(4, 59)
+        Me.chkMPFeeder.Name = "chkMPFeeder"
+        Me.chkMPFeeder.ReadOnlyList = ""
+        Me.chkMPFeeder.Size = New System.Drawing.Size(127, 22)
+        Me.chkMPFeeder.TabIndex = 3
+        Me.chkMPFeeder.Text = "ChkCombo1"
+        Me.chkMPFeeder.TreeImageList = Nothing
+        '
+        'chkMPPost
+        '
+        Me.chkMPPost.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chkMPPost.CheckComboDropDownWidth = 0
+        Me.chkMPPost.CheckGroup = CType(resources.GetObject("chkMPPost.CheckGroup"), System.Collections.ArrayList)
+        Me.chkMPPost.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
+        Me.chkMPPost.DropHeight = 500
+        Me.chkMPPost.IsGroup = False
+        Me.chkMPPost.IsMultiSelect = True
+        Me.chkMPPost.Location = New System.Drawing.Point(4, 31)
+        Me.chkMPPost.Name = "chkMPPost"
+        Me.chkMPPost.ReadOnlyList = ""
+        Me.chkMPPost.Size = New System.Drawing.Size(127, 22)
+        Me.chkMPPost.TabIndex = 3
+        Me.chkMPPost.Text = "ChkCombo1"
+        Me.chkMPPost.TreeImageList = Nothing
+        '
+        'chkArea
+        '
+        Me.chkArea.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chkArea.CheckComboDropDownWidth = 0
+        Me.chkArea.CheckGroup = CType(resources.GetObject("chkArea.CheckGroup"), System.Collections.ArrayList)
+        Me.chkArea.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
+        Me.chkArea.DropHeight = 500
+        Me.chkArea.IsGroup = False
+        Me.chkArea.IsMultiSelect = True
+        Me.chkArea.Location = New System.Drawing.Point(4, 3)
+        Me.chkArea.Name = "chkArea"
+        Me.chkArea.ReadOnlyList = ""
+        Me.chkArea.Size = New System.Drawing.Size(127, 22)
+        Me.chkArea.TabIndex = 3
+        Me.chkArea.TreeImageList = Nothing
+        '
         'cmbArea
         '
         Me.cmbArea.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -1011,6 +1095,38 @@ Public Class frmMakeReports
         Me.pnlOtherFilter.Size = New System.Drawing.Size(368, 159)
         Me.pnlOtherFilter.TabIndex = 35
         Me.pnlOtherFilter.Visible = False
+        '
+        'pnlIsWarmLine
+        '
+        Me.pnlIsWarmLine.Controls.Add(Me.cmbIsWarmLine)
+        Me.pnlIsWarmLine.Controls.Add(Me.lblIsWarmLine)
+        Me.pnlIsWarmLine.Location = New System.Drawing.Point(213, 97)
+        Me.pnlIsWarmLine.Name = "pnlIsWarmLine"
+        Me.pnlIsWarmLine.Size = New System.Drawing.Size(147, 25)
+        Me.pnlIsWarmLine.TabIndex = 6
+        Me.pnlIsWarmLine.Visible = False
+        '
+        'cmbIsWarmLine
+        '
+        Me.cmbIsWarmLine.BackColor = System.Drawing.Color.White
+        Me.cmbIsWarmLine.FormattingEnabled = True
+        Me.cmbIsWarmLine.IsReadOnly = False
+        Me.cmbIsWarmLine.Items.AddRange(New Object() {"بدون خط گرم", "کار در خط گرم"})
+        Me.cmbIsWarmLine.Location = New System.Drawing.Point(4, 3)
+        Me.cmbIsWarmLine.Name = "cmbIsWarmLine"
+        Me.cmbIsWarmLine.Size = New System.Drawing.Size(94, 22)
+        Me.cmbIsWarmLine.TabIndex = 36
+        '
+        'lblIsWarmLine
+        '
+        Me.lblIsWarmLine.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblIsWarmLine.AutoSize = True
+        Me.lblIsWarmLine.Font = New System.Drawing.Font("Mitra", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
+        Me.lblIsWarmLine.Location = New System.Drawing.Point(98, 3)
+        Me.lblIsWarmLine.Name = "lblIsWarmLine"
+        Me.lblIsWarmLine.Size = New System.Drawing.Size(46, 19)
+        Me.lblIsWarmLine.TabIndex = 36
+        Me.lblIsWarmLine.Text = "خط گرم"
         '
         'Label14
         '
@@ -1363,38 +1479,6 @@ Public Class frmMakeReports
         Me.PnlServiceNumber.TabIndex = 1
         Me.PnlServiceNumber.Visible = False
         '
-        'cmbIsWarmLine
-        '
-        Me.cmbIsWarmLine.BackColor = System.Drawing.Color.White
-        Me.cmbIsWarmLine.FormattingEnabled = True
-        Me.cmbIsWarmLine.IsReadOnly = False
-        Me.cmbIsWarmLine.Items.AddRange(New Object() {"بدون خط گرم", "کار در خط گرم"})
-        Me.cmbIsWarmLine.Location = New System.Drawing.Point(4, 3)
-        Me.cmbIsWarmLine.Name = "cmbIsWarmLine"
-        Me.cmbIsWarmLine.Size = New System.Drawing.Size(94, 22)
-        Me.cmbIsWarmLine.TabIndex = 36
-        '
-        'lblIsWarmLine
-        '
-        Me.lblIsWarmLine.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblIsWarmLine.AutoSize = True
-        Me.lblIsWarmLine.Font = New System.Drawing.Font("Mitra", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178, Byte))
-        Me.lblIsWarmLine.Location = New System.Drawing.Point(98, 3)
-        Me.lblIsWarmLine.Name = "lblIsWarmLine"
-        Me.lblIsWarmLine.Size = New System.Drawing.Size(46, 19)
-        Me.lblIsWarmLine.TabIndex = 36
-        Me.lblIsWarmLine.Text = "خط گرم"
-        '
-        'pnlIsWarmLine
-        '
-        Me.pnlIsWarmLine.Controls.Add(Me.cmbIsWarmLine)
-        Me.pnlIsWarmLine.Controls.Add(Me.lblIsWarmLine)
-        Me.pnlIsWarmLine.Location = New System.Drawing.Point(81, 116)
-        Me.pnlIsWarmLine.Name = "pnlIsWarmLine"
-        Me.pnlIsWarmLine.Size = New System.Drawing.Size(147, 25)
-        Me.pnlIsWarmLine.TabIndex = 6
-        Me.pnlIsWarmLine.Visible = False
-        '
         'chkLPFeeder
         '
         Me.chkLPFeeder.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1443,89 +1527,6 @@ Public Class frmMakeReports
         Me.chkBazdidSpeciality.TabIndex = 220
         Me.chkBazdidSpeciality.Text = "ChkCombo1"
         Me.chkBazdidSpeciality.TreeImageList = Nothing
-        '
-        'chkMPFeeder
-        '
-        Me.chkMPFeeder.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.chkMPFeeder.CheckComboDropDownWidth = 0
-        Me.chkMPFeeder.CheckGroup = CType(resources.GetObject("chkMPFeeder.CheckGroup"), System.Collections.ArrayList)
-        Me.chkMPFeeder.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
-        Me.chkMPFeeder.DropHeight = 500
-        Me.chkMPFeeder.IsGroup = False
-        Me.chkMPFeeder.IsMultiSelect = True
-        Me.chkMPFeeder.Location = New System.Drawing.Point(4, 59)
-        Me.chkMPFeeder.Name = "chkMPFeeder"
-        Me.chkMPFeeder.ReadOnlyList = ""
-        Me.chkMPFeeder.Size = New System.Drawing.Size(127, 22)
-        Me.chkMPFeeder.TabIndex = 3
-        Me.chkMPFeeder.Text = "ChkCombo1"
-        Me.chkMPFeeder.TreeImageList = Nothing
-        '
-        'chkMPPost
-        '
-        Me.chkMPPost.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.chkMPPost.CheckComboDropDownWidth = 0
-        Me.chkMPPost.CheckGroup = CType(resources.GetObject("chkMPPost.CheckGroup"), System.Collections.ArrayList)
-        Me.chkMPPost.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
-        Me.chkMPPost.DropHeight = 500
-        Me.chkMPPost.IsGroup = False
-        Me.chkMPPost.IsMultiSelect = True
-        Me.chkMPPost.Location = New System.Drawing.Point(4, 31)
-        Me.chkMPPost.Name = "chkMPPost"
-        Me.chkMPPost.ReadOnlyList = ""
-        Me.chkMPPost.Size = New System.Drawing.Size(127, 22)
-        Me.chkMPPost.TabIndex = 3
-        Me.chkMPPost.Text = "ChkCombo1"
-        Me.chkMPPost.TreeImageList = Nothing
-        '
-        'chkArea
-        '
-        Me.chkArea.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.chkArea.CheckComboDropDownWidth = 0
-        Me.chkArea.CheckGroup = CType(resources.GetObject("chkArea.CheckGroup"), System.Collections.ArrayList)
-        Me.chkArea.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
-        Me.chkArea.DropHeight = 500
-        Me.chkArea.IsGroup = False
-        Me.chkArea.IsMultiSelect = True
-        Me.chkArea.Location = New System.Drawing.Point(4, 3)
-        Me.chkArea.Name = "chkArea"
-        Me.chkArea.ReadOnlyList = ""
-        Me.chkArea.Size = New System.Drawing.Size(127, 22)
-        Me.chkArea.TabIndex = 3
-        Me.chkArea.TreeImageList = Nothing
-        '
-        'ckcmbBazdidMaster
-        '
-        Me.ckcmbBazdidMaster.CheckComboDropDownWidth = 0
-        Me.ckcmbBazdidMaster.CheckGroup = CType(resources.GetObject("ckcmbBazdidMaster.CheckGroup"), System.Collections.ArrayList)
-        Me.ckcmbBazdidMaster.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
-        Me.ckcmbBazdidMaster.DropHeight = 500
-        Me.ckcmbBazdidMaster.IsGroup = False
-        Me.ckcmbBazdidMaster.IsMultiSelect = True
-        Me.ckcmbBazdidMaster.Location = New System.Drawing.Point(7, 1)
-        Me.ckcmbBazdidMaster.Name = "ckcmbBazdidMaster"
-        Me.ckcmbBazdidMaster.ReadOnlyList = ""
-        Me.ckcmbBazdidMaster.Size = New System.Drawing.Size(232, 23)
-        Me.ckcmbBazdidMaster.TabIndex = 7
-        Me.ckcmbBazdidMaster.Text = "ChkCombo1"
-        Me.ckcmbBazdidMaster.TreeImageList = Nothing
-        '
-        'ckcmbBasketDetail
-        '
-        Me.ckcmbBasketDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ckcmbBasketDetail.CheckComboDropDownWidth = 0
-        Me.ckcmbBasketDetail.CheckGroup = CType(resources.GetObject("ckcmbBasketDetail.CheckGroup"), System.Collections.ArrayList)
-        Me.ckcmbBasketDetail.DropDownDirection = UtilityLibrary.Combos.DropDownDirection.Down
-        Me.ckcmbBasketDetail.DropHeight = 500
-        Me.ckcmbBasketDetail.IsGroup = False
-        Me.ckcmbBasketDetail.IsMultiSelect = True
-        Me.ckcmbBasketDetail.Location = New System.Drawing.Point(31, 0)
-        Me.ckcmbBasketDetail.Name = "ckcmbBasketDetail"
-        Me.ckcmbBasketDetail.ReadOnlyList = ""
-        Me.ckcmbBasketDetail.Size = New System.Drawing.Size(208, 23)
-        Me.ckcmbBasketDetail.TabIndex = 8
-        Me.ckcmbBasketDetail.Text = "ChkCombo1"
-        Me.ckcmbBasketDetail.TreeImageList = Nothing
         '
         'frmMakeReports
         '
@@ -1605,10 +1606,10 @@ Public Class frmMakeReports
         Me.pnlAddress.PerformLayout()
         Me.pnlOtherFilter.ResumeLayout(False)
         Me.pnlOtherFilter.PerformLayout()
-        Me.PnlServiceNumber.ResumeLayout(False)
-        Me.PnlServiceNumber.PerformLayout()
         Me.pnlIsWarmLine.ResumeLayout(False)
         Me.pnlIsWarmLine.PerformLayout()
+        Me.PnlServiceNumber.ResumeLayout(False)
+        Me.PnlServiceNumber.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3573,6 +3574,7 @@ Public Class frmMakeReports
         mIsLightFeeder = IIf(mIsLightReport, 1, 0)
         mIsActive = 0
         mIsWarmLine = ""
+        mIsWarmLineSP = 0
         mIsExistMap = -1
         mIsUpdateMap = -1
         mIsOKNetDesign = -1
@@ -3695,6 +3697,7 @@ Public Class frmMakeReports
         End If
         If cmbIsWarmLine.SelectedIndex > -1 And cmbIsWarmLine.Visible Then
             mIsWarmLine = cmbIsWarmLine.SelectedIndex
+            mIsWarmLineSP = 1
             mFilterInfo &= cmbIsWarmLine.Text
         End If
         If chkNotService.Checked Then
@@ -4809,7 +4812,10 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_1_1()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_1_1 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mOwnershipId & "," & mIsActive & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mBazdidSpeciality & "','" & mIsHavaei & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_1_1 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mOwnershipId & "," & mIsActive & ",'" & mBazdidMasterIDs & "','" &
+            mBasketDetailIDs & "','" & mBazdidSpeciality & "','" & mIsHavaei & "'," & mFromDateBazdid & "," &
+            mToDateBazdid & "," & mIsWarmLineSP & ""
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_1_1", , True)
         If lDS.Tables.Contains("Report_2_1_1") Then
@@ -4821,7 +4827,10 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_1_2()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_1_2 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mOwnershipId & "," & mIsActive & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_1_2 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mOwnershipId & "," & mIsActive & ",'" & mBazdidMasterIDs & "','" &
+            mBasketDetailIDs & "','" & mBazdidSpeciality & "'," & mFromDateBazdid & "," &
+            mToDateBazdid & "," & mIsWarmLineSP & ""
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_1_2", , True)
         If lDS.Tables.Contains("Report_2_1_2") Then
@@ -5037,7 +5046,11 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_1_5()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_1_5 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mOwnershipId & "," & mIsActive & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mParts & "','" & mAddress & "','" & mBazdidSpeciality & "','" & txtServiceNumber.Text & "'," & mFromDateBazdid & "," & mToDateBazdid & ",'" & mWorkCommand & "'"
+        lSQL = "EXEC spGetReport_2_1_5 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mOwnershipId & "," & mIsActive & ",'" & mBazdidMasterIDs & "','" &
+            mBasketDetailIDs & "','" & mParts & "','" & mAddress & "','" & mBazdidSpeciality & "','" &
+            txtServiceNumber.Text & "'," & mFromDateBazdid & "," & mToDateBazdid & ",'" &
+            mWorkCommand & "," & mIsWarmLineSP & "'"
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_1_5", , True)
         If lDS.Tables.Contains("Report_2_1_5") Then
@@ -5168,7 +5181,10 @@ Public Class frmMakeReports
         Dim lTitle As String = "شرکت توزيع نيروي برق - " & CConfig.ReadConfig("ToziName")
         Dim lDateRows(), lRow As DataRow
 
-        lSQL = "EXEC spGetReport_2_1_8 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mOwnershipId & "," & mIsActive & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mPrs & "','" & mCheckLists & "','" & mAddress & "'," & mMinCheckListCount & ",'" & mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_1_8 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mOwnershipId & "," & mIsActive & ",'" & mBazdidMasterIDs & "','" &
+            mBasketDetailIDs & "','" & mPrs & "','" & mCheckLists & "','" & mAddress & "'," & mMinCheckListCount & ",'" &
+            mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & "," & mIsWarmLineSP & ""
         BindingTable(lSQL, mCnn, lDS, "spGetReport_2_1_8", , True)
         lDateRows = lDS.Tables("spGetReport_2_1_8").Select()
 
@@ -5319,7 +5335,9 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_2_1()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_2_1 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & ",'" & mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_2_1 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & ",'" & mBazdidSpeciality & "'," &
+            mFromDateBazdid & "," & mToDateBazdid & "," & mIsWarmLineSP & ""
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_2_1", , True)
         If lDS.Tables.Contains("Report_2_2_1") Then
@@ -5331,7 +5349,9 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_2_2()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_2_2 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & "," & mIsHavaei & ",'" & mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_2_2 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & "," & mIsHavaei & ",'" &
+            mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & "," & mIsWarmLineSP & ""
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_2_2", , True)
         If lDS.Tables.Contains("Report_2_2_2") Then
@@ -5506,7 +5526,10 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_2_5()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_2_5 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & ",'" & mParts & "','" & mAddress & "'," & mIsHavaei & ",'" & mBazdidSpeciality & "','" & txtServiceNumber.Text & "'," & mFromDateBazdid & "," & mToDateBazdid & ",'" & mWorkCommand & "'"
+        lSQL = "EXEC spGetReport_2_2_5 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & ",'" & mParts & "','" &
+            mAddress & "'," & mIsHavaei & ",'" & mBazdidSpeciality & "','" & txtServiceNumber.Text & "'," &
+            mFromDateBazdid & "," & mToDateBazdid & ",'" & mWorkCommand & "' ," & mIsWarmLineSP & ""
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_2_5", , True)
         If lDS.Tables.Contains("Report_2_2_5") Then
@@ -5518,7 +5541,9 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_2_6()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_2_6 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & ",'" & mPrs & "','" & mCheckLists & "'," & mNotService & "," & mIsHavaei & ",'" & mBazdidSpeciality & "'"
+        lSQL = "EXEC spGetReport_2_2_6 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & ",'" & mPrs & "','" &
+            mCheckLists & "'," & mNotService & "," & mIsHavaei & ",'" & mBazdidSpeciality & "' ," & mIsWarmLineSP & ""
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_2_6", , True)
         If lDS.Tables.Contains("Report_2_2_6") Then
@@ -5541,7 +5566,10 @@ Public Class frmMakeReports
         Dim lTitle As String = "شرکت توزيع نيروي برق - " & CConfig.ReadConfig("ToziName")
         Dim lDateRows(), lRow As DataRow
 
-        lSQL = "EXEC spGetReport_2_2_8 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & ",'" & mPrs & "','" & mCheckLists & "','" & mAddress & "'," & mMinCheckListCount & "," & mIsHavaei & ",'" & mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_2_8 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mOwnershipId & "," & mIsActive & ",'" & mPrs & "','" &
+            mCheckLists & "','" & mAddress & "'," & mMinCheckListCount & "," & mIsHavaei & ",'" & mBazdidSpeciality & "'," &
+            mFromDateBazdid & "," & mToDateBazdid & "," & mIsWarmLineSP & ""
         BindingTable(lSQL, mCnn, lDS, "Report_2_2_8", , True)
         lDateRows = lDS.Tables("Report_2_2_8").Select()
 
@@ -5652,7 +5680,10 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_34_1()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_34_1 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," & IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_34_1 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," &
+            IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" &
+            mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & "," & mIsWarmLineSP & ""
 
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_34_1", , True)
@@ -5666,7 +5697,10 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_34_2()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_34_2 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," & IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mBazdidSpeciality & "','" & mIsHavaei & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_34_2 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," &
+            IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" &
+            mBazdidSpeciality & "','" & mIsHavaei & "'," & mFromDateBazdid & "," & mToDateBazdid & "," & mIsWarmLineSP & ""
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_34_2", , True)
         If lDS.Tables.Contains("Report_2_34_2") Then
@@ -5922,7 +5956,11 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_34_5()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_34_5 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," & IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mParts & "','" & mAddress & "','" & mBazdidSpeciality & "','" & txtServiceNumber.Text & "'," & mFromDateBazdid & "," & mToDateBazdid & ",'" & mWorkCommand & "'"
+        lSQL = "EXEC spGetReport_2_34_5 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," &
+            IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mParts & "','" &
+            mAddress & "','" & mBazdidSpeciality & "','" & txtServiceNumber.Text & "'," & mFromDateBazdid & "," &
+            mToDateBazdid & ",'" & mWorkCommand & "' ," & mIsWarmLineSP & ""
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_34_5", , True)
         If lDS.Tables.Contains("Report_2_34_5") Then
@@ -5935,7 +5973,11 @@ Public Class frmMakeReports
     Private Sub MakeReport_2_34_6()
         MakeQuery()
         Dim lSQL As String = ""
-        lSQL = "EXEC spGetReport_2_34_6 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," & IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mPrs & "','" & mCheckLists & "'," & mNotService & ",'" & mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_34_6 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," &
+            IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mPrs & "','" &
+            mCheckLists & "'," & mNotService & ",'" & mBazdidSpeciality & "'," & mFromDateBazdid & "," &
+            mToDateBazdid & "," & mIsWarmLineSP & ""
         Dim lDS As New DataSet
         BindingTable(lSQL, mCnn, lDS, "Report_2_34_6", , True)
         If lDS.Tables.Contains("Report_2_34_6") Then
@@ -5959,7 +6001,11 @@ Public Class frmMakeReports
         Dim lTitle As String = "شرکت توزيع نيروي برق - " & CConfig.ReadConfig("ToziName")
         Dim lDateRows(), lRow As DataRow
 
-        lSQL = "EXEC spGetReport_2_3_8 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" & mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," & IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mPrs & "','" & mCheckLists & "','" & mAddress & "'," & mMinCheckListCount & ",'" & mBazdidSpeciality & "'," & mFromDateBazdid & "," & mToDateBazdid & ""
+        lSQL = "EXEC spGetReport_2_3_8 " & mFromDate & "," & mToDate & ",'" & mAreaId & "'," & mMPPostId & ",'" &
+            mMPFeederIDs & "'," & mLPPostId & "," & mLPFeederId & "," & mOwnershipId & "," & mIsActive & "," &
+            IIf(mIsLightReport, 1, 0) & ",'" & mBazdidMasterIDs & "','" & mBasketDetailIDs & "','" & mPrs & "','" &
+            mCheckLists & "','" & mAddress & "'," & mMinCheckListCount & ",'" & mBazdidSpeciality & "'," &
+            mFromDateBazdid & "," & mToDateBazdid & "," & mIsWarmLineSP & ""
         BindingTable(lSQL, mCnn, lDS, "spGetReport_2_3_8", , True)
         lDateRows = lDS.Tables("spGetReport_2_3_8").Select()
 
