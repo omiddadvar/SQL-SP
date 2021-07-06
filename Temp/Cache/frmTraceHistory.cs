@@ -14,7 +14,7 @@ namespace Bargh_GIS
     public partial class frmTraceHistory : FormBase
     {
         private Classes.CDatabase db;
-        private static int[] heights = new int[3] { 100 , 235 , 360};
+        private static int[] heights = new int[3] { 95 , 235 , 360};
         private Size GetSize(int i)
         {
             return new Size(this.Size.Width - 20, heights[i]);
@@ -29,6 +29,7 @@ namespace Bargh_GIS
             InitializeComponent();
             this.mRequestId = aRequestId;
             initialData();
+            handleUI03();
         }
         private void initialData() {
             pnlSearchExpand.Size = GetSize(0);
@@ -73,6 +74,11 @@ namespace Bargh_GIS
             dgTablet.Visible = dgArea.Visible = dgMaster.Visible = false;
             pnlButtons.Visible = btnCloseFilter.Visible = btnRequests.Visible = btnShow.Visible = false;
             dgRequest.Visible = false;
+        }
+
+        private void btnShow_Click(object sender, EventArgs e)
+        {
+            pnlSearchExpand.Expanded = false;
         }
     }
 }

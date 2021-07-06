@@ -36,9 +36,10 @@
             this.MapElementHost = new System.Windows.Forms.Integration.ElementHost();
             this.btnCancel = new System.Windows.Forms.Button();
             this.pnlSearchExpand = new DevComponents.DotNetBar.ExpandablePanel();
-            this.btnCloseFilter = new System.Windows.Forms.Button();
-            this.btnShow = new System.Windows.Forms.Button();
+            this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnRequests = new System.Windows.Forms.Button();
+            this.btnShow = new System.Windows.Forms.Button();
+            this.btnCloseFilter = new System.Windows.Forms.Button();
             this.dgRequest = new Bargh_Common.JGrid();
             this.dgArea = new Bargh_Common.JGrid();
             this.dgMaster = new Bargh_Common.JGrid();
@@ -57,14 +58,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pnlButtons = new System.Windows.Forms.Panel();
             this.pnlSearchExpand.SuspendLayout();
+            this.pnlButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgRequest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgArea)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMaster)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTablet)).BeginInit();
             this.pnlSearch.SuspendLayout();
-            this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // HelpMaker
@@ -136,36 +136,20 @@
             this.pnlSearchExpand.TitleStyle.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
             this.pnlSearchExpand.TitleStyle.GradientAngle = 90;
             this.pnlSearchExpand.TitleText = "جستجو";
+            //this.pnlSearchExpand.TitlePanel.Click += new System.EventHandler(this.tilePanel_click);
             // 
-            // btnCloseFilter
+            // pnlButtons
             // 
-            this.btnCloseFilter.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseFilter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCloseFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCloseFilter.Location = new System.Drawing.Point(9, 7);
-            this.btnCloseFilter.Name = "btnCloseFilter";
-            this.btnCloseFilter.Size = new System.Drawing.Size(110, 25);
-            this.btnCloseFilter.TabIndex = 14;
-            this.btnCloseFilter.Text = "بستن فیلتر";
-            this.btnCloseFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCloseFilter.UseVisualStyleBackColor = false;
-            this.btnCloseFilter.Visible = false;
-            this.btnCloseFilter.Click += new System.EventHandler(this.btnCloseFilter_Click);
-            // 
-            // btnShow
-            // 
-            this.btnShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnShow.BackColor = System.Drawing.Color.Transparent;
-            this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnShow.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnShow.Location = new System.Drawing.Point(522, 7);
-            this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(251, 25);
-            this.btnShow.TabIndex = 12;
-            this.btnShow.Text = "نمايش روِي نقشه";
-            this.btnShow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShow.UseVisualStyleBackColor = false;
-            this.btnShow.Visible = false;
+            this.pnlButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlButtons.BackColor = System.Drawing.Color.Transparent;
+            this.pnlButtons.Controls.Add(this.btnRequests);
+            this.pnlButtons.Controls.Add(this.btnShow);
+            this.pnlButtons.Controls.Add(this.btnCloseFilter);
+            this.pnlButtons.Location = new System.Drawing.Point(11, 314);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.Size = new System.Drawing.Size(776, 38);
+            this.pnlButtons.TabIndex = 17;
             // 
             // btnRequests
             // 
@@ -183,6 +167,37 @@
             this.btnRequests.UseVisualStyleBackColor = false;
             this.btnRequests.Visible = false;
             this.btnRequests.Click += new System.EventHandler(this.btnRequests_Click);
+            // 
+            // btnShow
+            // 
+            this.btnShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShow.BackColor = System.Drawing.Color.Transparent;
+            this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnShow.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnShow.Location = new System.Drawing.Point(522, 7);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(251, 25);
+            this.btnShow.TabIndex = 12;
+            this.btnShow.Text = "نمايش روِي نقشه";
+            this.btnShow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnShow.UseVisualStyleBackColor = false;
+            this.btnShow.Visible = false;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
+            // 
+            // btnCloseFilter
+            // 
+            this.btnCloseFilter.BackColor = System.Drawing.Color.Transparent;
+            this.btnCloseFilter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCloseFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCloseFilter.Location = new System.Drawing.Point(9, 7);
+            this.btnCloseFilter.Name = "btnCloseFilter";
+            this.btnCloseFilter.Size = new System.Drawing.Size(110, 25);
+            this.btnCloseFilter.TabIndex = 14;
+            this.btnCloseFilter.Text = "بستن فیلتر";
+            this.btnCloseFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCloseFilter.UseVisualStyleBackColor = false;
+            this.btnCloseFilter.Visible = false;
+            this.btnCloseFilter.Click += new System.EventHandler(this.btnCloseFilter_Click);
             // 
             // dgRequest
             // 
@@ -549,19 +564,6 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "از تاريخ";
             // 
-            // pnlButtons
-            // 
-            this.pnlButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlButtons.BackColor = System.Drawing.Color.Transparent;
-            this.pnlButtons.Controls.Add(this.btnRequests);
-            this.pnlButtons.Controls.Add(this.btnShow);
-            this.pnlButtons.Controls.Add(this.btnCloseFilter);
-            this.pnlButtons.Location = new System.Drawing.Point(11, 314);
-            this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(776, 38);
-            this.pnlButtons.TabIndex = 17;
-            // 
             // frmTraceHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -575,13 +577,13 @@
             this.HelpMaker.SetShowHelp(this, true);
             this.Text = "تاريخچه رديابي";
             this.pnlSearchExpand.ResumeLayout(false);
+            this.pnlButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgRequest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgArea)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMaster)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTablet)).EndInit();
             this.pnlSearch.ResumeLayout(false);
             this.pnlSearch.PerformLayout();
-            this.pnlButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
