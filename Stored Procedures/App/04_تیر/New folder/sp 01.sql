@@ -6,3 +6,6 @@ CREATE PROCEDURE spOmid
   BEGIN
     /*TODO : Implement SP !!!*/
   END
+
+
+  EXEC Homa.spGetOnCall -1 , 840122084 , '2,3'

@@ -1,3 +1,6 @@
+alter procedure spOmidTest 
+AS 
+Begin
 SELECT
  distinct [TblOnCall].[OnCallId]
 	  into #tmpOnCall
@@ -47,9 +50,12 @@ select Homa.TblTrace.*,CAST(0 as bit) as IsFindJob into #tmp from Homa.TblTrace 
   set IsFindJob=1
   from (*/
   
-  select * from #tmp
+  select TOP 20 * from #tmp
   drop table #tmpOnCall
   drop table #tmpFind
   drop table #tmpStartMove
   drop table #tmpEkipArrive
   drop table #tmp
+End
+
+exec spOmidTest

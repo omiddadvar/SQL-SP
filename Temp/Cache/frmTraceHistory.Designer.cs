@@ -136,7 +136,7 @@
             this.pnlSearchExpand.TitleStyle.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
             this.pnlSearchExpand.TitleStyle.GradientAngle = 90;
             this.pnlSearchExpand.TitleText = "جستجو";
-            //this.pnlSearchExpand.TitlePanel.Click += new System.EventHandler(this.tilePanel_click);
+            this.pnlSearchExpand.ExpandedChanged += new DevComponents.DotNetBar.ExpandChangeEventHandler(this.pnlSearchExpand_ExpandedChanged);
             // 
             // pnlButtons
             // 
