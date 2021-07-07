@@ -139,6 +139,17 @@
         gbgPTQwDww0gH/9nAABh5+IQdBhIeAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="btnRequests.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABCElEQVQ4T5WRvZGEMAxGCWiGmIgiCInJ
+        3AIdUAIzzja4CqiAHHKSJSIjowLdPc3JB16OnWXmSf6RPn/YSZqmJ6qqkjzJpSxLifeuCIO6rqVtW+m6
+        Tvq+V5qmeSukwRrneZZ932WapiAyDIM45/8V0YDlx+NLtm2TdV3Fe68gSmY/bjQ0YNUEONUEWCPjMG40
+        NHBxFCKwLIvahnEcNbMXNxoasMgpCHAH3MWRLMvuBZxz+r+cFjcDDuNGQwOnF0URXgJw82s9PO2x0QgD
+        REzoZ67Z1piTcWj1xmnCpVkTMGedsXe58MUiJ4E7TiLPP5GXwjuOIubusvAOE7GXuSx6ByI2ftn8jDT5
+        BjE5K/nNMyIOAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="dgRequest.BuiltInTextsData" xml:space="preserve">
     <value>&lt;LocalizableData ID="LocalizableStrings" Collection="true"&gt;&lt;GroupByBoxInfo&gt;دسته بندي اطلاعات، براي دسته بندي، سرستون‌ها را به اينجا بکشيد.&lt;/GroupByBoxInfo&gt;&lt;RecordNavigatorError&gt;اين رکورد قابل دسترسي نيست&lt;/RecordNavigatorError&gt;&lt;/LocalizableData&gt;</value>
   </data>
@@ -162,17 +173,6 @@
   </data>
   <data name="dgTablet_DesignTimeLayout.LayoutString" xml:space="preserve">
     <value>&lt;GridEXLayoutData&gt;&lt;RootTable&gt;&lt;Key&gt;ViewMonitoringEx&lt;/Key&gt;&lt;Caption&gt;ViewMonitoringEx&lt;/Caption&gt;&lt;Columns Collection="true" ElementName="Column"&gt;&lt;Column0 ID="OnCallId"&gt;&lt;Caption&gt;OnCallId&lt;/Caption&gt;&lt;DataMember&gt;OnCallId&lt;/DataMember&gt;&lt;Key&gt;OnCallId&lt;/Key&gt;&lt;Position&gt;0&lt;/Position&gt;&lt;Visible&gt;False&lt;/Visible&gt;&lt;/Column0&gt;&lt;Column1 ID="TabletId"&gt;&lt;Caption&gt;TabletId&lt;/Caption&gt;&lt;DataMember&gt;TabletId&lt;/DataMember&gt;&lt;Key&gt;TabletId&lt;/Key&gt;&lt;Position&gt;1&lt;/Position&gt;&lt;Visible&gt;False&lt;/Visible&gt;&lt;/Column1&gt;&lt;Column2 ID="IsChecked"&gt;&lt;Caption&gt;انتخاب&lt;/Caption&gt;&lt;ColumnType&gt;CheckBox&lt;/ColumnType&gt;&lt;DataMember&gt;IsChecked&lt;/DataMember&gt;&lt;Key&gt;IsChecked&lt;/Key&gt;&lt;Position&gt;2&lt;/Position&gt;&lt;Width&gt;45&lt;/Width&gt;&lt;/Column2&gt;&lt;Column3 ID="TabletName"&gt;&lt;Caption&gt;نام تبلت&lt;/Caption&gt;&lt;DataMember&gt;TabletName&lt;/DataMember&gt;&lt;Key&gt;TabletName&lt;/Key&gt;&lt;Position&gt;3&lt;/Position&gt;&lt;Width&gt;118&lt;/Width&gt;&lt;/Column3&gt;&lt;Column4 ID="Destination"&gt;&lt;Caption&gt;مسافت (KM)&lt;/Caption&gt;&lt;DataMember&gt;Destination&lt;/DataMember&gt;&lt;DefaultGroupPrefix&gt;مسافت (KM):&lt;/DefaultGroupPrefix&gt;&lt;Key&gt;Destination&lt;/Key&gt;&lt;Position&gt;4&lt;/Position&gt;&lt;Width&gt;70&lt;/Width&gt;&lt;/Column4&gt;&lt;/Columns&gt;&lt;SortKeys Collection="true" ElementName="SortKey"&gt;&lt;SortKey0 ID="SortKey0"&gt;&lt;ColIndex&gt;3&lt;/ColIndex&gt;&lt;/SortKey0&gt;&lt;/SortKeys&gt;&lt;AllowEdit&gt;False&lt;/AllowEdit&gt;&lt;GroupCondition /&gt;&lt;/RootTable&gt;&lt;/GridEXLayoutData&gt;</value>
-  </data>
-  <data name="btnRequests.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABCElEQVQ4T5WRvZGEMAxGCWiGmIgiCInJ
-        3AIdUAIzzja4CqiAHHKSJSIjowLdPc3JB16OnWXmSf6RPn/YSZqmJ6qqkjzJpSxLifeuCIO6rqVtW+m6
-        Tvq+V5qmeSukwRrneZZ932WapiAyDIM45/8V0YDlx+NLtm2TdV3Fe68gSmY/bjQ0YNUEONUEWCPjMG40
-        NHBxFCKwLIvahnEcNbMXNxoasMgpCHAH3MWRLMvuBZxz+r+cFjcDDuNGQwOnF0URXgJw82s9PO2x0QgD
-        REzoZ67Z1piTcWj1xmnCpVkTMGedsXe58MUiJ4E7TiLPP5GXwjuOIubusvAOE7GXuSx6ByI2ftn8jDT5
-        BjE5K/nNMyIOAAAAAElFTkSuQmCC
-</value>
   </data>
   <data name="btnSearch.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

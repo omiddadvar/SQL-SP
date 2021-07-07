@@ -78,6 +78,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MapElementHost.Location = new System.Drawing.Point(12, 35);
             this.MapElementHost.Name = "MapElementHost";
+            this.MapElementHost.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.MapElementHost.Size = new System.Drawing.Size(783, 390);
             this.MapElementHost.TabIndex = 0;
             this.MapElementHost.Text = "elementHost1";
