@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
+//using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -40,6 +40,7 @@ using System.Data;
 using System.Windows.Resources;
 using System.Text.RegularExpressions;
 using Bargh_Common;
+using System.Drawing.Drawing2D;
 
 namespace Bargh_GIS.wpf
 {
@@ -51,6 +52,7 @@ namespace Bargh_GIS.wpf
         private Dictionary<string, string> attr;
         private PolylineBuilder boatPositions;
         private double speed;
+        private float myAngle = 0;
         string MasterName = "", TabletName = "";
         OnCallClass prev, current;
         static Random randomizer = new Random();
@@ -234,39 +236,45 @@ namespace Bargh_GIS.wpf
 
             }*/
         }
-        
-        private int GetAngle(double X1, double Y1, double X2, double Y2)
-        {
-            if (Y2 == Y1)
+
+        private void GetAngle(double X1, double Y1, double X2, double Y2) {
+            if(X1 == X2)
             {
-                if (X1 > X2)
-                    return 90; //System.Math.PI;
-                else
-                    return -90;
-
-
-            }
-            if (X2 == X1)
-            {
-                return (Y2 > Y1) ? -180 : 0; //(Y2 > Y1) ? System.Math.PI / 2 : 1.5 * Math.PI;
-            }
-            var tangent = (X2 - X1) / (Y2 - Y1);
-            var ang = System.Math.Atan(tangent);
-            if (Y2 - Y1 < 0)
-                ang -= Math.PI;
-            int Angle = Convert.ToInt32(Math.Round(ang * 180 / Math.PI / 45, 0) * 45);
-            //if (Angle != 0 && Angle != 45 && Angle != 90 && Angle != -225 && Angle != -180 && Angle != -135 && Angle != -90 && Angle != -45)
-            //    Angle = 90;
-            if (Angle==-270)
-                Angle = 90;
-
-
-            return Angle;
+                myAngle = (Y2 > Y1) ? 90 : -90;
+                return;
+            } 
+            var tangent = (Y2 - Y1) / (X2 - X1);
+            double angle = Math.Atan(tangent);
+            angle = angle * 180 / Math.PI;
+            if (Y2 > Y1) angle += 360;
+            myAngle = (float)angle;
         }
-        private async void addCarLogByArrow(double x, double y, Dictionary<string, string> attributes, int Arrow , bool isFindJob = false)
+        private Stream rotateNavagator(string fileName)
         {
-            string fileType = isFindJob ? "Nav" : "Arrow";
-            string fileName = "Bargh_GIS.Images."+ fileType + Arrow.ToString() + ".png";
+            Stream st = this.GetType().Assembly.GetManifestResourceStream(fileName);
+            Bitmap bitmap = new Bitmap(st);
+            Bitmap image = (Bitmap)bitmap.Clone();
+
+            Graphics gr = Graphics.FromImage(image);
+            gr.Clear(bitmap.GetPixel(0, 0));
+            gr.TranslateTransform((float)image.Width / 2, (float)image.Height / 2);
+            gr.RotateTransform(myAngle);
+            gr.TranslateTransform(-(float)image.Width / 2, -(float)image.Height / 2);
+            gr.DrawImage(bitmap, 0, 0);
+            gr.Dispose();
+            st.Flush();
+
+            Stream stream = new MemoryStream();
+            image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+            stream.Position = 0;
+
+            return stream;
+        }
+        private async void addCarLogByArrow(double x, double y, Dictionary<string, string> attributes, bool isFindJob = false)
+        {
+            string fileType = isFindJob ? "Green" : "Blue";
+            string fileName = "Bargh_GIS.Images.Nav_" + fileType + ".png";
+
             try
             {
                 // Create new symbol using asynchronous factory method from uri.
@@ -275,22 +283,20 @@ namespace Bargh_GIS.wpf
                     Width = 20,
                     Height = 20
                 };
+                //---------Rotate
+                Stream stream = rotateNavagator(fileName);
 
-                //برای  تغیر  مکان  عکس یا آیکون شما
-                // campsiteSymbolz.XOffset = 5;
-                System.IO.Stream st = this.GetType().Assembly.GetManifestResourceStream(fileName);
-                if (st != null)
-                    await campsiteSymbolz.SetSourceAsync(st);
-                
+                if (stream != null)
+                    await campsiteSymbolz.SetSourceAsync(stream);
+
+                stream.Dispose();
                 MapPoint campsitePointz = new MapPoint(x, y, SpatialReferences.Wgs84);
 
                 Graphic campsiteGraphicz = new Graphic(campsitePointz, campsiteSymbolz);
 
                 foreach (var items in attributes)
-                {
-
                     campsiteGraphicz.Attributes.Add(items.Key, items.Value);
-                }
+
                 campsiteGraphicz.ZIndex = 1000;
                 _linesOverlay.Graphics.Add(campsiteGraphicz);
             }
@@ -488,7 +494,7 @@ namespace Bargh_GIS.wpf
 
                 this.boatPositions = new PolylineBuilder(SpatialReferences.Wgs84);
 
-                int Angle = 0;
+
                 string TabletName="";
                 string MasterName = "";
                 OnCallClass PrevOnCall = m_OnCallClass[lOnCallClassIndex];
@@ -501,8 +507,6 @@ namespace Bargh_GIS.wpf
                     if (PrevOnCall.LastTraceId > 0)
                     {                    
                         this.attr = new Dictionary<string, string>();
-                        Angle = GetAngle(PrevOnCall.GpsX, PrevOnCall.GpsY
-                            , Convert.ToDouble(row["gpsX"]), Convert.ToDouble(row["gpsY"]));
                         attr.Add("id", "TraceId_" + OnCallId.ToString()+"_" + PrevOnCall.LastTraceId.ToString());
                         attr.Add("DT", PrevOnCall.TraceDatePersian +" " + PrevOnCall.TraceTime);
                         long s = ((TimeSpan)(Convert.ToDateTime(row["TraceDT"]) - PrevOnCall.TraceDT)).Seconds;
@@ -517,14 +521,16 @@ namespace Bargh_GIS.wpf
                         }
                         attr.Add("TabletName", TabletName);
                         attr.Add("MasterName", MasterName);
-                        addCarLogByArrow(PrevOnCall.GpsX, PrevOnCall.GpsY, attr, Angle);                    
+                        GetAngle(PrevOnCall.GpsX, PrevOnCall.GpsY
+                            , Convert.ToDouble(row["gpsX"]), Convert.ToDouble(row["gpsY"]));
+                        addCarLogByArrow(PrevOnCall.GpsX, PrevOnCall.GpsY, attr);                    
                     }
                     PrevOnCall.GpsY = Convert.ToDouble(row["gpsY"]);
                     PrevOnCall.GpsX = Convert.ToDouble(row["gpsX"]);
                     PrevOnCall.TraceDT = Convert.ToDateTime(row["TraceDT"]);
                     PrevOnCall.LastTraceId = Convert.ToInt64(row["TraceId"]);
-                    PrevOnCall.TraceDatePersian = (string)row["TraceDatePersian"];
-                    PrevOnCall.TraceTime = (string)row["TraceTime"];
+                    PrevOnCall.TraceDatePersian = (string) row["TraceDatePersian"];
+                    PrevOnCall.TraceTime = (string) row["TraceTime"];
 
                 }
                 if (PrevOnCall.LastTraceId > 0)
@@ -534,7 +540,7 @@ namespace Bargh_GIS.wpf
                     attr.Add("DT", PrevOnCall.TraceDatePersian + " " + PrevOnCall.TraceTime);
                     attr.Add("TabletName", TabletName);
                     attr.Add("MasterName", MasterName.ToString());
-                    addCar(PrevOnCall.GpsX, PrevOnCall.GpsY, attr, Angle);
+                    addCar(PrevOnCall.GpsX, PrevOnCall.GpsY, attr);
                     m_OnCallClass[lOnCallClassIndex] = PrevOnCall;
                 }
                                 
@@ -574,7 +580,6 @@ namespace Bargh_GIS.wpf
                 if (prev.IsFindJob != current.IsFindJob || i == 0) {
                     if (i > 0) DrawLine();
                     this.boatPositions = new PolylineBuilder(SpatialReferences.Wgs84);
-                    //else setAttributes(aIsFirst: true);
                 }
                 boatPositions.AddPoint(new MapPoint(current.GpsX , current.GpsY));
                 setAttributes();
@@ -586,7 +591,7 @@ namespace Bargh_GIS.wpf
         }
         //-----Helper For ShowTrace(DataTable)
         private void setAttributes(bool aIsCar = false) {
-            int angle = GetAngle(prev.GpsX, prev.GpsY, current.GpsX, current.GpsY);
+            GetAngle(prev.GpsX, prev.GpsY, current.GpsX, current.GpsY);
             this.attr = new Dictionary<string, string>();
             attr.Add("id", "TraceId_" + current.OnCallId + "_" + current.TraceId);
             attr.Add("DT", current.TraceDatePersian + " " + current.TraceTime);
@@ -594,12 +599,13 @@ namespace Bargh_GIS.wpf
             attr.Add("MasterName", MasterName);
             CalculateSpeed(prev, current);
             if(aIsCar)
-                addCar(current.GpsX, current.GpsY, attr, angle);
+                addCar(current.GpsX, current.GpsY, attr);
             else
-                addCarLogByArrow(current.GpsX, current.GpsY, attr, angle , current.IsFindJob);
+                addCarLogByArrow(current.GpsX, current.GpsY, attr, current.IsFindJob);
         }
         //-----Helper For ShowTrace(DataTable)
         private void initializeTrace() {
+            _linesOverlay.Graphics.Clear();
             this.prev = new OnCallClass();
             this.current = new OnCallClass();
             Classes.CDatabase db = new Classes.CDatabase();
@@ -1322,17 +1328,10 @@ namespace Bargh_GIS.wpf
 
         }
         
-        private async void addCar(double x, double y, Dictionary<string, string> attributes, int Arrow)
+        private async void addCar(double x, double y, Dictionary<string, string> attributes)
         {
-
-
-
-            #region Ok
-            //string ImagePath = "pack://application:,,/Images/Car" + Arrow.ToString() + ".png";
-            //Uri symbolUriz = new Uri(ImagePath, UriKind.Absolute);
-            //Uri uri = new Uri("/Images/Car" + Arrow.ToString() + ".png", UriKind.Relative);
-            //StreamResourceInfo info = Application.GetContentStream(uri);
-            System.IO.Stream st= this.GetType().Assembly.GetManifestResourceStream("Bargh_GIS.Images.Car" + Arrow.ToString() + ".png");
+            string fileName = "Bargh_GIS.Images.Car90.png";
+            Stream st = rotateNavagator(fileName);
 
             // Create new symbol using asynchronous factory method from uri.
             PictureMarkerSymbol campsiteSymbolz = new PictureMarkerSymbol()
@@ -1342,8 +1341,6 @@ namespace Bargh_GIS.wpf
             };
 
             //برای  تغیر  مکان  عکس یا آیکون شما
-            // campsiteSymbolz.XOffset = 5;
-            //await campsiteSymbolz.SetSourceAsync(symbolUriz);
             await campsiteSymbolz.SetSourceAsync(st);
 
             MapPoint campsitePointz = new MapPoint(x, y, SpatialReferences.Wgs84);
@@ -1351,20 +1348,10 @@ namespace Bargh_GIS.wpf
             Graphic campsiteGraphicz = new Graphic(campsitePointz, campsiteSymbolz);
 
             foreach (var items in attributes)
-            {
-
-                campsiteGraphicz.Attributes.Add(items.Key, items.Value);
-            }
+               campsiteGraphicz.Attributes.Add(items.Key, items.Value);
             campsiteGraphicz.ZIndex = 1000;
 
-
             _linesOverlay.Graphics.Add(campsiteGraphicz);
-
-
-
-            #endregion
-
-
         }
 
         //پاک کردن نقطه با ارسال  آی دی
