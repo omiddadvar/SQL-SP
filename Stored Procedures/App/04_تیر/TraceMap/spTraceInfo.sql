@@ -1,6 +1,6 @@
 USE CCRequesterSetad
 GO
-CREATE PROCEDURE Homa.spTraceInfo
+ALTER PROCEDURE Homa.spTraceInfo
    @StartDate as varchar(10),
    @EndDate as varchar(10),
    @StartTime as varchar(8),
@@ -53,16 +53,40 @@ CREATE PROCEDURE Homa.spTraceInfo
   			set @EndDT = DATEADD(day,1,@EndDT)
   	END
     /*Gather Data: */
-    select * from Homa.TblTrace	
-      where TblTrace.OnCallId = @OnCallId
+
+    SELECT Homa.TblTrace.* , CAST(0 AS bit) AS IsFindJob	INTO #tmp 
+      FROM Homa.TblTrace
+      WHERE TblTrace.OnCallId = @OnCallId
       and 
       TblTrace.TraceDT >= @StartDT and TblTrace.TraceDT <= @EndDT
-      order by TraceId
+      ORDER BY TraceId
+
+    select * into #tmpEkipArrive from Homa.TblEkipArrive 
+      where OnCallId  = @OnCallId
+    select * into #tmpStartMove from Homa.TblEkipStartMove
+      where OnCallId = @OnCallId
+    select #tmpStartMove.OnCallId,#tmpStartMove.JobId, #tmpStartMove.StartMoveDT,#tmpEkipArrive.ArriveDT  
+      into #tmpFind
+      from #tmpStartMove 
+    	inner join #tmpEkipArrive on #tmpStartMove.OnCallId=#tmpEkipArrive.OnCallId
+    	and #tmpStartMove.JobId=#tmpEkipArrive.JobId
+
+    update #tmp set IsFindJob=1
+      from  #tmp
+      inner join #tmpFind on #tmpFind.OnCallId=#tmp.OnCallId
+      where TraceDT BETWEEN #tmpFind.StartMoveDT AND #tmpFind.ArriveDT
+
+   select * from #tmp
+    
+    drop table #tmpFind
+    drop table #tmpStartMove
+    drop table #tmpEkipArrive
+    drop table #tmp
   END
 /*
-EXEC Homa.spTraceInfo @StartDate = '1399/11/04'
-                     ,@EndDate = '1399/11/04'
-                     ,@StartTime = ''
-                     ,@EndTime = ''
-                     ,@OnCallId = 9900000000000002
+EXEC Homa.spTraceInfo @StartDate = '1400/04/06' 
+                     ,@EndDate = '1400/04/06'
+                     ,@StartTime = '08:00'
+                     ,@EndTime = '10:00'
+                     ,@OnCallId = 9900000000000037
 */

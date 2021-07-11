@@ -77,6 +77,7 @@ CREATE PROCEDURE Homa.spTraceMaster
 
     /*Master Data :*/
     SELECT TblOnCall.MasterId,min(Tbl_Master.Name) AS MasterName,round(sum(#tmpOnCall.TraceLen)/1000, 2) AS TraceLen
+      , CAST(0 AS BIT) AS IsChecked
       FROM #tmpOnCall
       INNER JOIN homa.TblOnCall ON TblOnCall.OnCallId = #tmpOnCall.OnCallId
       INNER JOIN Tbl_Master ON Tbl_Master.MasterId = TblOnCall.MasterId

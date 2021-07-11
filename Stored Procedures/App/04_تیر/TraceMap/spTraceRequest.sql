@@ -159,12 +159,15 @@ CREATE PROCEDURE Homa.spTraceRequest
     		and 
     		#tmpJob.ConnectDT>=@StartDT
     	)
-    SELECT #tmpFind.OnCallId,#tmpFind.JobId,TblOnCall.TabletId,TblOnCall.MasterId,#tmpOnCall.AreaId,TblJob.RequestId,TblRequest.RequestNumber from              #tmpFind
+    SELECT #tmpFind.OnCallId,#tmpFind.JobId,TblOnCall.TabletId,TblOnCall.MasterId,#tmpOnCall.AreaId,TblJob.RequestId,R.RequestNumber,
+      R.Address , R.Telephone , R.DisconnectDatePersian , R.DisconnectTime,
+    	R.ConnectDatePersian, R.ConnectTime , CAST(0 AS BIT) AS IsChecked
+      FROM #tmpFind
       inner join homa.TblOnCall on TblOnCall.OnCallId=#tmpFind.OnCallId
       inner join homa.TblJob on TblJob.JobId=#tmpFind.JobId
-      inner join TblRequest on TblRequest.RequestId=TblJob.RequestId
+      inner join TblRequest R on R.RequestId=TblJob.RequestId
       inner join #tmpOnCall on #tmpOnCall.OnCallId=#tmpFind.OnCallId
-    
+
     drop table #tmpOnCall
     drop table #tmpFind
     drop table #tmpStartMove
@@ -174,8 +177,8 @@ CREATE PROCEDURE Homa.spTraceRequest
 /*
 EXEC Homa.spTraceRequest @StartDate = '1400/04/13'
                         ,@EndDate = '1400/04/13'
-                        ,@StartTime = '09:54'
-                        ,@EndTime = '11:56'
+                        ,@StartTime = '10:41'
+                        ,@EndTime = '10:45'
                         ,@AreaId = 0
                         ,@Master = ''
                         ,@Tablet = ''

@@ -15,7 +15,6 @@ namespace Bargh_GIS
     {
         private Classes.CDatabase db;
         private DataSet mDS;
-        private DataTable mBufferDT;
         private long mRequestId;
         private SqlConnection mCnn = null;
         ComboBox FakeComboBox = new ComboBox();
@@ -31,10 +30,12 @@ namespace Bargh_GIS
        
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            GetFirstRowData();
             handleUI01();
         }
         private void btnRequests_Click(object sender, EventArgs e)
         {
+            GetRequestData();
             handleUI02();
         }
         private void btnCloseFilter_Click(object sender, EventArgs e)
@@ -45,7 +46,7 @@ namespace Bargh_GIS
         {
             //---------Gather and show data:
             string lSQL = "EXECUTE spOmidTest";
-            Bargh_Common.CommonFunctions.BindingTable(lSQL, ref mCnn, ref mDS, "Trace_Info"
+            CommonFunctions.BindingTable(lSQL, ref mCnn, ref mDS, "Trace_Info"
                 , ref FakeComboBox, aIsClearTable : true);
             uCars.ShowTrace(mDS.Tables["Trace_Info"]);
             //----------update UI:

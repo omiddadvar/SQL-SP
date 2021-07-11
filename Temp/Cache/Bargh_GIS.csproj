@@ -113,6 +113,9 @@
     <Compile Include="frmTraceHistory.Designer.cs">
       <DependentUpon>frmTraceHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTraceHistoryData.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmTraceHistoryUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,12 +212,10 @@
     <EmbeddedResource Include="Images\Nav-90.png" />
     <EmbeddedResource Include="Images\Nav0.png" />
     <EmbeddedResource Include="Images\Nav45.png" />
-
     <EmbeddedResource Include="Images\Nav_Blue.png" />
     <EmbeddedResource Include="Images\Nav_Black.png" />
     <EmbeddedResource Include="Images\Nav_Green.png" />
     <EmbeddedResource Include="Images\Balloon_Red.png" />
-
     <EmbeddedResource Include="Images\Nav90.png" />
     <EmbeddedResource Include="Images\Car-135.png" />
     <EmbeddedResource Include="Images\Car-180.png" />

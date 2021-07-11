@@ -76,7 +76,8 @@ CREATE PROCEDURE Homa.spTraceTablet
     DROP TABLE #tmpOnCall1
 
     /*Tablet Data :*/
-    SELECT TblOnCall.TabletId,min(Tbl_Tablet.TabletName) AS TabletName,round(sum(#tmpOnCall.TraceLen)/1000,2) AS TraceLen
+    SELECT TblOnCall.TabletId,min(Tbl_Tablet.TabletName) AS TabletName,round(sum(#tmpOnCall.TraceLen)/1000,2) AS TraceLen,
+      CAST(0 AS BIT) AS IsChecked
       FROM #tmpOnCall
       INNER JOIN homa.TblOnCall ON TblOnCall.OnCallId = #tmpOnCall.OnCallId
       INNER JOIN Homa.Tbl_Tablet ON Tbl_Tablet.TabletId = TblOnCall.TabletId

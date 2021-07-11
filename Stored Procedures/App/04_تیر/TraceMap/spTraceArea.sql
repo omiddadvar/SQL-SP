@@ -77,6 +77,7 @@ CREATE PROCEDURE Homa.spTraceArea
 
     /*Area Data :*/
     SELECT #tmpOnCall.AreaId,min(Tbl_Area.Area) AS Area,round(sum(#tmpOnCall.TraceLen)/1000,2) AS TraceLen
+      ,CAST(0 AS BIT) AS IsChecked
       FROM #tmpOnCall
       INNER JOIN homa.TblOnCall ON TblOnCall.OnCallId = #tmpOnCall.OnCallId
       INNER JOIN Tbl_Area ON Tbl_Area.AreaId = #tmpOnCall.AreaId

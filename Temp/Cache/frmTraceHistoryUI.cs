@@ -24,8 +24,9 @@ namespace Bargh_GIS
             this.mDS = new DataSet();
             this.db = new Classes.CDatabase();
             string lSQL = "SELECT * FROM Tbl_Area";
-            Bargh_Common.CommonFunctions.BindingTable(lSQL, ref mCnn, ref mDS, "Tbl_Area", ref FakeComboBox);
-            cboArea.DataSource = mDS.Tables["Tbl_Area"];
+            CommonFunctions.BindingTable(lSQL, ref mCnn, ref mDS, "Combo_Area", ref FakeComboBox);
+            cboArea.DataSource = mDS.Tables["Combo_Area"];
+
             
             //----------Map----------
             Bargh_GIS.Classes.CDatabase.InitGISDB();

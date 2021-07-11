@@ -274,7 +274,7 @@
             this.dgArea.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.dgArea.SaveGridName = "";
             this.dgArea.SelectionMode = Janus.Windows.GridEX.SelectionMode.MultipleSelection;
-            this.dgArea.Size = new System.Drawing.Size(266, 93);
+            this.dgArea.Size = new System.Drawing.Size(260, 93);
             this.dgArea.TabIndex = 11;
             this.dgArea.Visible = false;
             this.dgArea.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010;
@@ -301,7 +301,7 @@
             this.dgMaster.IsColor = false;
             this.dgMaster.IsColumnContextMenu = true;
             this.dgMaster.IsForMonitoring = false;
-            this.dgMaster.Location = new System.Drawing.Point(283, 97);
+            this.dgMaster.Location = new System.Drawing.Point(278, 97);
             this.dgMaster.Name = "dgMaster";
             this.dgMaster.OwnerDrawnAreas = ((Janus.Windows.GridEX.GridEXOwnerDrawnArea)((((((((Janus.Windows.GridEX.GridEXOwnerDrawnArea.GroupByBoxInfoText | Janus.Windows.GridEX.GridEXOwnerDrawnArea.GroupByBoxTableInfo) 
             | Janus.Windows.GridEX.GridEXOwnerDrawnArea.RowHeaders) 
@@ -314,7 +314,7 @@
             this.dgMaster.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.dgMaster.SaveGridName = "";
             this.dgMaster.SelectionMode = Janus.Windows.GridEX.SelectionMode.MultipleSelection;
-            this.dgMaster.Size = new System.Drawing.Size(244, 93);
+            this.dgMaster.Size = new System.Drawing.Size(252, 93);
             this.dgMaster.TabIndex = 10;
             this.dgMaster.Visible = false;
             this.dgMaster.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010;
@@ -341,7 +341,7 @@
             this.dgTablet.IsColor = false;
             this.dgTablet.IsColumnContextMenu = true;
             this.dgTablet.IsForMonitoring = false;
-            this.dgTablet.Location = new System.Drawing.Point(533, 97);
+            this.dgTablet.Location = new System.Drawing.Point(536, 97);
             this.dgTablet.Name = "dgTablet";
             this.dgTablet.OwnerDrawnAreas = ((Janus.Windows.GridEX.GridEXOwnerDrawnArea)((((((((Janus.Windows.GridEX.GridEXOwnerDrawnArea.GroupByBoxInfoText | Janus.Windows.GridEX.GridEXOwnerDrawnArea.GroupByBoxTableInfo) 
             | Janus.Windows.GridEX.GridEXOwnerDrawnArea.RowHeaders) 
@@ -354,7 +354,7 @@
             this.dgTablet.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
             this.dgTablet.SaveGridName = "";
             this.dgTablet.SelectionMode = Janus.Windows.GridEX.SelectionMode.MultipleSelection;
-            this.dgTablet.Size = new System.Drawing.Size(254, 93);
+            this.dgTablet.Size = new System.Drawing.Size(251, 93);
             this.dgTablet.TabIndex = 9;
             this.dgTablet.Visible = false;
             this.dgTablet.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010;
