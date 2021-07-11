@@ -52,12 +52,12 @@ namespace Bargh_GIS.wpf
         private Dictionary<string, string> attr;
         private PolylineBuilder boatPositions;
         private double speed;
+        private bool isBalloon;
         private float myAngle = 0;
         string MasterName = "", TabletName = "";
         OnCallClass prev, current;
         static Random randomizer = new Random();
         //لایه کلاستر
-        
         int LayerCounter = 0;        
         ObservableCollection<Tuple<string, int, bool>> mylayerTOC = new ObservableCollection<Tuple<string, int, bool>>();
         private ArcGISDynamicMapServiceLayer _usaLayer;
@@ -238,16 +238,17 @@ namespace Bargh_GIS.wpf
         }
 
         private void GetAngle(double X1, double Y1, double X2, double Y2) {
-            if(X1 == X2)
+            if (X1 == X2)
             {
-                myAngle = (Y2 > Y1) ? 90 : -90;
+                myAngle = (Y2 > Y1) ? -90 : 90;
                 return;
-            } 
-            var tangent = (Y2 - Y1) / (X2 - X1);
+            }
+            var tangent = (Y2 - Y1)/ (X2 - X1) ;
             double angle = Math.Atan(tangent);
             angle = angle * 180 / Math.PI;
-            if (Y2 > Y1) angle += 360;
-            myAngle = (float)angle;
+            angle = (tangent * (Y2 - Y1) > 0 ) ? angle : 180 + angle;
+            //-----Rotate Function rotates upside-down :)))
+            myAngle = -1 * (float)angle;
         }
         private Stream rotateNavagator(string fileName)
         {
@@ -274,7 +275,6 @@ namespace Bargh_GIS.wpf
         {
             string fileType = isFindJob ? "Green" : "Blue";
             string fileName = "Bargh_GIS.Images.Nav_" + fileType + ".png";
-
             try
             {
                 // Create new symbol using asynchronous factory method from uri.
@@ -285,18 +285,13 @@ namespace Bargh_GIS.wpf
                 };
                 //---------Rotate
                 Stream stream = rotateNavagator(fileName);
-
                 if (stream != null)
                     await campsiteSymbolz.SetSourceAsync(stream);
-
                 stream.Dispose();
                 MapPoint campsitePointz = new MapPoint(x, y, SpatialReferences.Wgs84);
-
                 Graphic campsiteGraphicz = new Graphic(campsitePointz, campsiteSymbolz);
-
                 foreach (var items in attributes)
                     campsiteGraphicz.Attributes.Add(items.Key, items.Value);
-
                 campsiteGraphicz.ZIndex = 1000;
                 _linesOverlay.Graphics.Add(campsiteGraphicz);
             }
@@ -568,7 +563,7 @@ namespace Bargh_GIS.wpf
             }
         }
         //Show Trace For Trace-History
-        public void ShowTrace(DataTable dt) {
+        public async void ShowTrace(DataTable dt) {
             //--------------Omid---------------            
             DataRow row;
             if (dt.Rows.Count == 0) return;
@@ -577,12 +572,14 @@ namespace Bargh_GIS.wpf
             for(int i = 0 ; i < dt.Rows.Count; i++) {
                 row = dt.Rows[i];
                 FillOnCallObject(ref current , row);
+                if (ComputeDistance() < 40) continue;
                 if (prev.IsFindJob != current.IsFindJob || i == 0) {
                     if (i > 0) DrawLine();
                     this.boatPositions = new PolylineBuilder(SpatialReferences.Wgs84);
                 }
                 boatPositions.AddPoint(new MapPoint(current.GpsX , current.GpsY));
-                setAttributes();
+                await addTimeBalloon();
+                if(!isBalloon) setAttributes();
                 CalculateSpeed(prev, current);
                 FillOnCallObject(ref prev, row);
             }
@@ -591,17 +588,50 @@ namespace Bargh_GIS.wpf
         }
         //-----Helper For ShowTrace(DataTable)
         private void setAttributes(bool aIsCar = false) {
+            CalculateSpeed(prev, current);
             GetAngle(prev.GpsX, prev.GpsY, current.GpsX, current.GpsY);
             this.attr = new Dictionary<string, string>();
             attr.Add("id", "TraceId_" + current.OnCallId + "_" + current.TraceId);
             attr.Add("DT", current.TraceDatePersian + " " + current.TraceTime);
             attr.Add("TabletName", TabletName + " - " + (int)speed + " kmh");
             attr.Add("MasterName", MasterName);
-            CalculateSpeed(prev, current);
+            attr.Add("isFindJob", current.IsFindJob ? "True" : "False");
             if(aIsCar)
                 addCar(current.GpsX, current.GpsY, attr);
             else
                 addCarLogByArrow(current.GpsX, current.GpsY, attr, current.IsFindJob);
+        }
+        private async Task addTimeBalloon() {
+            isBalloon = false;
+            int time = ComputeTimeDiffMin();
+            if (time < 1) return;
+            //-------------Set Attributes
+            this.attr = new Dictionary<string, string>();
+            attr.Add("id", "TraceId_" + current.OnCallId + "_" + current.TraceId);
+            attr.Add("DT", current.TraceDatePersian + " " + current.TraceTime);
+            attr.Add("TabletName", TabletName + " - " + time + " Min");
+            attr.Add("MasterName", MasterName);
+            //--------------Add Balloon
+            string fileName = "Bargh_GIS.Images.Balloon_Red.png";
+            try
+            {
+                PictureMarkerSymbol campsiteSymbolz = new PictureMarkerSymbol()
+                { Width = 24, Height = 24 };
+                Stream stream = this.GetType().Assembly.GetManifestResourceStream(fileName);
+                if (stream != null)
+                    await campsiteSymbolz.SetSourceAsync(stream);
+                stream.Dispose();
+                MapPoint campsitePointz = new MapPoint(current.GpsX, current.GpsY, SpatialReferences.Wgs84);
+                Graphic campsiteGraphicz = new Graphic(campsitePointz, campsiteSymbolz);
+                foreach (var items in attr)
+                    campsiteGraphicz.Attributes.Add(items.Key, items.Value);
+                campsiteGraphicz.ZIndex = 1000;
+                _linesOverlay.Graphics.Add(campsiteGraphicz);
+
+                isBalloon = true;
+            } catch (Exception E){
+                MessageBox.Show(E.ToString());
+            }
         }
         //-----Helper For ShowTrace(DataTable)
         private void initializeTrace() {
@@ -654,7 +684,35 @@ namespace Bargh_GIS.wpf
             boatTripGraphic.Attributes.Add("time",prev.TraceTime);
             _linesOverlay.Graphics.Add(boatTripGraphic);
         }
+        private double ComputeDistance()
+        {
+            double lDistance = 0;
+            try
+            {
+                double lLat1 = prev.GpsX;
+                double lLong1 = prev.GpsY;
+                double lLat2 = current.GpsX;
+                double lLong2 = current.GpsY;
 
+                double lRad = Math.PI / 180;
+                double lRadius = 6371.0; //شعاع کره زمین بر حسب کیلومتر
+                //نتیجه بر حسب کیلومتر
+                lDistance = Math.Acos(
+                        Math.Sin(lLat2 * lRad) * Math.Sin(lLat1 * lRad) +
+                                Math.Cos(lLat2 * lRad) * Math.Cos(lLat1 * lRad) * Math.Cos(lLong2 * lRad - lLong1 * lRad)
+                ) * lRadius;
+                //تبدیل کیلومتر به متر
+                lDistance *= 1000;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return lDistance;
+        }
+        private int ComputeTimeDiffMin() {
+            return ((TimeSpan)(current.TraceDT - prev.TraceDT)).Minutes;
+        }
         public void RefreshTrace(long aRequestId )
         {
             try
@@ -1096,213 +1154,185 @@ namespace Bargh_GIS.wpf
             var graphic = await _linesOverlay.HitTestAsync(mapview, e.Position);
             // var graphic = await clusterLayer.HitTestAsync(mapview, e.Position);
 
-            if (graphic != null)
+            if (graphic == null) return;
+            mapview.MapViewTapped -= MyMapView_MapViewTapped2;
+            #region Trace
+            if (graphic.Attributes["id"].ToString().Contains("TraceId"))
             {
-                mapview.MapViewTapped -= MyMapView_MapViewTapped2;
-                #region Trace
-                if (graphic.Attributes["id"].ToString().Contains("TraceId"))
-                {
-                    var TraceId = graphic.Attributes["id"].ToString();
+                var TraceId = graphic.Attributes["id"].ToString();
 
-                    //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
-                    PopupInfo pf = new PopupInfo();
-                    var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
-                    var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
-                    Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
+                //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
+                PopupInfo pf = new PopupInfo();
+                var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
+                var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
+                Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
 
+                labl1.Content = "نام تبلت :";
+                labl2.Content = "استادکار :";
+                labl3.Content = "زمان :";
+                bool isFindJob = graphic.Attributes.Contains(new KeyValuePair<string, object>( "isFindJob" , "True")) &&
+                    graphic.Attributes["isFindJob"].ToString() == "True";
+                FirstProptxt.Content = graphic.Attributes["TabletName"].ToString();
+                SecondProptxt.Content = graphic.Attributes["MasterName"].ToString();
+                thirdProptxt.Content = graphic.Attributes["DT"].ToString();
+                utahMapTip.Visibility = Visibility.Visible;
+                popupShow.Visibility = isFindJob ? Visibility.Visible : Visibility.Hidden;
+                btnShowRow1.Height = new GridLength(isFindJob ? 26 : 0);
+                btnShowRow2.Height = new GridLength(isFindJob ? 2 : 0);
 
-                    labl1.Content = "نام تبلت :";
-                    labl2.Content = "استادکار :";
-                    labl3.Content = "زمان :";
-
-                    FirstProptxt.Content = graphic.Attributes["TabletName"].ToString();
-                    SecondProptxt.Content = graphic.Attributes["MasterName"].ToString();
-                    thirdProptxt.Content = graphic.Attributes["DT"].ToString();
-                    utahMapTip.Visibility = Visibility.Visible;
-                    mapview.MapViewTapped += MyMapView_MapViewTapped2;
-                }
-
-                #endregion
-                #region car
-                if (graphic.Attributes["id"].ToString().Contains("CarId"))
-                {
-                    var CarId = graphic.Attributes["id"].ToString();
-
-                    //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
-                    PopupInfo pf = new PopupInfo();
-                    var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
-                    var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
-                    Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
-
-
-                    labl1.Content = "شهر :";
-                    labl2.Content = "دلیل عیب:";
-
-
-                    FirstProptxt.Content = CarId;
-                    SecondProptxt.Content = "Car Name";
-
-                    thirdProptxt.Content = "1398/11/16";
-
-
-                    utahMapTip.Visibility = Visibility.Visible;
-                    
-
-                }
-
-
-                #endregion
-                #region Request
-                if (graphic.Attributes["id"].ToString().Contains("RequestId"))
-                {
-                    var RequestId = graphic.Attributes["id"].ToString();
-
-                    //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
-                    PopupInfo pf = new PopupInfo();
-                    var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
-                    var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
-                    Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
-
-
-                    labl1.Content = "استادکار :";
-                    labl2.Content = "نام مشترک :";
-                    labl3.Content = "شماره پرونده :";
-
-                    FirstProptxt.Content = graphic.Attributes["MasterName"].ToString();
-                    SecondProptxt.Content = graphic.Attributes["SubscriberName"].ToString();
-                    thirdProptxt.Content = graphic.Attributes["RequestNumber"].ToString();
-
-
-                    utahMapTip.Visibility = Visibility.Visible;
-                    mapview.MapViewTapped += MyMapView_MapViewTapped2;
-
-
-                }
-                
-
-                #endregion
-
-                #region eyb
-                if (graphic.Attributes["id"].ToString().Contains("EybGps_"))
-                {
-
-                    /*
-                    var EybId = graphic.Attributes["name1"].ToString();
-
-                    DataAccess da = new DataAccess();
-
-                  var dd=  da.GetEybInfoByID(int.Parse(EybId));
-
-                    //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
-                    PopupInfo pf = new PopupInfo();
-                    var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
-                    var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
-                    Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
-
-                    labl1.Content = "علت عیب";
-                    labl1.Content = "توضیحات";
-                    FirstProptxt.Content = EybId;
-                    SecondProptxt.Content = "Car Name";
-
-                    thirdProptxt.Content = "1398/11/16";
-
-
-                    utahMapTip.Visibility = Visibility.Visible;*/
-                }
-                #endregion
-
-                #region eyb filter shode
-                if (graphic.Attributes["id"].ToString().Contains("EybGpsFilter_"))
-                {
-/*
-
-                    var EybId = graphic.Attributes["name1"].ToString();
-
-                    DataAccess da = new DataAccess();
-
-                    var dd = da.GetEybInfoByID(int.Parse(EybId));
-
-                    //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
-                    PopupInfo pf = new PopupInfo();
-                    var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
-                    var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
-                    Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
-
-                    labl1.Content = "علت عیب";
-                    labl1.Content = "توضیحات";
-                    FirstProptxt.Content = EybId;
-                    SecondProptxt.Content = "Car Name";
-
-                    thirdProptxt.Content = "1398/11/16";
-
-
-                    utahMapTip.Visibility = Visibility.Visible;*/
-                }
-                #endregion
-
-
-                #region روش دیگر  نمایش  پاپ آپ  که استفاده نشده
-                //   // mapview.ShowCalloutAt(e.Location, calloutDef);
-                //   // CalloutDefinition myCalloutDefinition = new CalloutDefinition("Location:", mapLocationDescription);
-                //   PopupInfo pf = new PopupInfo();
-
-                //   // Esri.ArcGISRuntime.WebMap.
-                //   // Popup 
-                //   // mapview.ShowCalloutAt(mapLocation, myCalloutDefinition);
-                //   //https://developers.arcgis.com/net/10-2/sample-code/GraphicsLayerSelection/
-
-
-                //   // InfoWindow 
-                //   //   mapview.Map.pop
-
-                //   var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
-
-                //   // Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, e.Location);
-                //   //var MapPoint=new  MapPoint((Esri.ArcGISRuntime.Geom)graphic.Geometry)
-
-                //var point=   ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
-                //  // Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, e.Location);
-                //   Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
-
-                //   // MapPoint  mp=new MapPoint (graphic.Geometry.x)
-                //   // Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, graphic.Geometry.map);
-
-                //   FirstProptxt.Content =  (string)graphic.Attributes["name1"];
-                //   SecondProptxt.Content = (string)graphic.Attributes["name2"];
-
-                //   thirdProptxt.Content = "1398/11/16";
-
-
-                //   utahMapTip.Visibility = Visibility.Visible;
-                #endregion
-
+                mapview.MapViewTapped += MyMapView_MapViewTapped2;
             }
 
+            #endregion
+            #region car
+            if (graphic.Attributes["id"].ToString().Contains("CarId"))
+            {
+                var CarId = graphic.Attributes["id"].ToString();
+                //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
+                PopupInfo pf = new PopupInfo();
+                var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
+                var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
+                Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
+
+                labl1.Content = "شهر :";
+                labl2.Content = "دلیل عیب:";
+
+                FirstProptxt.Content = CarId;
+                SecondProptxt.Content = "Car Name";
+                thirdProptxt.Content = "1398/11/16";
+
+                utahMapTip.Visibility = Visibility.Visible;
+            }
+            #endregion
+            #region Request
+            if (graphic.Attributes["id"].ToString().Contains("RequestId"))
+            {
+                var RequestId = graphic.Attributes["id"].ToString();
+
+                //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
+                PopupInfo pf = new PopupInfo();
+                var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
+                var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
+                Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
 
 
+                labl1.Content = "استادکار :";
+                labl2.Content = "نام مشترک :";
+                labl3.Content = "شماره پرونده :";
+
+                FirstProptxt.Content = graphic.Attributes["MasterName"].ToString();
+                SecondProptxt.Content = graphic.Attributes["SubscriberName"].ToString();
+                thirdProptxt.Content = graphic.Attributes["RequestNumber"].ToString();
+
+
+                utahMapTip.Visibility = Visibility.Visible;
+                mapview.MapViewTapped += MyMapView_MapViewTapped2;
+            }
+            #endregion
+
+            #region eyb
+            if (graphic.Attributes["id"].ToString().Contains("EybGps_"))
+            {
+                /*
+                var EybId = graphic.Attributes["name1"].ToString();
+
+                DataAccess da = new DataAccess();
+
+                var dd=  da.GetEybInfoByID(int.Parse(EybId));
+
+                //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
+                PopupInfo pf = new PopupInfo();
+                var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
+                var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
+                Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
+
+                labl1.Content = "علت عیب";
+                labl1.Content = "توضیحات";
+                FirstProptxt.Content = EybId;
+                SecondProptxt.Content = "Car Name";
+
+                thirdProptxt.Content = "1398/11/16";
+
+
+                utahMapTip.Visibility = Visibility.Visible;*/
+            }
+            #endregion
+
+            #region eyb filter shode
+            if (graphic.Attributes["id"].ToString().Contains("EybGpsFilter_"))
+            {
+/*                var EybId = graphic.Attributes["name1"].ToString();
+
+                DataAccess da = new DataAccess();
+
+                var dd = da.GetEybInfoByID(int.Parse(EybId));
+
+                //DAL.Model.GISDBEntities db = new DAL.Model.GISDBEntities();
+                PopupInfo pf = new PopupInfo();
+                var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
+                var point = ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
+                Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
+
+                labl1.Content = "علت عیب";
+                labl1.Content = "توضیحات";
+                FirstProptxt.Content = EybId;
+                SecondProptxt.Content = "Car Name";
+
+                thirdProptxt.Content = "1398/11/16";
+
+
+                utahMapTip.Visibility = Visibility.Visible;*/
+            }
+            #endregion
+
+            #region روش دیگر  نمایش  پاپ آپ  که استفاده نشده
+            //   // mapview.ShowCalloutAt(e.Location, calloutDef);
+            //   // CalloutDefinition myCalloutDefinition = new CalloutDefinition("Location:", mapLocationDescription);
+            //   PopupInfo pf = new PopupInfo();
+
+            //   // Esri.ArcGISRuntime.WebMap.
+            //   // Popup 
+            //   // mapview.ShowCalloutAt(mapLocation, myCalloutDefinition);
+            //   //https://developers.arcgis.com/net/10-2/sample-code/GraphicsLayerSelection/
+
+
+            //   // InfoWindow 
+            //   //   mapview.Map.pop
+
+            //   var utahMapTip = this.mapview.Overlays.Items[0] as FrameworkElement;
+
+            //   // Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, e.Location);
+            //   //var MapPoint=new  MapPoint((Esri.ArcGISRuntime.Geom)graphic.Geometry)
+
+            //var point=   ((Esri.ArcGISRuntime.Geometry.MapPoint)graphic.Geometry);
+            //  // Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, e.Location);
+            //   Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, point);
+
+            //   // MapPoint  mp=new MapPoint (graphic.Geometry.x)
+            //   // Esri.ArcGISRuntime.Controls.MapView.SetViewOverlayAnchor(utahMapTip, graphic.Geometry.map);
+
+            //   FirstProptxt.Content =  (string)graphic.Attributes["name1"];
+            //   SecondProptxt.Content = (string)graphic.Attributes["name2"];
+
+            //   thirdProptxt.Content = "1398/11/16";
+
+
+            //   utahMapTip.Visibility = Visibility.Visible;
+            #endregion
             //حذف رویداد  پاپ آپ
-            
         }
 
         //افزودن نقاط  به نقشه
         private async void addCarLog(double x, double y, Dictionary<string, string> attributes)
         {
-
-
-
             #region Ok
-
-
             Uri symbolUriz = new Uri("pack://application:,,/Images/arrow45.png");
-
-
             // Create new symbol using asynchronous factory method from uri.
             PictureMarkerSymbol campsiteSymbolz = new PictureMarkerSymbol()
             {
                 Width = 24,
                 Height = 24
             };
-
             //برای  تغیر  مکان  عکس یا آیکون شما
           // campsiteSymbolz.XOffset = 5;
            await campsiteSymbolz.SetSourceAsync(symbolUriz);
@@ -1660,8 +1690,4 @@ namespace Bargh_GIS.wpf
             FindEyb();
         }
     }
-
-
-
-
 }

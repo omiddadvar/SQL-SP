@@ -209,6 +209,12 @@
     <EmbeddedResource Include="Images\Nav-90.png" />
     <EmbeddedResource Include="Images\Nav0.png" />
     <EmbeddedResource Include="Images\Nav45.png" />
+
+    <EmbeddedResource Include="Images\Nav_Blue.png" />
+    <EmbeddedResource Include="Images\Nav_Black.png" />
+    <EmbeddedResource Include="Images\Nav_Green.png" />
+    <EmbeddedResource Include="Images\Balloon_Red.png" />
+
     <EmbeddedResource Include="Images\Nav90.png" />
     <EmbeddedResource Include="Images\Car-135.png" />
     <EmbeddedResource Include="Images\Car-180.png" />
@@ -255,6 +261,10 @@
     <None Include="Resources\search.png" />
     <None Include="Resources\import.png" />
     <None Include="Resources\Route.png" />
+    <Content Include="Images\Balloon_Red.png" />
+    <Content Include="Images\Nav_Black.png" />
+    <Content Include="Images\Nav_Blue.png" />
+    <Content Include="Images\Nav_Green.png" />
     <Content Include="wpf\Images\Nav-135.png" />
     <Content Include="wpf\Images\Nav-180.png" />
     <Content Include="wpf\Images\Nav-225.png" />
