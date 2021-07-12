@@ -1,6 +1,4 @@
-USE CCRequesterSetad
-GO
-ALTER PROCEDURE Homa.spTraceInfo
+CREATE PROCEDURE Homa.spTraceInfo
    @StartDate as varchar(10),
    @EndDate as varchar(10),
    @StartTime as varchar(8),
@@ -52,14 +50,21 @@ ALTER PROCEDURE Homa.spTraceInfo
   		else
   			set @EndDT = DATEADD(day,1,@EndDT)
   	END
-    /*Gather Data: */
+       /*Gather Data: */
+   	create table #tmpTrace2 
+	(
+		Radif int,
+		TraceDT datetime,
+		GpsX float,
+		GpsY FLOAT
+	)
+	insert into #tmpTrace2
+    EXEC Homa.spGetTrace @OnCallId , @StartDT , @EndDT
 
-    SELECT Homa.TblTrace.* , CAST(0 AS bit) AS IsFindJob	INTO #tmp 
-      FROM Homa.TblTrace
-      WHERE TblTrace.OnCallId = @OnCallId
-      and 
-      TblTrace.TraceDT >= @StartDT and TblTrace.TraceDT <= @EndDT
-      ORDER BY TraceId
+
+    SELECT #tmpTrace2.* , @OnCallId AS OnCallId, CAST(0 AS bit) AS IsFindJob	INTO #tmp 
+      FROM #tmpTrace2
+      ORDER BY Radif
 
     select * into #tmpEkipArrive from Homa.TblEkipArrive 
       where OnCallId  = @OnCallId
@@ -83,6 +88,7 @@ ALTER PROCEDURE Homa.spTraceInfo
     drop table #tmpEkipArrive
     drop table #tmp
   END
+GO
 /*
 EXEC Homa.spTraceInfo @StartDate = '1400/04/06' 
                      ,@EndDate = '1400/04/06'

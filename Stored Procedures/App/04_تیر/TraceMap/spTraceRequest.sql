@@ -1,5 +1,3 @@
-USE CCRequesterSetad
-GO
 CREATE PROCEDURE Homa.spTraceRequest
   @StartDate as varchar(10),
   @EndDate as varchar(10),
@@ -184,3 +182,4 @@ EXEC Homa.spTraceRequest @StartDate = '1400/04/13'
                         ,@Tablet = ''
                         ,@Area = ''
 */
+GO
