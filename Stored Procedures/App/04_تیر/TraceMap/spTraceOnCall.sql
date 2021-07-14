@@ -75,7 +75,7 @@ CREATE PROCEDURE Homa.spTraceOnCall
   	if @EndTime<>'' 
   		delete from #tmpOnCall1 where TargetDT >@EndStr
   	
-  	select distinct #tmpOnCall1.OnCallId into #tmpOnCall from #tmpOnCall1 
+  	select distinct OnCallId , AreaId into #tmpOnCall from #tmpOnCall1 
   	  
     drop table #tmpOnCall1
     /*Check Master-Tablet-Area: */

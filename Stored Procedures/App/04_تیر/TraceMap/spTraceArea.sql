@@ -92,3 +92,5 @@ CREATE PROCEDURE Homa.spTraceArea
                          ,@EndTime = '12:01'
                          ,@AreaId = 0
   */
+
+  EXEC spOmidTest
