@@ -3,6 +3,8 @@ GO
 CREATE PROCEDURE Homa.spGetStateTrace
   @RequestId AS BIGINT
   ,@OnCallId AS BIGINT
+  ,@StartDT AS DATETIME
+  ,@EnsDT AS DATETIME
   AS 
   BEGIN
   	CREATE TABLE #tmpResult
@@ -58,10 +60,12 @@ CREATE PROCEDURE Homa.spGetStateTrace
         CLOSE db_cursor  
         DEALLOCATE db_cursor 
       
-      SELECT * FROM #tmpResult
+      SELECT * FROM #tmpResult WHERE TraceDT BETWEEN @StartDT AND @EnsDT
       
       DROP TABLE #tmpResult
       DROP TABLE #tmpDT
       DROP TABLE #tmpTrace
   END
 -------------------------------------
+
+
