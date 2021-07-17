@@ -11,11 +11,13 @@
   <Connection Name="10.10.15.38">
     <Category>00000000-0000-0000-0000-000000000000</Category>
     <ConnectionString>Data Source=10.10.15.38;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
-    <Database>CcRequesterSetad</Database>
+    <Database>model</Database>
   </Connection>
-  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="48">
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="False" />
-    <View Name="Code" Active="True" Visible="True" />
+    <View Name="Code" Active="True" Visible="True">
+      <Data />
+    </View>
     <View Name="Data" Visible="True" />
     <View Name="Profiler" Visible="False" />
     <View Name="PivotGrid" Visible="False" />
