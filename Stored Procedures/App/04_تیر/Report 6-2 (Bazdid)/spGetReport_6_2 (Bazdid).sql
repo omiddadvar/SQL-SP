@@ -82,8 +82,7 @@ AS
 			ISNULL(Tbl_Service.cntLPFeederDone,0) AS cntLPFeederDone,
 			ISNULL(Tbl_LPPostBazdid.ServiceAllCount, 0) AS cntLPPostServiceAllCount
 		FROM
-			Tbl_Area	
-    ----------------------------------------------------------------------------------------	
+			Tbl_Area		
 		INNER JOIN
 		(
 		SELECT
@@ -113,7 +112,6 @@ AS
 		GROUP BY
 			BTblBazdidResult.AreaId
 		) as Tbl_Bazdid on Tbl_Area.AreaId = Tbl_Bazdid.AreaId
-      ----------------------------------------------------------------------------------------------------------
 		LEFT JOIN
 		(
 		SELECT
@@ -144,7 +142,6 @@ AS
 		GROUP BY
 			BTblBazdidResult.AreaId
 		) as Tbl_Service on Tbl_Area.AreaId = Tbl_Service.AreaId
-      -------------------------------------------------------------------------------------------------------------
 		LEFT JOIN
 			(
 			SELECT
