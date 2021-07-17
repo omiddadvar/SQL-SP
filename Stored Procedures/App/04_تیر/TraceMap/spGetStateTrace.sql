@@ -31,7 +31,7 @@ CREATE PROCEDURE Homa.spGetStateTrace
 
       /* Start Times */
       INSERT INTO #tmpDT SELECT tesm.StartMoveDT , 'Start'  FROM  Homa.TblJob tj
-      INNER JOIN Homa.TblEkipStartMove tesm ON tj.OncallId = tesm.OnCallId
+      INNER JOIN Homa.TblEkipStartMove tesm ON tj.JobId = tesm.JobId
       WHERE tj.RequestId = @RequestId
 
       /* Arrive Times */
