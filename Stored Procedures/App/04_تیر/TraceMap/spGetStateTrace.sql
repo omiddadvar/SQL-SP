@@ -45,7 +45,7 @@ CREATE PROCEDURE Homa.spGetStateTrace
       WHERE tj.RequestId = @RequestId
         
       /*Get TraceStates */
-        DECLARE db_cursor CURSOR FOR SELECT * FROM #tmpDT d
+        DECLARE db_cursor CURSOR FOR SELECT * FROM #tmpDT
         DECLARE @lDate DATETIME , @lFlag VARCHAR(10)
         OPEN db_cursor  
         FETCH NEXT FROM db_cursor INTO @lDate , @lFlag
