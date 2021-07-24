@@ -18,7 +18,7 @@ namespace TZServicesCSharp.RestServices
             public string Code { get; set; }
             public string TypeId { get; set; }
             public string EventTypeId { get; set; }
-
+            public string Date { get; set; }
             public string FromDate { get; set; }
             public string ToDate { get; set; }
             public string AreaId { get; set; }
@@ -53,7 +53,7 @@ namespace TZServicesCSharp.RestServices
                     "getmpusepart|getlightusepart|getmultistepconnection|getmpfeederbaseinfo|" +
                     "sanjesh_avgunwanted|sanjesh_avgwanted|sanjesh_highpostoff|" +
                     "gmaz_getlppostload|gmaz_report_sabz|gmaz_unstable_feeders|"+
-                    "azargh_feederpeak|azargh_postfeederload|khornorth_lppostloadbalance|skerman_dashboardstat)$";
+                    "azargh_feederpeak|azargh_postfeederload|khornorth_lppostloadbalance|skerman_dashboard)$";
 
                 if (!Regex.IsMatch(lInformType, lMethodNames, RegexOptions.IgnoreCase))
                     throw new Exception("درخواست شما معتبر نمی باشد");
@@ -253,12 +253,22 @@ namespace TZServicesCSharp.RestServices
                         lRes = lReportService.KHorNorth_LPPostLoadBalance(lParams.Code, ch.lFromDate, ch.lToDate);
                         lResult = mdl_Publics.GetJSonString(lRes);
                         break;
-                    case "skerman_dashboardstat":
+                    case "skerman_dashboard": //--------------omid-----------------
                         lDs = null;
-                        int apiNum = Convert.ToInt16(lInformType.Replace("skerman_dashboardstat", ""));
-                        ch.check_From()
-                            .check_To();
-                        lRes = lReportService.SKerman_DashboardStat(ch.lFromDate, ch.lToDate, apiNum);
+                        int apiNum = Convert.ToInt16(lInformType.Replace("skerman_dashboard", ""));
+                        if (apiNum <= 2)
+                        {
+                            ch.check_From().check_To();
+                            lRes = lReportService.SKerman_DashboardStat(ch.lFromDate, ch.lToDate, apiNum);
+                        }
+                        else if(apiNum == 3)
+                            lRes = lReportService.SKerman_DashboardStat("", "", apiNum);
+                        else if (apiNum == 4)
+                        {
+                            ch.lDate += "/01/01";
+                            ch.check_Date();
+                            lRes = lReportService.SKerman_DashboardStat(lParams.Date, "", apiNum);
+                        }
                         lResult = mdl_Publics.GetJSonString(lRes);
                         break;
                     default:
@@ -303,6 +313,7 @@ namespace TZServicesCSharp.RestServices
         {
             public string lFromDate = "";
             public string lToDate = "";
+            public string lDate = "";
             public int lAreaId = -1;
             public int lLPPostId = -1;
             public int lMPFeederId = -1;
@@ -319,6 +330,19 @@ namespace TZServicesCSharp.RestServices
                 this.lParams = aParams;
             }
 
+            public Checker check_Date(string aDate = "")
+            {
+                if (string.IsNullOrWhiteSpace(lParams.FromDate))
+                {
+                    if (string.IsNullOrWhiteSpace(aDate))
+                        throw new Exception("Date is not Valid");
+                    lDate = aDate;
+                }
+                lDate = lDate == "" ? mdl_Publics.ValidDate(lParams.Date) : lDate;
+                if (lDate == "Error")
+                    throw new Exception("Date is not Valid");
+                return this;
+            }
             public Checker check_From(string aFromDate = "")
             {
                 if (string.IsNullOrWhiteSpace(lParams.FromDate))

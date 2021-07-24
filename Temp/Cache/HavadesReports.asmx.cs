@@ -2521,22 +2521,29 @@ namespace TZServicesCSharp
             }
             return lRes;
         }
-        //--------------------omid
         // جنوب کرمان ـ اطلاعات مورد نیاز سامانه داشبورد و آمار
         [WebMethod]
-        public Danesh_Result SKerman_DashboardStat(string FromDate, string ToDate , int apiNumber = 1)
+        public Danesh_Result SKerman_DashboardStat(string FromDate = "", string ToDate = "", int apiNumber = 1)
         {
-            string lSQL , lSp = "";
-            var SPs = new string[]{ 
-               "spSKerman_part1",
-               "spSKerman_part2",
-               "spSKerman_part3",
-               "spSKerman_part4",
-            };
+            string lSQL = "" , SP = "spSKerman_part" + apiNumber;
             Danesh_Result lRes = new Danesh_Result();
             SqlConnection lCnn = new SqlConnection(mdl_Publics.mConnectionString);
             DataSet lDs = new DataSet();
-
+             
+            switch(apiNumber){
+                case 1:
+                    lSQL = string.Format("EXEC {0} '{1}', '{2}'", SP, FromDate, ToDate);
+                    break;
+                case 2:
+                    lSQL = string.Format("EXEC {0} '{1}', '{2}'", SP, FromDate, ToDate);
+                    break;
+                case 3:
+                    lSQL = string.Format("EXEC {0} ", SP);
+                    break;
+                case 4:
+                    lSQL = string.Format("EXEC {0} '{1}', {2}", SP, FromDate , 100);
+                    break;
+            }
             lRes.IsSuccess = true;
             lRes.ErrorMessage = "";
             try
@@ -2544,20 +2551,16 @@ namespace TZServicesCSharp
                 //if (!AccessManager.IsAccess(AccessManager.AccessCodes.None))
                 //    throw new Exception("RPT - Access Denied");
 
-                foreach(KeyValuePair<string, string> entry in SPs[apiNumber-1]){
-                    lSp = entry.Value;
-                    SaveLog(String.Format("Calling {0} (FromDate={1}, ToDate={2})", lSp, FromDate, ToDate));
-                    lSQL = string.Format("EXEC {0} '{1}', '{2}'", lSp, FromDate, ToDate);
-                    mdl_Publics.BindingTable(lSQL, ref lCnn, lDs, entry.Key , aIsClearTable: true, aIsShowError: true);
-                    SaveLog(string.Format("Result {0} IS SUCCESS", lSp));
-                }
-                lRes.Data = mdl_Publics.GetClassFromJson<object>(mdl_Publics.GetJSonString(lDs));
+                SaveLog(lSQL.Replace("EXEC ", "Calling "));
+                mdl_Publics.BindingTable(lSQL, ref lCnn, lDs ,"Result" , aIsClearTable: true, aIsShowError: true);
+                SaveLog(string.Format("Result {0} IS SUCCESS", SP));
+                lRes.Data = mdl_Publics.GetClassFromJson<object>(mdl_Publics.GetJSonString(lDs.Tables["Result"]));
             }
             catch (Exception ex)
             {
                 lRes.IsSuccess = false;
                 lRes.ErrorMessage = ex.Message;
-                SaveLog(string.Format("Result {0} IS ERROR", lSp));
+                SaveLog(string.Format("Result {0} IS ERROR", SP));
             }
             return lRes;
         }

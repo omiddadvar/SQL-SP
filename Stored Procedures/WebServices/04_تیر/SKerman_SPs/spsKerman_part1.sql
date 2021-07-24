@@ -1,6 +1,6 @@
 USE CcRequesterSetad
 GO
-ALTER PROCEDURE spsKerman_part1
+CREATE PROCEDURE spSKerman_part1
   @From VARCHAR(10),
   @To VARCHAR(10)
   AS 
@@ -8,6 +8,7 @@ ALTER PROCEDURE spsKerman_part1
     DECLARE @FromYM VARCHAR(10) = SUBSTRING( @From, 1, 7) 
     DECLARE @TOYM VARCHAR(10) = SUBSTRING( @To, 1, 7)
     DECLARE @Days INT = DATEDIFF(DAY , dbo.shtom(@From) , dbo.shtom(@TO))
+    DECLARE @CntAllPublicMPFeeders AS INT = (SELECT COUNT(*) FROM Tbl_MPFeeder WHERE ISNULL(OwnershipId,2) = 2)
 	  SELECT RequestId, MPRequestId , LPRequestId INTO #tmp FROM TblRequest WHERE DisconnectDatePersian BETWEEN @From AND @To
     
     SELECT ta.AreaId ,ta.Area ,ISNULL(TMP.DisPowerMP_Tamir,0) AS DisPowerMP_Tamir 
@@ -20,7 +21,8 @@ ALTER PROCEDURE spsKerman_part1
 	  ,ISNULL(TLP.DisIntervalLP,0) AS DisIntervalLP ,ISNULL(TLP.CountLP_Tamir,0) AS CntLP_Tamir
 	  ,ISNULL(TLP.CountLP,0) AS CountLP, ISNULL( TLP.DisAvgLP,0) AS DisAvgLP
 	  ,ISNULL(TAvgMP.AverageDisInterval,0) AS AvgDisIntervalMP , ISNULL(TAvgLP.AverageDisInterval,0) AS AvgDisIntervalLP
-    ,ISNULL(FeederReq.FeederCount,0) AS FeederCnt ,ISNULL(FaultyFeeder.MPFeederName , '') AS FaultyFeederName
+    ,ISNULL(FeederReq.FeederCount,0) AS FeederCnt ,ISNULL(ROUND(FeederReq.FeederPercent,2),0) AS FeederPercent
+    ,ISNULL(FaultyFeeder.MPFeederName , '') AS FaultyFeederName
     ,ISNULL(SAIDI.DisPowTamir,0) AS SAIDI_Tamir ,ISNULL(SAIDI.DisPow,0) AS SAIDI
     ,ISNULL(Rate.Rate,0) AS Rate ,ISNULL(Rate.DisIntRate,0) AS DisRate
       FROM
@@ -54,7 +56,6 @@ ALTER PROCEDURE spsKerman_part1
       FROM TblLPRequest LP
         INNER JOIN TblRequest R ON LP.LPRequestId = R.LPRequestId
         INNER JOIN #tmp ON R.RequestId = #tmp.RequestId
-        WHERE R.DisconnectDatePersian BETWEEN @From AND @To
         GROUP BY R.AreaId
         ) TLP ON ta.AreaId = TLP.AreaId
     LEFT JOIN(
@@ -65,7 +66,7 @@ ALTER PROCEDURE spsKerman_part1
         INNER JOIN TblMPRequest MP ON R.MPRequestId = MP.MPRequestId
         INNER JOIN #tmp ON R.RequestId = #tmp.RequestId
         INNER JOIN TblSubscribers Sub ON Sub.AreaId = R.AreaId
-        WHERE R.DisconnectDatePersian BETWEEN @From AND @To AND Sub.YearMonth BETWEEN @FromYM AND @TOYM
+        WHERE Sub.YearMonth BETWEEN @FromYM AND @TOYM
         AND (R.IsLPRequest = 1 OR (R.IsMPRequest = 1 AND (MP.DisconnectReasonId IS NULL OR MP.DisconnectReasonId < 1200 OR
             MP.DisconnectReasonId > 1299 ) AND (MP.DisconnectGroupSetId IS NULL OR MP.DisconnectGroupSetId <> 1129 
             AND MP.DisconnectGroupSetId <> 1130)))
@@ -76,7 +77,7 @@ ALTER PROCEDURE spsKerman_part1
       FROM TblMPRequest MP
         INNER JOIN TblRequest R ON MP.MPRequestId = R.MPRequestId
         INNER JOIN #tmp ON R.RequestId = #tmp.RequestId
-        WHERE R.IsTamir = 0 AND R.DisconnectDatePersian BETWEEN @From AND @To
+        WHERE R.IsTamir = 0
         GROUP BY R.AreaId
         ) TAvgMP ON ta.AreaId = TAvgMP.AreaId
     LEFT JOIN(
@@ -84,20 +85,20 @@ ALTER PROCEDURE spsKerman_part1
       FROM TblLPRequest LP
         INNER JOIN TblRequest R ON LP.LPRequestId = R.LPRequestId
         INNER JOIN #tmp ON R.RequestId = #tmp.RequestId
-        WHERE R.IsTamir = 0 AND R.DisconnectDatePersian BETWEEN @From AND @To
+        WHERE R.IsTamir = 0
         GROUP BY R.AreaId
         ) TAvgLP ON ta.AreaId = TAvgLP.AreaId
-        ----------------------------------TODO----------
     LEFT JOIN(
-      SELECT COUNT(DISTINCT Feeder.MPFeederId) FeederCount,  MP.AreaId 
+      SELECT MP.AreaId 
+        , COUNT(DISTINCT Feeder.MPFeederId) FeederCount
+      , 100 * CAST(COUNT(DISTINCT Feeder.MPFeederId) AS FLOAT) / @CntAllPublicMPFeeders AS FeederPercent
         FROM TblMPRequest MP
         INNER JOIN TblRequest R ON MP.MPRequestId = R.MPRequestId
         INNER JOIN Tbl_MPFeeder Feeder ON MP.MPFeederId = Feeder.MPFeederId
         INNER JOIN #tmp ON MP.MPRequestId = #tmp.MPRequestId
         WHERE (MP.DisconnectReasonId IS NULL OR MP.DisconnectReasonId < 1200 OR MP.DisconnectReasonId > 1299 ) 
           AND (MP.DisconnectGroupSetId IS NULL OR MP.DisconnectGroupSetId <> 1129 AND MP.DisconnectGroupSetId <> 1130)
-          AND MP.DisconnectDatePersian BETWEEN @From AND @To 
-          AND R.IsDisconnectMPFeeder = 1 AND R.IsTamir = 0 AND Feeder.IsPrivate = 0
+          AND R.IsDisconnectMPFeeder = 1 AND R.IsTamir = 0 AND ISNULL(Feeder.OwnershipId,2) = 2
         GROUP BY MP.AreaId
         HAVING COUNT(MP.MPRequestId) >= 3 
         ) FeederReq ON  ta.AreaId = FeederReq.AreaId
@@ -108,7 +109,6 @@ ALTER PROCEDURE spsKerman_part1
         INNER JOIN #tmp ON MP.MPRequestId = #tmp.MPRequestId
         WHERE (MP.DisconnectReasonId IS NULL OR MP.DisconnectReasonId < 1200 OR MP.DisconnectReasonId > 1299 ) 
           AND (MP.DisconnectGroupSetId IS NULL OR MP.DisconnectGroupSetId <> 1129 AND MP.DisconnectGroupSetId <> 1130)
-          AND MP.DisconnectDatePersian BETWEEN @From AND @To
         GROUP BY MP.AreaId , MP.MPFeederId , Feeder.MPFeederName
         ORDER BY SUM(MP.DisconnectPower) DESC
         ) FaultyFeeder ON  ta.AreaId = FaultyFeeder.AreaId
@@ -119,8 +119,7 @@ ALTER PROCEDURE spsKerman_part1
         FROM TblRequest R
         INNER JOIN #tmp t ON R.RequestId = t.RequestId
         INNER JOIN TblSubscribers Sub ON Sub.AreaId = R.AreaId
-        WHERE R.DisconnectDatePersian BETWEEN @From AND @To
-         AND Sub.YearMonth BETWEEN @FromYM AND @TOYM
+        WHERE Sub.YearMonth BETWEEN @FromYM AND @TOYM
         GROUP BY R.AreaId
         )SAIDI ON ta.AreaId = SAIDI.AreaId
       WHERE ta.IsCenter = 0
