@@ -25,6 +25,7 @@ CREATE PROCEDURE spSKerman_part1
     ,@CntAllPublicMPFeeders AS cntPublicMPFeeder , @CntAllPrivateMPFeeders AS cntPrivateMPFeeder
     ,ISNULL(FaultyFeeder.MPFeederName , '') AS FaultyFeederName
     ,ROUND(ISNULL(SAIDI.DisPowTamir,0),2) AS SAIDI_Tamir ,ROUND(ISNULL(SAIDI.DisPow,0),2) AS SAIDI
+    ,ROUND(ISNULL(SAIDI.DisTime,0),2) AS DisTime, ROUND(ISNULL(SAIDI.DisTime_Tozi,0),2) AS DisTime_Tozi
     ,ROUND(ISNULL(Rate.Rate,0),2) AS Rate ,ROUND(ISNULL(Rate.DisIntRate,0),2) AS DisRate
       FROM
     Tbl_Area ta LEFT JOIN(
@@ -101,12 +102,18 @@ CREATE PROCEDURE spSKerman_part1
         SELECT R.AreaId
         ,60 * 24 * @Days * CAST(SUM(CASE WHEN R.IsTamir = 1 THEN R.DisconnectPower END) AS FLOAT) / SUM(Sub.Energy) AS DisPowTamir
         ,60 * 24 * @Days * CAST(SUM(CASE WHEN R.IsTamir = 0 THEN R.DisconnectPower END) AS FLOAT) / SUM(Sub.Energy) AS DisPow
-        FROM TblRequest R
+        ,60 * 24 * @Days * CAST(SUM(R.DisconnectPower) AS FLOAT) / SUM(Sub.Energy) AS DisTime
+        ,60 * 24 * @Days * CAST(SUM(CASE WHEN 
+          (MP.DisconnectReasonId IS NULL OR MP.DisconnectReasonId < 1200 OR MP.DisconnectReasonId > 1299 ) 
+          AND (MP.DisconnectGroupSetId IS NULL OR MP.DisconnectGroupSetId <> 1129 AND MP.DisconnectGroupSetId <> 1130) 
+           THEN R.DisconnectPower END) AS FLOAT) / SUM(Sub.Energy) AS DisTime_Tozi
+       FROM TblRequest R
         INNER JOIN #tmp t ON R.RequestId = t.RequestId
         INNER JOIN TblSubscribers Sub ON Sub.AreaId = R.AreaId
+        INNER JOIN TblMPRequest MP ON R.MPRequestId = MP.MPRequestId
         WHERE Sub.YearMonth BETWEEN @FromYM AND @TOYM
         GROUP BY R.AreaId
-        )SAIDI ON ta.AreaId = SAIDI.AreaId
+        ) SAIDI ON ta.AreaId = SAIDI.AreaId
       WHERE ta.IsCenter = 0
     ORDER BY ta.AreaId ASC
     
