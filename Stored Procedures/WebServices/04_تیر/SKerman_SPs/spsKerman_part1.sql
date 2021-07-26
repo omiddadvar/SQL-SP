@@ -23,7 +23,7 @@ CREATE PROCEDURE spSKerman_part1
 	  ,ISNULL(TLP.CountLP,0) AS CntLP ,ISNULL(TMP.CountMPFromPost_Tamir,0) AS CntMPFromPost_Tamir 
     ,ISNULL(FeederReq.FeederCount,0) AS FeederCnt ,ISNULL(ROUND(FeederReq.FeederPercent,2),0) AS FeederPercent
     ,@CntAllPublicMPFeeders AS cntPublicMPFeeder , @CntAllPrivateMPFeeders AS cntPrivateMPFeeder
-    ,ISNULL(FaultyFeeder.MPFeederName , '') AS FaultyFeederName
+    ,ISNULL(FaultyFeeder.MPFeederName , '') AS FaultyFeederName ,ISNULL(FaultyFeeder.MPFeederCode , '') AS FaultyFeederCode
     ,ROUND(ISNULL(SAIDI.DisPowTamir,0),2) AS SAIDI_Tamir ,ROUND(ISNULL(SAIDI.DisPow,0),2) AS SAIDI
     ,ROUND(ISNULL(SAIDI.DisTime,0),2) AS DisTime, ROUND(ISNULL(SAIDI.DisTime_Tozi,0),2) AS DisTime_Tozi
     ,ROUND(ISNULL(Rate.Rate,0),2) AS Rate ,ROUND(ISNULL(Rate.DisIntRate,0),2) AS DisRate
@@ -89,13 +89,13 @@ CREATE PROCEDURE spSKerman_part1
         HAVING COUNT(MP.MPRequestId) >= 3 
         ) FeederReq ON  ta.AreaId = FeederReq.AreaId
     LEFT JOIN(
-      SELECT TOP(1) Feeder.MPFeederName , MP.AreaId 
+      SELECT TOP(1) Feeder.MPFeederName ,Feeder.MPFeederCode, MP.AreaId 
         FROM TblMPRequest MP
         INNER JOIN Tbl_MPFeeder Feeder ON MP.MPFeederId = Feeder.MPFeederId
         INNER JOIN #tmp ON MP.MPRequestId = #tmp.MPRequestId
         WHERE (MP.DisconnectReasonId IS NULL OR MP.DisconnectReasonId < 1200 OR MP.DisconnectReasonId > 1299 ) 
           AND (MP.DisconnectGroupSetId IS NULL OR MP.DisconnectGroupSetId <> 1129 AND MP.DisconnectGroupSetId <> 1130)
-        GROUP BY MP.AreaId , MP.MPFeederId , Feeder.MPFeederName
+        GROUP BY MP.AreaId , MP.MPFeederId , Feeder.MPFeederName , Feeder.MPFeederCode
         ORDER BY SUM(MP.DisconnectPower) DESC
         ) FaultyFeeder ON  ta.AreaId = FaultyFeeder.AreaId
     LEFT JOIN(
