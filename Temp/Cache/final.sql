@@ -15,7 +15,7 @@ GO
 
 CREATE VIEW [dbo].[ViewSMSVersion]
 AS
-	SELECT 'V2.9.17' AS Version, '1400/01/22' AS PDate
+	SELECT 'V2.9.18' AS Version, '1400/04/23' AS PDate
 GO
 
 if not exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[TblManagerSMSFTMPFeederDCSended]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
@@ -453,7 +453,7 @@ BEGIN
 		,dbo.GetTime(GetDate())
 		,@DCManagerAreaId
 		,@SubscriberInformId
-		,N'Ø§Ø·Ù„Ø§Ø¹ Ø±Ø³Ø§Ù†ÙŠ Ø®Ø§Ù…ÙˆØ´ÙŠ'
+		,N'ÇØáÇÚ ÑÓÇäí ÎÇãæÔí'
 		)
 
 	IF (
@@ -677,7 +677,7 @@ BEGIN
 	
 	DECLARE crMakeList CURSOR FOR
 		SELECT 
-			ConnectType = CASE WHEN IsManoeuvre = 1 THEN 'ÙˆØµÙ„ Ø¨Ø§ Ù…Ø§Ù†ÙˆØ±:' ELSE 'ÙˆØµÙ„ Ù…ÙˆÙÙ‚: ' END,
+			ConnectType = CASE WHEN IsManoeuvre = 1 THEN 'æÕá ÈÇ ãÇäæÑ:' ELSE 'æÕá ãæİŞ: ' END,
 			ConnectDatePersian = tMSC.ConnectDatePersian,
 			ConnectTime = tMSC.ConnectTime,
 			CurrentValue = CAST(tMSC.CurrentValue AS NVARCHAR(10)),
@@ -715,12 +715,12 @@ BEGIN
 			if @@FETCH_STATUS = 0 
 			BEGIN
 				SET @Result = @SMS
-				SET @Result = Replace( @Result,'MPFeederName', ISNULL(@MPFeederName,'ØŸ'))
+				SET @Result = Replace( @Result,'MPFeederName', ISNULL(@MPFeederName,'¿'))
 				SET @Result = Replace( @Result,'ConnectType', ISNULL(@ConnectType,''))
-				SET @Result = Replace( @Result,'ConnectDatePersian', ISNULL(@ConnectDatePersian,'ØŸ'))
-				SET @Result = Replace( @Result,'ConnectTime', ISNULL(@ConnectTime,'ØŸ'))
-				SET @Result = Replace( @Result,'CurrentValue', ISNULL(@CurrentValue,'ØŸ'))
-				SET @Result = Replace( @Result,'ConnectDarsad', ISNULL(@ConnectDarsad,'ØŸ'))
+				SET @Result = Replace( @Result,'ConnectDatePersian', ISNULL(@ConnectDatePersian,'¿'))
+				SET @Result = Replace( @Result,'ConnectTime', ISNULL(@ConnectTime,'¿'))
+				SET @Result = Replace( @Result,'CurrentValue', ISNULL(@CurrentValue,'¿'))
+				SET @Result = Replace( @Result,'ConnectDarsad', ISNULL(@ConnectDarsad,'¿'))
 				SET @Result = Replace( @Result,'Comments', ISNULL(@Comments,''))
 				SET @Final = @Final + (nchar(13) + @Result)
 			END
@@ -808,7 +808,7 @@ AS
 	SELECT @CurrentDate = dbo.mtosh(getdate())
 	SET @CurrentMonthDay = RIGHT(@CurrentDate,5)
 	
-	SET @SubscriberType = N'Ú©Ù„ÙŠ'
+	SET @SubscriberType = N'˜áí'
 	SET @IsSingleSubscriberShow = 0
 	SELECT @IsSingleSubscriberShow = CASE WHEN ISNULL(ConfigValue,'') = 'True' THEN 1 ELSE 0 END
 	FROM Tbl_Config WHERE ConfigName = 'SMSSingleSubs'
@@ -818,7 +818,7 @@ AS
 	SET @ToPathType = ''
 	SET @ToPathTypeValue = ''
 	SET @FeederPart = ''
-	SET @TamirStr = N'ØŸ'
+	SET @TamirStr = N'¿'
 	SET @FogheToziTypeId = -1
 	--declare @dt AS DateTime=dateadd(day,-1,getdate())
 	declare @dt AS DateTime = dateadd(hour,-12,getdate())
@@ -839,8 +839,16 @@ AS
 	WHERE 
 		tblRequest.DisconnectDT >= @dt and 
 		( 
-			(TblRequest.IsSingleSubscriber = 0 OR TblRequest.IsSingleSubscriber IS NULL OR (TblRequest.IsSingleSubscriber = 1 AND @IsSingleSubscriberShow = 1)) 
-			OR TblRequest.IsMPRequest = 1 OR TblRequest.IsFogheToziRequest = 1
+			(TblRequest.IsSingleSubscriber = 0 
+				OR TblRequest.IsSingleSubscriber IS NULL 
+				OR (TblRequest.IsSingleSubscriber = 1 
+					AND @IsSingleSubscriberShow = 1)) 
+			OR 
+			(NOT TblRequest.MPRequestId IS NULL 
+				AND TblRequest.MPRequestId = 1) 
+			OR 
+			(NOT TblRequest.FogheToziDisconnectId IS NULL 
+				AND TblRequest.IsFogheToziRequest = 1)
 		) 
 		AND NOT TblRequest.RequestId IN 
 		( 
@@ -866,7 +874,7 @@ AS
 		(
 			(@RequestTypeId = 0 AND @IsTamir Is NULL AND IsTamir = 0)
 			
-			OR (@RequestTypeId = 1 AND @IsTamir = 0 AND IsFogheToziRequest = 1)
+			OR (@RequestTypeId = 1 AND @IsTamir = 0 AND (NOT TblRequest.FogheToziDisconnectId IS NULL AND TblRequest.IsFogheToziRequest = 1))
 
 			OR ((@RequestTypeId = 2 OR (@RequestTypeId = 6 AND ISNULL(TblRequest.IsSingleSubscriber,0) = 0) OR (@RequestTypeId = 7 AND TblRequest.IsSingleSubscriber = 1)) AND IsLPRequest = 1 AND ISNULL(ISNULL(TblTamirRequestEmergency.TamirNetworkTypeId, TblTamirRequest.TamirNetworkTypeId),3) = 3 AND IsTamir=1 AND TblRequest.EndJobStateId <> 4)
 				
@@ -895,7 +903,7 @@ AS
 	SELECT TOP 1 
 		@RequestId = TblRequest.RequestId, 
 		@RequestNumber = TblRequest.RequestNumber, 
-		@TamirStr = CASE WHEN TblRequest.IsTamir = 1 THEN N'Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡' ELSE N'Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡' END, 
+		@TamirStr = CASE WHEN TblRequest.IsTamir = 1 THEN N'ÈÇÈÑäÇãå' ELSE N'Èí ÈÑäÇãå' END, 
 		@DBMinutes = DATEDIFF([Minute], TblRequest.DisconnectDT, GETDATE()), 
 		@Address = TblRequest.Address, 
 		@MPPostName = ISNULL(ISNULL(Tbl_MPPost.MPPostName, tRPFMPP.MPPostName),Tbl_MPPostFogheTozi.MPPostName),
@@ -922,7 +930,7 @@ AS
 		@ToPathTypeValue = ISNULL(ISNULL(TblMPRequest.ToPathTypeValue,TblLPRequest.ToPathTypeValue),''),
 		@FeederPart = ISNULL(ISNULL(tFP.FeederPart,tRPFFP.FeederPart),''), 
 		@ZoneName = ISNULL(tZone.ZoneName,N''), 
-		@SubscriberType = CASE WHEN ISNULL(TblLPRequest.IsSingleSubscriber, TblRequest.IsSingleSubscriber) = 1 THEN N'ØªÚ©ÙŠ' ELSE N'Ú©Ù„ÙŠ' END,
+		@SubscriberType = CASE WHEN ISNULL(TblLPRequest.IsSingleSubscriber, TblRequest.IsSingleSubscriber) = 1 THEN N'Ê˜í' ELSE N'˜áí' END,
 		@OCEFRelayAction = ISNULL(Tbl_OCEFRelayAction.OCEFRelayAction, Tbl_OCEFRA.OCEFRelayAction),
 		@TamirNetworkTypeId = ISNULL(TblTamirRequestEmergency.TamirNetworkTypeId, TblTamirRequest.TamirNetworkTypeId),
 		@RequestAreaId = TblRequest.AreaId
@@ -987,26 +995,26 @@ AS
 	END
 	
 	IF( @IsTotalLPPostDisconnected = 1 )
-		SET @MPStatus = N'Ù‚Ø·Ø¹ Ù¾Ø³Øª ØªÙˆØ²ÙŠØ¹'
+		SET @MPStatus = N'ŞØÚ ÓÊ ÊæÒíÚ'
 	IF( @IsNotDisconnectFeeder = 1 )
-		SET @MPStatus = N'Ù‚Ø·Ø¹ÙŠ Ø¯Ø± Ø³Ø± Ø®Ø·'
+		SET @MPStatus = N'ŞØÚí ÏÑ ÓÑ ÎØ'
 	IF( @IsDisconnectMPFeeder = 1 )
-		SET @MPStatus = N'Ù‚Ø·Ø¹ Ú©Ø§Ù…Ù„ ÙÙŠØ¯Ø±'
+		SET @MPStatus = N'ŞØÚ ˜Çãá İíÏÑ'
 		
 	IF @RequestTypeId = 1 -- FogheTozi
 	BEGIN
 		SET @FogheToziGroup = CASE
-			WHEN @FogheToziTypeId = 1 THEN N'Ú©Ù…Ø¨ÙˆØ¯ ØªÙˆÙ„ÙŠØ¯'
-			WHEN @FogheToziTypeId IN (2,3,4,5) THEN N'Ø§Ù†ØªÙ‚Ø§Ù„'
-			WHEN @FogheToziTypeId IN (6,7,8,9) THEN N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹'
+			WHEN @FogheToziTypeId = 1 THEN N'˜ãÈæÏ ÊæáíÏ'
+			WHEN @FogheToziTypeId IN (2,3,4,5) THEN N'ÇäÊŞÇá'
+			WHEN @FogheToziTypeId IN (6,7,8,9) THEN N'İæŞ ÊæÒíÚ'
 			ELSE N''
 		END
 		SET @FogheToziShortText = CASE
-			WHEN @FogheToziTypeId = 1 THEN N'Ú©Ù…Ø¨ÙˆØ¯ ØªÙˆÙ„ÙŠØ¯'
-			WHEN @FogheToziTypeId IN (2,3,4) THEN N'Ø§Ù†ØªÙ‚Ø§Ù„-Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡'
-			WHEN @FogheToziTypeId = 5 THEN N'Ø§Ù†ØªÙ‚Ø§Ù„-Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡'
-			WHEN @FogheToziTypeId IN (6,7,8) THEN N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹-Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡'
-			WHEN @FogheToziTypeId = 9 THEN N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹-Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡'
+			WHEN @FogheToziTypeId = 1 THEN N'˜ãÈæÏ ÊæáíÏ'
+			WHEN @FogheToziTypeId IN (2,3,4) THEN N'ÇäÊŞÇá-ÈÇÈÑäÇãå'
+			WHEN @FogheToziTypeId = 5 THEN N'ÇäÊŞÇá-Èí ÈÑäÇãå'
+			WHEN @FogheToziTypeId IN (6,7,8) THEN N'İæŞ ÊæÒíÚ-ÈÇÈÑäÇãå'
+			WHEN @FogheToziTypeId = 9 THEN N'İæŞ ÊæÒíÚ-Èí ÈÑäÇãå'
 			ELSE N''
 		END
 	END
@@ -1040,14 +1048,14 @@ AS
 	END
 	/*------------*/
 	
-	/*----- Ù„ÙŠØ³Øª ÙˆØµÙ„ Ù‡Ø§ÙŠ Ú†Ù†Ø¯ Ù…Ø±Ø­Ù„Ù‡ Ø§ÙŠ ------*/
+	/*----- áíÓÊ æÕá åÇí äÏ ãÑÍáå Çí ------*/
 	DECLARE @MultiStepConnections AS VARCHAR(2000)
 	DECLARE @NotComplate AS VARCHAR(20)
 	SET @MultiStepConnections = ''
 	SET @NotComplate = ''
 	EXEC @MultiStepConnections = dbo.GetMultiStepConnections @RequestId
 	IF LEN(@MultiStepConnections) > 1
-		SET @NotComplate = ' Ø¨Ù‡ Ø·ÙˆØ± Ú©Ø§Ù…Ù„'
+		SET @NotComplate = ' Èå ØæÑ ˜Çãá'
 
 	/*------------*/
 	
@@ -1223,34 +1231,34 @@ AS
 	
 	SET @SMS = Replace( @SMS,'ReqNo', ISNULL(@RequestNumber,0))
 	SET @SMS = Replace( @SMS,'Minutes', ISNULL(@DBMinutes,0))
-	SET @SMS = Replace( @SMS,'FogheToziPostName', ISNULL(@FogheToziPostName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'MPFeederName', ISNULL(@MPFeederName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'LPPostName', ISNULL(@LPPostName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'LPPostCode', ISNULL(@LPPostCode,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'LPFeederName', ISNULL(@LPFeederName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DBAddress', ISNULL(@Address,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'FogheToziFeederName', ISNULL(@FogheToziFeederName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DisconnectPowerMW', ISNULL(@DisconnectPowerMW ,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DisconnectPower', ISNULL(@DisconnectPower,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DTDate', ISNULL(@DTDate,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DTTime', ISNULL(@DTTime,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'FogheToziType', ISNULL(@FogheToziType,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'FogheToziGroup', ISNULL(@FogheToziGroup,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'FogheToziShortText', ISNULL(@FogheToziShortText,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'Reason', ISNULL(@Reason,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'MPStatus', ISNULL(@MPStatus,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'CurrentValue', ISNULL(@CurrentValue,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'FromType', CASE WHEN NULLIF(@FromPathType,N'') IS NOT NULL THEN N'Ø§Ø² ' + @FromPathType ELSE '' END )
+	SET @SMS = Replace( @SMS,'FogheToziPostName', ISNULL(@FogheToziPostName,N'¿'))
+	SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'¿'))
+	SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'¿'))
+	SET @SMS = Replace( @SMS,'MPFeederName', ISNULL(@MPFeederName,N'¿'))
+	SET @SMS = Replace( @SMS,'LPPostName', ISNULL(@LPPostName,N'¿'))
+	SET @SMS = Replace( @SMS,'LPPostCode', ISNULL(@LPPostCode,N'¿'))
+	SET @SMS = Replace( @SMS,'LPFeederName', ISNULL(@LPFeederName,N'¿'))
+	SET @SMS = Replace( @SMS,'DBAddress', ISNULL(@Address,N'¿'))
+	SET @SMS = Replace( @SMS,'FogheToziFeederName', ISNULL(@FogheToziFeederName,N'¿'))
+	SET @SMS = Replace( @SMS,'DisconnectPowerMW', ISNULL(@DisconnectPowerMW ,N'¿'))
+	SET @SMS = Replace( @SMS,'DisconnectPower', ISNULL(@DisconnectPower,N'¿'))
+	SET @SMS = Replace( @SMS,'DTDate', ISNULL(@DTDate,N'¿'))
+	SET @SMS = Replace( @SMS,'DTTime', ISNULL(@DTTime,N'¿'))
+	SET @SMS = Replace( @SMS,'FogheToziType', ISNULL(@FogheToziType,N'¿'))
+	SET @SMS = Replace( @SMS,'FogheToziGroup', ISNULL(@FogheToziGroup,N'¿'))
+	SET @SMS = Replace( @SMS,'FogheToziShortText', ISNULL(@FogheToziShortText,N'¿'))
+	SET @SMS = Replace( @SMS,'Reason', ISNULL(@Reason,N'¿'))
+	SET @SMS = Replace( @SMS,'MPStatus', ISNULL(@MPStatus,N'¿'))
+	SET @SMS = Replace( @SMS,'CurrentValue', ISNULL(@CurrentValue,N'¿'))
+	SET @SMS = Replace( @SMS,'FromType', CASE WHEN NULLIF(@FromPathType,N'') IS NOT NULL THEN N'ÇÒ ' + @FromPathType ELSE '' END )
 	SET @SMS = Replace( @SMS,'FromValue', @FromPathTypeValue)
-	SET @SMS = Replace( @SMS,'ToType', CASE WHEN NULLIF(@ToPathType,N'') IS NOT NULL THEN N'ØªØ§ ' + @ToPathType ELSE '' END )
+	SET @SMS = Replace( @SMS,'ToType', CASE WHEN NULLIF(@ToPathType,N'') IS NOT NULL THEN N'ÊÇ ' + @ToPathType ELSE '' END )
 	SET @SMS = Replace( @SMS,'ToValue', @ToPathTypeValue)
-	SET @SMS = Replace( @SMS,'FeederPart', ISNULL(@FeederPart,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'TamirStr', ISNULL(@TamirStr,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'ZoneName', ISNULL(@ZoneName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'SubscriberType', ISNULL(@SubscriberType,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'OCEFRelayAction', ISNULL(@OCEFRelayAction,N'ØŸ'))
+	SET @SMS = Replace( @SMS,'FeederPart', ISNULL(@FeederPart,N'¿'))
+	SET @SMS = Replace( @SMS,'TamirStr', ISNULL(@TamirStr,N'¿'))
+	SET @SMS = Replace( @SMS,'ZoneName', ISNULL(@ZoneName,N'¿'))
+	SET @SMS = Replace( @SMS,'SubscriberType', ISNULL(@SubscriberType,N'¿'))
+	SET @SMS = Replace( @SMS,'OCEFRelayAction', ISNULL(@OCEFRelayAction,N'¿'))
 	SET @SMS = Replace( @SMS,'NotComplate', ISNULL(@NotComplate,''))
 	SET @SMS = Replace( @SMS,'MultiStepConnections', ISNULL(@MultiStepConnections,''))
 	SET @SMS = Replace( @SMS,'CurrentDate', ISNULL(@CurrentDate,''))
@@ -1325,19 +1333,19 @@ AS
 	
 	DECLARE @lMonthName AS nvarchar(20)
 	SET @lMonthName = CASE Cast(@lMonth AS int)
-		WHEN 1 THEN N'ÙØ±ÙˆØ±Ø¯ÙŠÙ†'
-		WHEN 2 THEN N'Ø§Ø±Ø¯ÙŠØ¨Ù‡Ø´Øª'
-		WHEN 3 THEN N'Ø®Ø±Ø¯Ø§Ø¯'
-		WHEN 4 THEN N'ØªÙŠØ±'
-		WHEN 5 THEN N'Ù…Ø±Ø¯Ø§Ø¯'
-		WHEN 6 THEN N'Ø´Ù‡Ø±ÙŠÙˆØ±'
-		WHEN 7 THEN N'Ù…Ù‡Ø±'
-		WHEN 8 THEN N'Ø¢Ø¨Ø§Ù†'
-		WHEN 9 THEN N'Ø¢Ø°Ø±'
-		WHEN 10 THEN N'Ø¯ÙŠ'
-		WHEN 11 THEN N'Ø¨Ù‡Ù…Ù†'
-		WHEN 12 THEN N'Ø§Ø³ÙÙ†Ø¯'
-		ELSE N'ØŸ'
+		WHEN 1 THEN N'İÑæÑÏíä'
+		WHEN 2 THEN N'ÇÑÏíÈåÔÊ'
+		WHEN 3 THEN N'ÎÑÏÇÏ'
+		WHEN 4 THEN N'ÊíÑ'
+		WHEN 5 THEN N'ãÑÏÇÏ'
+		WHEN 6 THEN N'ÔåÑíæÑ'
+		WHEN 7 THEN N'ãåÑ'
+		WHEN 8 THEN N'ÂÈÇä'
+		WHEN 9 THEN N'ÂĞÑ'
+		WHEN 10 THEN N'Ïí'
+		WHEN 11 THEN N'Èåãä'
+		WHEN 12 THEN N'ÇÓİäÏ'
+		ELSE N'¿'
 	END
 	
 	DECLARE @Cnt AS int
@@ -1345,10 +1353,10 @@ AS
 	IF NOT @SMS IS NULL
 	BEGIN
 		SET @SMS = Replace( @SMS,'Count', ISNULL(@DCCount,0))
-		SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'ØŸ'))
-		SET @SMS = Replace( @SMS,'FeederName', ISNULL(@FeederName,N'ØŸ'))
-		SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'ØŸ'))
-		SET @SMS = Replace( @SMS,'MonthName', ISNULL(@lMonthName,N'ØŸ'))
+		SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'¿'))
+		SET @SMS = Replace( @SMS,'FeederName', ISNULL(@FeederName,N'¿'))
+		SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'¿'))
+		SET @SMS = Replace( @SMS,'MonthName', ISNULL(@lMonthName,N'¿'))
 		SET @SMS = Replace( @SMS,'CurrentDate', ISNULL(@CurrentDate,N''))
 		SET @SMS = Replace( @SMS,'CurrentMonthDay', ISNULL(@CurrentMonthDay,N''))
 
@@ -1531,13 +1539,13 @@ AS
 	SELECT 
 		@RequestNumber = TblTamirRequest.TamirRequestNo, 
 		@MPPostName = Tbl_MPPost.MPPostName, 
-		@MPPostInfo = 'Ù¾Ø³Øª ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹ ' + Tbl_MPPost.MPPostName + 'CRLF', 
+		@MPPostInfo = 'ÓÊ İæŞ ÊæÒíÚ ' + Tbl_MPPost.MPPostName + 'CRLF', 
 		@MPFeederName = Tbl_MPFeeder.MPFeederName, 
-		@MPFeederInfo = 'ÙÙŠØ¯Ø± ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· ' + Tbl_MPFeeder.MPFeederName + 'CRLF', 
+		@MPFeederInfo = 'İíÏÑ İÔÇÑ ãÊæÓØ ' + Tbl_MPFeeder.MPFeederName + 'CRLF', 
 		@LPPostName = Tbl_LPPost.LPPostName, 
-		@LPPostInfo = 'Ù¾Ø³Øª ØªÙˆØ²ÙŠØ¹ ' + Tbl_LPPost.LPPostName + 'CRLF', 
-		@FeederPartInfo = 'ØªÚ©Ù‡ ÙÙŠØ¯Ø± ' + Tbl_FeederPart.FeederPart + 'CRLF', 
-		@LPFeederInfo = 'ÙÙŠØ¯Ø± ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ ' + Tbl_LPFeeder.LPFeederName + 'CRLF',
+		@LPPostInfo = 'ÓÊ ÊæÒíÚ ' + Tbl_LPPost.LPPostName + 'CRLF', 
+		@FeederPartInfo = 'Ê˜å İíÏÑ ' + Tbl_FeederPart.FeederPart + 'CRLF', 
+		@LPFeederInfo = 'İíÏÑ İÔÇÑ ÖÚíİ ' + Tbl_LPFeeder.LPFeederName + 'CRLF',
 		@LPFeederName = Tbl_LPFeeder.LPFeederName, 
 		@Address = ISNULL(TblTamirRequest.WorkingAddress, TblTamirRequest.CriticalsAddress),
 		@CriticalsAddress = TblTamirRequest.CriticalsAddress, 
@@ -1546,7 +1554,7 @@ AS
 		@DTTime = ISNULL(TblTamirRequest.DisconnectTime,''), 
 		@DisconnectPower = Cast( Round(ISNULL(TblTamirRequest.DisconnectPower,0),2) AS varchar ), 
 		@Area = ISNULL(Tbl_Area.Area,''),
-		@WarmLineMode = CASE WHEN TblTamirRequest.IsWarmLine = 1 THEN 'Ø®Ø· Ú¯Ø±Ù…' ELSE 'Ø®Ø· Ø³Ø±Ø¯' END,
+		@WarmLineMode = CASE WHEN TblTamirRequest.IsWarmLine = 1 THEN 'ÎØ Ñã' ELSE 'ÎØ ÓÑÏ' END,
 		@IsWarmLine = TblTamirRequest.IsWarmLine
 	FROM 
 		TblTamirRequest 
@@ -1572,21 +1580,21 @@ AS
 
 	IF CHARINDEX(',' , @MPFeedersName) > 0
 	BEGIN
-		SET @MPFeedersInfo = 'ÙÙŠØ¯Ø±Ù‡Ø§ÙŠ ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· ' + LEFT(@MPFeedersName, (LEN(@MPFeedersName) - 1)) + 'CRLF'
+		SET @MPFeedersInfo = 'İíÏÑåÇí İÔÇÑ ãÊæÓØ ' + LEFT(@MPFeedersName, (LEN(@MPFeedersName) - 1)) + 'CRLF'
 		SET @MPFeederInfo = ''
 	END
 
 	SET @WarmLineAdvance = ''
 	if @TamirRequestStateId = 3 
 	BEGIN
-		SET @Status = N'ØªØ§ÙŠÙŠØ¯ Ú¯Ø±Ø¯ÙŠØ¯'
+		SET @Status = N'ÊÇííÏ ÑÏíÏ'
 		if @IsWarmLine = 1
-			SET @WarmLineAdvance = 'Ø¨ØµÙˆØ±Øª Ø®Ø· Ú¯Ø±Ù…'
+			SET @WarmLineAdvance = 'ÈÕæÑÊ ÎØ Ñã'
 		if @IsWarmLine = 0
-			SET @WarmLineAdvance = 'Ø¨ØµÙˆØ±Øª Ø®Ø· Ø³Ø±Ø¯'
+			SET @WarmLineAdvance = 'ÈÕæÑÊ ÎØ ÓÑÏ'
 	END
 	if @TamirRequestStateId = 8 
-		SET @Status = N'ØªØ§ÙŠÙŠØ¯ Ù†Ú¯Ø±Ø¯ÙŠØ¯'
+		SET @Status = N'ÊÇííÏ äÑÏíÏ'
 
 
 	SET @RequestType = 'SMSTamirConfirm'
@@ -1602,7 +1610,7 @@ AS
 	SET @SMS = Replace( @SMS , 'Minutes' , ISNULL(@DBMinutes,0))
 	SET @SMS = Replace( @SMS , 'MPPostName' , ISNULL(@MPPostName,'-'))
 	SET @SMS = Replace( @SMS , 'MPPostInfo ' , ISNULL(@MPPostInfo,''))
-	SET @SMS = Replace( @SMS , 'Area' , ISNULL(@Area,N'ØŸ'))
+	SET @SMS = Replace( @SMS , 'Area' , ISNULL(@Area,N'¿'))
 	SET @SMS = Replace( @SMS , 'MPFeederName' , ISNULL(@MPFeederName,'-'))
 	SET @SMS = Replace( @SMS , 'MPFeederInfo ' , ISNULL(@MPFeederInfo,''))
 	SET @SMS = Replace( @SMS , 'MPFeedersInfo ' , ISNULL(@MPFeedersInfo,''))
@@ -1611,14 +1619,14 @@ AS
 	SET @SMS = Replace( @SMS , 'FeederPartInfo ' , ISNULL(@FeederPartInfo,''))
 	SET @SMS = Replace( @SMS , 'LPFeederName' , ISNULL(@LPFeederName,'-'))
 	SET @SMS = Replace( @SMS , 'LPFeederInfo ' , ISNULL(@LPFeederInfo,''))
-	SET @SMS = Replace( @SMS , 'DBAddress' , ISNULL(@Address,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'CriticalsAddress' , ISNULL(@CriticalsAddress,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'DisconnectPower', ISNULL(@DisconnectPower,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'DTDate' , ISNULL(@DTDate,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'DTTime' , ISNULL(@DTTime,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'WarmLineMode' , ISNULL(@WarmLineMode,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'WarmLineAdvance' , ISNULL(@WarmLineAdvance,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'Status' , ISNULL(@Status,N'ØŸ'))
+	SET @SMS = Replace( @SMS , 'DBAddress' , ISNULL(@Address,N'¿'))
+	SET @SMS = Replace( @SMS , 'CriticalsAddress' , ISNULL(@CriticalsAddress,N'¿'))
+	SET @SMS = Replace( @SMS , 'DisconnectPower', ISNULL(@DisconnectPower,N'¿'))
+	SET @SMS = Replace( @SMS , 'DTDate' , ISNULL(@DTDate,N'¿'))
+	SET @SMS = Replace( @SMS , 'DTTime' , ISNULL(@DTTime,N'¿'))
+	SET @SMS = Replace( @SMS , 'WarmLineMode' , ISNULL(@WarmLineMode,N'¿'))
+	SET @SMS = Replace( @SMS , 'WarmLineAdvance' , ISNULL(@WarmLineAdvance,N'¿'))
+	SET @SMS = Replace( @SMS , 'Status' , ISNULL(@Status,N'¿'))
 	SET @SMS = Replace( @SMS , 'CurrentDate', ISNULL(@CurrentDate,N''))
 	SET @SMS = Replace( @SMS , 'CurrentMonthDay', ISNULL(@CurrentMonthDay,N''))
 	SET @SMS = Replace( @SMS , 'CRLF', nchar(13))
@@ -1873,20 +1881,20 @@ AS
 				IF NOT @DCGroupSet IS NULL
 					SET @Reason = @DCGroupSet
 				IF NOT @Description IS NULL
-					SET @Reason = @Reason + ' Ùˆ Ù†ÙˆØ¹ Ø§Ø´Ú©Ø§Ù„ ' + @Description
+					SET @Reason = @Reason + ' æ äæÚ ÇÔ˜Çá ' + @Description
 				ELSE IF NOT @FogheToziType IS NULL 
 					SET @Reason = @FogheToziType
 
 				IF @IsFT = 1
-					SET @ReqType = N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹'
+					SET @ReqType = N'İæŞ ÊæÒíÚ'
 				ELSE IF @IsMP = 1
-					SET @ReqType = N'ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø·'
+					SET @ReqType = N'İÔÇÑ ãÊæÓØ'
 				ELSE IF @IsLight = 1
-					SET @ReqType = N'Ø±ÙˆØ´Ù†Ø§ÙŠÙŠ Ù…Ø¹Ø§Ø¨Ø±'
+					SET @ReqType = N'ÑæÔäÇíí ãÚÇÈÑ'
 				ELSE IF @IsLP = 1
-					SET @ReqType = N'ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ'
+					SET @ReqType = N'İÔÇÑ ÖÚíİ'
 				ELSE
-					SET @ReqType = N'Ø¬Ø¯ÙŠØ¯'
+					SET @ReqType = N'ÌÏíÏ'
 					
 				DECLARE @PostFeeder AS nvarchar(200)
 				DECLARE @PostFeederLPF AS nvarchar(200)
@@ -1902,33 +1910,33 @@ AS
 
 				IF NOT @LPFeederName IS NULL
 				BEGIN
-					SET @PostFeeder = N' ÙÙŠØ¯Ø± ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ ' + @LPFeederName
-					SET @PostFeederLPF = N' ÙÙŠØ¯Ø± ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ ' + @LPFeederName
+					SET @PostFeeder = N' İíÏÑ İÔÇÑ ÖÚíİ ' + @LPFeederName
+					SET @PostFeederLPF = N' İíÏÑ İÔÇÑ ÖÚíİ ' + @LPFeederName
 				END
 				IF NOT @LPPostName IS NULL
 				BEGIN
-					SET @PostFeeder = N' Ù¾Ø³Øª ØªÙˆØ²ÙŠØ¹ ' + @LPPostName + @PostFeeder
-					SET @PostFeederLPP = N' Ù¾Ø³Øª ØªÙˆØ²ÙŠØ¹ ' + @LPPostName
+					SET @PostFeeder = N' ÓÊ ÊæÒíÚ ' + @LPPostName + @PostFeeder
+					SET @PostFeederLPP = N' ÓÊ ÊæÒíÚ ' + @LPPostName
 				END
 				IF NOT @MPFeederName IS NULL
 				BEGIN
-					SET @PostFeeder = N' ÙÙŠØ¯Ø± ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· ' + @MPFeederName + @PostFeeder
-					SET @PostFeederMPF = N' ÙÙŠØ¯Ø± ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· '
+					SET @PostFeeder = N' İíÏÑ İÔÇÑ ãÊæÓØ ' + @MPFeederName + @PostFeeder
+					SET @PostFeederMPF = N' İíÏÑ İÔÇÑ ãÊæÓØ '
 				END
 				IF NOT @MPPostName IS NULL
 				BEGIN
-					SET @PostFeeder = N' Ù¾Ø³Øª ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹ ' + @MPPostName + @PostFeeder
-					SET @PostFeederMPP = N' Ù¾Ø³Øª ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹ '
+					SET @PostFeeder = N' ÓÊ İæŞ ÊæÒíÚ ' + @MPPostName + @PostFeeder
+					SET @PostFeederMPP = N' ÓÊ İæŞ ÊæÒíÚ '
 				END
 				
 				SET @SMS = @SMSClause
 				SET @SMS = Replace( @SMS,'ReqNo', ISNULL(@RequestNumber,0) )
-				SET @SMS = Replace( @SMS,'ReqType', ISNULL(@ReqType,N'ØŸ') )
-				SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'ØŸ') )
-				SET @SMS = Replace( @SMS,'Reason', ISNULL(@Reason,N'ØŸ') )
-				SET @SMS = Replace( @SMS,'Date', ISNULL(@DTDate,N'ØŸ') )
-				SET @SMS = Replace( @SMS,'Time', ISNULL(@DTTime,N'ØŸ') )
-				SET @SMS = Replace( @SMS,'DCGroup', ISNULL(@DCGroup,N'ØŸ') )
+				SET @SMS = Replace( @SMS,'ReqType', ISNULL(@ReqType,N'¿') )
+				SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'¿') )
+				SET @SMS = Replace( @SMS,'Reason', ISNULL(@Reason,N'¿') )
+				SET @SMS = Replace( @SMS,'Date', ISNULL(@DTDate,N'¿') )
+				SET @SMS = Replace( @SMS,'Time', ISNULL(@DTTime,N'¿') )
+				SET @SMS = Replace( @SMS,'DCGroup', ISNULL(@DCGroup,N'¿') )
 				SET @SMS = Replace( @SMS,'PostFeeder', @PostFeeder )
 				SET @SMS = Replace( @SMS,'PostFeederLPF', @PostFeederLPF )
 				SET @SMS = Replace( @SMS,'PostFeederLPP', @PostFeederLPP )
@@ -1962,7 +1970,7 @@ AS
 GO
 
 
-/* ------------------- Ù¾ÙŠØ§Ù…Ú© Ø§Ø±Ø³Ø§Ù„ Ù‡Ø´Ø¯Ø§Ø± Ø¨Ø±Ø§ÙŠ Ø®Ø§Ù…ÙˆØ´ÙŠÙ‡Ø§ÙŠ Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡ Ø§ÙŠ Ú©Ù‡ Ø¯Ø±ØµØ¯ÙŠ Ø§Ø² Ø²Ù…Ø§Ù† Ù‚Ø·Ø¹ Ø¢Ù† Ú¯Ø°Ø´ØªÙ‡ Ø¨Ø§Ø´Ø¯ -------------------- */
+/* ------------------- íÇã˜ ÇÑÓÇá åÔÏÇÑ ÈÑÇí ÎÇãæÔíåÇí ÈÇÈÑäÇãå Çí ˜å ÏÑÕÏí ÇÒ ÒãÇä ŞØÚ Âä ĞÔÊå ÈÇÔÏ -------------------- */
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spSendSMSAlarmForTamir]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].[spSendSMSAlarmForTamir]
@@ -2063,15 +2071,15 @@ AS
 					RequestId = @lRequestId
 				
 				IF @lMPRequestId > -1
-					SET @lTamirNetworkType = N'ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø·'
+					SET @lTamirNetworkType = N'İÔÇÑ ãÊæÓØ'
 				ELSE IF @lLPRequestId > -1
-					SET @lTamirNetworkType = N'ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ'
+					SET @lTamirNetworkType = N'İÔÇÑ ÖÚíİ'
 				ELSE IF @lFogheToziDisconnectId > -1
-					SET @lTamirNetworkType = N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹'
+					SET @lTamirNetworkType = N'İæŞ ÊæÒíÚ'
 					
 				SELECT 
 					@lTamirRequestId = TblTamirRequest.TamirRequestId,
-					@lRequestBy = CASE WHEN TblTamirRequest.IsRequestByPeymankar = 1 THEN N'Ù¾ÙŠÙ…Ø§Ù†Ú©Ø§Ø±' WHEN TblTamirRequest.TamirNetworkTypeId = 1 THEN N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹' ELSE N'Ø´Ø±Ú©Øª ØªÙˆØ²ÙŠØ¹' END, 
+					@lRequestBy = CASE WHEN TblTamirRequest.IsRequestByPeymankar = 1 THEN N'íãÇä˜ÇÑ' WHEN TblTamirRequest.TamirNetworkTypeId = 1 THEN N'İæŞ ÊæÒíÚ' ELSE N'ÔÑ˜Ê ÊæÒíÚ' END, 
 					@lPeymankar = ISNULL(Tbl_Peymankar.PeymankarName, TblTamirRequest.Peymankar)
 				FROM 
 					TblTamirRequest
@@ -2096,18 +2104,18 @@ AS
 				END
 				
 				IF ISNULL(@lRequestBy,'') = ''
-					SET @lRequestBy = N'Ø´Ø±Ú©Øª ØªÙˆØ²ÙŠØ¹'
+					SET @lRequestBy = N'ÔÑ˜Ê ÊæÒíÚ'
 					
 				DECLARE @SMSBody AS nvarchar(2000) = @SMS
 				
 				SET @SMSBody = Replace( @SMSBody,'RequestNumber', ISNULL(@lRequestNumber,0))
-				SET @SMSBody = Replace( @SMSBody,'Address', ISNULL(@lAddress,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'DisconnectTime', ISNULL(@lDisconnectTime,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'ConnectTime', ISNULL(@lConnectTime,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirNetworkType', ISNULL(@lTamirNetworkType,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'EkipName', ISNULL(@lPeymankar,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'RequestBy', ISNULL(@lRequestBy,'ØŸ'))
+				SET @SMSBody = Replace( @SMSBody,'Address', ISNULL(@lAddress,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'DisconnectTime', ISNULL(@lDisconnectTime,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'ConnectTime', ISNULL(@lConnectTime,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirNetworkType', ISNULL(@lTamirNetworkType,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'EkipName', ISNULL(@lPeymankar,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'RequestBy', ISNULL(@lRequestBy,'¿'))
 				
 				DECLARE @Desc AS nvarchar(100)
 				SET @Desc = 'ReqNo=' + Cast(@lRequestNumber AS nvarchar)
@@ -2125,7 +2133,7 @@ AS
 	DROP TABLE #tmpReq
 GO
 
-/* ------------------- Ø§Ø±Ø³Ø§Ù„ Ù¾ÙŠØ§Ù…Ú© ÙŠØ§Ø¯Ø¢ÙˆØ±ÙŠ ØªØ¹ÙŠÙŠÙ† ÙˆØ¶Ø¹ÙŠØª Ø®Ø§Ù…ÙˆØ´ÙŠÙ‡Ø§ÙŠ Ø¯Ø±Ø§Ù†ØªØ¸Ø§Ø± ØªØ§ÙŠÙŠØ¯ -------------------- */
+/* ------------------- ÇÑÓÇá íÇã˜ íÇÏÂæÑí ÊÚííä æÖÚíÊ ÎÇãæÔíåÇí ÏÑÇäÊÙÇÑ ÊÇííÏ -------------------- */
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spSendSMSReminderWaitConfirm]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].[spSendSMSReminderWaitConfirm]
@@ -2219,14 +2227,14 @@ AS
 				DECLARE @SMSBody AS nvarchar(2000) = @SMS
 				
 				SET @SMSBody = Replace( @SMSBody,'TamirRequestNo', ISNULL(@lTamirRequestNo,0))
-				SET @SMSBody = Replace( @SMSBody,'TamirNetworkType', ISNULL(@lTamirNetworkType,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateFrom', ISNULL(@lTamirDisconnectDateFrom,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateTo', ISNULL(@lTamirDisconnectDateTo,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeFrom', ISNULL(@lTamirDisconnectTimeFrom,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeTo', ISNULL(@lTamirDisconnectTimeTo,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirRequestState', ISNULL(@lStatus,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'SendSMSForWaitConfirmTime', ISNULL(@lTime,'ØŸ'))
+				SET @SMSBody = Replace( @SMSBody,'TamirNetworkType', ISNULL(@lTamirNetworkType,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateFrom', ISNULL(@lTamirDisconnectDateFrom,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateTo', ISNULL(@lTamirDisconnectDateTo,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeFrom', ISNULL(@lTamirDisconnectTimeFrom,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeTo', ISNULL(@lTamirDisconnectTimeTo,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirRequestState', ISNULL(@lStatus,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'SendSMSForWaitConfirmTime', ISNULL(@lTime,'¿'))
 				
 				DECLARE @Desc AS nvarchar(100)
 				SET @Desc = 'TamirReqNo=' + Cast(@lTamirRequestNo AS nvarchar)
@@ -2245,7 +2253,7 @@ AS
 GO
 
 
-/* ----------------------------  Ø§Ø±Ø³Ø§Ù„ Ù¾ÙŠØ§Ù…Ú© Ø¹ÙˆØ¯Øª Ø®Ø§Ù…ÙˆØ´ÙŠ -------------------- */
+/* ----------------------------  ÇÑÓÇá íÇã˜ ÚæÏÊ ÎÇãæÔí -------------------- */
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spSendSMSTamirReturned]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].[spSendSMSTamirReturned]
@@ -2322,13 +2330,13 @@ AS
 				DECLARE @SMSBody AS nvarchar(2000) = @SMS
 				
 				SET @SMSBody = Replace( @SMSBody,'TamirRequestNo', ISNULL(@lTamirRequestNo,0))
-				SET @SMSBody = Replace( @SMSBody,'TamirNetworkType', ISNULL(@lTamirNetworkType,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateFrom', ISNULL(@lTamirDisconnectDateFrom,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateTo', ISNULL(@lTamirDisconnectDateTo,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeFrom', ISNULL(@lTamirDisconnectTimeFrom,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeTo', ISNULL(@lTamirDisconnectTimeTo,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'ReturnDesc', ISNULL(@lReturnDesc,'ØŸ'))
+				SET @SMSBody = Replace( @SMSBody,'TamirNetworkType', ISNULL(@lTamirNetworkType,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateFrom', ISNULL(@lTamirDisconnectDateFrom,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateTo', ISNULL(@lTamirDisconnectDateTo,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeFrom', ISNULL(@lTamirDisconnectTimeFrom,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeTo', ISNULL(@lTamirDisconnectTimeTo,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'ReturnDesc', ISNULL(@lReturnDesc,'¿'))
 				
 				DECLARE @Desc AS nvarchar(100)
 				SET @Desc = 'TamirReqNo=' + Cast(@lTamirRequestNo AS nvarchar)
@@ -2347,7 +2355,7 @@ AS
 GO
 
 
-/* ----------------------------  Ø§Ø±Ø³Ø§Ù„ Ù¾ÙŠØ§Ù…Ú© Ø·ÙˆÙ„Ø§Ù†ÙŠ ØªØ± Ø´Ø¯Ù† Ø²Ù…Ø§Ù† Ø®Ø§Ù…ÙˆØ´ÙŠ Ø§Ø² Ø²Ù…Ø§Ù† Ù¾ÙŠØ´ Ø¨ÙŠÙ†ÙŠ Ø´Ø¯Ù‡ Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡ -------------------- */
+/* ----------------------------  ÇÑÓÇá íÇã˜ ØæáÇäí ÊÑ ÔÏä ÒãÇä ÎÇãæÔí ÇÒ ÒãÇä íÔ Èíäí ÔÏå ÈÇÈÑäÇãå -------------------- */
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spSendSMSTamirLongDC]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].[spSendSMSTamirLongDC]
 GO
@@ -2431,11 +2439,11 @@ AS
 					@lTamirDisconnectInterval = DATEDIFF(MINUTE,TblRequest.TamirDisconnectFromDT,TblRequest.TamirDisconnectToDT),
 					@lLongDCInterval = (DATEDIFF(MINUTE,TblRequest.DisconnectDT,GetDate()) - @SendSMSForLongTamirTime) + 1,
 					@lNetwork = case when TblRequest.IsFogheToziRequest = 1 then
-									N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹'
+									N'İæŞ ÊæÒíÚ'
 									when TblRequest.IsMPRequest = 1 then
-									N'ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø·'
+									N'İÔÇÑ ãÊæÓØ'
 									when TblRequest.IsLPRequest = 1 then
-									N'ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ'
+									N'İÔÇÑ ÖÚíİ'
 						END
 				FROM
 					TblRequest
@@ -2446,12 +2454,12 @@ AS
 				DECLARE @SMSBody AS nvarchar(2000) = @SMS
 				
 				SET @SMSBody = Replace( @SMSBody,'RequestNumber', ISNULL(@lRequestNumber,0))
-				SET @SMSBody = Replace( @SMSBody,'NetworkType', ISNULL(@lNetwork,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateFrom', ISNULL(@lTamirDisconnectDateFrom,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateTo', ISNULL(@lTamirDisconnectDateTo,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeFrom', ISNULL(@lTamirDisconnectTimeFrom,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeTo', ISNULL(@lTamirDisconnectTimeTo,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'ØŸ'))
+				SET @SMSBody = Replace( @SMSBody,'NetworkType', ISNULL(@lNetwork,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateFrom', ISNULL(@lTamirDisconnectDateFrom,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectDateTo', ISNULL(@lTamirDisconnectDateTo,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeFrom', ISNULL(@lTamirDisconnectTimeFrom,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectTimeTo', ISNULL(@lTamirDisconnectTimeTo,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'¿'))
 				SET @SMSBody = Replace( @SMSBody,'TamirDisconnectInterval', ISNULL(@lTamirDisconnectInterval,0))
 				SET @SMSBody = Replace( @SMSBody,'LongDCInterval', ISNULL(@lLongDCInterval,0))
 				
@@ -2728,49 +2736,49 @@ AS
 			if @@FETCH_STATUS = 0 
 			BEGIN
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ Ø¬Ø¯ÙŠØ¯
+				-- ÎÇãæÔí ÌÏíÏ
 				EXEC spSendSMSDCManager 0, @IsNewRequest, @NewRequestMinutes, NULL ,0 , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, 0, 0, 0
 
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ Ø¨Ø§ Ø¨Ø±Ù†Ø§Ù…Ù‡ Ú©Ù„ÙŠ
+				-- ÎÇãæÔí İÔÇÑ ÖÚíİ ÈÇ ÈÑäÇãå ˜áí
 				EXEC spSendSMSDCManager 6, @IsLPTamirAll, @LPTamirAllMinutes, @IsLPTamir ,@IsLPTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, 0, 0, 0
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ Ø¨Ø§ Ø¨Ø±Ù†Ø§Ù…Ù‡ ØªÚ©ÙŠ
+				-- ÎÇãæÔí İÔÇÑ ÖÚíİ ÈÇ ÈÑäÇãå Ê˜í
 				EXEC spSendSMSDCManager 7, @IsLPTamirSingle, @LPTamirSingleMinutes, @IsLPTamir ,@IsLPTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, 0, 0, 0
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡ Ú©Ù„ÙŠ
+				-- ÎÇãæÔí İÔÇÑ ÖÚíİ Èí ÈÑäÇãå ˜áí
 				EXEC spSendSMSDCManager 8, @IsLPNotTamirAll, @LPNotTamirAllMinutes, @IsLPTamir ,@IsLPNotTamirSendSMSAfterConnect, @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, 0, 0, 0
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡ ØªÚ©ÙŠ
+				-- ÎÇãæÔí İÔÇÑ ÖÚíİ Èí ÈÑäÇãå Ê˜í
 				EXEC spSendSMSDCManager 9, @IsLPNotTamirSingle, @LPNotTamirSingleMinutes, @IsLPTamir ,@IsLPNotTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, 0, 0, 0
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹
+				-- ÎÇãæÔí İæŞ ÊæÒíÚ
 				EXEC spSendSMSDCManager 1, @IsFT, @FTMinutes, 0, @IsFTSendSMSAfterConnect, @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, @IsMPTamir_MPFDC, @IsMPNotTamir_MPFDC, 0
 
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· Ø¨Ø§ Ø¨Ø±Ù†Ø§Ù…Ù‡ Ú©Ù„ÙŠ
+				-- ÎÇãæÔí İÔÇÑ ãÊæÓØ ÈÇ ÈÑäÇãå ˜áí
 				EXEC spSendSMSDCManager 10, @IsMPTamirAll, @MPTamirAllMinutes, @IsMPTamir , @IsMPTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, @IsMPTamir_MPFDC, @IsMPNotTamir_MPFDC, @MPTamirMinutes_MPFDC
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· Ø¨Ø§ Ø¨Ø±Ù†Ø§Ù…Ù‡ ØªÚ©ÙŠ
+				-- ÎÇãæÔí İÔÇÑ ãÊæÓØ ÈÇ ÈÑäÇãå Ê˜í
 				EXEC spSendSMSDCManager 11, @IsMPTamirSingle, @MPTamirSingleMinutes, @IsMPTamir , @IsMPTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, @IsMPTamir_MPFDC, @IsMPNotTamir_MPFDC, @MPTamirMinutes_MPFDC
 
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡ Ú©Ù„ÙŠ
+				-- ÎÇãæÔí İÔÇÑ ãÊæÓØ Èí ÈÑäÇãå ˜áí
 				EXEC spSendSMSDCManager 12, @IsMPNotTamirAll, @MPNotTamirAllMinutes, @IsMPTamir , @IsMPNotTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, @IsMPTamir_MPFDC, @IsMPNotTamir_MPFDC, @MPNotTamirMinutes_MPFDC
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡ ØªÚ©ÙŠ
+				-- ÎÇãæÔí İÔÇÑ ãÊæÓØ Èí ÈÑäÇãå Ê˜í
 				EXEC spSendSMSDCManager 13, @IsMPNotTamirSingle, @MPNotTamirSingleMinutes, @IsMPTamir , @IsMPNotTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, @IsMPTamir_MPFDC, @IsMPNotTamir_MPFDC, @MPNotTamirMinutes_MPFDC
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ Ø¨Ø§ Ø¨Ø±Ù†Ø§Ù…Ù‡
+				-- ÎÇãæÔí İÔÇÑ ÖÚíİ ÈÇ ÈÑäÇãå
 				EXEC spSendSMSDCManager 2, @IsLPTamir, @LPTamirMinutes, @IsLPTamir, @IsLPTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, @IsMPTamir_MPFDC, @IsMPNotTamir_MPFDC, 0
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡
+				-- ÎÇãæÔí İÔÇÑ ÖÚíİ Èí ÈÑäÇãå
 				EXEC spSendSMSDCManager 3, @IsLPNotTamir, @LPNotTamirMinutes, @IsLPTamir ,@IsLPNotTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, @IsMPTamir_MPFDC, @IsMPNotTamir_MPFDC, 0
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· Ø¨Ø§ Ø¨Ø±Ù†Ø§Ù…Ù‡
+				-- ÎÇãæÔí İÔÇÑ ãÊæÓØ ÈÇ ÈÑäÇãå
 				EXEC spSendSMSDCManager 4, @IsMPTamir, @MPTamirMinutes, @IsMPTamir , @IsMPTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, @IsMPTamir_MPFDC, @IsMPNotTamir_MPFDC, @MPTamirMinutes_MPFDC
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡
+				-- ÎÇãæÔí İÔÇÑ ãÊæÓØ Èí ÈÑäÇãå
 				EXEC spSendSMSDCManager 5, @IsMPNotTamir, @MPNotTamirMinutes, @IsMPTamir , @IsMPNotTamirSendSMSAfterConnect , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, @IsMPTamir_MPFDC, @IsMPNotTamir_MPFDC, @MPNotTamirMinutes_MPFDC
 				
-				-- Ø®Ø§Ù…ÙˆØ´ÙŠ Ø¬Ø¯ÙŠØ¯ Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡ ÙÙŠØ¯Ø± ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· <omid>
+				-- ÎÇãæÔí ÌÏíÏ Èí ÈÑäÇãå İíÏÑ İÔÇÑ ãÊæÓØ <omid>
 				EXEC spSendSMSDCManager 14, @IsNewRequestMP, @NewRequestMPMinutes, NULL ,0 , @ManagerSMSDCId, @ManagerMobile, @IsSetad, @IsCenter, @Server121Id, @AreaId, 0, 0, 0
 				----------------------------------------</omid>
 				DECLARE TamirConfirmSMS CURSOR FOR
@@ -3598,12 +3606,12 @@ AS
 						IF( cast(@hh as int) < 10 ) SET @hh = '0' + @hh
 						IF( cast(@mi as int) < 10 ) SET @mi = '0' + @mi
 						
-						SET @SMS = Replace( @SMS,'TamirDisconnectFromTime', ISNULL(@TamirDisconnectFromTime,N'ØŸ'))
-						SET @SMS = Replace( @SMS,'TamirDisconnectToTime', ISNULL(@TamirDisconnectToTime,N'ØŸ'))
-						SET @SMS = Replace( @SMS,'Address', ISNULL(@Address,N'ØŸ'))
-            SET @SMS = Replace( @SMS,'SMSSubject', ISNULL(@SMSSubject,N'ØªØ¹Ù…ÙŠØ±Ø§Øª Ø´Ø¨Ú©Ù‡'))---------omid
-						SET @SMS = Replace( @SMS,'ConnectDate', ISNULL(@ConnectPDate,N'ØŸ'))
-						SET @SMS = Replace( @SMS,'ConnectTime', ISNULL(@ConnectTime,N'ØŸ'))
+						SET @SMS = Replace( @SMS,'TamirDisconnectFromTime', ISNULL(@TamirDisconnectFromTime,N'¿'))
+						SET @SMS = Replace( @SMS,'TamirDisconnectToTime', ISNULL(@TamirDisconnectToTime,N'¿'))
+						SET @SMS = Replace( @SMS,'Address', ISNULL(@Address,N'¿'))
+            SET @SMS = Replace( @SMS,'SMSSubject', ISNULL(@SMSSubject,N'ÊÚãíÑÇÊ ÔÈ˜å'))---------omid
+						SET @SMS = Replace( @SMS,'ConnectDate', ISNULL(@ConnectPDate,N'¿'))
+						SET @SMS = Replace( @SMS,'ConnectTime', ISNULL(@ConnectTime,N'¿'))
 						SET @SMS = Replace( @SMS,'ss', ISNULL(Cast(@Diff as nvarchar),'0'))
 						SET @SMS = Replace( @SMS,'yy', SUBSTRING(@lDT,1,4))
 						SET @SMS = Replace( @SMS,'mm', SUBSTRING(@lDT,6,2))
@@ -3742,9 +3750,9 @@ AS
 						IF( cast(@hh as int) < 10 ) SET @hh = '0' + @hh
 						IF( cast(@mi as int) < 10 ) SET @mi = '0' + @mi
 						
-						SET @SMS = Replace( @SMS,'Address', ISNULL(@Address,N'ØŸ'))
-						SET @SMS = Replace( @SMS,'ConnectDate', ISNULL(@ConnectPDate,N'ØŸ'))
-						SET @SMS = Replace( @SMS,'ConnectTime', ISNULL(@ConnectTime,N'ØŸ'))
+						SET @SMS = Replace( @SMS,'Address', ISNULL(@Address,N'¿'))
+						SET @SMS = Replace( @SMS,'ConnectDate', ISNULL(@ConnectPDate,N'¿'))
+						SET @SMS = Replace( @SMS,'ConnectTime', ISNULL(@ConnectTime,N'¿'))
 						SET @SMS = Replace( @SMS,'ss', ISNULL(Cast(@Diff as nvarchar),'0'))
 						SET @SMS = Replace( @SMS,'yy', SUBSTRING(@lDT,1,4))
 						SET @SMS = Replace( @SMS,'mm', SUBSTRING(@lDT,6,2))
@@ -3885,7 +3893,7 @@ AS
 						DECLARE @lDT AS varchar(10)
 						SET @lDT = dbo.mtosh(@EstimateDT)
 
-						SET @CallBody = 'ØªÙ…Ø§Ø³ ØªÙ„ÙÙ†ÙŠ'
+						SET @CallBody = 'ÊãÇÓ Êáİäí'
 
 						IF( NOT @CallBody IS NULL )
 						BEGIN
@@ -3895,11 +3903,11 @@ AS
 							IF( cast(@hh as int) < 10 ) SET @hh = '0' + @hh
 							IF( cast(@mi as int) < 10 ) SET @mi = '0' + @mi
 							
-							SET @CallBody = Replace( @CallBody,'TamirDisconnectFromTime', ISNULL(@TamirDisconnectFromTime,N'ØŸ'))
-							SET @CallBody = Replace( @CallBody,'TamirDisconnectToTime', ISNULL(@TamirDisconnectToTime,N'ØŸ'))
-							SET @CallBody = Replace( @CallBody,'Address', ISNULL(@Address,N'ØŸ'))
-							SET @CallBody = Replace( @CallBody,'ConnectDate', ISNULL(@ConnectPDate,N'ØŸ'))
-							SET @CallBody = Replace( @CallBody,'ConnectTime', ISNULL(@ConnectTime,N'ØŸ'))
+							SET @CallBody = Replace( @CallBody,'TamirDisconnectFromTime', ISNULL(@TamirDisconnectFromTime,N'¿'))
+							SET @CallBody = Replace( @CallBody,'TamirDisconnectToTime', ISNULL(@TamirDisconnectToTime,N'¿'))
+							SET @CallBody = Replace( @CallBody,'Address', ISNULL(@Address,N'¿'))
+							SET @CallBody = Replace( @CallBody,'ConnectDate', ISNULL(@ConnectPDate,N'¿'))
+							SET @CallBody = Replace( @CallBody,'ConnectTime', ISNULL(@ConnectTime,N'¿'))
 							SET @CallBody = Replace( @CallBody,'ss', ISNULL(Cast(@Diff as nvarchar),'0'))
 							SET @CallBody = Replace( @CallBody,'yy', SUBSTRING(@lDT,1,4))
 							SET @CallBody = Replace( @CallBody,'mm', SUBSTRING(@lDT,6,2))
@@ -4051,11 +4059,11 @@ AS
 							IF( cast(@hh as int) < 10 ) SET @hh = '0' + @hh
 							IF( cast(@mi as int) < 10 ) SET @mi = '0' + @mi
 							
-							SET @FaxBody = Replace( @FaxBody,'TamirDisconnectFromTime', ISNULL(@TamirDisconnectFromTime,N'ØŸ'))
-							SET @FaxBody = Replace( @FaxBody,'TamirDisconnectToTime', ISNULL(@TamirDisconnectToTime,N'ØŸ'))
-							SET @FaxBody = Replace( @FaxBody,'Address', ISNULL(@Address,N'ØŸ'))
-							SET @FaxBody = Replace( @FaxBody,'ConnectDate', ISNULL(@ConnectPDate,N'ØŸ'))
-							SET @FaxBody = Replace( @FaxBody,'ConnectTime', ISNULL(@ConnectTime,N'ØŸ'))
+							SET @FaxBody = Replace( @FaxBody,'TamirDisconnectFromTime', ISNULL(@TamirDisconnectFromTime,N'¿'))
+							SET @FaxBody = Replace( @FaxBody,'TamirDisconnectToTime', ISNULL(@TamirDisconnectToTime,N'¿'))
+							SET @FaxBody = Replace( @FaxBody,'Address', ISNULL(@Address,N'¿'))
+							SET @FaxBody = Replace( @FaxBody,'ConnectDate', ISNULL(@ConnectPDate,N'¿'))
+							SET @FaxBody = Replace( @FaxBody,'ConnectTime', ISNULL(@ConnectTime,N'¿'))
 							SET @FaxBody = Replace( @FaxBody,'ss', ISNULL(Cast(@Diff as nvarchar),'0'))
 							SET @FaxBody = Replace( @FaxBody,'yy', SUBSTRING(@lDT,1,4))
 							SET @FaxBody = Replace( @FaxBody,'mm', SUBSTRING(@lDT,6,2))
@@ -4207,11 +4215,11 @@ AS
 							IF( cast(@hh as int) < 10 ) SET @hh = '0' + @hh
 							IF( cast(@mi as int) < 10 ) SET @mi = '0' + @mi
 							
-							SET @Email = Replace( @Email,'TamirDisconnectFromTime', ISNULL(@TamirDisconnectFromTime,N'ØŸ'))
-							SET @Email = Replace( @Email,'TamirDisconnectToTime', ISNULL(@TamirDisconnectToTime,N'ØŸ'))
-							SET @Email = Replace( @Email,'Address', ISNULL(@Address,N'ØŸ'))
-							SET @Email = Replace( @Email,'ConnectDate', ISNULL(@ConnectPDate,N'ØŸ'))
-							SET @Email = Replace( @Email,'ConnectTime', ISNULL(@ConnectTime,N'ØŸ'))
+							SET @Email = Replace( @Email,'TamirDisconnectFromTime', ISNULL(@TamirDisconnectFromTime,N'¿'))
+							SET @Email = Replace( @Email,'TamirDisconnectToTime', ISNULL(@TamirDisconnectToTime,N'¿'))
+							SET @Email = Replace( @Email,'Address', ISNULL(@Address,N'¿'))
+							SET @Email = Replace( @Email,'ConnectDate', ISNULL(@ConnectPDate,N'¿'))
+							SET @Email = Replace( @Email,'ConnectTime', ISNULL(@ConnectTime,N'¿'))
 							SET @Email = Replace( @Email,'ss', ISNULL(Cast(@Diff as nvarchar),'0'))
 							SET @Email = Replace( @Email,'yy', SUBSTRING(@lDT,1,4))
 							SET @Email = Replace( @Email,'mm', SUBSTRING(@lDT,6,2))
@@ -4292,7 +4300,7 @@ AS
 	SET @Area = ''
 	SET @ManagerMobile = ''
 	SET @ManagerSMSDCId = 0
-	SET @OwnerShip = N'Ø¹Ù…ÙˆÙ…ÙŠ'
+	SET @OwnerShip = N'Úãæãí'
 	SET @PostCapacity = ''
 	SET @DG = ''
 	SET @DGS = ''
@@ -4312,7 +4320,7 @@ AS
 		@DG = ISNULL(DisconnectGroup,''),
 		@DGS = ISNULL(DisconnectGroupSet,''),
 		@ManagerSMSDCId = ISNULL(ManagerSMSDCId,0),
-		@OwnerShip = ISNULL(OwnerShip,N'Ø¹Ù…ÙˆÙ…ÙŠ'),
+		@OwnerShip = ISNULL(OwnerShip,N'Úãæãí'),
 		@PostCapacity = ISNULL(PostCapacity,0), 
 		@ManagerAreaId = ISNULL(ManagerAreaId,0)
 	FROM 
@@ -4335,17 +4343,17 @@ AS
 
 	SET @SMS = Replace( @SMS,'ReqNo', ISNULL(@RequestNumber,0))
 	SET @SMS = Replace( @SMS,'Minutes', ISNULL(@DBMinutes,0))
-	SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'MPFeederName', ISNULL(@MPFeederName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'LPPostName', ISNULL(@LPPostName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DBAddress', ISNULL(@Address,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DisconnectPower', ISNULL(@DisconnectPower,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DTDate', ISNULL(@DTDate,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DTTime', ISNULL(@DTTime,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'Reason', ISNULL(@Reason,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'OwnerShip', ISNULL(@OwnerShip,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'PostCapacity', ISNULL(@PostCapacity,N'ØŸ'))
+	SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'¿'))
+	SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'¿'))
+	SET @SMS = Replace( @SMS,'MPFeederName', ISNULL(@MPFeederName,N'¿'))
+	SET @SMS = Replace( @SMS,'LPPostName', ISNULL(@LPPostName,N'¿'))
+	SET @SMS = Replace( @SMS,'DBAddress', ISNULL(@Address,N'¿'))
+	SET @SMS = Replace( @SMS,'DisconnectPower', ISNULL(@DisconnectPower,N'¿'))
+	SET @SMS = Replace( @SMS,'DTDate', ISNULL(@DTDate,N'¿'))
+	SET @SMS = Replace( @SMS,'DTTime', ISNULL(@DTTime,N'¿'))
+	SET @SMS = Replace( @SMS,'Reason', ISNULL(@Reason,N'¿'))
+	SET @SMS = Replace( @SMS,'OwnerShip', ISNULL(@OwnerShip,N'¿'))
+	SET @SMS = Replace( @SMS,'PostCapacity', ISNULL(@PostCapacity,N'¿'))
 	SET @SMS = Replace( @SMS,'CurrentDate', ISNULL(@CurrentDate,N''))
 	SET @SMS = Replace( @SMS,'CurrentMonthDay', ISNULL(@CurrentMonthDay,N''))
 	SET @SMS = Replace( @SMS,'CRLF', nchar(13) )
@@ -4517,15 +4525,15 @@ AS
 				IF(@IsSendSMSAfterEdit = 0)
 				BEGIN
 					IF @IsFT = 1
-						SET @ReqType = N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹'
+						SET @ReqType = N'İæŞ ÊæÒíÚ'
 					ELSE IF @IsMP = 1
-						SET @ReqType = N'ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø·'
+						SET @ReqType = N'İÔÇÑ ãÊæÓØ'
 					ELSE IF @IsLight = 1
-						SET @ReqType = N'Ø±ÙˆØ´Ù†Ø§ÙŠÙŠ Ù…Ø¹Ø§Ø¨Ø±'
+						SET @ReqType = N'ÑæÔäÇíí ãÚÇÈÑ'
 					ELSE IF @IsLP = 1
-						SET @ReqType = N'ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ'
+						SET @ReqType = N'İÔÇÑ ÖÚíİ'
 					ELSE
-						SET @ReqType = N'Ø¬Ø¯ÙŠØ¯'
+						SET @ReqType = N'ÌÏíÏ'
 					
 					SET @SMS = Replace( @SMS,'ReqNo', ISNULL(@RequestNumber,''))
 					SET @SMS = Replace( @SMS,'ReqType', ISNULL(@ReqType,''))
@@ -4663,11 +4671,11 @@ AS
 			BEGIN
 				SELECT @SMS = ConfigText FROM Tbl_Config WHERE ConfigName = @RequestType
 				SET @SMS = Replace( @SMS,'Minutes', ISNULL(@DisconnectInterval,0))
-				SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'ØŸ'))
-				SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'ØŸ'))
-				SET @SMS = Replace( @SMS,'MPFeederName', ISNULL(@MPFeederName,N'ØŸ'))
-				SET @SMS = Replace( @SMS,'DisconnectPower', ISNULL(@DisconnectPower,N'ØŸ'))
-				SET @SMS = Replace( @SMS,'FogheToziType', ISNULL(@FogheToziType,N'ØŸ'))
+				SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'¿'))
+				SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'¿'))
+				SET @SMS = Replace( @SMS,'MPFeederName', ISNULL(@MPFeederName,N'¿'))
+				SET @SMS = Replace( @SMS,'DisconnectPower', ISNULL(@DisconnectPower,N'¿'))
+				SET @SMS = Replace( @SMS,'FogheToziType', ISNULL(@FogheToziType,N'¿'))
 				
 				UPDATE  TblManagerSMSFTMPFeederDCSended 
 				SET IsConnected = 1 
@@ -4782,7 +4790,7 @@ AS
 	SET @Reason = ''
 	SET @Area = ''
 	SET @ManagerMobile = ''
-	SET @MPStatus = N'Ù‚Ø·Ø¹ÙŠ Ø¯Ø± Ø³Ø± Ø®Ø·'
+	SET @MPStatus = N'ŞØÚí ÏÑ ÓÑ ÎØ'
 	SET @IsTotalLPPostDisconnected = 0
 	SET @IsNotDisconnectFeeder = 0
 	SET @IsDisconnectMPFeeder = 0
@@ -4796,7 +4804,7 @@ AS
 	SET @ConnectDatePersian = N''
 	SET @ConnectTime = N''
 	
-	SET @SubscriberType = N'Ú©Ù„ÙŠ'
+	SET @SubscriberType = N'˜áí'
 	SET @FogheToziTypeId = -1
 
 	SELECT TOP 1 
@@ -4828,7 +4836,7 @@ AS
 	SELECT TOP 1 
 		@IsNotDisconnectFeeder = IsNotDisconnectFeeder, 
 		@CurrentValueConnect = ISNULL(CurrentValueConnect,CurrentValue),
-		@CurrentValueConnectInfo = 'Ø¨Ø§ Ø¨Ø§Ø± ' + ISNULL(CAST(CurrentValueConnect AS varchar),'ØŸ') + ' Ø¢Ù…Ù¾Ø± '
+		@CurrentValueConnectInfo = 'ÈÇ ÈÇÑ ' + ISNULL(CAST(CurrentValueConnect AS varchar),'¿') + ' ÂãÑ '
 	FROM 
 		TblMPRequest 
 	WHERE  
@@ -4847,7 +4855,7 @@ AS
 		@LPFeederName = ISNULL(Tbl_LPFeeder.LPFeederName,''), 
 		@Address = ISNULL(TblRequest.Address,''), 
 		@DisconnectPower = Cast( Round(ISNULL(TblRequest.DisconnectPower,0),2) AS varchar ), 
-		@DisconnectPowerMW = CAST(ISNULL(TblFogheToziDisconnect.DisconnectPowerMW,ISNULL((TblFogheToziDisconnect.DisconnectPower * 60)/ DATEDIFF(MI, TblFogheToziDisconnect.DisconnectDT, TblFogheToziDisconnect.ConnectDT) ,0)) AS DECIMAL(9, 2)),
+		@DisconnectPowerMW = CAST(ISNULL(TblFogheToziDisconnect.DisconnectPowerMW,ISNULL((TblFogheToziDisconnect.DisconnectPower * 60)/ NULLIF(DATEDIFF(MI, TblFogheToziDisconnect.DisconnectDT, TblFogheToziDisconnect.ConnectDT),0) ,0)) AS DECIMAL(9, 2)),
 		@DTDate = ISNULL(TblRequest.DisconnectDatePersian,''), 
 		@DTTime = ISNULL(TblRequest.DisconnectTime,''), 
 		@IsTotalLPPostDisconnected = ISNULL(ISNULL(TblLPRequest.IsTotalLPPostDisconnected, TblMPRequest.IsTotalLPPostDisconnected), 0), 
@@ -4857,7 +4865,7 @@ AS
 		@IsFogheToziRequest = TblRequest.IsFogheToziRequest, 
 		@ConnectDatePersian = TblRequest.ConnectDatePersian, 
 		@ConnectTime = TblRequest.ConnectTime,
-		@SubscriberType = CASE WHEN ISNULL(TblLPRequest.IsSingleSubscriber, TblRequest.IsSingleSubscriber) = 1 THEN N'ØªÚ©ÙŠ' ELSE N'Ú©Ù„ÙŠ' END,
+		@SubscriberType = CASE WHEN ISNULL(TblLPRequest.IsSingleSubscriber, TblRequest.IsSingleSubscriber) = 1 THEN N'Ê˜í' ELSE N'˜áí' END,
 		@ZoneName = ISNULL(Tbl_Zone.ZoneName,''),
 		@FogheToziTypeId = TblFogheToziDisconnect.FogheToziId
 	FROM   
@@ -4924,25 +4932,25 @@ AS
 	SET @DBMinutes = @DBMinutes + Cast( right( @DisconnectInterval , len(@DisconnectInterval) - charindex(':',@DisconnectInterval) ) AS int )
 
 	IF( @IsTotalLPPostDisconnected = 1 )
-		SET @MPStatus = N'Ù‚Ø·Ø¹ Ù¾Ø³Øª ØªÙˆØ²ÙŠØ¹'
+		SET @MPStatus = N'ŞØÚ ÓÊ ÊæÒíÚ'
 	IF( @IsNotDisconnectFeeder = 1 )
-		SET @MPStatus = N'Ù‚Ø·Ø¹ÙŠ Ø¯Ø± Ø³Ø± Ø®Ø·'
+		SET @MPStatus = N'ŞØÚí ÏÑ ÓÑ ÎØ'
 	IF( @IsDisconnectMPFeeder = 1 )
-		SET @MPStatus = N'Ù‚Ø·Ø¹ Ú©Ø§Ù…Ù„ ÙÙŠØ¯Ø±'
+		SET @MPStatus = N'ŞØÚ ˜Çãá İíÏÑ'
 		
 	IF @RequestTypeId = 1 -- FogheTozi
 	BEGIN
 		SET @FogheToziShortText = CASE
-			WHEN @FogheToziTypeId = 1 THEN N'Ú©Ù…Ø¨ÙˆØ¯ ØªÙˆÙ„ÙŠØ¯'
-			WHEN @FogheToziTypeId IN (2,3,4) THEN N'Ø§Ù†ØªÙ‚Ø§Ù„-Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡'
-			WHEN @FogheToziTypeId = 5 THEN N'Ø§Ù†ØªÙ‚Ø§Ù„-Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡'
-			WHEN @FogheToziTypeId IN (6,7,8) THEN N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹-Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡'
-			WHEN @FogheToziTypeId = 9 THEN N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹-Ø¨ÙŠ Ø¨Ø±Ù†Ø§Ù…Ù‡'
+			WHEN @FogheToziTypeId = 1 THEN N'˜ãÈæÏ ÊæáíÏ'
+			WHEN @FogheToziTypeId IN (2,3,4) THEN N'ÇäÊŞÇá-ÈÇÈÑäÇãå'
+			WHEN @FogheToziTypeId = 5 THEN N'ÇäÊŞÇá-Èí ÈÑäÇãå'
+			WHEN @FogheToziTypeId IN (6,7,8) THEN N'İæŞ ÊæÒíÚ-ÈÇÈÑäÇãå'
+			WHEN @FogheToziTypeId = 9 THEN N'İæŞ ÊæÒíÚ-Èí ÈÑäÇãå'
 			ELSE N''
 		END
 	END
 	
-	/*----- Ù„ÙŠØ³Øª ÙˆØµÙ„ Ù‡Ø§ÙŠ Ú†Ù†Ø¯ Ù…Ø±Ø­Ù„Ù‡ Ø§ÙŠ ------*/
+	/*----- áíÓÊ æÕá åÇí äÏ ãÑÍáå Çí ------*/
 	DECLARE @MultiStepConnections AS VARCHAR(2000)
 	SET @MultiStepConnections = ''
 	EXEC @MultiStepConnections = dbo.GetMultiStepConnections @RequestId
@@ -5141,36 +5149,36 @@ AS
 
 	SET @SMS = Replace( @SMS,'ReqNo', ISNULL(@RequestNumber,0))
 	SET @SMS = Replace( @SMS,'Minutes', ISNULL(@DBMinutes,0))
-	SET @SMS = Replace( @SMS,'FogheToziPostName', ISNULL(@FogheToziPostName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'MPFeederName', ISNULL(@MPFeederName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'LPPostName', ISNULL(@LPPostName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'LPPostCode', ISNULL(@LPPostCode,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'LPFeederName', ISNULL(@LPFeederName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DBAddress', ISNULL(@Address,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'FogheToziFeederName', ISNULL(@FogheToziFeederName,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DisconnectPowerMPInNowDate', ISNULL(@DisconnectPowerMPInNowDate,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DisconnectPowerMPInLastDate', ISNULL(@DisconnectPowerMPInLastDate,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DisconnectPowerMW', ISNULL(@DisconnectPowerMW ,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DisconnectPower', ISNULL(@DisconnectPower,N'ØŸ'))
+	SET @SMS = Replace( @SMS,'FogheToziPostName', ISNULL(@FogheToziPostName,N'¿'))
+	SET @SMS = Replace( @SMS,'MPPostName', ISNULL(@MPPostName,N'¿'))
+	SET @SMS = Replace( @SMS,'Area', ISNULL(@Area,N'¿'))
+	SET @SMS = Replace( @SMS,'MPFeederName', ISNULL(@MPFeederName,N'¿'))
+	SET @SMS = Replace( @SMS,'LPPostName', ISNULL(@LPPostName,N'¿'))
+	SET @SMS = Replace( @SMS,'LPPostCode', ISNULL(@LPPostCode,N'¿'))
+	SET @SMS = Replace( @SMS,'LPFeederName', ISNULL(@LPFeederName,N'¿'))
+	SET @SMS = Replace( @SMS,'DBAddress', ISNULL(@Address,N'¿'))
+	SET @SMS = Replace( @SMS,'FogheToziFeederName', ISNULL(@FogheToziFeederName,N'¿'))
+	SET @SMS = Replace( @SMS,'DisconnectPowerMPInNowDate', ISNULL(@DisconnectPowerMPInNowDate,N'¿'))
+	SET @SMS = Replace( @SMS,'DisconnectPowerMPInLastDate', ISNULL(@DisconnectPowerMPInLastDate,N'¿'))
+	SET @SMS = Replace( @SMS,'DisconnectPowerMW', ISNULL(@DisconnectPowerMW ,N'¿'))
+	SET @SMS = Replace( @SMS,'DisconnectPower', ISNULL(@DisconnectPower,N'¿'))
 	SET @SMS = Replace( @SMS,'CurrentValueConnectInfo', ISNULL(@CurrentValueConnectInfo,N''))
-	SET @SMS = Replace( @SMS,'CurrentValueConnect', ISNULL(@CurrentValueConnect,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DTDate', ISNULL(@DTDate,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'DTTime', ISNULL(@DTTime,N'ØŸ'))
+	SET @SMS = Replace( @SMS,'CurrentValueConnect', ISNULL(@CurrentValueConnect,N'¿'))
+	SET @SMS = Replace( @SMS,'DTDate', ISNULL(@DTDate,N'¿'))
+	SET @SMS = Replace( @SMS,'DTTime', ISNULL(@DTTime,N'¿'))
 	SET @SMS = Replace( @SMS,'ConnectDate', ISNULL(@ConnectDatePersian,N''))
 	SET @SMS = Replace( @SMS,'ConnectTime', ISNULL(@ConnectTime,N''))
-	SET @SMS = Replace( @SMS,'FogheToziType', ISNULL(@FogheToziType,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'FogheToziShortText', ISNULL(@FogheToziShortText,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'Reason', ISNULL(@Reason,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'MPStatus', ISNULL(@MPStatus,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'FromType', CASE WHEN NULLIF(@FromPathType,N'') IS NOT NULL THEN N'Ø§Ø² ' + @FromPathType ELSE '' END )
+	SET @SMS = Replace( @SMS,'FogheToziType', ISNULL(@FogheToziType,N'¿'))
+	SET @SMS = Replace( @SMS,'FogheToziShortText', ISNULL(@FogheToziShortText,N'¿'))
+	SET @SMS = Replace( @SMS,'Reason', ISNULL(@Reason,N'¿'))
+	SET @SMS = Replace( @SMS,'MPStatus', ISNULL(@MPStatus,N'¿'))
+	SET @SMS = Replace( @SMS,'FromType', CASE WHEN NULLIF(@FromPathType,N'') IS NOT NULL THEN N'ÇÒ ' + @FromPathType ELSE '' END )
 	SET @SMS = Replace( @SMS,'FromValue', @FromPathTypeValue)
-	SET @SMS = Replace( @SMS,'ToType', CASE WHEN NULLIF(@ToPathType,N'') IS NOT NULL THEN N'ØªØ§ ' + @ToPathType ELSE '' END )
+	SET @SMS = Replace( @SMS,'ToType', CASE WHEN NULLIF(@ToPathType,N'') IS NOT NULL THEN N'ÊÇ ' + @ToPathType ELSE '' END )
 	SET @SMS = Replace( @SMS,'ToValue', @ToPathTypeValue)
 	SET @SMS = Replace( @SMS,'FeederPart', @FeederPart)
-	SET @SMS = Replace( @SMS,'SubscriberType', ISNULL(@SubscriberType,N'ØŸ'))
-	SET @SMS = Replace( @SMS,'ZoneName', ISNULL(@ZoneName,N'ØŸ'))
+	SET @SMS = Replace( @SMS,'SubscriberType', ISNULL(@SubscriberType,N'¿'))
+	SET @SMS = Replace( @SMS,'ZoneName', ISNULL(@ZoneName,N'¿'))
 	SET @SMS = Replace( @SMS,'Comments', REPLACE(@Comments,'\n','CRLF'))
 	SET @SMS = Replace( @SMS,'MultiStepConnections', ISNULL(@MultiStepConnections,''))
 	SET @SMS = Replace( @SMS,'CurrentDate', ISNULL(@CurrentDate,''))
@@ -5875,15 +5883,15 @@ AS
 				IF(@IsSendSMSSerghat = 0)
 				BEGIN
 					IF @RecordType = 'MPLP'
-						SET @ReqType = N'ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· Ùˆ ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ'
+						SET @ReqType = N'İÔÇÑ ãÊæÓØ æ İÔÇÑ ÖÚíİ'
 					ELSE IF @RecordType = 'MP'
-						SET @ReqType = N'ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø·'
+						SET @ReqType = N'İÔÇÑ ãÊæÓØ'
 					ELSE IF @RecordType = 'LP'
-						SET @ReqType = N'ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ'
+						SET @ReqType = N'İÔÇÑ ÖÚíİ'
 					ELSE IF @RecordType = 'Light'
-						SET @ReqType = N'Ø±ÙˆØ´Ù†Ø§ÙŠÙŠ Ù…Ø¹Ø§Ø¨Ø±'
+						SET @ReqType = N'ÑæÔäÇíí ãÚÇÈÑ'
 					ELSE IF @RecordType = 'Erja'
-						SET @ReqType = N'Ø§Ø±Ø¬Ø§Ø¹ Ø´Ø¯Ù‡ Ø¨Ù‡ Ø§ÙŠÙ† ÙˆØ§Ø­Ø¯'
+						SET @ReqType = N'ÇÑÌÇÚ ÔÏå Èå Çíä æÇÍÏ'
 					
 					SET @SMS = Replace( @SMS,'ReqNo', ISNULL(@RequestNumber,''))
 					SET @SMS = Replace( @SMS,'ReqType', ISNULL(@ReqType,''))
@@ -5893,7 +5901,7 @@ AS
 					SET @SMS = Replace( @SMS,'Time', ISNULL(@DETime,''))
 					SET @SMS = Replace( @SMS,'ReferTo', ISNULL(@ReferTo,''))
 					SET @SMS = Replace( @SMS,'Address', ISNULL(@Address,''))
-					SET @SMS = Replace( @SMS,'Hello', N'Ø¨Ø§ Ø³Ù„Ø§Ù…
+					SET @SMS = Replace( @SMS,'Hello', N'ÈÇ ÓáÇã
 ' )
 					SET @SMS = Replace( @SMS,'CRLF', nchar(13) )
 					
@@ -6352,7 +6360,7 @@ AS
 	DROP TABLE #tblSendSmsToReceiverGroups
 GO
 
-/* ------------------- Ù¾ÙŠØ§Ù…Ú© Ø§Ø±Ø³Ø§Ù„ Ù‡Ø´Ø¯Ø§Ø± Ø¨Ù‡ Ù¾ÙŠÙ…Ø§Ù†Ú©Ø§Ø±Ø§Ù† Ø¨Ø±Ø§ÙŠ Ø®Ø§Ù…ÙˆØ´ÙŠÙ‡Ø§ÙŠ Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡ Ø§ÙŠ Ú©Ù‡ Ø¯Ø±ØµØ¯ÙŠ Ø§Ø² Ø²Ù…Ø§Ù† Ù‚Ø·Ø¹ Ø¢Ù† Ú¯Ø°Ø´ØªÙ‡ Ø¨Ø§Ø´Ø¯ -------------------- */
+/* ------------------- íÇã˜ ÇÑÓÇá åÔÏÇÑ Èå íãÇä˜ÇÑÇä ÈÑÇí ÎÇãæÔíåÇí ÈÇÈÑäÇãå Çí ˜å ÏÑÕÏí ÇÒ ÒãÇä ŞØÚ Âä ĞÔÊå ÈÇÔÏ -------------------- */
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spSendSMSAlarmForPeymankar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].[spSendSMSAlarmForPeymankar]
@@ -6446,15 +6454,15 @@ AS
 					RequestId = @lRequestId
 				
 				IF @lMPRequestId > -1
-					SET @lTamirNetworkType = N'ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø·'
+					SET @lTamirNetworkType = N'İÔÇÑ ãÊæÓØ'
 				ELSE IF @lLPRequestId > -1
-					SET @lTamirNetworkType = N'ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ'
+					SET @lTamirNetworkType = N'İÔÇÑ ÖÚíİ'
 				ELSE IF @lFogheToziDisconnectId > -1
-					SET @lTamirNetworkType = N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹'
+					SET @lTamirNetworkType = N'İæŞ ÊæÒíÚ'
 					
 				SELECT 
 					@lTamirRequestId = TblTamirRequest.TamirRequestId,
-					@lRequestBy = CASE WHEN TblTamirRequest.IsRequestByPeymankar = 1 THEN N'Ù¾ÙŠÙ…Ø§Ù†Ú©Ø§Ø±' WHEN TblTamirRequest.TamirNetworkTypeId = 1 THEN N'ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹' ELSE N'Ø´Ø±Ú©Øª ØªÙˆØ²ÙŠØ¹' END, 
+					@lRequestBy = CASE WHEN TblTamirRequest.IsRequestByPeymankar = 1 THEN N'íãÇä˜ÇÑ' WHEN TblTamirRequest.TamirNetworkTypeId = 1 THEN N'İæŞ ÊæÒíÚ' ELSE N'ÔÑ˜Ê ÊæÒíÚ' END, 
 					@lPeymankar = ISNULL(Tbl_Peymankar.PeymankarName, TblTamirRequest.Peymankar),
 					@PeymankarMobileNo = TblTamirRequest.PeymankarMobileNo
 				FROM 
@@ -6480,18 +6488,18 @@ AS
 				END
 				
 				IF ISNULL(@lRequestBy,'') = ''
-					SET @lRequestBy = N'Ø´Ø±Ú©Øª ØªÙˆØ²ÙŠØ¹'
+					SET @lRequestBy = N'ÔÑ˜Ê ÊæÒíÚ'
 					
 				DECLARE @SMSBody AS nvarchar(2000) = @SMS
 				
 				SET @SMSBody = Replace( @SMSBody,'RequestNumber', ISNULL(@lRequestNumber,0))
-				SET @SMSBody = Replace( @SMSBody,'Address', ISNULL(@lAddress,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'DisconnectTime', ISNULL(@lDisconnectTime,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'ConnectTime', ISNULL(@lConnectTime,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'TamirNetworkType', ISNULL(@lTamirNetworkType,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'EkipName', ISNULL(@lPeymankar,'ØŸ'))
-				SET @SMSBody = Replace( @SMSBody,'RequestBy', ISNULL(@lRequestBy,'ØŸ'))
+				SET @SMSBody = Replace( @SMSBody,'Address', ISNULL(@lAddress,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'Area', ISNULL(@lArea,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'DisconnectTime', ISNULL(@lDisconnectTime,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'ConnectTime', ISNULL(@lConnectTime,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'TamirNetworkType', ISNULL(@lTamirNetworkType,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'EkipName', ISNULL(@lPeymankar,'¿'))
+				SET @SMSBody = Replace( @SMSBody,'RequestBy', ISNULL(@lRequestBy,'¿'))
 				
 				DECLARE @Desc AS nvarchar(100)
 				SET @Desc = 'ReqNo=' + Cast(@lRequestNumber AS nvarchar)
@@ -6541,19 +6549,19 @@ AS
 	
 	DECLARE @lMonth AS NVARCHAR(10)
 	SET @lMonth = CASE Cast(RIGHT(@lYearMonth,2) AS int)
-		WHEN 1 THEN N'ÙØ±ÙˆØ±Ø¯ÙŠÙ†'
-		WHEN 2 THEN N'Ø§Ø±Ø¯ÙŠØ¨Ù‡Ø´Øª'
-		WHEN 3 THEN N'Ø®Ø±Ø¯Ø§Ø¯'
-		WHEN 4 THEN N'ØªÙŠØ±'
-		WHEN 5 THEN N'Ù…Ø±Ø¯Ø§Ø¯'
-		WHEN 6 THEN N'Ø´Ù‡Ø±ÙŠÙˆØ±'
-		WHEN 7 THEN N'Ù…Ù‡Ø±'
-		WHEN 8 THEN N'Ø¢Ø¨Ø§Ù†'
-		WHEN 9 THEN N'Ø¢Ø°Ø±'
-		WHEN 10 THEN N'Ø¯ÙŠ'
-		WHEN 11 THEN N'Ø¨Ù‡Ù…Ù†'
-		WHEN 12 THEN N'Ø§Ø³ÙÙ†Ø¯'
-		ELSE N'ØŸ'
+		WHEN 1 THEN N'İÑæÑÏíä'
+		WHEN 2 THEN N'ÇÑÏíÈåÔÊ'
+		WHEN 3 THEN N'ÎÑÏÇÏ'
+		WHEN 4 THEN N'ÊíÑ'
+		WHEN 5 THEN N'ãÑÏÇÏ'
+		WHEN 6 THEN N'ÔåÑíæÑ'
+		WHEN 7 THEN N'ãåÑ'
+		WHEN 8 THEN N'ÂÈÇä'
+		WHEN 9 THEN N'ÂĞÑ'
+		WHEN 10 THEN N'Ïí'
+		WHEN 11 THEN N'Èåãä'
+		WHEN 12 THEN N'ÇÓİäÏ'
+		ELSE N'¿'
 	END
 	SET @lSMSTitle = REPLACE(@lSMSTitle, 'Month', @lMonth)
 	SET @lSMSTitle = REPLACE(@lSMSTitle, 'Year', LEFT(@lYearMonth,4))
@@ -6745,19 +6753,19 @@ AS
 	
 	DECLARE @lMonth AS NVARCHAR(10)
 	SET @lMonth = CASE Cast(RIGHT(@lYearMonth,2) AS int)
-		WHEN 1 THEN N'ÙØ±ÙˆØ±Ø¯ÙŠÙ†'
-		WHEN 2 THEN N'Ø§Ø±Ø¯ÙŠØ¨Ù‡Ø´Øª'
-		WHEN 3 THEN N'Ø®Ø±Ø¯Ø§Ø¯'
-		WHEN 4 THEN N'ØªÙŠØ±'
-		WHEN 5 THEN N'Ù…Ø±Ø¯Ø§Ø¯'
-		WHEN 6 THEN N'Ø´Ù‡Ø±ÙŠÙˆØ±'
-		WHEN 7 THEN N'Ù…Ù‡Ø±'
-		WHEN 8 THEN N'Ø¢Ø¨Ø§Ù†'
-		WHEN 9 THEN N'Ø¢Ø°Ø±'
-		WHEN 10 THEN N'Ø¯ÙŠ'
-		WHEN 11 THEN N'Ø¨Ù‡Ù…Ù†'
-		WHEN 12 THEN N'Ø§Ø³ÙÙ†Ø¯'
-		ELSE N'ØŸ'
+		WHEN 1 THEN N'İÑæÑÏíä'
+		WHEN 2 THEN N'ÇÑÏíÈåÔÊ'
+		WHEN 3 THEN N'ÎÑÏÇÏ'
+		WHEN 4 THEN N'ÊíÑ'
+		WHEN 5 THEN N'ãÑÏÇÏ'
+		WHEN 6 THEN N'ÔåÑíæÑ'
+		WHEN 7 THEN N'ãåÑ'
+		WHEN 8 THEN N'ÂÈÇä'
+		WHEN 9 THEN N'ÂĞÑ'
+		WHEN 10 THEN N'Ïí'
+		WHEN 11 THEN N'Èåãä'
+		WHEN 12 THEN N'ÇÓİäÏ'
+		ELSE N'¿'
 	END
 	SET @lSMSTitle = REPLACE(@lSMSTitle, 'MonthName', @lMonth)
 	SET @lSMSTitle = REPLACE(@lSMSTitle, 'Year', LEFT(@lYearMonth,4))
@@ -6834,10 +6842,10 @@ AS
 		BEGIN
 			SET @lSMSTempBody = @lSMSBody
 			SET @lSMSTempBody = REPLACE(@lSMSTempBody, 'Area', @lArea)
-			SET @lSMSTempBody = REPLACE(@lSMSTempBody, 'MPFeederName', ISNULL(@lFeederName,'ØŸ'))
+			SET @lSMSTempBody = REPLACE(@lSMSTempBody, 'MPFeederName', ISNULL(@lFeederName,'¿'))
 			SET @lSMSTempBody = REPLACE(@lSMSTempBody, 'SumPower', ISNULL(@lHighPowerFeeder,0))
 			SET @lSMSTempBody = REPLACE(@lSMSTempBody, 'DCCount', ISNULL(@lCountFeeder,0))
-			SET @lSMSSumTempBody = @lSMSSumTempBody + 'ØŒ ' + @lSMSTempBody
+			SET @lSMSSumTempBody = @lSMSSumTempBody + '¡ ' + @lSMSTempBody
 		END
 		ELSE
 			SET @lIsLoop = 0
@@ -7084,7 +7092,7 @@ AS
 				IF NOT EXISTS (SELECT * FROM TblMultiStepSMS WHERE MultistepConnectionId = @MultistepConnectionId AND ManagerSMSDCId = @ManagerSMSDCId)
 				BEGIN
 					SELECT 
-						@ConnectType = CASE WHEN IsManoeuvre = 1 THEN 'Ø¨Ù‡ ÙˆØ³ÙŠÙ„Ù‡ Ù…Ø§Ù†ÙˆØ±' ELSE 'Ø¨Ø§ Ù…ÙˆÙÙ‚ÙŠØª' END,
+						@ConnectType = CASE WHEN IsManoeuvre = 1 THEN 'Èå æÓíáå ãÇäæÑ' ELSE 'ÈÇ ãæİŞíÊ' END,
 						@ConnectDatePersian = TblMultistepConnection.ConnectDatePersian,
 						@ConnectTime = TblMultistepConnection.ConnectTime,
 						@CurrentValue = CAST(TblMultistepConnection.CurrentValue AS VARCHAR(10)),
@@ -7096,7 +7104,7 @@ AS
 						TblMultistepConnection.MPMultistepConnectionId = @MultistepConnectionId
 						
 					IF ISNULL(@Comments,'') <> '' 
-						SET @Comments = 'ØªÙˆØ¶ÙŠØ­Ø§Øª: ' + @Comments
+						SET @Comments = 'ÊæÖíÍÇÊ: ' + @Comments
 						
 					IF @IsFTRequest = 1
 					BEGIN
@@ -7157,18 +7165,18 @@ AS
 					END
 					
 					SET @SMS = Replace(@SMS,'ConnectType', ISNULL(@ConnectType,''))
-					SET @SMS = Replace(@SMS,'DisconnectDatePersian', ISNULL(@DisconnectDatePersian,'ØŸ'))
-					SET @SMS = Replace(@SMS,'RequestNumber', ISNULL(@RequestNumber,'ØŸ'))
-					SET @SMS = Replace(@SMS,'DisconnectTime', ISNULL(@DisconnectTime,'ØŸ'))
-					SET @SMS = Replace(@SMS,'MPPostName', ISNULL(@MPPostName,'ØŸ'))
-					SET @SMS = Replace(@SMS,'MPFeederName', ISNULL(@MPFeederName,'ØŸ'))
-					SET @SMS = Replace(@SMS,'LPPostName', ISNULL(@LPPostName,'ØŸ'))
-					SET @SMS = Replace(@SMS,'LPFeederName', ISNULL(@LPFeederName,'ØŸ'))
-					SET @SMS = Replace(@SMS,'ConnectDatePersian', ISNULL(@ConnectDatePersian,'ØŸ'))
-					SET @SMS = Replace(@SMS,'ConnectTime', ISNULL(@ConnectTime,'ØŸ'))
-					SET @SMS = Replace(@SMS,'DCCurrentValue', ISNULL(@DCCurrentValue,'ØŸ'))
-					SET @SMS = Replace(@SMS,'CurrentValue', ISNULL(@CurrentValue,'ØŸ'))
-					SET @SMS = Replace(@SMS,'ConnectDarsad', ISNULL(@ConnectDarsad,'ØŸ'))
+					SET @SMS = Replace(@SMS,'DisconnectDatePersian', ISNULL(@DisconnectDatePersian,'¿'))
+					SET @SMS = Replace(@SMS,'RequestNumber', ISNULL(@RequestNumber,'¿'))
+					SET @SMS = Replace(@SMS,'DisconnectTime', ISNULL(@DisconnectTime,'¿'))
+					SET @SMS = Replace(@SMS,'MPPostName', ISNULL(@MPPostName,'¿'))
+					SET @SMS = Replace(@SMS,'MPFeederName', ISNULL(@MPFeederName,'¿'))
+					SET @SMS = Replace(@SMS,'LPPostName', ISNULL(@LPPostName,'¿'))
+					SET @SMS = Replace(@SMS,'LPFeederName', ISNULL(@LPFeederName,'¿'))
+					SET @SMS = Replace(@SMS,'ConnectDatePersian', ISNULL(@ConnectDatePersian,'¿'))
+					SET @SMS = Replace(@SMS,'ConnectTime', ISNULL(@ConnectTime,'¿'))
+					SET @SMS = Replace(@SMS,'DCCurrentValue', ISNULL(@DCCurrentValue,'¿'))
+					SET @SMS = Replace(@SMS,'CurrentValue', ISNULL(@CurrentValue,'¿'))
+					SET @SMS = Replace(@SMS,'ConnectDarsad', ISNULL(@ConnectDarsad,'¿'))
 					SET @SMS = Replace(@SMS,'Comments', ISNULL(@Comments,''))
 					
 					INSERT INTO 
@@ -7635,7 +7643,7 @@ AS
 	RETURN @lCnt
 GO
 
-/* ------------------- Ø§Ø±Ø³Ø§Ù„ Ù¾ÙŠØ§Ù…Ú© ØªØ§ÙŠÙŠØ¯ ÙŠØ§ Ø¹Ø¯Ù… ØªØ§ÙŠÙŠØ¯ Ø®Ø§Ù…ÙˆØ´ÙŠ Ù‡Ø§ÙŠ Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡ Ø¨Ù‡ Ù¾ÙŠÙ…Ø§Ù†Ú©Ø§Ø±Ø§Ù† -------------------- */
+/* ------------------- ÇÑÓÇá íÇã˜ ÊÇííÏ íÇ ÚÏã ÊÇííÏ ÎÇãæÔí åÇí ÈÇÈÑäÇãå Èå íãÇä˜ÇÑÇä -------------------- */
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spSendSMSConfirmForPeymankar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].[spSendSMSConfirmForPeymankar]
@@ -7691,13 +7699,13 @@ AS
 	SELECT 
 		@RequestNumber = TblTamirRequest.TamirRequestNo, 
 		@MPPostName = Tbl_MPPost.MPPostName, 
-		@MPPostInfo = 'Ù¾Ø³Øª ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹ ' + Tbl_MPPost.MPPostName + 'CRLF', 
+		@MPPostInfo = 'ÓÊ İæŞ ÊæÒíÚ ' + Tbl_MPPost.MPPostName + 'CRLF', 
 		@MPFeederName = Tbl_MPFeeder.MPFeederName, 
-		@MPFeederInfo = 'ÙÙŠØ¯Ø± ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· ' + Tbl_MPFeeder.MPFeederName + 'CRLF', 
+		@MPFeederInfo = 'İíÏÑ İÔÇÑ ãÊæÓØ ' + Tbl_MPFeeder.MPFeederName + 'CRLF', 
 		@LPPostName = Tbl_LPPost.LPPostName, 
-		@LPPostInfo = 'Ù¾Ø³Øª ØªÙˆØ²ÙŠØ¹ ' + Tbl_LPPost.LPPostName + 'CRLF', 
-		@FeederPartInfo = 'ØªÚ©Ù‡ ÙÙŠØ¯Ø± ' + Tbl_FeederPart.FeederPart + 'CRLF', 
-		@LPFeederInfo = 'ÙÙŠØ¯Ø± ÙØ´Ø§Ø± Ø¶Ø¹ÙŠÙ ' + Tbl_LPFeeder.LPFeederName + 'CRLF',
+		@LPPostInfo = 'ÓÊ ÊæÒíÚ ' + Tbl_LPPost.LPPostName + 'CRLF', 
+		@FeederPartInfo = 'Ê˜å İíÏÑ ' + Tbl_FeederPart.FeederPart + 'CRLF', 
+		@LPFeederInfo = 'İíÏÑ İÔÇÑ ÖÚíİ ' + Tbl_LPFeeder.LPFeederName + 'CRLF',
 		@LPFeederName = Tbl_LPFeeder.LPFeederName, 
 		@Address = TblTamirRequest.WorkingAddress, 
 		@CriticalsAddress = TblTamirRequest.CriticalsAddress, 
@@ -7706,7 +7714,7 @@ AS
 		@DTTime = ISNULL(TblTamirRequest.DisconnectTime,''), 
 		@DisconnectPower = Cast( Round(ISNULL(TblTamirRequest.DisconnectPower,0),2) AS varchar ), 
 		@Area = ISNULL(Tbl_Area.Area,''),
-		@WarmLineMode = CASE WHEN TblTamirRequest.IsWarmLine = 1 THEN 'Ø®Ø· Ú¯Ø±Ù…' ELSE 'Ø®Ø· Ø³Ø±Ø¯' END,
+		@WarmLineMode = CASE WHEN TblTamirRequest.IsWarmLine = 1 THEN 'ÎØ Ñã' ELSE 'ÎØ ÓÑÏ' END,
 		@IsWarmLine = TblTamirRequest.IsWarmLine,
 		@PeymankarMobileNo = TblTamirRequest.PeymankarMobileNo
 	FROM 
@@ -7732,21 +7740,21 @@ AS
 
 	IF CHARINDEX(',' , @MPFeedersName) > 0
 	BEGIN
-		SET @MPFeedersInfo = 'ÙÙŠØ¯Ø±Ù‡Ø§ÙŠ ÙØ´Ø§Ø± Ù…ØªÙˆØ³Ø· ' + LEFT(@MPFeedersName, (LEN(@MPFeedersName) - 1)) + 'CRLF'
+		SET @MPFeedersInfo = 'İíÏÑåÇí İÔÇÑ ãÊæÓØ ' + LEFT(@MPFeedersName, (LEN(@MPFeedersName) - 1)) + 'CRLF'
 		SET @MPFeederInfo = ''
 	END
 
 	SET @WarmLineAdvance = ''
 	if @TamirRequestStateId = 3 
 	BEGIN
-		SET @Status = N'ØªØ§ÙŠÙŠØ¯ Ú¯Ø±Ø¯ÙŠØ¯'
+		SET @Status = N'ÊÇííÏ ÑÏíÏ'
 		if @IsWarmLine = 1
-			SET @WarmLineAdvance = 'Ø¨ØµÙˆØ±Øª Ø®Ø· Ú¯Ø±Ù…'
+			SET @WarmLineAdvance = 'ÈÕæÑÊ ÎØ Ñã'
 		if @IsWarmLine = 0
-			SET @WarmLineAdvance = 'Ø¨ØµÙˆØ±Øª Ø®Ø· Ø³Ø±Ø¯'
+			SET @WarmLineAdvance = 'ÈÕæÑÊ ÎØ ÓÑÏ'
 	END
 	if @TamirRequestStateId = 8 
-		SET @Status = N'ØªØ§ÙŠÙŠØ¯ Ù†Ú¯Ø±Ø¯ÙŠØ¯'
+		SET @Status = N'ÊÇííÏ äÑÏíÏ'
 
 
 	SET @RequestType = 'SendConfirmPeymankar'
@@ -7758,7 +7766,7 @@ AS
 	SET @SMS = Replace( @SMS , 'Minutes' , ISNULL(@DBMinutes,0))
 	SET @SMS = Replace( @SMS , 'MPPostName' , ISNULL(@MPPostName,'-'))
 	SET @SMS = Replace( @SMS , 'MPPostInfo ' , ISNULL(@MPPostInfo,''))
-	SET @SMS = Replace( @SMS , 'Area' , ISNULL(@Area,N'ØŸ'))
+	SET @SMS = Replace( @SMS , 'Area' , ISNULL(@Area,N'¿'))
 	SET @SMS = Replace( @SMS , 'MPFeederName' , ISNULL(@MPFeederName,'-'))
 	SET @SMS = Replace( @SMS , 'MPFeederInfo ' , ISNULL(@MPFeederInfo,''))
 	SET @SMS = Replace( @SMS , 'MPFeedersInfo ' , ISNULL(@MPFeedersInfo,''))
@@ -7767,14 +7775,14 @@ AS
 	SET @SMS = Replace( @SMS , 'FeederPartInfo ' , ISNULL(@FeederPartInfo,''))
 	SET @SMS = Replace( @SMS , 'LPFeederName' , ISNULL(@LPFeederName,'-'))
 	SET @SMS = Replace( @SMS , 'LPFeederInfo ' , ISNULL(@LPFeederInfo,''))
-	SET @SMS = Replace( @SMS , 'DBAddress' , ISNULL(@Address,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'CriticalsAddress' , ISNULL(@CriticalsAddress,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'DisconnectPower', ISNULL(@DisconnectPower,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'DTDate' , ISNULL(@DTDate,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'DTTime' , ISNULL(@DTTime,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'WarmLineMode' , ISNULL(@WarmLineMode,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'WarmLineAdvance' , ISNULL(@WarmLineAdvance,N'ØŸ'))
-	SET @SMS = Replace( @SMS , 'Status' , ISNULL(@Status,N'ØŸ'))
+	SET @SMS = Replace( @SMS , 'DBAddress' , ISNULL(@Address,N'¿'))
+	SET @SMS = Replace( @SMS , 'CriticalsAddress' , ISNULL(@CriticalsAddress,N'¿'))
+	SET @SMS = Replace( @SMS , 'DisconnectPower', ISNULL(@DisconnectPower,N'¿'))
+	SET @SMS = Replace( @SMS , 'DTDate' , ISNULL(@DTDate,N'¿'))
+	SET @SMS = Replace( @SMS , 'DTTime' , ISNULL(@DTTime,N'¿'))
+	SET @SMS = Replace( @SMS , 'WarmLineMode' , ISNULL(@WarmLineMode,N'¿'))
+	SET @SMS = Replace( @SMS , 'WarmLineAdvance' , ISNULL(@WarmLineAdvance,N'¿'))
+	SET @SMS = Replace( @SMS , 'Status' , ISNULL(@Status,N'¿'))
 	SET @SMS = Replace( @SMS , 'CurrentDate', ISNULL(@CurrentDate,N''))
 	SET @SMS = Replace( @SMS , 'CurrentMonthDay', ISNULL(@CurrentMonthDay,N''))
 	SET @SMS = Replace( @SMS , 'CRLF', nchar(13))
@@ -7791,6 +7799,210 @@ AS
 		INSERT INTO TblTamirRequestSendAlarmForPeymankar (TamirRequestId,PeymankarMobileNo,IsSendSMSConfirm) VALUES(@TamirRequestId,@PeymankarMobileNo,1)
 	
 GO
+
+
+/* ------------------- ÇÑÓÇá íÇã˜ ˜äÓá ÔÏä ÎÇãæÔíåÇí ÈÇÈÑäÇãå Èå ãÔÊÑ˜íä -------------------- */
+
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[spCheckNewCancelSMSEvent]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	DROP PROCEDURE [dbo].[spCheckNewCancelSMSEvent]
+GO
+
+CREATE PROCEDURE [dbo].[spCheckNewCancelSMSEvent]
+AS
+DECLARE @SMS AS NVARCHAR(2000)
+DECLARE @ConfigText AS NVARCHAR(2000)
+DECLARE @TelMobile AS NVARCHAR(200)
+DECLARE @lDate AS DATETIME = getdate()
+DECLARE @RequestId AS BIGINT
+DECLARE @AreaId AS INT
+DECLARE @DisconnectDatePersian AS VARCHAR(10)
+DECLARE @DisconnectTime AS VARCHAR(5)
+DECLARE @DisconnectDT AS DATETIME
+
+SELECT @ConfigText = ConfigText
+FROM Tbl_Config
+WHERE ConfigName = 'SMSCancelRequest'
+
+SELECT RequestId
+INTO #tmpRequest
+FROM TblRequestCancelSMS 
+WHERE SendCancelSMSStatusId = 1
+
+SELECT *
+INTO #tblRequestCancel
+FROM (
+	SELECT #tmpRequest.RequestId,
+		TblRequest.DisconnectDatePersian,
+		ISNULL(NULLIF(TblRequest.DisconnectTime,''), TblRequest.TamirDisconnectToTime) as DisconnectTime,
+		TblRequest.DisconnectDT,
+		TblRequest.AreaId
+	FROM TblRequest
+	INNER JOIN #tmpRequest ON TblRequest.RequestId = #tmpRequest.RequestId
+	
+	UNION
+	
+	SELECT #tmpRequest.RequestId,
+		TblDeleteRequest.DisconnectDatePersian,
+		TblDeleteRequest.DisconnectTime,
+		cast(NULL AS DATETIME) AS DisconnectDT,
+		TblDeleteRequest.AreaId
+	FROM TblDeleteRequest
+	INNER JOIN #tmpRequest ON TblDeleteRequest.RequestId = #tmpRequest.RequestId
+	) AS t1
+
+DROP TABLE #tmpRequest
+
+UPDATE #tblRequestCancel
+SET DisconnectDT = CONVERT(NVARCHAR(10), dbo.shtom(DisconnectDatePersian), 21) + ' ' + DisconnectTime
+WHERE DisconnectDT IS NULL
+
+DECLARE crCancelRequest CURSOR
+FOR
+SELECT *
+FROM #tblRequestCancel
+
+OPEN crCancelRequest
+
+DECLARE @lIsLoop AS BIT
+
+SET @lIsLoop = 1
+
+WHILE @lIsLoop = 1
+BEGIN
+	FETCH NEXT
+	FROM crCancelRequest
+	INTO @RequestId,
+		@DisconnectDatePersian,
+		@DisconnectTime,
+		@DisconnectDT,
+		@AreaId
+
+	IF @@FETCH_STATUS = 0
+	BEGIN
+		IF dateadd(MINUTE, - 30, @lDate) > @DisconnectDT
+		BEGIN
+			UPDATE TblRequestCancelSMS
+			SET SendCancelSMSStatusId = 6
+			WHERE RequestId = @RequestId
+
+			INSERT INTO Tbl_EventLogCenter (
+				TableName,
+				TableNameId,
+				PrimaryKeyId,
+				Operation,
+				AreaId,
+				WorkingAreaId,
+				DataEntryDT,
+				SQLCommand
+				)
+			SELECT 'TblRequestCancelSMS' AS TableName,
+				359 AS TableNameId,
+				@RequestId AS PrimaryKeyId,
+				2 AS Operation,
+				@AreaId AS AreaId,
+				99 AS WorkingAreaId,
+				GETDATE() AS DataEntryDT,
+				NULL AS SQLCommand
+		END
+		ELSE
+		BEGIN
+			IF NOT @ConfigText IS NULL
+			BEGIN
+				UPDATE TblRequestCancelSMS
+				SET SendCancelSMSStatusId = 3
+				WHERE RequestId = @RequestId
+
+				DECLARE @SubscriberInformId AS BIGINT
+				DECLARE @SubscriberId AS INT
+
+				DECLARE crSubCancel CURSOR
+				FOR
+				SELECT TblSubscriberInfom.SubscriberInformId,
+					TblSubscriberInfom.SubscriberId,
+					Tbl_Subscriber.TelMobile
+				FROM TblSubscriberInfom
+				INNER JOIN TblRequestInform ON TblSubscriberInfom.RequestInformId = TblRequestInform.RequestInformId
+				INNER JOIN Tbl_Subscriber ON TblSubscriberInfom.SubscriberId = Tbl_Subscriber.SubscriberId
+				WHERE TblRequestInform.RequestId = @RequestId
+					AND SendSMSStatusId = 2
+
+				OPEN crSubCancel
+
+				DECLARE @lIsLoop2 AS BIT
+
+				SET @lIsLoop2 = 1
+
+				WHILE @lIsLoop2 = 1
+				BEGIN
+					FETCH NEXT
+					FROM crSubCancel
+					INTO @SubscriberInformId,
+						@SubscriberId,
+						@TelMobile
+
+					IF @@FETCH_STATUS = 0
+					BEGIN
+						SET @SMS = @ConfigText
+						SET @SMS = Replace(@SMS, 'DisconnectDate', ISNULL(NULLIF(@DisconnectDatePersian,''), N'¿'))
+						SET @SMS = Replace(@SMS, 'DisconnectTime', ISNULL(NULLIF(@DisconnectTime,''), N'¿'))
+
+						DECLARE @Desc AS NVARCHAR(100)
+
+						SET @Desc = 'SubInform-ID=' + cast(@SubscriberInformId AS NVARCHAR)
+
+						EXEC spSendSMS @SMS,
+							@TelMobile,
+							@Desc,
+							'SMSCancelRequest',
+							@AreaId
+					END
+					ELSE
+						SET @lIsLoop2 = 0
+				END
+
+				CLOSE crSubCancel
+
+				DEALLOCATE crSubCancel
+				
+				UPDATE TblRequestCancelSMS
+				SET SendCancelSMSStatusId = 4
+				WHERE RequestId = @RequestId
+				
+				INSERT INTO Tbl_EventLogCenter (
+					TableName,
+					TableNameId,
+					PrimaryKeyId,
+					Operation,
+					AreaId,
+					WorkingAreaId,
+					DataEntryDT,
+					SQLCommand
+					)
+				SELECT 'TblRequestCancelSMS' AS TableName,
+					359 AS TableNameId,
+					@RequestId AS PrimaryKeyId,
+					2 AS Operation,
+					@AreaId AS AreaId,
+					99 AS WorkingAreaId,
+					GETDATE() AS DataEntryDT,
+					NULL AS SQLCommand
+				
+			END
+		END
+	END
+	ELSE
+		SET @lIsLoop = 0
+END
+
+CLOSE crCancelRequest
+
+DEALLOCATE crCancelRequest
+
+DROP TABLE #tblRequestCancel
+
+GO
+
 
 
 
@@ -7822,87 +8034,88 @@ AS
 		SET @lCounter = @lCounter + 1
 		DECLARE	@return_smsCount int = 1
 		IF (@lCounter % 7) = 0 and @return_smsCount > 0
-			SET @lOperation = N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø±Ø§ÙŠ Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ø®Ø§Ù…ÙˆØ´ÙŠâ€ŒÙ‡Ø§ (Ø§Ù†Ø±Ú˜ÙŠ Ùˆ Ø²Ù…Ø§Ù†) Ùˆ Ù¾ÙŠØ§Ù… ØªØ£ÙŠÙŠØ¯ Ø¯Ø±Ø®ÙˆØ§Ø³Øª Ø®Ø§Ù…ÙˆØ´ÙŠ)'
+			SET @lOperation = N'(ÊæáíÏ íÇã ÈÑÇí ÇØáÇÚÇÊ ÎÇãæÔíåÇ (ÇäÑí æ ÒãÇä) æ íÇã ÊÃííÏ ÏÑÎæÇÓÊ ÎÇãæÔí)'
 		while (@lCounter % 7) = 0 and @return_smsCount > 0
 		begin
-			EXEC @return_smsCount = spCheckNewDCManager	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø±Ø§ÙŠ Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ø®Ø§Ù…ÙˆØ´ÙŠâ€ŒÙ‡Ø§ (Ø§Ù†Ø±Ú˜ÙŠ Ùˆ Ø²Ù…Ø§Ù†) Ùˆ Ù¾ÙŠØ§Ù… ØªØ£ÙŠÙŠØ¯ Ø¯Ø±Ø®ÙˆØ§Ø³Øª Ø®Ø§Ù…ÙˆØ´ÙŠ
+			EXEC @return_smsCount = spCheckNewDCManager	-- ÊæáíÏ íÇã ÈÑÇí ÇØáÇÚÇÊ ÎÇãæÔíåÇ (ÇäÑí æ ÒãÇä) æ íÇã ÊÃííÏ ÏÑÎæÇÓÊ ÎÇãæÔí
 		end
 
 		IF (@lCounter % 5) = 0 
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¢Ù…Ø§Ø±ÙŠ)'
-			EXEC spCheckNewSTManager	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¢Ù…Ø§Ø±ÙŠ
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã ÂãÇÑí)'
+			EXEC spCheckNewSTManager	-- ÊæáíÏ íÇã ÂãÇÑí
 		END
 		
 		IF (@lCounter % 8) = 0 
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù¾ÙŠÚ© Ø¨Ø§Ø± Ù…Ø±Ú©Ø²)(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù¾ÙŠÚ© Ø¨Ø§Ø± Ù†ÙˆØ§Ø­ÙŠ)'
-			EXEC spCheckNewSTManagerPeak	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù¾ÙŠÚ© Ø¨Ø§Ø± Ù…Ø±Ú©Ø²
-			EXEC spCheckNewSTManagerPeakArea	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù¾ÙŠÚ© Ø¨Ø§Ø± Ù†ÙˆØ§Ø­ÙŠ
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã í˜ ÈÇÑ ãÑ˜Ò)(ÊæáíÏ íÇã í˜ ÈÇÑ äæÇÍí)'
+			EXEC spCheckNewSTManagerPeak	-- ÊæáíÏ íÇã í˜ ÈÇÑ ãÑ˜Ò
+			EXEC spCheckNewSTManagerPeakArea	-- ÊæáíÏ íÇã í˜ ÈÇÑ äæÇÍí
 		END
 		
 		IF (@lCounter % 23) = 0 
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø±Ø§ÙŠ Ù‚Ø·Ø¹ Ø¨ÙŠØ´ Ø§Ø² Ú†Ù†Ø¯ Ø¨Ø§Ø± Ø¯Ø± Ù…Ø§Ù‡ ÙÙŠØ¯Ø±)'
-			EXEC spCheckMPFeederDCCountSMS	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø±Ø§ÙŠ Ù‚Ø·Ø¹ Ø¨ÙŠØ´ Ø§Ø² Ú†Ù†Ø¯ Ø¨Ø§Ø± Ø¯Ø± Ù…Ø§Ù‡ ÙÙŠØ¯Ø±
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã ÈÑÇí ŞØÚ ÈíÔ ÇÒ äÏ ÈÇÑ ÏÑ ãÇå İíÏÑ)'
+			EXEC spCheckMPFeederDCCountSMS	-- ÊæáíÏ íÇã ÈÑÇí ŞØÚ ÈíÔ ÇÒ äÏ ÈÇÑ ÏÑ ãÇå İíÏÑ
 		END
 
 		IF (@lCounter % 61) = 0 
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø±Ø§ÙŠ ÙÙ‡Ø±Ø³Øª ØªØ¬Ù‡ÙŠØ²Ø§Øª Ø³Ø±Ù‚Øª Ø´Ø¯Ù‡)'
-			EXEC spCheckSMSSerghat	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø±Ø§ÙŠ ÙÙ‡Ø±Ø³Øª ØªØ¬Ù‡ÙŠØ²Ø§Øª Ø³Ø±Ù‚Øª Ø´Ø¯Ù‡
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã ÈÑÇí İåÑÓÊ ÊÌåíÒÇÊ ÓÑŞÊ ÔÏå)'
+			EXEC spCheckSMSSerghat	-- ÊæáíÏ íÇã ÈÑÇí İåÑÓÊ ÊÌåíÒÇÊ ÓÑŞÊ ÔÏå
 		END
 			
 		IF (@lCounter % 3) = 0
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù…Ù‡Ø§ÙŠ Ø«Ø¨Øª Ø´Ø¯Ù‡ Ø¯Ø± Ù¾Ù†Ù„ Ù¾ÙŠØ§Ù…Ú©)(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù‡Ø´Ø¯Ø§Ø± Ø¨Ù‡ Ù¾ÙŠÙ…Ø§Ù†Ú©Ø§Ø±Ø§Ù† Ø¯Ø± Ø®ØµÙˆØµ Ø®Ø§Ù…ÙˆØ´ÙŠÙ‡Ø§ÙŠ Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡)'
-			EXEC spCheckSMSPanel -- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù…Ù‡Ø§ÙŠ Ø«Ø¨Øª Ø´Ø¯Ù‡ Ø¯Ø± Ù¾Ù†Ù„ Ù¾ÙŠØ§Ù…Ú©
-			EXEC spSendSMSAlarmForPeymankar  -- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù‡Ø´Ø¯Ø§Ø± Ø¨Ù‡ Ù¾ÙŠÙ…Ø§Ù†Ú©Ø§Ø±Ø§Ù† Ø¯Ø± Ø®ØµÙˆØµ Ø®Ø§Ù…ÙˆØ´ÙŠÙ‡Ø§ÙŠ Ø¨Ø§Ø¨Ø±Ù†Ø§Ù…Ù‡
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇãåÇí ËÈÊ ÔÏå ÏÑ äá íÇã˜)(ÊæáíÏ íÇã åÔÏÇÑ Èå íãÇä˜ÇÑÇä ÏÑ ÎÕæÕ ÎÇãæÔíåÇí ÈÇÈÑäÇãå)'
+			EXEC spCheckSMSPanel -- ÊæáíÏ íÇãåÇí ËÈÊ ÔÏå ÏÑ äá íÇã˜
+			EXEC spSendSMSAlarmForPeymankar  -- ÊæáíÏ íÇã åÔÏÇÑ Èå íãÇä˜ÇÑÇä ÏÑ ÎÕæÕ ÎÇãæÔíåÇí ÈÇÈÑäÇãå
 		END
 			
 		IF (@lCounter % 113) = 0
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù…Ø¯Øª Ø²Ù…Ø§Ù† Ø®Ø§Ù…ÙˆØ´ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ† Ø¯Ø± Ø±ÙˆØ² Ø¨Ù‡ Ø¯Ù‚ÙŠÙ‚Ù‡)'
-			EXEC spCheckNewSTManagerSubscriber -- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù…Ø¯Øª Ø²Ù…Ø§Ù† Ø®Ø§Ù…ÙˆØ´ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ† Ø¯Ø± Ø±ÙˆØ² Ø¨Ù‡ Ø¯Ù‚ÙŠÙ‚Ù‡
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã ãÏÊ ÒãÇä ÎÇãæÔí ãÔÊÑ˜íä ÏÑ ÑæÒ Èå ÏŞíŞå)'
+			EXEC spCheckNewSTManagerSubscriber -- ÊæáíÏ íÇã ãÏÊ ÒãÇä ÎÇãæÔí ãÔÊÑ˜íä ÏÑ ÑæÒ Èå ÏŞíŞå
 		END
 			
 		IF (@lCounter % 157) = 0
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… ÙÙŠØ¯Ø±Ù‡Ø§ÙŠ Ø¨Ø­Ø±Ø§Ù†ÙŠ)'
-			EXEC spCheckCriticalFeederSMS -- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… ÙÙŠØ¯Ø±Ù‡Ø§ÙŠ Ø¨Ø­Ø±Ø§Ù†ÙŠ
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã İíÏÑåÇí ÈÍÑÇäí)'
+			EXEC spCheckCriticalFeederSMS -- ÊæáíÏ íÇã İíÏÑåÇí ÈÍÑÇäí
 		END
 		
 		IF (@lCounter % 97) = 0
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… n ÙÙŠØ¯Ø± Ø§ÙˆÙ„ Ø¯Ø§Ø±Ø§ÙŠ Ø¨ÙŠØ´ØªØ±ÙŠÙ† Ø§Ù†Ø±Ú˜ÙŠ ØªÙˆØ²ÙŠØ¹ Ù†Ø´Ø¯Ù‡ Ø¯Ø± Ù…Ø§Ù‡)'
-			EXEC spCheckSMSMPFeederDCPower -- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… n ÙÙŠØ¯Ø± Ø§ÙˆÙ„ Ø¯Ø§Ø±Ø§ÙŠ Ø¨ÙŠØ´ØªØ±ÙŠÙ† Ø§Ù†Ø±Ú˜ÙŠ ØªÙˆØ²ÙŠØ¹ Ù†Ø´Ø¯Ù‡ Ø¯Ø± Ù…Ø§Ù‡
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã n İíÏÑ Çæá ÏÇÑÇí ÈíÔÊÑíä ÇäÑí ÊæÒíÚ äÔÏå ÏÑ ãÇå)'
+			EXEC spCheckSMSMPFeederDCPower -- ÊæáíÏ íÇã n İíÏÑ Çæá ÏÇÑÇí ÈíÔÊÑíä ÇäÑí ÊæÒíÚ äÔÏå ÏÑ ãÇå
 		END
 		
 		IF (@lCounter % 2) = 0 
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø®Ø§Ù…ÙˆØ´ÙŠâ€ŒÙ‡Ø§ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†)(ØªÙˆÙ„ÙŠØ¯ ÙÚ©Ø³ Ø®Ø§Ù…ÙˆØ´ÙŠ Ù‡Ø§ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†)(ØªÙˆÙ„ÙŠØ¯ Ø§ÙŠÙ…ÙŠÙ„ Ø®Ø§Ù…ÙˆØ´ÙŠ Ù‡Ø§ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†)(ØªÙˆÙ„ÙŠØ¯ ØªÙ…Ø§Ø³ ØªÙ„ÙÙ†ÙŠ Ø®Ø§Ù…ÙˆØ´ÙŠ Ù‡Ø§ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†)(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø¹Ø¯ Ø§Ø² ÙˆØµÙ„ Ø®Ø§Ù…ÙˆØ´ÙŠ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†)(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¯Ø± ØµÙˆØ±Øª Ø¹Ø¯Ù… Ø§Ø¹Ø²Ø§Ù… Ø§Ú©ÙŠÙ¾ Ø¨Ø±Ø§ÙŠ Ø®Ø§Ù…ÙˆØ´ÙŠ Ø§Ø¹Ù„Ø§Ù… Ø´Ø¯Ù‡ ØªÙˆØ³Ø· Ù…Ø´ØªØ±Ú©)'
-			EXEC spCheckNewSMSEvent	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø®Ø§Ù…ÙˆØ´ÙŠâ€ŒÙ‡Ø§ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†
-			EXEC spCheckNewFaxEvent	-- ØªÙˆÙ„ÙŠØ¯ ÙÚ©Ø³ Ø®Ø§Ù…ÙˆØ´ÙŠ Ù‡Ø§ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†
-			EXEC spCheckNewEmailEvent	-- ØªÙˆÙ„ÙŠØ¯ Ø§ÙŠÙ…ÙŠÙ„ Ø®Ø§Ù…ÙˆØ´ÙŠ Ù‡Ø§ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†
-			EXEC spCheckNewCallEvent	-- ØªÙˆÙ„ÙŠØ¯ ØªÙ…Ø§Ø³ ØªÙ„ÙÙ†ÙŠ Ø®Ø§Ù…ÙˆØ´ÙŠ Ù‡Ø§ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†
-			EXEC spCheckNewSMSEventAfterConnect	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø¹Ø¯ Ø§Ø² ÙˆØµÙ„ Ø®Ø§Ù…ÙˆØ´ÙŠ Ø¨Ø±Ø§ÙŠ Ù…Ø´ØªØ±Ú©ÙŠÙ†
-			EXEC spCheckSubscriberNotEkip -- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¯Ø± ØµÙˆØ±Øª Ø¹Ø¯Ù… Ø§Ø¹Ø²Ø§Ù… Ø§Ú©ÙŠÙ¾ Ø¨Ø±Ø§ÙŠ Ø®Ø§Ù…ÙˆØ´ÙŠ Ø§Ø¹Ù„Ø§Ù… Ø´Ø¯Ù‡ ØªÙˆØ³Ø· Ù…Ø´ØªØ±Ú©
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã ÎÇãæÔíåÇ ÈÑÇí ãÔÊÑ˜íä)(ÊæáíÏ İ˜Ó ÎÇãæÔí åÇ ÈÑÇí ãÔÊÑ˜íä)(ÊæáíÏ Çíãíá ÎÇãæÔí åÇ ÈÑÇí ãÔÊÑ˜íä)(ÊæáíÏ ÊãÇÓ Êáİäí ÎÇãæÔí åÇ ÈÑÇí ãÔÊÑ˜íä)(ÊæáíÏ íÇã ÈÚÏ ÇÒ æÕá ÎÇãæÔí ÈÑÇí ãÔÊÑ˜íä)(ÊæáíÏ íÇã ÏÑ ÕæÑÊ ÚÏã ÇÚÒÇã Ç˜í ÈÑÇí ÎÇãæÔí ÇÚáÇã ÔÏå ÊæÓØ ãÔÊÑ˜)(ÊæáíÏ íÇã áÛæ ÎÇãæÔí ÈÇÈÑäÇãå Èå ãÔÊÑ˜íä)'
+			EXEC spCheckNewSMSEvent	-- ÊæáíÏ íÇã ÎÇãæÔíåÇ ÈÑÇí ãÔÊÑ˜íä
+			EXEC spCheckNewFaxEvent	-- ÊæáíÏ İ˜Ó ÎÇãæÔí åÇ ÈÑÇí ãÔÊÑ˜íä
+			EXEC spCheckNewEmailEvent	-- ÊæáíÏ Çíãíá ÎÇãæÔí åÇ ÈÑÇí ãÔÊÑ˜íä
+			EXEC spCheckNewCallEvent	-- ÊæáíÏ ÊãÇÓ Êáİäí ÎÇãæÔí åÇ ÈÑÇí ãÔÊÑ˜íä
+			EXEC spCheckNewSMSEventAfterConnect	-- ÊæáíÏ íÇã ÈÚÏ ÇÒ æÕá ÎÇãæÔí ÈÑÇí ãÔÊÑ˜íä
+			EXEC spCheckSubscriberNotEkip -- ÊæáíÏ íÇã ÏÑ ÕæÑÊ ÚÏã ÇÚÒÇã Ç˜í ÈÑÇí ÎÇãæÔí ÇÚáÇã ÔÏå ÊæÓØ ãÔÊÑ˜
+			EXEC spCheckNewCancelSMSEvent -- ÊæáíÏ íÇã áÛæ ÎÇãæÔí åÇí ÈÇÈÑäÇãå Èå ãÔÊÑ˜íä
 		END
 		
 		IF (@lCounter % 119) = 0 
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… ØªØ±Ø§Ù†Ø³ Ø³ÙˆØ²ÙŠâ€ŒÙ‡Ø§)'
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã ÊÑÇäÓ ÓæÒíåÇ)'
 			SET @lCnt = 1
 			WHILE @lCnt > 0
 			BEGIN
-				EXEC @lCnt = spCheckNewTransFault	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… ØªØ±Ø§Ù†Ø³ Ø³ÙˆØ²ÙŠâ€ŒÙ‡Ø§
+				EXEC @lCnt = spCheckNewTransFault	-- ÊæáíÏ íÇã ÊÑÇäÓ ÓæÒíåÇ
 			END
 		END
 
 		IF (@lCounter % 31) = 0 
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù‡Ù†Ú¯Ø§Ù… ÙˆÙŠØ±Ø§ÙŠØ´ Ø®Ø§Ù…ÙˆØ´ÙŠ Ø¨Ø±Ù‚Ø¯Ø§Ø± Ø´Ø¯Ù‡)'
-			EXEC spCheckSMSAfterEdit	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ù‡Ù†Ú¯Ø§Ù… ÙˆÙŠØ±Ø§ÙŠØ´ Ø®Ø§Ù…ÙˆØ´ÙŠ Ø¨Ø±Ù‚Ø¯Ø§Ø± Ø´Ø¯Ù‡
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã åäÇã æíÑÇíÔ ÎÇãæÔí ÈÑŞÏÇÑ ÔÏå)'
+			EXEC spCheckSMSAfterEdit	-- ÊæáíÏ íÇã åäÇã æíÑÇíÔ ÎÇãæÔí ÈÑŞÏÇÑ ÔÏå
 		END
 
 		IF (@lCounter % 11) = 0 
@@ -7921,21 +8134,21 @@ AS
 			BEGIN
 				IF @IsSendSeparateMPFeederConnect = 1 AND @lCnt2 = 1
 				BEGIN
-					SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø¹Ø¯ Ø§Ø² ÙˆØµÙ„ Ù‡Ø± ÙÙŠØ¯Ø± Ø¯Ø± Ø®Ø§Ù…ÙˆØ´ÙŠ Ù‡Ø§ÙŠ ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹ Ø¨Ù‡ ØªÙÚ©ÙŠÚ© ÙÙŠØ¯Ø±)'
-					EXEC @lCnt2 = spSendSMSFTMPFeederAfterConnect	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø¹Ø¯ Ø§Ø² ÙˆØµÙ„ Ù‡Ø± ÙÙŠØ¯Ø± Ø¯Ø± Ø®Ø§Ù…ÙˆØ´ÙŠ Ù‡Ø§ÙŠ ÙÙˆÙ‚ ØªÙˆØ²ÙŠØ¹ Ø¨Ù‡ ØªÙÚ©ÙŠÚ© ÙÙŠØ¯Ø±
+					SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã ÈÚÏ ÇÒ æÕá åÑ İíÏÑ ÏÑ ÎÇãæÔí åÇí İæŞ ÊæÒíÚ Èå Êİ˜í˜ İíÏÑ)'
+					EXEC @lCnt2 = spSendSMSFTMPFeederAfterConnect	-- ÊæáíÏ íÇã ÈÚÏ ÇÒ æÕá åÑ İíÏÑ ÏÑ ÎÇãæÔí åÇí İæŞ ÊæÒíÚ Èå Êİ˜í˜ İíÏÑ
 				END
 				ELSE
 					SET @lCnt2 = 0
 				
-				SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø¹Ø¯ Ø§Ø² ÙˆØµÙ„ Ø®Ø§Ù…ÙˆØ´ÙŠ)'
-				EXEC @lCnt = spSendSMSDCManagerAfterConnect	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ø¹Ø¯ Ø§Ø² ÙˆØµÙ„ Ø®Ø§Ù…ÙˆØ´ÙŠ
+				SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã ÈÚÏ ÇÒ æÕá ÎÇãæÔí)'
+				EXEC @lCnt = spSendSMSDCManagerAfterConnect	-- ÊæáíÏ íÇã ÈÚÏ ÇÒ æÕá ÎÇãæÔí
 			END
 		END
 		
 		IF (@lCounter % 13) = 0 
 		BEGIN
-			SET @lOperation = @lOperation + N'(ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ù‡ Ø§Ø²Ø§ÙŠ Ù‡Ø± ÙˆØµÙ„ Ø§Ø² ÙˆØµÙ„Ù‡Ø§ÙŠ Ú†Ù†Ø¯ Ù…Ø±Ø­Ù„Ù‡ Ø§ÙŠ)'
-			EXEC spSendSMSDCManagerAfterMultistep	-- ØªÙˆÙ„ÙŠØ¯ Ù¾ÙŠØ§Ù… Ø¨Ù‡ Ø§Ø²Ø§ÙŠ Ù‡Ø± ÙˆØµÙ„ Ø§Ø² ÙˆØµÙ„Ù‡Ø§ÙŠ Ú†Ù†Ø¯ Ù…Ø±Ø­Ù„Ù‡ Ø§ÙŠ
+			SET @lOperation = @lOperation + N'(ÊæáíÏ íÇã Èå ÇÒÇí åÑ æÕá ÇÒ æÕáåÇí äÏ ãÑÍáå Çí)'
+			EXEC spSendSMSDCManagerAfterMultistep	-- ÊæáíÏ íÇã Èå ÇÒÇí åÑ æÕá ÇÒ æÕáåÇí äÏ ãÑÍáå Çí
 		END
 
 		--- Write Cofing Counter
