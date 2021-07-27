@@ -616,13 +616,8 @@ GO
 -- ارسال پیامک صدور اجازه کار به پیمانکار 
 -- SMSPeymankarAllow
 IF NOT EXISTS (SELECT * FROM Tbl_Config WHERE ConfigId = 86)
-INSERT Tbl_Config (ConfigId,ConfigName,ConfigValue,ConfigText) VALUES (86,N'SMSPeymankarAllow',NULL,N'پیمانکار گرامی،
-درخواست اجازه کار شما برای پرونده شماره RequestNumber با موفقیت صادر گردید.
+INSERT Tbl_Config (ConfigId,ConfigName,ConfigValue,ConfigText) VALUES (86,N'SMSPeymankarAllow',NULL,N'پيمانکار گرامي،
+درخواست اجازه کار شما براي پرونده شماره RequestNumber با موفقيت صادر گرديد.
 شماره اجازه کار : AllowNumber
 ')
 GO
-
-
-
-
-
