@@ -10,7 +10,7 @@ CREATE PROCEDURE [dbo].[Sp-PostFeederSelect]
 AS
 BEGIN
 	Declare @lsql AS NVARCHAR(4000)
-	------------------------- Post Load
+	/*------------------------- Post Load */
 	IF @state = 1
 		SET @lsql = 'SELECT DISTINCT pl.* , f.LPFeederCode , p.LPPostName
 		, P.PostCapacity AS LPPostPostCapacity, P.IsTakFaze AS LPPostIsTakFaze
@@ -20,13 +20,13 @@ BEGIN
 			LEFT JOIN TblLPPostLoad pl ON p.LPPostId = pl.LPPostId
 			WHERE f.LPFeederId IN (' + @feederIds + ')
 		ORDER BY pl.LPPostLoadId DESC';
-	------------------------- Feeder Load
+	/*------------------------- Feeder Load */
 	ELSE IF @state = 2
 		SET @lsql = 'SELECT fl.* , f.LPFeederCode
 			FROM  Tbl_LPFeeder f
 			INNER JOIN TblLPFeederLoad fl ON f.LPFeederId = fl.LPFeederId
 			WHERE f.LPFeederId IN (' + @feederIds + ')'
-	------------------------- LoadDateTimePersian
+	/*------------------------- LoadDateTimePersian */
 	ELSE IF @state = 3
 		SET @lsql = 'Select Distinct fl.LoadDateTimePersian , 
 			f.LPFeederCode from  TblLPFeederLoad fl
