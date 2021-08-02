@@ -534,6 +534,7 @@ namespace Bargh_GIS.wpf
                             double y = Convert.ToDouble(PrevOnCall.GpsY) - Convert.ToDouble(row["gpsY"]);
                             double l = Math.Sqrt(x * x + y * y)* 100000.0;
                             double speed = 3600 * l / (s * 1000);
+                            speed = Math.Round(speed, 2, MidpointRounding.AwayFromZero);
                             TabletName = TabletName + " - " + speed + "kmh";
                         }
                         attr.Add("TabletName", TabletName);
@@ -710,6 +711,7 @@ namespace Bargh_GIS.wpf
                 double y = current.GpsY - prev.GpsY;
                 double l = Math.Sqrt(x * x + y * y) * 100000.0;
                 speed = 3600 * l / (sec * 1000);
+                Math.Round(speed, 2, MidpointRounding.AwayFromZero);
             }
         }
         //-----Helper For ShowTrace(DataTable)
@@ -758,7 +760,7 @@ namespace Bargh_GIS.wpf
             return ((TimeSpan)(current.TraceDT - prev.TraceDT)).Minutes;
         }
 
-        public void RefreshTrace(long aRequestId )
+        public void RefreshTrace(long aRequestId)
         {
             try
             {
@@ -776,7 +778,7 @@ namespace Bargh_GIS.wpf
                 MessageBox.Show(E.ToString());
             }
         }
-        public void RefreshRequest(long aRequestId, string aAreaIDs )
+        public void RefreshRequest(long aRequestId, string aAreaIDs)
         {
             try
             {
@@ -1187,12 +1189,12 @@ namespace Bargh_GIS.wpf
             if (selectedGraphic == null) return;
 
             mapview.MapViewTapped -= MyMapView_MapViewTapped2;
-            //--------<omid>
+            // برای نمایش دکمه "مشاهده خاموشی ها" روی هر نقطه از نقشه
             bool isFindJob = selectedGraphic.Attributes.Contains(new KeyValuePair<string, object>("isFindJob", "True")) 
                 && selectedGraphic.Attributes["isFindJob"].ToString() == "True";
             btnShowRow1.Height = new GridLength(isFindJob ? 26 : 0);
             btnShowRow2.Height = new GridLength(isFindJob ? 2 : 0);
-            //---------</omid>
+
             #region Trace
             if (selectedGraphic.Attributes["id"].ToString().Contains("TraceId"))
             {
@@ -1207,15 +1209,12 @@ namespace Bargh_GIS.wpf
                 labl1.Content = "نام تبلت :";
                 labl2.Content = "استادکار :";
                 labl3.Content = "زمان :";
-                //bool isFindJob = selectedGraphic.Attributes.Contains(new KeyValuePair<string, object>( "isFindJob" , "True")) &&
-                    //selectedGraphic.Attributes["isFindJob"].ToString() == "True";
+
                 FirstProptxt.Content = selectedGraphic.Attributes["TabletName"].ToString();
                 SecondProptxt.Content = selectedGraphic.Attributes["MasterName"].ToString();
                 thirdProptxt.Content = selectedGraphic.Attributes["DT"].ToString();
                 utahMapTip.Visibility = Visibility.Visible;
                 popupShow.Visibility = isFindJob ? Visibility.Visible : Visibility.Hidden;
-                //btnShowRow1.Height = new GridLength(isFindJob ? 26 : 0);
-                //btnShowRow2.Height = new GridLength(isFindJob ? 2 : 0);
 
                 mapview.MapViewTapped += MyMapView_MapViewTapped2;
             }

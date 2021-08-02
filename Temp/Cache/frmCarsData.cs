@@ -6,7 +6,8 @@ namespace Bargh_GIS
 {
     public partial class frmCars
     {
-        private void fillComboArea() {
+        private void fillComboArea()
+        {
             Bargh_GIS.Classes.CDatabase.InitGISDB();
             Classes.CDatabase db = new Classes.CDatabase();
             db = new Classes.CDatabase();
@@ -16,7 +17,7 @@ namespace Bargh_GIS
             {
                 if (mRequestId > -1)
                 {
-                    DataTable dtRequest = db.ExecSQL("select * from TblRequest where RequestId = " + mRequestId.ToString());
+                    DataTable dtRequest = db.ExecSQL("SELECT * FROM TblRequest WHERE RequestId = " + mRequestId.ToString());
                     if (dtRequest.Rows.Count > 0)
                     {
                         lAreaId = (int)dtRequest.Rows[0]["AreaId"];
@@ -47,17 +48,32 @@ namespace Bargh_GIS
         {
             Classes.CDatabase db = new Classes.CDatabase();
             string lSQL = "EXEC [Homa].[spGetOnCall] " + mOnCallChecksum + "," + mRequestId.ToString() + ",'" + mAreaIDs + "'";
-            onCallDT = db.ExecSQL(lSQL);
-            if (mOnCallChecksum == -1) dg.DataSource = onCallDT;
+            onCallTmp = db.ExecSQL(lSQL);
             FilterOnCall();
+            if (onCallTmp.Columns.Count > 1) onCallDT = onCallTmp.Copy();
+            if (mOnCallChecksum == -1) dg.DataSource = onCallDT;
+            UpdateOnCallDG();
+        }
+        private void UpdateOnCallDG()
+        {
+            if (onCallRows == null) return;
+            string onCallIDs = "";
+            foreach (DataRow row in onCallRows)
+                onCallIDs += "," + row["OnCallId"].ToString();
+            onCallIDs = onCallIDs.Length > 0 ? "(" + onCallIDs.Substring(1) + ")" : "(-1)";
+            
+            foreach (DataRow lRow in onCallDT.Select("OnCallId NOT IN " + onCallIDs))
+                lRow["IsChecked"] = false;
         }
         private void FilterOnCall()
         {
             if (onCallDT == null || onCallDT.Rows.Count == 0)
                 return;
-            onCallRows = onCallDT.Select("IsChecked = 1");
+            if(onCallDT.Columns.Count > 1)
+                onCallRows = onCallDT.Select("IsChecked = 1").Clone() as DataRow[];
         }
-        private void LoadOnCall() {
+        private void LoadOnCall()
+        {
             try
             {
                 long newCheckSum = 0;
@@ -65,10 +81,14 @@ namespace Bargh_GIS
                 {
                     newCheckSum = Convert.ToInt64(onCallDT.Rows[0]["CheckSum"]);
                     if (newCheckSum != mOnCallChecksum)
+                        //dg.DataSource = onCallDT;
+                        //UpdateOnCallDG();
                         uCars.LoadOnCall(onCallRows);
                 }
                 else if (newCheckSum != mOnCallChecksum)
-                    uCars.LoadOnCall(onCallRows);
+                    //dg.DataSource = onCallDT;
+                //UpdateOnCallDG();
+                uCars.LoadOnCall(onCallRows);
 
                 mOnCallChecksum = newCheckSum;
             }

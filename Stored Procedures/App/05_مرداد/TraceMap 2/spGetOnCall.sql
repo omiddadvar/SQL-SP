@@ -25,7 +25,7 @@ BEGIN
 						
 		insert into #tmp (OnCallId,TabletName,MasterName ,DatePersian,Time,Area, AreaId , IsChecked)
 		select  OnCallId, Tbl_Tablet.TabletName , Tbl_Master.Name,
-      TblOnCall.OnCallStartDatePersian ,TblOnCall.OnCallStartTime ,Tbl_Area.Area, Tbl_Area.AreaId , CAST(0 AS BIT)
+      TblOnCall.OnCallStartDatePersian ,TblOnCall.OnCallStartTime ,Tbl_Area.Area, Tbl_Area.AreaId , CAST(1 AS BIT)
 		from Homa.TblOnCall
 		inner join Homa.Tbl_TabletUser on TblOnCall.TabletUserId=Tbl_TabletUser.TabletUserId
 		inner join Tbl_Area on Tbl_TabletUser.BaseAreaId=Tbl_Area.AreaId
@@ -43,7 +43,7 @@ BEGIN
 		
 		insert into #tmp (OnCallId,TabletName,MasterName ,DatePersian,Time,Area, AreaId , IsChecked)
       select  OnCallId, Tbl_Tablet.TabletName , Tbl_Master.Name, TblOnCall.OnCallStartDatePersian 
-        ,TblOnCall.OnCallStartTime ,Tbl_Area.Area, Tbl_Area.AreaId , CAST(0 AS BIT)
+        ,TblOnCall.OnCallStartTime ,Tbl_Area.Area, Tbl_Area.AreaId , CAST(1 AS BIT)
 		from Homa.TblOnCall
 		inner join Homa.Tbl_TabletUser on TblOnCall.TabletUserId=Tbl_TabletUser.TabletUserId
 		inner join Tbl_Area on Tbl_TabletUser.BaseAreaId=Tbl_Area.AreaId

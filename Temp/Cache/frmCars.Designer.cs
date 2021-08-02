@@ -169,7 +169,7 @@
             // 
             // cmdSelNone
             // 
-            this.cmdSelNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSelNone.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmdSelNone.BackColor = System.Drawing.Color.Transparent;
             this.cmdSelNone.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.cmdSelNone.Cursor = System.Windows.Forms.Cursors.Default;
@@ -178,10 +178,10 @@
             this.cmdSelNone.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cmdSelNone.Image = ((System.Drawing.Image)(resources.GetObject("cmdSelNone.Image")));
             this.cmdSelNone.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cmdSelNone.Location = new System.Drawing.Point(10, 163);
+            this.cmdSelNone.Location = new System.Drawing.Point(10, 112);
             this.cmdSelNone.Name = "cmdSelNone";
             this.cmdSelNone.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cmdSelNone.Size = new System.Drawing.Size(109, 48);
+            this.cmdSelNone.Size = new System.Drawing.Size(110, 25);
             this.cmdSelNone.TabIndex = 29;
             this.cmdSelNone.Text = "حذف همه";
             this.cmdSelNone.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -190,7 +190,7 @@
             // 
             // cmdSelRev
             // 
-            this.cmdSelRev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSelRev.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmdSelRev.BackColor = System.Drawing.Color.Transparent;
             this.cmdSelRev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.cmdSelRev.Cursor = System.Windows.Forms.Cursors.Default;
@@ -199,10 +199,10 @@
             this.cmdSelRev.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cmdSelRev.Image = ((System.Drawing.Image)(resources.GetObject("cmdSelRev.Image")));
             this.cmdSelRev.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cmdSelRev.Location = new System.Drawing.Point(10, 105);
+            this.cmdSelRev.Location = new System.Drawing.Point(10, 81);
             this.cmdSelRev.Name = "cmdSelRev";
             this.cmdSelRev.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cmdSelRev.Size = new System.Drawing.Size(109, 52);
+            this.cmdSelRev.Size = new System.Drawing.Size(110, 25);
             this.cmdSelRev.TabIndex = 28;
             this.cmdSelRev.Text = "انتخاب معكوس";
             this.cmdSelRev.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -211,7 +211,7 @@
             // 
             // cmdSelAll
             // 
-            this.cmdSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSelAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmdSelAll.BackColor = System.Drawing.Color.Transparent;
             this.cmdSelAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.cmdSelAll.Cursor = System.Windows.Forms.Cursors.Default;
@@ -223,7 +223,7 @@
             this.cmdSelAll.Location = new System.Drawing.Point(10, 50);
             this.cmdSelAll.Name = "cmdSelAll";
             this.cmdSelAll.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cmdSelAll.Size = new System.Drawing.Size(109, 49);
+            this.cmdSelAll.Size = new System.Drawing.Size(110, 25);
             this.cmdSelAll.TabIndex = 27;
             this.cmdSelAll.Text = "انتخاب همه";
             this.cmdSelAll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -344,9 +344,9 @@
             // BttnShowEkip
             // 
             this.BttnShowEkip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BttnShowEkip.Location = new System.Drawing.Point(375, 3);
+            this.BttnShowEkip.Location = new System.Drawing.Point(342, 7);
             this.BttnShowEkip.Name = "BttnShowEkip";
-            this.BttnShowEkip.Size = new System.Drawing.Size(75, 31);
+            this.BttnShowEkip.Size = new System.Drawing.Size(100, 25);
             this.BttnShowEkip.TabIndex = 15;
             this.BttnShowEkip.Text = "جستجو";
             this.BttnShowEkip.UseVisualStyleBackColor = true;
@@ -368,7 +368,7 @@
             this.MapElementHost.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.MapElementHost.Location = new System.Drawing.Point(0, 30);
+            this.MapElementHost.Location = new System.Drawing.Point(0, 32);
             this.MapElementHost.Name = "MapElementHost";
             this.MapElementHost.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.MapElementHost.Size = new System.Drawing.Size(824, 426);
@@ -380,6 +380,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(826, 496);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
