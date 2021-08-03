@@ -3,7 +3,7 @@ GO
 ALTER procedure Homa.spGISGetRequest (@aRequestId as bigint=null,@Areas as varchar(500)='')
 AS
 begin
-	if isnull(@aRequestId,0) > 0 
+	if ISNULL(@aRequestId,0) > 0 
 	begin
 		
 		select 
