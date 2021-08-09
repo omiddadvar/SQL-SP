@@ -1,0 +1,3038 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>7.10.6030</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{63252019-E359-4BCF-821C-E3B1797E793A}</ProjectGuid>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>App_icon_Logo.ico</ApplicationIcon>
+    <AssemblyKeyContainerName />
+    <AssemblyName>Havades_App</AssemblyName>
+    <AssemblyOriginatorKeyFile />
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>Off</OptionStrict>
+    <RootNamespace>Havades_App</RootNamespace>
+    <StartupObject>Havades_App.ModuleToolsAMb</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>true</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Nahieh|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=False,IsHavadesApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Center|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsHavadesApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Nahieh|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsHavadesApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Center|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=1,IsSetadDefine=0,IsHavadesApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug MiscMode|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsHavadesApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release MiscMode|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsMiscModeDefine=1,IsHavadesApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Setad|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsHavadesApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Setad|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsHavadesApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Bazdid|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Bazdid Release Setad|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsBazdidApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Bazdid Debug Setad|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsBazdidApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Bazdid Debug Center|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsBazdidApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Badid Debug MiscMode|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsBazdidApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Bazdid Debug Nahieh|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsBazdidApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Bazdid Release Center|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=1,IsSetadDefine=0,IsBazdidApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Bazdid Release MiscMode|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsMiscModeDefine=1,IsBazdidApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Bazdid Release Nahieh|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsBazdidApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Erja Setad|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsErjaApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Erja Debug MiscMode|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsErjaApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Erja Debug Center|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsErjaApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Erja Debug Nahieh|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsErjaApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Erja|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsErjaApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Erja MiscMode|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsErjaApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Erja Nahieh|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsErjaApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Erja Center|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsErjaApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Erja Release Setad|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsErjaApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Erja Release Nahieh|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsErjaApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Erja Release MiscMode|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsMiscModeDefine=1,IsErjaApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Erja Release Center|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=1,IsSetadDefine=0,IsErjaApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'PPCRun_Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'PPCRun_Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'RunQueryViaWeb|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tamir Debug Setad|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsTamirApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tamir Debug Center|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsTamirApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tamir Debug MiscMode|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsTamirApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tamir Debug Nahieh|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsTamirApp=1</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tamir Release Setad|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsTamirApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tamir Release Nahieh|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsTamirApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tamir Release MiscMode|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsMiscModeDefine=1,IsTamirApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tamir Release Center|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=1,IsSetadDefine=0,IsTamirApp=1</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Nahieh|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug Nahieh\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=False,IsHavadesApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Center|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug Center\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsHavadesApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Nahieh|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release Nahieh\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsHavadesApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Center|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release Center\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=1,IsSetadDefine=0,IsHavadesApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug MiscMode|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug MiscMode\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsHavadesApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release MiscMode|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release MiscMode\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsMiscModeDefine=1,IsHavadesApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Setad|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug Setad\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsHavadesApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Setad|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release Setad\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsHavadesApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Bazdid|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug Bazdid\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Bazdid Release Setad|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Bazdid Release Setad\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsBazdidApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Bazdid Debug Setad|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Bazdid Debug Setad\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsBazdidApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Bazdid Debug Center|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Bazdid Debug Center\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsBazdidApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Badid Debug MiscMode|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Badid Debug MiscMode\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsBazdidApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Bazdid Debug Nahieh|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Bazdid Debug Nahieh\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsBazdidApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Bazdid Release Center|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Bazdid Release Center\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=1,IsSetadDefine=0,IsBazdidApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Bazdid Release MiscMode|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Bazdid Release MiscMode\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsMiscModeDefine=1,IsBazdidApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Bazdid Release Nahieh|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Bazdid Release Nahieh\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsBazdidApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Erja Setad|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug Erja Setad\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Erja Debug MiscMode|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Erja Debug MiscMode\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Erja Debug Center|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Erja Debug Center\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Erja Debug Nahieh|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Erja Debug Nahieh\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Erja|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug Erja\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Erja MiscMode|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug Erja MiscMode\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Erja Nahieh|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug Erja Nahieh\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Erja Center|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug Erja Center\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Erja Release Setad|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Erja Release Setad\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Erja Release Nahieh|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Erja Release Nahieh\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Erja Release MiscMode|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Erja Release MiscMode\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsMiscModeDefine=1,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Erja Release Center|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Erja Release Center\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=1,IsSetadDefine=0,IsErjaApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PPCRun_Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\PPCRun_Debug\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PPCRun_Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\PPCRun_Release\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RunQueryViaWeb|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\RunQueryViaWeb\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tamir Debug Setad|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Tamir Debug Setad\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsTamirApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tamir Debug Center|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Tamir Debug Center\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsTamirApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tamir Debug MiscMode|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Tamir Debug MiscMode\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsMiscModeDefine=1,IsTamirApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tamir Debug Nahieh|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Tamir Debug Nahieh\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=0,IsTamirApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tamir Release Setad|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Tamir Release Setad\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=0,IsSetadDefine=1,IsTamirApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tamir Release Nahieh|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Tamir Release Nahieh\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsTamirApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tamir Release MiscMode|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Tamir Release MiscMode\</OutputPath>
+    <DefineConstants>IsCenterDefine=0,IsHardLockEnableDefine=1,IsMiscModeDefine=1,IsTamirApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tamir Release Center|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Tamir Release Center\</OutputPath>
+    <DefineConstants>IsCenterDefine=1,IsHardLockEnableDefine=1,IsSetadDefine=0,IsTamirApp=1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>Havades_App.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42030,42032,42104,42108,42109,42353,42354,42355</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <COMReference Include="ACTIVESKINLib">
+      <Guid>{90F3D7B3-92E7-44BA-B444-6A8E2A3BC375}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Private>True</Private>
+    </COMReference>
+    <COMReference Include="ACTIVESPLASHLib">
+      <Guid>{46D36DC4-1F37-11D3-9DD0-AE1592195F1B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Private>True</Private>
+    </COMReference>
+    <COMReference Include="AxACTIVESKINLib">
+      <Guid>{90F3D7B3-92E7-44BA-B444-6A8E2A3BC375}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+    </COMReference>
+    <COMReference Include="TINYLib">
+      <Guid>{DF1D4B1E-D56E-4A40-BA98-2CC06080E796}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <ProjectReference Include="..\Bargh_Authority\Bargh_Authority.vbproj">
+      <Name>Bargh_Authority</Name>
+      <Project>{3E651B22-F103-49C7-A561-8EB20FD0FB10}</Project>
+      <Package>{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Bargh_BaseTables\Bargh_BaseTables.vbproj">
+      <Name>Bargh_BaseTables</Name>
+      <Project>{D5FCE059-685E-4742-A9A7-3C8F5851DA70}</Project>
+      <Package>{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Bargh_Common\Bargh_Common.vbproj">
+      <Name>Bargh_Common</Name>
+      <Project>{32C5686A-B306-4483-B217-7A378465B97C}</Project>
+      <Package>{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Bargh_DataSets\Bargh_DataSets.vbproj">
+      <Name>Bargh_DataSets</Name>
+      <Project>{4302C42A-5AA5-44BF-A498-C2D7303924D0}</Project>
+      <Package>{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Bargh_GIS\Bargh_GIS.csproj">
+      <Project>{ca14cea8-3793-44ad-96b5-c235030a504d}</Project>
+      <Name>Bargh_GIS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bargh_Reports\Bargh_Reports.vbproj">
+      <Name>Bargh_Reports</Name>
+      <Project>{01C4CF1A-0579-4E42-A903-E5E5855C2501}</Project>
+      <Package>{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</Package>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Bargh_UpdateDatabase\Bargh_UpdateDatabase.vbproj">
+      <Name>Bargh_UpdateDatabase</Name>
+      <Project>{4986957D-9A04-43F7-AC09-30791484EC9C}</Project>
+      <Package>{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Bazdid_App\Bazdid_App.vbproj">
+      <Project>{d66a4dae-1315-43fe-9ac8-6eea3bc9afc2}</Project>
+      <Name>Bazdid_App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSharp_Functions\CSharp_Functions.csproj">
+      <Name>CSharp_Functions</Name>
+      <Project>{41C7CC31-FA75-46AF-B619-8396E966B89E}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomControls\CustomControls.csproj">
+      <Project>{c5f8c467-52b0-4e16-a4b0-fbdeeef17cdd}</Project>
+      <Name>CustomControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RTLTreeView\RTLTreeView.vbproj">
+      <Name>RTLTreeView</Name>
+      <Project>{963500BB-A6D6-4A94-AC7C-881C3FB81198}</Project>
+      <Package>{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\TelC\TelC.vbproj">
+      <Name>TelC</Name>
+      <Project>{EBC4DCEF-D9B4-44CF-9458-BF6430FE374B}</Project>
+      <Package>{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</Package>
+    </ProjectReference>
+    <Reference Include="AxInterop.ACTIVESKINLib">
+      <Name>AxInterop.ACTIVESKINLib</Name>
+      <HintPath>bin\AxInterop.ACTIVESKINLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.ACTIVESPLASHLib">
+      <Name>AxInterop.ACTIVESPLASHLib</Name>
+      <HintPath>bin\AxInterop.ACTIVESPLASHLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.CRDESIGNERCTRLLib">
+      <Name>AxInterop.CRDESIGNERCTRLLib</Name>
+      <HintPath>bin\AxInterop.CRDESIGNERCTRLLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.CRVIEWER9Lib">
+      <Name>AxInterop.CRVIEWER9Lib</Name>
+      <HintPath>bin\AxInterop.CRVIEWER9Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.ImagXpr7">
+      <Name>AxInterop.ImagXpr7</Name>
+      <HintPath>..\Base DLL\AxInterop.ImagXpr7.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.TINYLib">
+      <Name>AxInterop.TINYLib</Name>
+      <HintPath>..\Base DLL\AxInterop.TINYLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.VSFlex8L">
+      <Name>AxInterop.VSFlex8L</Name>
+      <HintPath>..\Base DLL\AxInterop.VSFlex8L.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetSkin">
+      <Name>dotnetskin</Name>
+      <HintPath>..\Base DLL\dotnetskin.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Esri.ArcGISRuntime, Version=10.2.7.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Esri.ArcGISRuntime.10.2.7.1234\sdk\net45\Esri.ArcGISRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageViewControl">
+      <Name>ImageViewControl</Name>
+      <HintPath>..\Base DLL\ImageViewControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ACTIVESKINLib">
+      <Name>Interop.ACTIVESKINLib</Name>
+      <HintPath>..\Base DLL\Interop.ACTIVESKINLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ACTIVESPLASHLib">
+      <Name>Interop.ACTIVESPLASHLib</Name>
+      <HintPath>bin\Interop.ACTIVESPLASHLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.CRAXDDRT">
+      <Name>Interop.CRAXDDRT</Name>
+      <HintPath>bin\Interop.CRAXDDRT.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Interop.CRDESIGNERCTRLLib">
+      <Name>Interop.CRDESIGNERCTRLLib</Name>
+      <HintPath>bin\Interop.CRDESIGNERCTRLLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.CRVIEWER9Lib">
+      <Name>Interop.CRVIEWER9Lib</Name>
+      <HintPath>bin\Interop.CRVIEWER9Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ImagXpr7">
+      <Name>Interop.ImagXpr7</Name>
+      <HintPath>..\Base DLL\Interop.ImagXpr7.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.TINYLib">
+      <Name>Interop.TINYLib</Name>
+      <HintPath>..\Base DLL\Interop.TINYLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.VSFlex8L">
+      <Name>Interop.VSFlex8L</Name>
+      <HintPath>..\Base DLL\Interop.VSFlex8L.dll</HintPath>
+    </Reference>
+    <Reference Include="Janus.Data.v4">
+      <HintPath>..\Base DLL\Janus.Data.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Janus.Windows.Common.v4">
+      <HintPath>..\Base DLL\Janus.Windows.Common.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Janus.Windows.GridEX.v4">
+      <HintPath>..\Base DLL\Janus.Windows.GridEX.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Janus.Windows.UI.v4">
+      <HintPath>..\Base DLL\Janus.Windows.UI.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic">
+      <Name>Microsoft.VisualBasic</Name>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic.Compatibility">
+      <Name>Microsoft.VisualBasic.Compatibility</Name>
+    </Reference>
+    <Reference Include="Microsoft.VisualC">
+      <Name>Microsoft.VisualC</Name>
+    </Reference>
+    <Reference Include="SandBar">
+      <Name>SandBar</Name>
+      <HintPath>..\..\..\..\..\..\copy\Sandbar\SandBar.DLL</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Name>System.Web.Services</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="XPExplorerBar">
+      <Name>xpexplorerbar</Name>
+      <HintPath>..\Base DLL\xpexplorerbar.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph">
+      <Name>ZedGraph</Name>
+      <HintPath>..\Base DLL\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Bargh_Authority" />
+    <Import Include="Bargh_BaseTables" />
+    <Import Include="Bargh_Common" />
+    <Import Include="Bargh_DataSets" />
+    <Import Include="Bargh_Reports" />
+    <Import Include="Bargh_UpdateDatabase" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Microsoft.VisualBasic.Compatibility" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes_And_Modules\AlarmSystem.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes_And_Modules\mdlHashemi.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes_And_Modules\ModuleToolsAbedi.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes_And_Modules\ModuleToolsAMb.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes_And_Modules\SearchBase.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes_And_Modules\SearchErja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes_And_Modules\SearchFogheTozi.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes_And_Modules\SearchLP.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes_And_Modules\SearchMP.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Erja\ErjaReports\frmAdvanceSearch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\ErjaReports\frmErjaReportAmar.Designer.vb">
+      <DependentUpon>frmErjaReportAmar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Erja\ErjaReports\frmErjaReportAmar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\ErjaReports\frmReport_ErjaList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\frmBazdidErja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\frmErjaConfig.Designer.vb">
+      <DependentUpon>frmErjaConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Erja\frmErjaConfig.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\frmErjaContinue.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\frmErjaDone.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\frmErjaHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\frmMainErja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\frmMonitoringErja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\frmNewErjaRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Erja\frmWaitForDC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseForms\frmAlarm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseForms\frmAVLAlarm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseForms\frmBS_Nazer.Designer.vb">
+      <DependentUpon>frmBS_Nazer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BaseForms\frmBS_Nazer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseForms\frmBS_NazerPreview.Designer.vb">
+      <DependentUpon>frmBS_NazerPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BaseForms\frmBS_NazerPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseForms\frmMakeStdCodePage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseForms\frmNewRequestConfig.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseForms\frmShift.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmHavadesConfig.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmChooseSMSReciver.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmGuidSMSSetting.Designer.vb">
+      <DependentUpon>frmGuidSMSSetting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmGuidSMSSetting.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmInformMethod.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmManagerSMS_DC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmManagerSMS_ST.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmManageSMSPreview_DC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmManageSMSPreview_ST.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmNotification.Designer.vb">
+      <DependentUpon>frmNotification.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmNotification.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmNotificationPreview.Designer.vb">
+      <DependentUpon>frmNotificationPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmNotificationPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmPeopleVoice.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmReport_AllSMS.Designer.vb">
+      <DependentUpon>frmReport_AllSMS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmReport_AllSMS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmReport_SMS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSelectGroupSet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSendSameMessage.Designer.vb">
+      <DependentUpon>frmSendSameMessage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSendSameMessage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSendSMS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSendSameMessagePreview.Designer.vb">
+      <DependentUpon>frmSendSameMessagePreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSendSameMessagePreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmShowSMS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSMSPanel.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSmsSetting.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSMSSettings.Designer.vb">
+      <DependentUpon>frmSMSSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSMSSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSMSText.Designer.vb">
+      <DependentUpon>frmSMSText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSMSText.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSubscriberSMSChoose.Designer.vb">
+      <DependentUpon>frmSubscriberSMSChoose.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSubscriberSMSChoose.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSubscriberSMSPreview.Designer.vb">
+      <DependentUpon>frmSubscriberSMSPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSubscriberSMSPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSubscriberSMSSetting.Designer.vb">
+      <DependentUpon>frmSubscriberSMSSetting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmSubscriberSMSSetting.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inform\frmTrackingCodeSMSSettings.Designer.vb">
+      <DependentUpon>frmTrackingCodeSMSSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Inform\frmTrackingCodeSMSSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmBS_GlobalPeakTimes.Designer.vb">
+      <DependentUpon>frmBS_GlobalPeakTimes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Loading\frmBS_GlobalPeakTimes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmFeederPartLoad.Designer.vb">
+      <DependentUpon>frmFeederPartLoad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Loading\frmFeederPartLoad.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmFeederPartLoadPreview.Designer.vb">
+      <DependentUpon>frmFeederPartLoadPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Loading\frmFeederPartLoadPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmGlobalPeakTimesPreview.Designer.vb">
+      <DependentUpon>frmGlobalPeakTimesPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Loading\frmGlobalPeakTimesPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmAreaPeak.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmMainPeak.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmMPFeederLoad.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmMPFeederLoadPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmMPFeederMonthlyLoadPeak.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmMPPostMonthly.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmMPPostTransLoad.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmPostZaribDay.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmPostZaribDayPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmPostZaribMonth.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmPostZaribMonthPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Loading\frmSaveAs.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Montorings\frmBillBoard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Montorings\frmBillBoardSlides.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Montorings\frmMonitoringColors.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Montorings\frmMonitoringLight.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Montorings\frmNewRequestsPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Montorings\frmRequestInformMonitoring.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Montorings\frmSlidesTming.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmCunsumeLoadFactor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmCunsumeLoadFactorPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmDisconnectPF.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmDisconnectReason.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmDisconnectReasonMPNEW.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmDisconnectReasonNEW.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmFillRequestNumber.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmFogheToziDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmFogheToziPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmGlobalValue.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmLightRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmLightRequestADDING.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmLPTamineBar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmLPTamineBarDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmMPTamineBar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmMPTamineBarDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmNetworkPower.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmSaveAsCunsume.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmSelDisPowCalcMethod.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmSelectMainDRMP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmShowSubscriberGPS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmTest.Designer.vb">
+      <DependentUpon>frmTest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\None_Fomrs\frmTest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmAvgDCPower.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmControlReportsFilters.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmExcelGroupSetGroup.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmMakeReportManoeurve.Designer.vb">
+      <DependentUpon>frmMakeReportManoeurve.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmMakeReportManoeurve.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmMonthlyReportsFilters.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmPeymankarPayState.Designer.vb">
+      <DependentUpon>frmPeymankarPayState.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmPeymankarPayState.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmQuestionnaireScores.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportAllDisconnectFeeder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportAVL.Designer.vb">
+      <DependentUpon>frmReportAVL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportAVL.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportCallListen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportCheckLies.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportCompare.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportCutOut.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportDCPServer121Compare.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportDelayInterval.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportDeleteRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportDisHourByHour.Designer.vb">
+      <DependentUpon>frmReportDisHourByHour.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportDisHourByHour.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportDispaching.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportGreen.Designer.vb">
+      <DependentUpon>frmReportGreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportGreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportGroupSetGroup.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportRecloser.Designer.vb">
+      <DependentUpon>frmReportRecloser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportRecloser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homa\frmHomaReportEkip.Designer.vb">
+      <DependentUpon>frmHomaReportEkip.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Homa\frmHomaReportEkip.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\FrmReportHourByHourBlackOut.Designer.vb">
+      <DependentUpon>FrmReportHourByHourBlackOut.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\FrmReportHourByHourBlackOut.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportHourByHourpower.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportLPPostDC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportLPPostInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportMPPerformanceDaily.Designer.vb">
+      <DependentUpon>frmReportMPPerformanceDaily.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportMPPerformanceDaily.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportPowerIndex.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportQuestionnaire.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportReqTamirType.Designer.vb">
+      <DependentUpon>frmReportReqTamirType.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportReqTamirType.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportRequestMatch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportSAIDI.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportsDCPowerByDate.Designer.vb">
+      <DependentUpon>frmReportsDCPowerByDate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportsDCPowerByDate.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportsEkips.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportSerghatPart.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportsExcel.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportSima.Designer.vb">
+      <DependentUpon>frmReportSima.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportSima.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportSubscribers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportThriftPower.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportUndoneReason.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmReportUserAccess.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmSearchBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmSearchBaseLP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmSearchBaseMP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmSearchFogheTozi.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmSyncAsyncLoadPeak.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmTavanirInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmBazdidAllow.Designer.vb">
+      <DependentUpon>frmBazdidAllow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Requests\frmBazdidAllow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmCalcPowerLP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmCalcPowerMP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmCalcPowerSubscribers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmChangeRequestHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmDeleteRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmEtcProblems.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmFollowRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmGhateh.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmGhatehMP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmManoeuvrePreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmMPRequestKey.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmMultiStepConnection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmMultiStepConnectionPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmNewFogheToziDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmNewFollowRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmNewNewLightRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmNewNewLPRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmNewNewLPTamir.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmNewNewMPRequestUnwanted.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmNewNewMPRequestWanted.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmNewRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmNewRequestBazdid.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmPrimaryMPRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmQuestionnaire.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmRequestFile.Designer.vb">
+      <DependentUpon>frmRequestFile.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Requests\frmRequestFile.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmRequestKeyboardBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmRequestMatch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmRequestMultiDC.Designer.vb">
+      <DependentUpon>frmRequestMultiDC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Requests\frmRequestMultiDC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmSelectMainDR.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmSelectRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Requests\frmSpecialCallType.Designer.vb">
+      <DependentUpon>frmSpecialCallType.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Requests\frmSpecialCallType.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Subscribers\frmPhonebook.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Subscribers\frmPhoneBookPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Subscribers\frmSubscribers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Subscribers\frmSubscribersDetail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Subscribers\frmSubscribersMonthlyDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Subscribers\frmSubscribersMontlyPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Subscribers\frmSubscribersPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homa\frmHomaEndOnCall.Designer.vb">
+      <DependentUpon>frmHomaEndOnCall.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Homa\frmHomaEndOnCall.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homa\frmHomaOnCall.Designer.vb">
+      <DependentUpon>frmHomaOnCall.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Homa\frmHomaOnCall.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homa\frmHomaOnCallHistory.Designer.vb">
+      <DependentUpon>frmHomaOnCallHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Homa\frmHomaOnCallHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homa\frmHomaRegisterBilling.Designer.vb">
+      <DependentUpon>frmHomaRegisterBilling.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Homa\frmHomaRegisterBilling.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homa\frmHomaReportRequest.Designer.vb">
+      <DependentUpon>frmHomaReportRequest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Homa\frmHomaReportRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homa\frmHomaRequestHistory.Designer.vb">
+      <DependentUpon>frmHomaRequestHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Homa\frmHomaRequestHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homa\frmHomaTablet.Designer.vb">
+      <DependentUpon>frmHomaTablet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Homa\frmHomaTablet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homa\frmHomaTabletUserPreview.Designer.vb">
+      <DependentUpon>frmHomaTabletUserPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Homa\frmHomaTabletUserPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TamirRequest\frmMainTamir.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TamirRequest\frmMonitoringTamiRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TamirRequest\frmNewTamirRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TamirRequest\frmTamirConfig.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TamirRequest\TamirReports\frmReport_TamirByDates.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TamirRequest\TamirReports\frmReport_TamirPowerTimings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TamirRequest\TamirReports\frmReport_TamirRequestTimings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Content Include="00113.ico" />
+    <Content Include="App_icon_Logo.ico" />
+    <Content Include="Sounds\Alarm.Wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\AllowAlarm.WAV">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\connectalarm.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\dcalarm.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\NewLP.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\favNo.png" />
+    <None Include="Resources\call_type.png" />
+    <None Include="Resources\iconfinder_map_285662.png" />
+    <None Include="Resources\print.png" />
+    <None Include="Resources\return.png" />
+    <None Include="Resources\mute.png" />
+    <None Include="Resources\ok2.png" />
+    <None Include="Resources\view.png" />
+    <None Include="Resources\man.png" />
+    <None Include="Resources\show_password.png" />
+    <None Include="Resources\send_tablet.png" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\change.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\hand left.gif" />
+    <None Include="Resources\hand down.gif" />
+    <None Include="Resources\ok.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\unselect all.png" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\attachment41.png" />
+    <None Include="Resources\attechment3.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\phone.png" />
+    <None Include="Resources\Disconnect.png" />
+    <None Include="Resources\Connect.png" />
+    <None Include="Resources\down_16.png" />
+    <None Include="Resources\SubVerify.png" />
+    <None Include="Resources\SubNotVerify.png" />
+    <None Include="Resources\GPS Map marker-128.gif" />
+    <None Include="Resources\Call_Transfer_03_16.png" />
+    <None Include="Resources\Call_Transfer_02_16.png" />
+    <None Include="Resources\excel.png" />
+    <None Include="Resources\eye_24.png" />
+    <None Include="Resources\eyeloading.gif" />
+    <EmbeddedResource Include="Erja\ErjaReports\frmAdvanceSearch.resx">
+      <DependentUpon>frmAdvanceSearch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\ErjaReports\frmErjaReportAmar.resx">
+      <DependentUpon>frmErjaReportAmar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\ErjaReports\frmReport_ErjaList.resx">
+      <DependentUpon>frmReport_ErjaList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\frmBazdidErja.resx">
+      <DependentUpon>frmBazdidErja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\frmErjaConfig.resx">
+      <DependentUpon>frmErjaConfig.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\frmErjaContinue.resx">
+      <DependentUpon>frmErjaContinue.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\frmErjaDone.resx">
+      <DependentUpon>frmErjaDone.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\frmErjaHistory.resx">
+      <DependentUpon>frmErjaHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\frmMainErja.resx">
+      <DependentUpon>frmMainErja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\frmMonitoringErja.resx">
+      <DependentUpon>frmMonitoringErja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\frmNewErjaRequest.resx">
+      <DependentUpon>frmNewErjaRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Erja\frmWaitForDC.resx">
+      <DependentUpon>frmWaitForDC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForms\frmAlarm.resx">
+      <DependentUpon>frmAlarm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForms\frmAVLAlarm.resx">
+      <DependentUpon>frmAVLAlarm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForms\frmBS_Nazer.resx">
+      <DependentUpon>frmBS_Nazer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForms\frmBS_NazerPreview.resx">
+      <DependentUpon>frmBS_NazerPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForms\frmMakeStdCodePage.resx">
+      <DependentUpon>frmMakeStdCodePage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForms\frmNewRequestConfig.resx">
+      <DependentUpon>frmNewRequestConfig.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForms\frmShift.resx">
+      <DependentUpon>frmShift.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmHavadesConfig.resx">
+      <DependentUpon>frmHavadesConfig.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMain.resx">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmChooseSMSReciver.resx">
+      <DependentUpon>frmChooseSMSReciver.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmGuidSMSSetting.resx">
+      <DependentUpon>frmGuidSMSSetting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmInformMethod.resx">
+      <DependentUpon>frmInformMethod.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmManagerSMS_DC.resx">
+      <DependentUpon>frmManagerSMS_DC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmManagerSMS_ST.resx">
+      <DependentUpon>frmManagerSMS_ST.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmManageSMSPreview_DC.resx">
+      <DependentUpon>frmManageSMSPreview_DC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmManageSMSPreview_ST.resx">
+      <DependentUpon>frmManageSMSPreview_ST.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmNotification.resx">
+      <DependentUpon>frmNotification.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmNotificationPreview.resx">
+      <DependentUpon>frmNotificationPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmPeopleVoice.resx">
+      <DependentUpon>frmPeopleVoice.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmReport_AllSMS.resx">
+      <DependentUpon>frmReport_AllSMS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmReport_SMS.resx">
+      <DependentUpon>frmReport_SMS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSelectGroupSet.resx">
+      <DependentUpon>frmSelectGroupSet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSendSameMessage.resx">
+      <DependentUpon>frmSendSameMessage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSendSMS.resx">
+      <DependentUpon>frmSendSMS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSendSameMessagePreview.resx">
+      <DependentUpon>frmSendSameMessagePreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmShowSMS.resx">
+      <DependentUpon>frmShowSMS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSMSPanel.resx">
+      <DependentUpon>frmSMSPanel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSmsSetting.resx">
+      <DependentUpon>frmSmsSetting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSMSSettings.resx">
+      <DependentUpon>frmSMSSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSMSText.resx">
+      <DependentUpon>frmSMSText.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSubscriberSMSChoose.resx">
+      <DependentUpon>frmSubscriberSMSChoose.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSubscriberSMSPreview.resx">
+      <DependentUpon>frmSubscriberSMSPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmSubscriberSMSSetting.resx">
+      <DependentUpon>frmSubscriberSMSSetting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inform\frmTrackingCodeSMSSettings.resx">
+      <DependentUpon>frmTrackingCodeSMSSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmBS_GlobalPeakTimes.resx">
+      <DependentUpon>frmBS_GlobalPeakTimes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmFeederPartLoad.resx">
+      <DependentUpon>frmFeederPartLoad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmFeederPartLoadPreview.resx">
+      <DependentUpon>frmFeederPartLoadPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmGlobalPeakTimesPreview.resx">
+      <DependentUpon>frmGlobalPeakTimesPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmAreaPeak.resx">
+      <DependentUpon>frmAreaPeak.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmMainPeak.resx">
+      <DependentUpon>frmMainPeak.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmMPFeederLoad.resx">
+      <DependentUpon>frmMPFeederLoad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmMPFeederLoadPreview.resx">
+      <DependentUpon>frmMPFeederLoadPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmMPFeederMonthlyLoadPeak.resx">
+      <DependentUpon>frmMPFeederMonthlyLoadPeak.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmMPPostMonthly.resx">
+      <DependentUpon>frmMPPostMonthly.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmMPPostTransLoad.resx">
+      <DependentUpon>frmMPPostTransLoad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmPostZaribDay.resx">
+      <DependentUpon>frmPostZaribDay.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmPostZaribDayPreview.resx">
+      <DependentUpon>frmPostZaribDayPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmPostZaribMonth.resx">
+      <DependentUpon>frmPostZaribMonth.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmPostZaribMonthPreview.resx">
+      <DependentUpon>frmPostZaribMonthPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Loading\frmSaveAs.resx">
+      <DependentUpon>frmSaveAs.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Montorings\frmBillBoard.resx">
+      <DependentUpon>frmBillBoard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Montorings\frmBillBoardSlides.resx">
+      <DependentUpon>frmBillBoardSlides.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Montorings\frmMonitoringColors.resx">
+      <DependentUpon>frmMonitoringColors.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Montorings\frmMonitoringLight.resx">
+      <DependentUpon>frmMonitoringLight.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Montorings\frmNewRequestsPreview.resx">
+      <DependentUpon>frmNewRequestsPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Montorings\frmRequestInformMonitoring.resx">
+      <DependentUpon>frmRequestInformMonitoring.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Montorings\frmSlidesTming.resx">
+      <DependentUpon>frmSlidesTming.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmCunsumeLoadFactor.resx">
+      <DependentUpon>frmCunsumeLoadFactor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmCunsumeLoadFactorPreview.resx">
+      <DependentUpon>frmCunsumeLoadFactorPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmDisconnectPF.resx">
+      <DependentUpon>frmDisconnectPF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmDisconnectReason.resx">
+      <DependentUpon>frmDisconnectReason.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmDisconnectReasonMPNEW.resx">
+      <DependentUpon>frmDisconnectReasonMPNEW.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmDisconnectReasonNEW.resx">
+      <DependentUpon>frmDisconnectReasonNEW.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmFillRequestNumber.resx">
+      <DependentUpon>frmFillRequestNumber.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmFogheToziDetails.resx">
+      <DependentUpon>frmFogheToziDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmFogheToziPreview.resx">
+      <DependentUpon>frmFogheToziPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmGlobalValue.resx">
+      <DependentUpon>frmGlobalValue.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmLightRequest.resx">
+      <DependentUpon>frmLightRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmLightRequestADDING.resx">
+      <DependentUpon>frmLightRequestADDING.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmLPTamineBar.resx">
+      <DependentUpon>frmLPTamineBar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmLPTamineBarDetails.resx">
+      <DependentUpon>frmLPTamineBarDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmMPTamineBar.resx">
+      <DependentUpon>frmMPTamineBar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmMPTamineBarDetails.resx">
+      <DependentUpon>frmMPTamineBarDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmNetworkPower.resx">
+      <DependentUpon>frmNetworkPower.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmSaveAsCunsume.resx">
+      <DependentUpon>frmSaveAsCunsume.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmSelDisPowCalcMethod.resx">
+      <DependentUpon>frmSelDisPowCalcMethod.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmSelectMainDRMP.resx">
+      <DependentUpon>frmSelectMainDRMP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmShowSubscriberGPS.resx">
+      <DependentUpon>frmShowSubscriberGPS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\None_Fomrs\frmTest.resx">
+      <DependentUpon>frmTest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmAvgDCPower.resx">
+      <DependentUpon>frmAvgDCPower.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmControlReportsFilters.resx">
+      <DependentUpon>frmControlReportsFilters.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmExcelGroupSetGroup.resx">
+      <DependentUpon>frmExcelGroupSetGroup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmMakeReportManoeurve.resx">
+      <DependentUpon>frmMakeReportManoeurve.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmMonthlyReportsFilters.resx">
+      <DependentUpon>frmMonthlyReportsFilters.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmPeymankarPayState.resx">
+      <DependentUpon>frmPeymankarPayState.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmQuestionnaireScores.resx">
+      <DependentUpon>frmQuestionnaireScores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportAllDisconnectFeeder.resx">
+      <DependentUpon>frmReportAllDisconnectFeeder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportAVL.resx">
+      <DependentUpon>frmReportAVL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportCallListen.resx">
+      <DependentUpon>frmReportCallListen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportCheckLies.resx">
+      <DependentUpon>frmReportCheckLies.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportCompare.resx">
+      <DependentUpon>frmReportCompare.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportCutOut.resx">
+      <DependentUpon>frmReportCutOut.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportDCPServer121Compare.resx">
+      <DependentUpon>frmReportDCPServer121Compare.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportDelayInterval.resx">
+      <DependentUpon>frmReportDelayInterval.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportDeleteRequest.resx">
+      <DependentUpon>frmReportDeleteRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportDisHourByHour.resx">
+      <DependentUpon>frmReportDisHourByHour.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportDispaching.resx">
+      <DependentUpon>frmReportDispaching.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportGreen.resx">
+      <DependentUpon>frmReportGreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportGroupSetGroup.resx">
+      <DependentUpon>frmReportGroupSetGroup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportRecloser.resx">
+      <DependentUpon>frmReportRecloser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homa\frmHomaReportEkip.resx">
+      <DependentUpon>frmHomaReportEkip.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\FrmReportHourByHourBlackOut.resx">
+      <DependentUpon>FrmReportHourByHourBlackOut.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportHourByHourpower.resx">
+      <DependentUpon>frmReportHourByHourpower.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportLPPostDC.resx">
+      <DependentUpon>frmReportLPPostDC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportLPPostInfo.resx">
+      <DependentUpon>frmReportLPPostInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportMPPerformanceDaily.resx">
+      <DependentUpon>frmReportMPPerformanceDaily.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportPowerIndex.resx">
+      <DependentUpon>frmReportPowerIndex.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportQuestionnaire.resx">
+      <DependentUpon>frmReportQuestionnaire.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportReqTamirType.resx">
+      <DependentUpon>frmReportReqTamirType.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportRequestMatch.resx">
+      <DependentUpon>frmReportRequestMatch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportSAIDI.resx">
+      <DependentUpon>frmReportSAIDI.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportsDCPowerByDate.resx">
+      <DependentUpon>frmReportsDCPowerByDate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportsEkips.resx">
+      <DependentUpon>frmReportsEkips.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportSerghatPart.resx">
+      <DependentUpon>frmReportSerghatPart.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportsExcel.resx">
+      <DependentUpon>frmReportsExcel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportSima.resx">
+      <DependentUpon>frmReportSima.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportSubscribers.resx">
+      <DependentUpon>frmReportSubscribers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportThriftPower.resx">
+      <DependentUpon>frmReportThriftPower.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportUndoneReason.resx">
+      <DependentUpon>frmReportUndoneReason.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmReportUserAccess.resx">
+      <DependentUpon>frmReportUserAccess.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmSearchBase.resx">
+      <DependentUpon>frmSearchBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmSearchBaseLP.resx">
+      <DependentUpon>frmSearchBaseLP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmSearchBaseMP.resx">
+      <DependentUpon>frmSearchBaseMP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmSearchFogheTozi.resx">
+      <DependentUpon>frmSearchFogheTozi.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmSyncAsyncLoadPeak.resx">
+      <DependentUpon>frmSyncAsyncLoadPeak.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmTavanirInfo.resx">
+      <DependentUpon>frmTavanirInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmBazdidAllow.resx">
+      <DependentUpon>frmBazdidAllow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmCalcPowerLP.resx">
+      <DependentUpon>frmCalcPowerLP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmCalcPowerMP.resx">
+      <DependentUpon>frmCalcPowerMP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmCalcPowerSubscribers.resx">
+      <DependentUpon>frmCalcPowerSubscribers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmChangeRequestHistory.resx">
+      <DependentUpon>frmChangeRequestHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmDeleteRequest.resx">
+      <DependentUpon>frmDeleteRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmEtcProblems.resx">
+      <DependentUpon>frmEtcProblems.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmFollowRequest.resx">
+      <DependentUpon>frmFollowRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmGhateh.resx">
+      <DependentUpon>frmGhateh.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmGhatehMP.resx">
+      <DependentUpon>frmGhatehMP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmManoeuvrePreview.resx">
+      <DependentUpon>frmManoeuvrePreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmMPRequestKey.resx">
+      <DependentUpon>frmMPRequestKey.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmMultiStepConnection.resx">
+      <DependentUpon>frmMultiStepConnection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmMultiStepConnectionPreview.resx">
+      <DependentUpon>frmMultiStepConnectionPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmNewFogheToziDetails.resx">
+      <DependentUpon>frmNewFogheToziDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmNewFollowRequest.resx">
+      <DependentUpon>frmNewFollowRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmNewNewLightRequest.resx">
+      <DependentUpon>frmNewNewLightRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmNewNewLPRequest.resx">
+      <DependentUpon>frmNewNewLPRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmNewNewLPTamir.resx">
+      <DependentUpon>frmNewNewLPTamir.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmNewNewMPRequestUnwanted.resx">
+      <DependentUpon>frmNewNewMPRequestUnwanted.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmNewNewMPRequestWanted.resx">
+      <DependentUpon>frmNewNewMPRequestWanted.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmNewRequest.resx">
+      <DependentUpon>frmNewRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmNewRequestBazdid.resx">
+      <DependentUpon>frmNewRequestBazdid.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmPrimaryMPRequest.resx">
+      <DependentUpon>frmPrimaryMPRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmQuestionnaire.resx">
+      <DependentUpon>frmQuestionnaire.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmRequest.resx">
+      <DependentUpon>frmRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmRequestFile.resx">
+      <DependentUpon>frmRequestFile.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmRequestKeyboardBase.resx">
+      <DependentUpon>frmRequestKeyboardBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmRequestMatch.resx">
+      <DependentUpon>frmRequestMatch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmRequestMultiDC.resx">
+      <DependentUpon>frmRequestMultiDC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmSelectMainDR.resx">
+      <DependentUpon>frmSelectMainDR.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmSelectRequest.resx">
+      <DependentUpon>frmSelectRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Requests\frmSpecialCallType.resx">
+      <DependentUpon>frmSpecialCallType.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Subscribers\frmPhonebook.resx">
+      <DependentUpon>frmPhonebook.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Subscribers\frmPhoneBookPreview.resx">
+      <DependentUpon>frmPhoneBookPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Subscribers\frmSubscribers.resx">
+      <DependentUpon>frmSubscribers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Subscribers\frmSubscribersDetail.resx">
+      <DependentUpon>frmSubscribersDetail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Subscribers\frmSubscribersMonthlyDetails.resx">
+      <DependentUpon>frmSubscribersMonthlyDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Subscribers\frmSubscribersMontlyPreview.resx">
+      <DependentUpon>frmSubscribersMontlyPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Subscribers\frmSubscribersPreview.resx">
+      <DependentUpon>frmSubscribersPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homa\frmHomaEndOnCall.resx">
+      <DependentUpon>frmHomaEndOnCall.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homa\frmHomaOnCall.resx">
+      <DependentUpon>frmHomaOnCall.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homa\frmHomaOnCallHistory.resx">
+      <DependentUpon>frmHomaOnCallHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homa\frmHomaRegisterBilling.resx">
+      <DependentUpon>frmHomaRegisterBilling.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homa\frmHomaReportRequest.resx">
+      <DependentUpon>frmHomaReportRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homa\frmHomaRequestHistory.resx">
+      <DependentUpon>frmHomaRequestHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homa\frmHomaTablet.resx">
+      <DependentUpon>frmHomaTablet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homa\frmHomaTabletUserPreview.resx">
+      <DependentUpon>frmHomaTabletUserPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\ArrowDown.png" />
+    <EmbeddedResource Include="Icons\ArrowDownHot.png" />
+    <EmbeddedResource Include="Icons\ArrowUp.png" />
+    <EmbeddedResource Include="Icons\ArrowUpHot.png" />
+    <EmbeddedResource Include="Icons\Calling.png" />
+    <EmbeddedResource Include="Icons\Call_Gray.png" />
+    <EmbeddedResource Include="Icons\Call_Green.png" />
+    <EmbeddedResource Include="Icons\Call_Red.png" />
+    <EmbeddedResource Include="Icons\collapse.png" />
+    <EmbeddedResource Include="Icons\collapse_hover.png" />
+    <EmbeddedResource Include="Icons\Connect.png" />
+    <EmbeddedResource Include="Icons\ConnectOk.png" />
+    <EmbeddedResource Include="Icons\Delete.png" />
+    <EmbeddedResource Include="Icons\Disconnect.png" />
+    <EmbeddedResource Include="Icons\DisconnectOk.png" />
+    <EmbeddedResource Include="Icons\expand.png" />
+    <EmbeddedResource Include="Icons\expand_hover.png" />
+    <EmbeddedResource Include="Icons\flag.png" />
+    <EmbeddedResource Include="Icons\OK.png" />
+    <EmbeddedResource Include="Icons\Start.png" />
+    <EmbeddedResource Include="Icons\StartPaging.png" />
+    <EmbeddedResource Include="Icons\StopPaging.png" />
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TamirRequest\frmMainTamir.resx">
+      <DependentUpon>frmMainTamir.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TamirRequest\frmMonitoringTamiRequest.resx">
+      <DependentUpon>frmMonitoringTamiRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TamirRequest\frmNewTamirRequest.resx">
+      <DependentUpon>frmNewTamirRequest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TamirRequest\frmTamirConfig.resx">
+      <DependentUpon>frmTamirConfig.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TamirRequest\TamirReports\frmReport_TamirByDates.resx">
+      <DependentUpon>frmReport_TamirByDates.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TamirRequest\TamirReports\frmReport_TamirPowerTimings.resx">
+      <DependentUpon>frmReport_TamirPowerTimings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TamirRequest\TamirReports\frmReport_TamirRequestTimings.resx">
+      <DependentUpon>frmReport_TamirRequestTimings.vb</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>
