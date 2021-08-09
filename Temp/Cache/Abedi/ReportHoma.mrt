@@ -1,0 +1,976 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <ReportSima Ref="2" type="Stimulsoft.Report.Dictionary.StiXmlDatabase" isKey="true">
+        <Alias>ReportSima</Alias>
+        <Key />
+        <Name>ReportSima</Name>
+        <PathData>C:\Users\Abedi\Desktop\داشبورد مدیریتی سیستم گزارشگیری تحت وب\Aze Gharbi\Homa\ReportHomaSummary.xml</PathData>
+        <PathSchema />
+      </ReportSima>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <HomaArea Ref="3" type="DataTableSource" isKey="true">
+        <Alias>HomaArea</Alias>
+        <Columns isList="true" count="14">
+          <value>AreaId,System.Int32</value>
+          <value>Area,System.String</value>
+          <value>جمع_x0020_خاموشی_x0020_ها,System.Int32</value>
+          <value>تعداد_x0020_خاموشی_x0020_فشار_x0020_ضعیف_x0020_با_x0020_برنامه,System.Int32</value>
+          <value>تعداد_x0020_خاموشی_x0020_فشار_x0020_ضعیف_x0020_بی_x0020_برنامه,System.Int32</value>
+          <value>تعداد_x0020_خاموشی_x0020_فشار_x0020_متوسط_x0020_با_x0020_برنامه,System.Int32</value>
+          <value>تعداد_x0020_خاموشی_x0020_فشار_x0020_متوسط_x0020_بی_x0020_برنامه,System.Int32</value>
+          <value>هما_x0020_-_x0020_تعداد_x0020_خاموشی_x0020_فشار_x0020_ضعیف_x0020_با_x0020_برنامه,System.Int32</value>
+          <value>هما_x0020_-_x0020_تعداد_x0020_خاموشی_x0020_فشار_x0020_ضعیف_x0020_بی_x0020_برنامه,System.Int32</value>
+          <value>هما_x0020_-_x0020_تعداد_x0020_خاموشی_x0020_فشار_x0020_متوسط_x0020_با_x0020_برنامه,System.Int32</value>
+          <value>هما_x0020_-_x0020_تعداد_x0020_خاموشی_x0020_فشار_x0020_متوسط_x0020_بی_x0020_برنامه,System.Int32</value>
+          <value>تعداد_x0020_آنکال,System.Int32</value>
+          <value>_x0028_مدت_x0020_آنکالی_x0028_ساعت,System.Double</value>
+          <value>_x0028_مسافت_x0020_طی_x0020_شده_x0028_کیلومتر,System.Double</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>HomaArea</Name>
+        <NameInSource>ReportSima.HomaArea</NameInSource>
+      </HomaArea>
+      <Tbl_Limit Ref="4" type="DataTableSource" isKey="true">
+        <Alias>Tbl_Limit</Alias>
+        <Columns isList="true" count="22">
+          <value>LimitId,System.Int32</value>
+          <value>CurrentRequestBarNimehBohrani,System.Double</value>
+          <value>CurrentRequestBarBohrani,System.Double</value>
+          <value>CurrentRequestBarNimehBohraniTotal,System.Double</value>
+          <value>CurrentRequestBarBohraniTotal,System.Double</value>
+          <value>CurrentRequestTedadNimehBohrani,System.Double</value>
+          <value>CurrentRequestTedadBohrani,System.Double</value>
+          <value>CurrentRequestTedadNimehBohraniTotal,System.Double</value>
+          <value>CurrentRequestTedadBohraniTotal,System.Double</value>
+          <value>CurrentRequestTamasNimehBohrani,System.Double</value>
+          <value>CurrentRequestTamasBohrani,System.Double</value>
+          <value>CurrentRequestTamasNimehBohraniTotal,System.Double</value>
+          <value>CurrentRequestTamasBohraniTotal,System.Double</value>
+          <value>SummaryAreaLimit1BibarnamehMP,System.Int32</value>
+          <value>SummaryAreaLimit2BibarnamehMP,System.Int32</value>
+          <value>SummaryAreaLimit1ToolaniMP,System.Int32</value>
+          <value>SummaryAreaLimit2ToolaniMP,System.Int32</value>
+          <value>SummaryAreaLimitFeeder20,System.Int32</value>
+          <value>SummaryAreaLimit1BibarnamehLP,System.Int32</value>
+          <value>SummaryAreaLimit2BibarnamehLP,System.Int32</value>
+          <value>SummaryAreaLimitToolaniLP,System.Int32</value>
+          <value>SummaryAreaLimitLPFeeder,System.Int32</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>Tbl_Limit</Name>
+        <NameInSource>ReportSima.Tbl_Limit</NameInSource>
+      </Tbl_Limit>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="5" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="4">
+        <ReportTitle Ref="6" type="ReportTitleBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,19,1.4</ClientRectangle>
+          <Components isList="true" count="1">
+            <ReportTitleText Ref="7" type="Text" isKey="true">
+              <Border>None;[0:71:123];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,19,1.4</ClientRectangle>
+              <ComponentStyle>Style27_Report_Title1</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,14,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>ReportTitleText</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Text>طرح هما - از اول سال تا کنون</Text>
+              <TextBrush>[35:171:223]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </ReportTitleText>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ReportTitle</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </ReportTitle>
+        <Header Ref="8" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2.6,19,1.8</ClientRectangle>
+          <Components isList="true" count="19">
+            <HeaderText10 Ref="9" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>15.4,0,3.6,1.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>HeaderText10</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>منطقه</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </HeaderText10>
+            <Text11 Ref="10" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <ClientRectangle>13,0.6,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <Guid>c29f409e04dc454eb13046e98b6e83c4</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>فشارضعیف</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text12 Ref="11" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>14.2,1.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>932b4951c0f64e52af27ee937584e7b3</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>بی برنامه</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text13 Ref="12" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>13,1.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>372ac29a18754ead96b2855a9b0690f8</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>با برنامه</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 Ref="13" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <ClientRectangle>10.6,0.6,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <Guid>426a5e7ae7444e848a349add4e8aad0e</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>فشارمتوسط</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text15 Ref="14" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>11.8,1.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>83056dc450cc407fbe17e10b1ad62e7c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>بی برنامه</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text16 Ref="15" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>10.6,1.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>c162f2566eb04ef2b60da1d884c84929</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>با برنامه</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text17 Ref="16" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>9.2,0.6,1.4,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>9de1ea5cea384bcc96b5102c7b8fd13f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>تعداد کل خاموشی ها</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text18 Ref="17" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <ClientRectangle>9.2,0,6.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <Guid>6e00824bfbd6477f8ce16d44beb7d93c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>کل خاموشی ها</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text19 Ref="18" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <ClientRectangle>6.8,0.6,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <Guid>54757207049346cfadec8329302a2d0c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>فشارضعیف</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+            <Text20 Ref="19" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>8,1.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>b0df5e53f49b47289d96c019d6a55e40</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>بی برنامه</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text21 Ref="20" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>6.8,1.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>746a5ac969ca41a581767997259ce1cd</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>با برنامه</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text22 Ref="21" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <ClientRectangle>4.4,0.6,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <Guid>4c0add1a54954ccaa7ec7e2b48f53e14</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>فشارمتوسط</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text23 Ref="22" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>5.6,1.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>757db44f6b6046bfb8c65d84740f3510</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>بی برنامه</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text24 Ref="23" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>4.4,1.2,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>397865b24c344f01aa113d168742062a</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>با برنامه</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Text25 Ref="24" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>3,0.6,1.4,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>7d4a3da81c114f019114dac4a4751207</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>تعداد آنکال</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Text26 Ref="25" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <ClientRectangle>0,0,9.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <Guid>4a61aa27cb6e415e966a3530c9826728</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>طرح هما</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text26>
+            <Text29 Ref="26" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>1.6,0.6,1.4,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>127a259bc1ff49db816437bc44c1d777</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text29</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>مدت آنکال
+(ساعت)</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text29>
+            <Text31 Ref="27" type="Text" isKey="true">
+              <Border>Top, Right, Bottom;[0:71:123];1;Solid;False;4;Black;True</Border>
+              <Brush>[35:171:223]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0.6,1.6,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8,Bold</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>fb6e1c57983c459a9e9d7437009a6c02</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text31</Name>
+              <Page isRef="5" />
+              <Parent isRef="8" />
+              <Text>مسافت طی شده
+(کیلومتر)</Text>
+              <TextBrush>[0:0:23]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text31>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>Header</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </Header>
+        <Data Ref="28" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,5.2,19,0.6</ClientRectangle>
+          <Components isList="true" count="13">
+            <Text1 Ref="29" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>15.4,0,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.Area}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text2 Ref="30" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>14.2,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.تعداد_خاموشی_فشار_ضعیف_بی_برنامه}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text3 Ref="31" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>13,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.تعداد_خاموشی_فشار_ضعیف_با_برنامه}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text4 Ref="32" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>11.8,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.تعداد_خاموشی_فشار_متوسط_بی_برنامه}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text5 Ref="33" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10.6,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.تعداد_خاموشی_فشار_متوسط_با_برنامه}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text6 Ref="34" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>8,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.هما___تعداد_خاموشی_فشار_ضعیف_بی_برنامه}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text7 Ref="35" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>6.8,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.هما___تعداد_خاموشی_فشار_ضعیف_با_برنامه}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text8 Ref="36" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>5.6,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.هما___تعداد_خاموشی_فشار_متوسط_بی_برنامه}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text9 Ref="37" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>4.4,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.هما___تعداد_خاموشی_فشار_متوسط_با_برنامه}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text10 Ref="38" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>9.2,0,1.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.جمع_خاموشی_ها}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text27 Ref="39" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>3,0,1.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea.تعداد_آنکال}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+            <Text28 Ref="40" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>1.6,0,1.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text28</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea._مدت_آنکالی_ساعت}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text28>
+            <Text30 Ref="41" type="Text" isKey="true">
+              <Border>All;[0:176:80];1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,1.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text30</Name>
+              <Page isRef="5" />
+              <Parent isRef="28" />
+              <Text>{HomaArea._مسافت_طی_شده_کیلومتر}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text30>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>HomaArea</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>Data</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <Sort isList="true" count="0" />
+        </Data>
+        <Footer Ref="42" type="FooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,6.6,19,0.6</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Name>Footer</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </Footer>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>198a5db51b5e440596d1714e22628ddf</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+      <Watermark Ref="43" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="44" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>7/31/2021 12:24:36 PM</ReportChanged>
+  <ReportCreated>7/25/2020 12:01:42 PM</ReportCreated>
+  <ReportFile>E:\My Projects\HavadesDashboard\HavadesDashboard\Reports\ReportHoma.mrt</ReportFile>
+  <ReportGuid>4c62ef9066d141b291728bd72b3cfa7d</ReportGuid>
+  <ReportImage isNull="true" />
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2017.1.6.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="13">
+    <Style27_Report_Title1 Ref="45" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[0:71:123];1;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item43 Ref="46" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <Placement>ReportTitle</Placement>
+          <Type>ComponentType, Placement, PlacementNestedLevel</Type>
+        </Item43>
+      </Conditions>
+      <Font>Arial,14,Bold</Font>
+      <Name>Style27_Report_Title1</Name>
+      <TextBrush>[35:171:223]</TextBrush>
+    </Style27_Report_Title1>
+    <Style27_Report_Title2 Ref="47" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[0:71:123];1;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item45 Ref="48" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
+          <Placement>ReportTitle</Placement>
+          <PlacementNestedLevel>2</PlacementNestedLevel>
+          <Type>ComponentType, Placement, PlacementNestedLevel</Type>
+        </Item45>
+      </Conditions>
+      <Font>Arial,10,Bold</Font>
+      <Name>Style27_Report_Title2</Name>
+      <TextBrush>[35:171:223]</TextBrush>
+    </Style27_Report_Title2>
+    <Style27_Report_Summary1 Ref="49" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[0:71:123];1;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item47 Ref="50" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <Placement>ReportSummary</Placement>
+          <Type>ComponentType, Placement, PlacementNestedLevel</Type>
+        </Item47>
+      </Conditions>
+      <Font>Arial,12,Bold</Font>
+      <Name>Style27_Report_Summary1</Name>
+      <TextBrush>[35:171:223]</TextBrush>
+    </Style27_Report_Summary1>
+    <Style27_Report_Summary2 Ref="51" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[0:71:123];1;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item49 Ref="52" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
+          <Placement>ReportSummary</Placement>
+          <PlacementNestedLevel>2</PlacementNestedLevel>
+          <Type>ComponentType, Placement, PlacementNestedLevel</Type>
+        </Item49>
+      </Conditions>
+      <Font>Arial,10,Bold</Font>
+      <Name>Style27_Report_Summary2</Name>
+      <TextBrush>[35:171:223]</TextBrush>
+    </Style27_Report_Summary2>
+    <Style27_Page_Header Ref="53" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[0:71:123];1;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item51 Ref="54" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <Placement>PageHeader</Placement>
+          <Type>ComponentType, Placement</Type>
+        </Item51>
+      </Conditions>
+      <Font>Arial,10</Font>
+      <Name>Style27_Page_Header</Name>
+      <TextBrush>[35:171:223]</TextBrush>
+    </Style27_Page_Header>
+    <Style27_Page_Footer Ref="55" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[0:71:123];1;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item53 Ref="56" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <Placement>PageFooter</Placement>
+          <Type>ComponentType, Placement</Type>
+        </Item53>
+      </Conditions>
+      <Font>Arial,10</Font>
+      <Name>Style27_Page_Footer</Name>
+      <TextBrush>[35:171:223]</TextBrush>
+    </Style27_Page_Footer>
+    <Style27_Group_Header1 Ref="57" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <AllowUseBorderSidesFromLocation>True</AllowUseBorderSidesFromLocation>
+      <Border>None;[0:71:123];1;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item55 Ref="58" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
+          <Placement>GroupHeader</Placement>
+          <Type>ComponentType, Placement, PlacementNestedLevel</Type>
+        </Item55>
+      </Conditions>
+      <Font>Arial,13,Bold</Font>
+      <Name>Style27_Group_Header1</Name>
+      <TextBrush>[35:171:223]</TextBrush>
+    </Style27_Group_Header1>
+    <Style27_Group_Footer1 Ref="59" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <AllowUseBorderSidesFromLocation>True</AllowUseBorderSidesFromLocation>
+      <Border>None;[0:71:123];1;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item57 Ref="60" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <Placement>GroupFooter</Placement>
+          <Type>ComponentType, Placement, PlacementNestedLevel</Type>
+        </Item57>
+      </Conditions>
+      <Font>Arial,13,Bold</Font>
+      <Name>Style27_Group_Footer1</Name>
+      <TextBrush>[35:171:223]</TextBrush>
+    </Style27_Group_Footer1>
+    <Style27_Header1 Ref="61" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <AllowUseBorderSidesFromLocation>True</AllowUseBorderSidesFromLocation>
+      <Border>None;[0:71:123];1;Solid;False;4;Black;True</Border>
+      <Brush>[35:171:223]</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item59 Ref="62" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
+          <Placement>Header</Placement>
+          <Type>ComponentType, Placement, PlacementNestedLevel</Type>
+        </Item59>
+      </Conditions>
+      <Font>Arial,8,Bold</Font>
+      <Name>Style27_Header1</Name>
+      <TextBrush>[0:0:23]</TextBrush>
+    </Style27_Header1>
+    <Style27_Data1 Ref="63" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <AllowUseBorderSidesFromLocation>True</AllowUseBorderSidesFromLocation>
+      <Border>None;[0:71:123];1;Solid;False;4;Black;True</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item61 Ref="64" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
+          <Placement>Data</Placement>
+          <Type>ComponentType, Placement, PlacementNestedLevel</Type>
+        </Item61>
+      </Conditions>
+      <Font>Arial,8</Font>
+      <Name>Style27_Data1</Name>
+      <TextBrush>[0:0:23]</TextBrush>
+    </Style27_Data1>
+    <Style27_Data1_Odd_x0020_Style Ref="65" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <AllowUseBorderSidesFromLocation>True</AllowUseBorderSidesFromLocation>
+      <Border>None;[0:71:123];1;Solid;False;4;Black;True</Border>
+      <Brush>[185:255:255]</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item63 Ref="66" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
+          <Placement>DataOddStyle</Placement>
+          <Type>Placement, PlacementNestedLevel</Type>
+        </Item63>
+      </Conditions>
+      <Font>Arial,8</Font>
+      <Name>Style27_Data1_Odd Style</Name>
+      <TextBrush>[0:0:23]</TextBrush>
+    </Style27_Data1_Odd_x0020_Style>
+    <Style27_Data1_Even_x0020_Style Ref="67" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <AllowUseBorderSidesFromLocation>True</AllowUseBorderSidesFromLocation>
+      <Border>None;[0:71:123];1;Solid;False;4;Black;True</Border>
+      <Brush>[110:246:255]</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item65 Ref="68" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
+          <Placement>DataEvenStyle</Placement>
+          <Type>Placement, PlacementNestedLevel</Type>
+        </Item65>
+      </Conditions>
+      <Font>Arial,8</Font>
+      <Name>Style27_Data1_Even Style</Name>
+      <TextBrush>[0:0:23]</TextBrush>
+    </Style27_Data1_Even_x0020_Style>
+    <Style27_Footer1 Ref="69" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <AllowUseBorderSidesFromLocation>True</AllowUseBorderSidesFromLocation>
+      <Border>None;[0:71:123];1;Solid;False;4;Black;True</Border>
+      <Brush>[55:191:243]</Brush>
+      <CollectionName>Style27</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item67 Ref="70" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
+          <Placement>Footer</Placement>
+          <Type>ComponentType, Placement, PlacementNestedLevel</Type>
+        </Item67>
+      </Conditions>
+      <Font>Arial,8</Font>
+      <Name>Style27_Footer1</Name>
+      <TextBrush>[0:0:23]</TextBrush>
+    </Style27_Footer1>
+  </Styles>
+</StiSerializer>
