@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[spHomaReportArea]	
+CREATE PROCEDURE [dbo].[spHomaReportArea]	
   @aAreaIDs AS VARCHAR(100)
   ,@aStartDate AS VARCHAR(10)
   ,@aEndDate AS VARCHAR(10)
