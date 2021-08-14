@@ -8,12 +8,12 @@
     <ProviderVersion>5.8.127.0</ProviderVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </Properties>
-  <Connection Name="10.10.15.12">
+  <Connection Name="10.10.15.38">
     <Category>00000000-0000-0000-0000-000000000000</Category>
-    <ConnectionString>Data Source=10.10.15.12;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
-    <Database>CCRequesterSetad</Database>
+    <ConnectionString>Data Source=10.10.15.38;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
+    <Database>CcRequesterSetad</Database>
   </Connection>
-  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="62">
     <View Name="Design" Visible="False" />
     <View Name="Code" Active="True" Visible="True">
       <Data />
