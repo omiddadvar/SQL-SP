@@ -1,0 +1,9 @@
+CREATE PROCEDURE dbo.spGetReport_6_21_01
+   @aAreaIds AS NVARCHAR(100) 
+  ,@aMPFeederIds AS NVARCHAR(100) 
+  ,@aMPPost AS NVARCHAR(100)
+  ,@aLPPost AS NVARCHAR(100)
+  AS 
+  BEGIN
+    	SELECT * FROM Tbl_LPPart
+  END 
