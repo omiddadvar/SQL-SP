@@ -3,38 +3,45 @@
   <Dictionary Ref="1" type="Dictionary" isKey="true">
     <BusinessObjects isList="true" count="0" />
     <Databases isList="true" count="1">
-      <test Ref="2" type="Stimulsoft.Report.Dictionary.StiJsonDatabase" isKey="true">
-        <Alias>test</Alias>
+      <XML Ref="2" type="Stimulsoft.Report.Dictionary.StiXmlDatabase" isKey="true">
+        <Alias>XML</Alias>
         <Key />
-        <Name>test</Name>
-        <PathData>C:\Users\dadvar\Desktop\test.json</PathData>
-      </test>
+        <Name>XML</Name>
+        <PathData>C:\Users\dadvar\Desktop\test02.xml</PathData>
+        <PathSchema>C:\Users\dadvar\Desktop\test02.xml</PathSchema>
+      </XML>
     </Databases>
     <DataSources isList="true" count="1">
-      <root Ref="3" type="DataTableSource" isKey="true">
-        <Alias>root</Alias>
-        <Columns isList="true" count="16">
-          <value>area,System.String</value>
-          <value>MPPost,System.String</value>
-          <value>LPPost,System.String</value>
-          <value>MPFeeder,System.String</value>
-          <value>LPPostCode,System.Double</value>
-          <value>LPPostCapacity,System.Double</value>
-          <value>BarghGir,System.Boolean</value>
-          <value>CutOUt,System.Boolean</value>
-          <value>BushingCover,System.Boolean</value>
-          <value>Connector,System.Boolean</value>
-          <value>Type,System.String</value>
-          <value>Maker01,System.String</value>
-          <value>Maker02,System.String</value>
-          <value>Current,System.Double</value>
-          <value>FuseCurrent,System.Double</value>
-          <value>Kind,System.String</value>
+      <Tbl_Report Ref="3" type="DataTableSource" isKey="true">
+        <Alias>Tbl_Report</Alias>
+        <Columns isList="true" count="22">
+          <value>LPPostId,System.Int32</value>
+          <value>Area,System.String</value>
+          <value>MPPostName,System.String</value>
+          <value>MPFeederName,System.String</value>
+          <value>LPPostName,System.String</value>
+          <value>LPPostCode,System.String</value>
+          <value>PostCapacity,System.Double</value>
+          <value>IsBarghGir,System.Boolean</value>
+          <value>IsCutout,System.Boolean</value>
+          <value>IsCoverBoshing,System.Boolean</value>
+          <value>IsRelatedToAyegh,System.Boolean</value>
+          <value>BType,System.String</value>
+          <value>BFac,System.String</value>
+          <value>BCurrent,System.String</value>
+          <value>CFCurrent,System.String</value>
+          <value>CFac,System.String</value>
+          <value>CKind,System.String</value>
+          <value>FSerial,System.String</value>
+          <value>FFac,System.String</value>
+          <value>FMod,System.String</value>
+          <value>FApp,System.String</value>
+          <value>FCurr,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Name>root</Name>
-        <NameInSource>test.root</NameInSource>
-      </root>
+        <Name>Tbl_Report</Name>
+        <NameInSource>XML.Tbl_Report</NameInSource>
+      </Tbl_Report>
     </DataSources>
     <Relations isList="true" count="0" />
     <Report isRef="0" />
@@ -136,201 +143,16 @@
           <PrintOn>OnlyFirstPage</PrintOn>
         </PageHeaderBand1>
         <GroupHeaderBand1 Ref="10" type="GroupHeaderBand" isKey="true">
-          <Brush>Transparent</Brush>
-          <ClientRectangle>0,3,19,5.4</ClientRectangle>
-          <Components isList="true" count="7">
-            <Panel1 Ref="11" type="Panel" isKey="true">
-              <Border>Left, Right;Black;1;Solid;False;4;Black</Border>
-              <Brush>[0:154:240:255]</Brush>
-              <ClientRectangle>0,0.8,19,1.8</ClientRectangle>
-              <Components isList="true" count="12">
-                <Text1 Ref="12" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>18,0,1,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10,Bold</Font>
-                  <Guid>b7f5c2c60ca841b9a00fc5a270c03bce</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,5,0,0</Margins>
-                  <Name>Text1</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>ناحيه</Text>
-                  <TextBrush>Black</TextBrush>
-                  <Type>Expression</Type>
-                </Text1>
-                <Text3 Ref="13" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>16.8,0.6,2.2,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10,Bold</Font>
-                  <Guid>8d3703a303054151b5878ecb24d4e4cd</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,5,0,0</Margins>
-                  <Name>Text3</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>فيدر فشار متوسط</Text>
-                  <TextBrush>Black</TextBrush>
-                  <Type>Expression</Type>
-                </Text3>
-                <Text4 Ref="14" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>7.4,0.6,2.2,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10,Bold</Font>
-                  <Guid>54cd1fb4536148229dabeb1f12c2c4c8</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text4</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>پست توزيع</Text>
-                  <TextBrush>Black</TextBrush>
-                  <Type>Expression</Type>
-                </Text4>
-                <Text5 Ref="15" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>16.8,1.2,2.2,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10,Bold</Font>
-                  <Guid>2a27138449cb48279ea7852978e2b240</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,5,0,0</Margins>
-                  <Name>Text5</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>کد پست</Text>
-                  <TextBrush>Black</TextBrush>
-                  <Type>Expression</Type>
-                </Text5>
-                <Text6 Ref="16" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>7.4,1.2,2.2,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10,Bold</Font>
-                  <Guid>65f953e791134cd19b2125fe81a1ae8d</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text6</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>ظرفيت پست</Text>
-                  <TextBrush>Black</TextBrush>
-                  <Type>Expression</Type>
-                </Text6>
-                <Text2 Ref="17" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>7.4,0,2.2,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10,Bold</Font>
-                  <Guid>5d4cc940ecb7463a853e8f8cf2910399</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text2</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>پست فوق توزيع</Text>
-                  <TextBrush>Black</TextBrush>
-                  <Type>Expression</Type>
-                </Text2>
-                <Text16 Ref="18" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>10,0,6.8,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10</Font>
-                  <Guid>2af4d39092124e9a8edbbd2c347e6635</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text16</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>{root.area}</Text>
-                  <TextBrush>Black</TextBrush>
-                </Text16>
-                <Text7 Ref="19" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>11.2,0.6,5.4,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10</Font>
-                  <Guid>f8d73c03c75c4cd89d61901a26f5a65d</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text7</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>{root.MPFeeder}</Text>
-                  <TextBrush>Black</TextBrush>
-                </Text7>
-                <Text11 Ref="20" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>0.6,0.6,6,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10</Font>
-                  <Guid>c665f48d2d9d435383e19053450caa5c</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text11</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>{root.LPPostCode}</Text>
-                  <TextBrush>Black</TextBrush>
-                </Text11>
-                <Text12 Ref="21" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>0.4,0,6,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10</Font>
-                  <Guid>bfa95230cbdc4f8ea53f0fb01ceac9b7</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text12</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>{root.MPPost}</Text>
-                  <TextBrush>Black</TextBrush>
-                </Text12>
-                <Text13 Ref="22" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>10.8,1.2,5.6,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10</Font>
-                  <Guid>78523a4414f449f6bd3243cf3dc5f539</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text13</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>{root.LPPostCode}</Text>
-                  <TextBrush>Black</TextBrush>
-                </Text13>
-                <Text14 Ref="23" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>0.4,1.2,6.2,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10</Font>
-                  <Guid>2c096c943c6b4290893e050124ddd997</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text14</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="11" />
-                  <Text>{root.LPPostCapacity}</Text>
-                  <TextBrush>Black</TextBrush>
-                </Text14>
-              </Components>
-              <Conditions isList="true" count="0" />
-              <Guid>e582fb2f47e245308d43d6a6a0f8522e</Guid>
-              <Name>Panel1</Name>
-              <Page isRef="4" />
-              <Parent isRef="10" />
-            </Panel1>
-            <Panel2 Ref="24" type="Panel" isKey="true">
+          <Border>All;Black;1;Solid;False;4;Black</Border>
+          <Brush>[219:229:241]</Brush>
+          <ClientRectangle>0,3,19,4.6</ClientRectangle>
+          <Components isList="true" count="18">
+            <Panel2 Ref="11" type="Panel" isKey="true">
               <Border>Left, Right, Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>0,2.6,19,1.8</ClientRectangle>
+              <ClientRectangle>0,1.8,19,1.8</ClientRectangle>
               <Components isList="true" count="21">
-                <Text15 Ref="25" type="Text" isKey="true">
+                <Text15 Ref="12" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>16.8,0,2.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -340,12 +162,12 @@
                   <Margins>0,5,0,0</Margins>
                   <Name>Text15</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>برقگير دارد</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text15>
-                <Text17 Ref="26" type="Text" isKey="true">
+                <Text17 Ref="13" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>16.8,0.6,2.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -355,12 +177,12 @@
                   <Margins>0,5,0,0</Margins>
                   <Name>Text17</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>کات اوت دارد</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text17>
-                <Text18 Ref="27" type="Text" isKey="true">
+                <Text18 Ref="14" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>16.8,1.2,2.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -370,14 +192,14 @@
                   <Margins>0,5,0,0</Margins>
                   <Name>Text18</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>کاور بوشينگ دارد</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text18>
-                <BarghGir Ref="28" type="CheckBox" isKey="true">
+                <BarghGir Ref="15" type="CheckBox" isKey="true">
                   <Brush>Transparent</Brush>
-                  <Checked>{root.BarghGir}</Checked>
+                  <Checked>{Tbl_Report.IsBarghGir}</Checked>
                   <CheckStyleForFalse>Cross</CheckStyleForFalse>
                   <ClientRectangle>16,0,0.8,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -385,12 +207,12 @@
                   <Guid>5082691deee946d29c2ceb9c1622db11</Guid>
                   <Name>BarghGir</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <TextBrush>Black</TextBrush>
                 </BarghGir>
-                <CutOut Ref="29" type="CheckBox" isKey="true">
+                <CutOut Ref="16" type="CheckBox" isKey="true">
                   <Brush>Transparent</Brush>
-                  <Checked>{root.CutOUt}</Checked>
+                  <Checked>{Tbl_Report.IsCutout}</Checked>
                   <CheckStyleForFalse>Cross</CheckStyleForFalse>
                   <ClientRectangle>16,0.6,0.8,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -398,12 +220,12 @@
                   <Guid>e31b0490fddf416f84e92ef09422480f</Guid>
                   <Name>CutOut</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <TextBrush>Black</TextBrush>
                 </CutOut>
-                <BushingCover Ref="30" type="CheckBox" isKey="true">
+                <BushingCover Ref="17" type="CheckBox" isKey="true">
                   <Brush>Transparent</Brush>
-                  <Checked>{root.BushingCover}</Checked>
+                  <Checked>{Tbl_Report.IsCoverBoshing}</Checked>
                   <CheckStyleForFalse>Cross</CheckStyleForFalse>
                   <ClientRectangle>16,1.2,0.8,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -411,10 +233,10 @@
                   <Guid>61a2cb36e17d4116a981378a96999df0</Guid>
                   <Name>BushingCover</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <TextBrush>Black</TextBrush>
                 </BushingCover>
-                <Text19 Ref="31" type="Text" isKey="true">
+                <Text19 Ref="18" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>11.8,1.2,4.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -424,14 +246,14 @@
                   <Margins>0,0,0,0</Margins>
                   <Name>Text19</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>ارتباط خط به پست عايق شده است</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text19>
-                <Connector Ref="32" type="CheckBox" isKey="true">
+                <Connector Ref="19" type="CheckBox" isKey="true">
                   <Brush>Transparent</Brush>
-                  <Checked>{root.Connector}</Checked>
+                  <Checked>{Tbl_Report.IsRelatedToAyegh}</Checked>
                   <CheckStyleForFalse>Cross</CheckStyleForFalse>
                   <ClientRectangle>11,1.2,0.8,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -439,10 +261,10 @@
                   <Guid>712fa20f85b1468b95fac65f9709c0de</Guid>
                   <Name>Connector</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <TextBrush>Black</TextBrush>
                 </Connector>
-                <Text20 Ref="33" type="Text" isKey="true">
+                <Text20 Ref="20" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>13.8,0,2.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -452,12 +274,12 @@
                   <Margins>0,0,0,0</Margins>
                   <Name>Text20</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>جنس</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text20>
-                <Text21 Ref="34" type="Text" isKey="true">
+                <Text21 Ref="21" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>13.8,0.6,2.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -467,12 +289,12 @@
                   <Margins>0,0,0,0</Margins>
                   <Name>Text21</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>جريان فيوز</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text21>
-                <Text22 Ref="35" type="Text" isKey="true">
+                <Text22 Ref="22" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>8.4,0,2.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -482,12 +304,12 @@
                   <Margins>0,0,0,0</Margins>
                   <Name>Text22</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>سازنده</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text22>
-                <Text23 Ref="36" type="Text" isKey="true">
+                <Text23 Ref="23" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>8.4,0.6,2.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -497,12 +319,12 @@
                   <Margins>0,0,0,0</Margins>
                   <Name>Text23</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>سازنده</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text23>
-                <Text24 Ref="37" type="Text" isKey="true">
+                <Text24 Ref="24" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>3.8,0,1.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -512,12 +334,12 @@
                   <Margins>0,0,0,0</Margins>
                   <Name>Text24</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>جريان</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text24>
-                <Text25 Ref="38" type="Text" isKey="true">
+                <Text25 Ref="25" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>3.8,0.6,1.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -527,12 +349,12 @@
                   <Margins>0,0,0,0</Margins>
                   <Name>Text25</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>نوع</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text25>
-                <Text26 Ref="39" type="Text" isKey="true">
+                <Text26 Ref="26" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
                   <ClientRectangle>0,0,1.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -542,94 +364,106 @@
                   <Margins>0,0,0,0</Margins>
                   <Name>Text26</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
+                  <Parent isRef="11" />
                   <Text>کيلو آمپر</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                 </Text26>
-                <Text27 Ref="40" type="Text" isKey="true">
+                <Text27 Ref="27" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
                   <ClientRectangle>10.6,0,3.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
                   <Font>Mitra,10</Font>
-                  <Guid>44b49ab62efd40f1b044bc7de851aa5a</Guid>
-                  <HorAlignment>Right</HorAlignment>
+                  <HorAlignment>Center</HorAlignment>
                   <Margins>0,0,0,0</Margins>
                   <Name>Text27</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
-                  <Text>{root.Type}</Text>
+                  <Parent isRef="11" />
+                  <Text>{Tbl_Report.BType}</Text>
                   <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
                 </Text27>
-                <Text28 Ref="41" type="Text" isKey="true">
+                <Text28 Ref="28" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
-                  <ClientRectangle>5.2,0,3.2,0.6</ClientRectangle>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>5,0,3.4,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
                   <Font>Mitra,10</Font>
-                  <Guid>4d6e883f9e9347d087a1a57adc871fee</Guid>
-                  <HorAlignment>Right</HorAlignment>
+                  <HorAlignment>Center</HorAlignment>
                   <Margins>0,0,0,0</Margins>
                   <Name>Text28</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
-                  <Text>{root.Maker01}</Text>
+                  <Parent isRef="11" />
+                  <Text>{Tbl_Report.BFac}</Text>
                   <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
                 </Text28>
-                <Text29 Ref="42" type="Text" isKey="true">
+                <Text29 Ref="29" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
-                  <ClientRectangle>5,0.6,3.4,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10</Font>
-                  <Guid>8b84e2cb7a134170b979360e2b53aa62</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text29</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="24" />
-                  <Text>{root.Maker02}</Text>
-                  <TextBrush>Black</TextBrush>
-                </Text29>
-                <Text30 Ref="43" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
-                  <ClientRectangle>0.4,0.6,3.4,0.6</ClientRectangle>
-                  <Conditions isList="true" count="0" />
-                  <Font>Mitra,10</Font>
-                  <Guid>bb1451a2d9194b25b864e5f541f5f534</Guid>
-                  <HorAlignment>Right</HorAlignment>
-                  <Margins>0,0,0,0</Margins>
-                  <Name>Text30</Name>
-                  <Page isRef="4" />
-                  <Parent isRef="24" />
-                  <Text>{root.Kind}</Text>
-                  <TextBrush>Black</TextBrush>
-                </Text30>
-                <Text31 Ref="44" type="Text" isKey="true">
-                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
                   <ClientRectangle>1.2,0,2.6,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
                   <Font>Mitra,10</Font>
-                  <Guid>177c7ef6a6d64bbe9c7bbcf7611eece3</Guid>
-                  <HorAlignment>Right</HorAlignment>
+                  <HorAlignment>Center</HorAlignment>
                   <Margins>0,0,0,0</Margins>
-                  <Name>Text31</Name>
+                  <Name>Text29</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
-                  <Text>{root.Current}</Text>
+                  <Parent isRef="11" />
+                  <Text>{Tbl_Report.BCurrent}</Text>
                   <TextBrush>Black</TextBrush>
-                </Text31>
-                <Text32 Ref="45" type="Text" isKey="true">
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </Text29>
+                <Text30 Ref="30" type="Text" isKey="true">
                   <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
                   <ClientRectangle>10.6,0.6,3.2,0.6</ClientRectangle>
                   <Conditions isList="true" count="0" />
                   <Font>Mitra,10</Font>
-                  <Guid>912d504562b0483e848f2233881b8a68</Guid>
-                  <HorAlignment>Right</HorAlignment>
+                  <HorAlignment>Center</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text30</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="11" />
+                  <Text>{Tbl_Report.CFCurrent}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </Text30>
+                <Text31 Ref="31" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>0,0.6,3.8,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Mitra,10</Font>
+                  <HorAlignment>Center</HorAlignment>
+                  <Margins>0,0,0,0</Margins>
+                  <Name>Text31</Name>
+                  <Page isRef="4" />
+                  <Parent isRef="11" />
+                  <Text>{Tbl_Report.CKind}</Text>
+                  <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
+                </Text31>
+                <Text32 Ref="32" type="Text" isKey="true">
+                  <Brush>Transparent</Brush>
+                  <CanGrow>True</CanGrow>
+                  <ClientRectangle>5,0.6,3.4,0.6</ClientRectangle>
+                  <Conditions isList="true" count="0" />
+                  <Font>Mitra,10</Font>
+                  <HorAlignment>Center</HorAlignment>
                   <Margins>0,0,0,0</Margins>
                   <Name>Text32</Name>
                   <Page isRef="4" />
-                  <Parent isRef="24" />
-                  <Text>{root.FuseCurrent}</Text>
+                  <Parent isRef="11" />
+                  <Text>{Tbl_Report.CFac}</Text>
                   <TextBrush>Black</TextBrush>
+                  <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+                  <VertAlignment>Center</VertAlignment>
                 </Text32>
               </Components>
               <Conditions isList="true" count="0" />
@@ -638,10 +472,10 @@
               <Page isRef="4" />
               <Parent isRef="10" />
             </Panel2>
-            <Text33 Ref="46" type="Text" isKey="true">
+            <Text33 Ref="33" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>15.6,4.4,3.4,1</ClientRectangle>
+              <ClientRectangle>15.6,3.6,3.4,1</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Mitra,10,Bold</Font>
               <Guid>94a9674cdefa466a81041696bb8d257c</Guid>
@@ -656,10 +490,10 @@
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text33>
-            <Text34 Ref="47" type="Text" isKey="true">
+            <Text34 Ref="34" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>11.4,4.4,4.2,1</ClientRectangle>
+              <ClientRectangle>11.4,3.6,4.2,1</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Mitra,10,Bold</Font>
               <Guid>9195f7ca14614784910bc124254c7d7d</Guid>
@@ -674,10 +508,10 @@
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text34>
-            <Text35 Ref="48" type="Text" isKey="true">
+            <Text35 Ref="35" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>7.4,4.4,4,1</ClientRectangle>
+              <ClientRectangle>7.4,3.6,4,1</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Mitra,10,Bold</Font>
               <Guid>3f6ea081a3b64ccfb2263f1645abfba2</Guid>
@@ -692,10 +526,10 @@
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text35>
-            <Text36 Ref="49" type="Text" isKey="true">
+            <Text36 Ref="36" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>3.4,4.4,4,1</ClientRectangle>
+              <ClientRectangle>3.4,3.6,4,1</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Mitra,10,Bold</Font>
               <Guid>8501e66fa528492c938a10f9ee87e6be</Guid>
@@ -710,10 +544,10 @@
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text36>
-            <Text37 Ref="50" type="Text" isKey="true">
+            <Text37 Ref="37" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Yellow</Brush>
-              <ClientRectangle>0,4.4,3.4,1</ClientRectangle>
+              <ClientRectangle>0,3.6,3.4,1</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Mitra,10,Bold</Font>
               <Guid>ff816233443643e192b96a5eedd6b106</Guid>
@@ -728,20 +562,301 @@
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text37>
+            <Text1 Ref="38" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>17.8,0,1,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10,Bold</Font>
+              <Guid>b7f5c2c60ca841b9a00fc5a270c03bce</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,5,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>ناحيه</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text1>
+            <Text3 Ref="39" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.6,0.6,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10,Bold</Font>
+              <Guid>8d3703a303054151b5878ecb24d4e4cd</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,5,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>فيدر فشار متوسط</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text3>
+            <Text4 Ref="40" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.2,0.6,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10,Bold</Font>
+              <Guid>54cd1fb4536148229dabeb1f12c2c4c8</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>پست توزيع</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text4>
+            <Text5 Ref="41" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.6,1.2,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10,Bold</Font>
+              <Guid>2a27138449cb48279ea7852978e2b240</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,5,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>کد پست</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text5>
+            <Text6 Ref="42" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.2,1.2,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10,Bold</Font>
+              <Guid>65f953e791134cd19b2125fe81a1ae8d</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>ظرفيت پست</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text6>
+            <Text2 Ref="43" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.2,0,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10,Bold</Font>
+              <Guid>5d4cc940ecb7463a853e8f8cf2910399</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>پست فوق توزيع</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text2>
+            <Text7 Ref="44" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>9.4,0,7.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>{Tbl_Report.Area}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text11 Ref="45" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,7.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>{Tbl_Report.MPPostName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text12 Ref="46" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>9.4,0.6,7.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>{Tbl_Report.MPFeederName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text13 Ref="47" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0.6,7.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>{Tbl_Report.LPPostName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 Ref="48" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>9.4,1.2,7.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>{Tbl_Report.LPPostCode}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text16 Ref="49" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,1.2,7.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>{Tbl_Report.PostCapacity}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
           </Components>
+          <Condition>{Tbl_Report.LPPostId}</Condition>
           <Conditions isList="true" count="0" />
+          <KeepGroupHeaderTogether>False</KeepGroupHeaderTogether>
+          <KeepGroupTogether>True</KeepGroupTogether>
           <Name>GroupHeaderBand1</Name>
+          <NewPageBefore>True</NewPageBefore>
           <Page isRef="4" />
           <Parent isRef="4" />
         </GroupHeaderBand1>
-        <DataBand1 Ref="51" type="DataBand" isKey="true">
+        <DataBand1 Ref="50" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
-          <ClientRectangle>0,9.2,19,0.8</ClientRectangle>
-          <Components isList="true" count="0" />
+          <ClientRectangle>0,8.4,19,0.6</ClientRectangle>
+          <Components isList="true" count="5">
+            <Text38 Ref="51" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>15.6,0,3.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text38</Name>
+              <Page isRef="4" />
+              <Parent isRef="50" />
+              <Text>{Tbl_Report.FSerial}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text38>
+            <Text39 Ref="52" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>11.4,0,4.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text39</Name>
+              <Page isRef="4" />
+              <Parent isRef="50" />
+              <Text>{Tbl_Report.FFac}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text39>
+            <Text40 Ref="53" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>7.4,0,4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text40</Name>
+              <Page isRef="4" />
+              <Parent isRef="50" />
+              <Text>{Tbl_Report.FMod}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text40>
+            <Text41 Ref="54" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,3.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text41</Name>
+              <Page isRef="4" />
+              <Parent isRef="50" />
+              <Text>{Tbl_Report.FCurr}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text41>
+            <Text42 Ref="55" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>3.4,0,4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text42</Name>
+              <Page isRef="4" />
+              <Parent isRef="50" />
+              <Text>{Tbl_Report.FApp}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text42>
+          </Components>
           <Conditions isList="true" count="0" />
           <DataRelationName isNull="true" />
-          <DataSourceName>root</DataSourceName>
+          <DataSourceName>Tbl_Report</DataSourceName>
           <Filters isList="true" count="0" />
           <Name>DataBand1</Name>
           <Page isRef="4" />
@@ -759,13 +874,13 @@
       <Report isRef="0" />
       <StretchToPrintArea>True</StretchToPrintArea>
       <UnlimitedBreakable>False</UnlimitedBreakable>
-      <Watermark Ref="52" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+      <Watermark Ref="56" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
         <Font>Arial,100</Font>
         <TextBrush>[50:0:0:0]</TextBrush>
       </Watermark>
     </Page1>
   </Pages>
-  <PrinterSettings Ref="53" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <PrinterSettings Ref="57" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
   <ReferencedAssemblies isList="true" count="8">
     <value>System.Dll</value>
     <value>System.Drawing.Dll</value>
@@ -777,10 +892,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>8/30/2021 10:25:47 AM</ReportChanged>
+  <ReportChanged>9/1/2021 10:11:13 AM</ReportChanged>
   <ReportCreated>9/15/2018 5:36:13 PM</ReportCreated>
   <ReportFile>C:\Users\dadvar\Desktop\6_21_FuseSectioner.mrt</ReportFile>
-  <ReportGuid>ba4503afd3d142239cbc325d298cf5be</ReportGuid>
+  <ReportGuid>e151b4fc4c174e65ba1b6b0bf7b4d38b</ReportGuid>
   <ReportImage isNull="true" />
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
@@ -810,7 +925,7 @@ namespace Reports
 </Script>
   <ScriptLanguage>CSharp</ScriptLanguage>
   <Styles isList="true" count="1">
-    <Style1 Ref="54" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Style1 Ref="58" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Brush>Gainsboro</Brush>
       <Conditions isList="true" count="0" />
       <Font>Arial,8</Font>
