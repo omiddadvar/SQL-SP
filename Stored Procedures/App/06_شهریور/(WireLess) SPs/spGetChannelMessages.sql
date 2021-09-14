@@ -6,7 +6,7 @@ ALTER PROCEDURE spGetChannelMessages
   AS
   BEGIN
     /*Getting New Messages*/
-    SELECT TOP(50) H.MediaId , H.MediaDateTime  , M.MediaTime, M.IsOnlineVoice,ISNULL(H.SourceUserId , -1) AS SourceUserId
+    SELECT TOP(20) H.MediaId , H.MediaDateTime  , M.MediaTime, M.IsOnlineVoice,ISNULL(H.SourceUserId , -1) AS SourceUserId
         ,ISNULL(H.DestUserId , -1) AS DestUserId , ISNULL(H.DestChannelId , -1) AS DestChannelId
         , U.DisplayName , U.Username , dbo.mtosh(H.MediaDateTime) AS ShamsiDate
         ,CONVERT(VARCHAR(5), H.MediaDateTime ,108) AS Time
