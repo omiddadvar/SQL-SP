@@ -14,3 +14,4 @@ ALTER PROCEDURE spGetUserChannel
 
 EXEC spGetUserChannel 6
 
+
