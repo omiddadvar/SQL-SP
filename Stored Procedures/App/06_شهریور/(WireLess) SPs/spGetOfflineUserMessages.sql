@@ -1,6 +1,6 @@
 USE WirelessDB
 GO
-ALTER PROCEDURE spGetUserMessages
+ALTER PROCEDURE spGetOfflineUserMessages
   @aOffset INT
   ,@aSourceId INT
   ,@aTargetId INT
@@ -15,10 +15,11 @@ ALTER PROCEDURE spGetUserMessages
       FROM TblMediaHistory H
       INNER JOIN Tbl_User U ON U.UserId = H.SourceUserId
       INNER JOIN TblMedia M ON H.MediaId = M.MediaId
-      LEFT JOIN TblUserOfflineStatus St ON (H.MediaId = St.MediaId AND H.DestUserId = St.UserId)
-      WHERE H.MediaId > @aOffset AND M.MediaTime > 200 AND H.IsRecording = 0 AND
-        ((H.DestUserId = @aSourceId AND SourceUserId = @aTargetId)
-          OR (H.DestUserId = @aTargetId AND SourceUserId = @aSourceId))
+      LEFT JOIN TblUserOfflineStatus St ON H.MediaId = St.MediaId
+      WHERE H.MediaId > @aOffset AND M.MediaTime > 100 AND H.IsRecording = 0 
+        AND M.IsOnlineVoice = 0 AND ISNULL(St.IsListen , 0) = 0
+        AND H.DestUserId = St.DestUserId AND H.SourceUserId = St.UserId
+        AND (H.DestUserId = @aTargetId AND H.SourceUserId = @aSourceId)
       ORDER BY H.MediaId DESC
 
       SELECT * FROM #tmp ORDER BY MediaId ASC
@@ -26,6 +27,10 @@ ALTER PROCEDURE spGetUserMessages
   END
 
 
-EXEC spGetUserMessages @aOffset = 0
-                      ,@aSourceId = 1
-                      ,@aTargetId = 5
+EXEC spGetOfflineUserMessages @aOffset = 0
+                      ,@aSourceId = 5
+                      ,@aTargetId = 1
+
+EXEC spGetOfflineUserMessages 0,1,5
+
+SELECT * FROM TblUserOfflineStatus WHERE MediaId = 1099

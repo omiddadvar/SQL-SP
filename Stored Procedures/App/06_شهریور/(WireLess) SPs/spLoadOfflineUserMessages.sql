@@ -1,6 +1,6 @@
 USE WirelessDB
 GO
-ALTER PROCEDURE spLoadUserMessages
+ALTER PROCEDURE spLoadOfflineUserMessages
   @aOffset INT
   ,@aSourceId INT
   ,@aTargetId INT
@@ -14,13 +14,13 @@ ALTER PROCEDURE spLoadUserMessages
       FROM TblMediaHistory H
       INNER JOIN Tbl_User U ON U.UserId = H.SourceUserId
       INNER JOIN TblMedia M ON H.MediaId = M.MediaId
-      LEFT JOIN TblUserOfflineStatus St ON (H.MediaId = St.MediaId AND H.SourceUserId = St.UserId AND H.DestUserId = St.DestUserId)
-      WHERE H.MediaId < @aOffset AND M.MediaTime > 100 AND H.IsRecording = 0 
-        AND ((H.DestUserId = @aSourceId AND H.SourceUserId = @aTargetId) 
-          OR (H.DestUserId = @aTargetId AND H.SourceUserId = @aSourceId))
+      LEFT JOIN TblUserOfflineStatus St ON H.MediaId = St.MediaId
+      WHERE H.MediaId < @aOffset AND M.MediaTime > 100 AND H.IsRecording = 0 AND M.IsOnlineVoice = 0
+      AND H.SourceUserId = St.UserId AND H.DestUserId = St.DestUserId AND ISNULL(St.IsListen , 0) = 0
+       AND (H.DestUserId = @aTargetId AND H.SourceUserId = @aSourceId)
       ORDER BY H.MediaId DESC
   END
 
-EXEC spLoadUserMessages @aOffset = 800
+EXEC spLoadOfflineUserMessages @aOffset = 1200
                        ,@aSourceId = 1
                        ,@aTargetId = 5
