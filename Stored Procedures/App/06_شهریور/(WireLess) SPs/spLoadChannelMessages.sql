@@ -1,8 +1,8 @@
 USE WirelessDB
 GO
 ALTER PROCEDURE spLoadChannelMessages
-  @aUserId INT
-  ,@aOffset INT
+  @aOffset INT
+  ,@aUserId INT
   ,@aChannelId INT
   AS
   BEGIN
@@ -37,6 +37,6 @@ ALTER PROCEDURE spLoadChannelMessages
   END
 
 
-EXEC spLoadChannelMessages @aUserId = 1
-                          ,@aOffset = 1354
+EXEC spLoadChannelMessages @aOffset = 1354
+                           ,@aUserId = 1
                           ,@aChannelId = 1

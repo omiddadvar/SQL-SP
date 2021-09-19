@@ -1,8 +1,8 @@
 USE WirelessDB
 GO
 ALTER PROCEDURE spGetOfflineChannelMessages
-  @aUserId INT
-  ,@aOffset INT
+  @aOffset INT
+  ,@aUserId INT
   ,@aChannelId INT
   AS
   BEGIN
@@ -25,6 +25,6 @@ ALTER PROCEDURE spGetOfflineChannelMessages
       DROP TABLE #tmp
   END
 
-EXEC spGetOfflineChannelMessages @aUserId = 1
-                         ,@aOffset = 0
+EXEC spGetOfflineChannelMessages @aOffset = 0
+                         ,@aUserId = 1
                          ,@aChannelId = 1

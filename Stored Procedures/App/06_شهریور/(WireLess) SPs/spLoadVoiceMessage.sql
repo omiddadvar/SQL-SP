@@ -5,7 +5,7 @@ ALTER PROCEDURE spLoadVoiceMessage
   AS
   BEGIN
     SELECT * FROM TblMedia 
-      WHERE MediaId = @aMediaId AND Content IS NOT NULL
+      WHERE MediaId = @aMediaId AND (Hcls3000Id IS NOT NULL OR Content IS NOT NULL)
   END
 
 

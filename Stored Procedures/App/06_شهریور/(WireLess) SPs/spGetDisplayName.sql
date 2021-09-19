@@ -10,3 +10,5 @@ CREATE PROCEDURE spGetDisplayName
           ,ISNULL(IsActive , 0) AS IsActive
       FROM Tbl_User
   END
+
+--  EXEC spGetDisplayName
