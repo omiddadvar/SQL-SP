@@ -13,5 +13,3 @@ ALTER PROCEDURE spGetChannelUsers
 
 
 EXEC spGetChannelUsers 1
-
-

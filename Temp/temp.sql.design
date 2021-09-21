@@ -13,13 +13,16 @@
     <ConnectionString>Data Source=10.10.15.12;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
     <Database>WirelessDB</Database>
   </Connection>
-  <Views ShowAdditionalViews="True" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="61">
+  <Views ShowAdditionalViews="True" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="False" />
     <View Name="Code" Active="True" Visible="True">
       <Data>
         <Parameters>
           <Parameter Name="@UserId" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aUserId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aMediaId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aIsChannel" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aSourceUserId" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
