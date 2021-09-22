@@ -23,6 +23,9 @@
           <Parameter Name="@aMediaId" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aIsChannel" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aSourceUserId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aOffset" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aChannelId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aDestId" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
