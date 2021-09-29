@@ -7,6 +7,7 @@ ALTER PROCEDURE spGetUserMessages
   AS
   BEGIN
     /*Getting New Messages*/
+    DECLARE @SQL AS VARCHAR(MAX) = '
     SELECT TOP(20) H.MediaId , H.MediaDateTime  , M.MediaTime,M.IsOnlineVoice, ISNULL(H.SourceUserId , -1) AS SourceUserId
         ,ISNULL(H.DestUserId , -1) AS DestUserId , ISNULL(H.DestChannelId , -1) AS DestChannelId
         , U.DisplayName , U.Username, dbo.mtosh(H.MediaDateTime) AS ShamsiDate
@@ -15,14 +16,17 @@ ALTER PROCEDURE spGetUserMessages
       FROM TblMediaHistory H
       INNER JOIN Tbl_User U ON U.UserId = H.SourceUserId
       INNER JOIN TblMedia M ON H.MediaId = M.MediaId
+      ' + @ExtraJoin + '
       LEFT JOIN TblUserOfflineStatus St ON (H.MediaId = St.MediaId AND H.DestUserId = St.UserId)
-      WHERE H.MediaId > @aOffset AND M.MediaTime > 200 AND H.IsRecording = 0 AND
-        ((H.DestUserId = @aSourceId AND SourceUserId = @aTargetId)
-          OR (H.DestUserId = @aTargetId AND SourceUserId = @aSourceId))
+      WHERE H.MediaId > ' + CAST(@aOffset AS VARCHAR(20)) + ' AND M.MediaTime > 200 AND H.IsRecording = 0 AND '+ @ExtraSearch +' 
+        AND ((H.DestUserId = ' + CAST(@aSourceId AS VARCHAR(20)) + ' AND H.SourceUserId = ' + CAST(@aTargetId AS VARCHAR(20)) + ') 
+          OR (H.DestUserId = ' + CAST(@aTargetId AS VARCHAR(20)) + ' AND H.SourceUserId = ' + CAST(@aSourceId AS VARCHAR(20)) + '))
       ORDER BY H.MediaId DESC
 
       SELECT * FROM #tmp ORDER BY MediaId ASC
       DROP TABLE #tmp
+      '
+      EXEC(@SQL)
   END
 
 
