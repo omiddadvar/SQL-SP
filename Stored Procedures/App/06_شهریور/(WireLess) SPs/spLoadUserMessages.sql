@@ -27,6 +27,8 @@ ALTER PROCEDURE spLoadUserMessages
       EXEC(@SQL)
   END
 
-EXEC spLoadUserMessages @aOffset = 800
+EXEC spLoadUserMessages @aOffset = 1500
                        ,@aSourceId = 1
                        ,@aTargetId = 5
+                       ,@ExtraSearch = ''
+                       ,@ExtraJoin = 'INNER'

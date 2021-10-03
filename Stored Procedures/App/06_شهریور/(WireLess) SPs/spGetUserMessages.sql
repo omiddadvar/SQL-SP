@@ -31,7 +31,10 @@ ALTER PROCEDURE spGetUserMessages
       EXEC(@SQL)
   END
 
-
 EXEC spGetUserMessages @aOffset = 0
                       ,@aSourceId = 1
                       ,@aTargetId = 5
+                      ,@ExtraSearch = ''
+                      ,@ExtraJoin = 'INNER'
+
+EXEC spGetUserMessages 0 ,5, 1
