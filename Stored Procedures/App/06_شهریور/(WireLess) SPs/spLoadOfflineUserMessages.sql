@@ -24,3 +24,5 @@ ALTER PROCEDURE spLoadOfflineUserMessages
 EXEC spLoadOfflineUserMessages @aOffset = 1200
                        ,@aSourceId = 1
                        ,@aTargetId = 5
+
+DROP PROCEDURE spLoadOfflineUserMessages

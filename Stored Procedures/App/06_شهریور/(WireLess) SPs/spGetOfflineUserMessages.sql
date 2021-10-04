@@ -31,6 +31,4 @@ EXEC spGetOfflineUserMessages @aOffset = 0
                       ,@aSourceId = 5
                       ,@aTargetId = 1
 
-EXEC spGetOfflineUserMessages 0,1,5
-
-SELECT * FROM TblUserOfflineStatus WHERE MediaId = 1099
+DROP PROCEDURE spGetOfflineUserMessages

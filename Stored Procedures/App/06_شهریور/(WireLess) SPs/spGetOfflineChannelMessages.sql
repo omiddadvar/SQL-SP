@@ -28,3 +28,6 @@ ALTER PROCEDURE spGetOfflineChannelMessages
 EXEC spGetOfflineChannelMessages @aOffset = 0
                          ,@aUserId = 1
                          ,@aChannelId = 1
+
+
+DROP PROCEDURE spGetOfflineChannelMessages

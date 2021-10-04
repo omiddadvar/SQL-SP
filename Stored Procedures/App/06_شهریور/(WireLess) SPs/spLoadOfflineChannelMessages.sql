@@ -25,3 +25,5 @@ ALTER PROCEDURE spLoadOfflineChannelMessages
 EXEC spLoadOfflineChannelMessages @aOffset = 1354
                           ,@aUserId = 1
                           ,@aChannelId = 1
+
+DROP PROCEDURE spLoadOfflineChannelMessages
