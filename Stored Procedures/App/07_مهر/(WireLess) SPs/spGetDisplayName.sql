@@ -10,15 +10,9 @@ ALTER PROCEDURE spGetDisplayName
           ,ISNULL(U.IsActive , 0) AS IsActive 
           ,ISNULL(U.Password , '') AS Password
           ,AC.*
---      INTO #temp
-      FROM Tbl_User U
-      CROSS APPLY
-        (
-        SELECT TOP(1) A.* FROM Tbl_Access A
-          INNER JOIN Tbl_UserAccess UA ON A.AccessId = UA.AccessId
-          WHERE UA.UserId = U.UserId
-          ORDER BY A.AccessId ASC
-        ) AC
+    FROM Tbl_User U
+      INNER JOIN Tbl_UserAccess UA ON U.UserId = UA.UserId
+      INNER JOIN Tbl_Access AC ON UA.AccessId = AC.AccessId
   END
 
 EXEC spGetDisplayName
