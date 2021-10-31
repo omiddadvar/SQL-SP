@@ -1,6 +1,9 @@
 USE CCRequesterSetad
 GO
-ALTER PROCEDURE spSetNearDisNoti 
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'dbo.spSetNearDisNoti') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+  DROP PROCEDURE dbo.spSetNearDisNoti
+GO
+CREATE PROCEDURE dbo.spSetNearDisNoti 
   AS
   BEGIN
   	BEGIN TRY
@@ -29,7 +32,6 @@ ALTER PROCEDURE spSetNearDisNoti
       SELECT CAST(0 AS BIT) AS result
     END CATCH
   END
-
 
 --  EXEC spSetNearDisNoti
 --

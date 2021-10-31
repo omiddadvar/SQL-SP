@@ -44,3 +44,12 @@ ALTER PROCEDURE dbo.spGetChannelMessages
     EXEC(@SQL)
   END
 GO
+
+EXEC spGetChannelMessages @aOffset = 0
+                         ,@aUserId = 1
+                         ,@aChannelId = 3
+                         ,@ExtraSearch = ' AND M.IsOnlineVoice = 0 AND OffState.IsListen = 0 '
+                         ,@ExtraJoin = ' INNER JOIN TblChannelOfflineStatus OffState ON (H.MediaId = OffState.MediaId AND OffState.UserId = 1)'
+
+
+EXEC spGetChannelMessages 0 ,1, 1
