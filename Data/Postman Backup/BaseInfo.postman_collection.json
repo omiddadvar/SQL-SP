@@ -1,0 +1,104 @@
+{
+	"id": "fa7d992a-96a2-40fc-90d6-87882dcb953d",
+	"name": "BaseInfo",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"c7ea6b76-1be2-4d6d-923b-7b9d53362940",
+		"074b2d33-f73d-40e8-b0ca-af4cb07d8142",
+		"e79fcaf1-3fde-4c73-afbf-4940f7143e9d",
+		"c2d2476e-c8fe-4bf9-a0f0-a33267b00d9a"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "074b2d33-f73d-40e8-b0ca-af4cb07d8142",
+			"name": "AreaList",
+			"url": "{{host}}/BaseInfo/arealist",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "c2d2476e-c8fe-4bf9-a0f0-a33267b00d9a",
+			"name": "MPCloserTypeList",
+			"url": "{{host}}/BaseInfo/mpclosertypelist",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "c7ea6b76-1be2-4d6d-923b-7b9d53362940",
+			"name": "OperationList",
+			"url": "{{host}}/BaseInfo/tamiroperationlist",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"TamirNetworkType\" : \"LP\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "e79fcaf1-3fde-4c73-afbf-4940f7143e9d",
+			"name": "PeymankarList",
+			"url": "{{host}}/BaseInfo/peymankarlist",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"AreaId\" : 2\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}

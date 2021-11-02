@@ -6,11 +6,147 @@
 	"events": null,
 	"variables": null,
 	"order": [
-		"a8d6bc92-eb7b-4ba1-864f-80660c3f162c"
+		"a8d6bc92-eb7b-4ba1-864f-80660c3f162c",
+		"4decbcbd-acfd-4043-9336-7739e3af95a2"
 	],
 	"folders_order": [],
 	"folders": [],
 	"requests": [
+		{
+			"id": "4decbcbd-acfd-4043-9336-7739e3af95a2",
+			"name": "Security_XSS",
+			"url": "http://localhost:3027/frmLogin.aspx",
+			"description": "",
+			"data": [
+				{
+					"key": "loginScriptManager",
+					"value": "loginUpdatePanel|btnLogin",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "__LASTFOCUS",
+					"value": "",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "__EVENTTARGET",
+					"value": "btnLogin",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "__EVENTARGUMENT",
+					"value": "",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "__VIEWSTATE",
+					"value": "/wEPDwUKLTYxMjAwNjcwMA9kFgICAw9kFgYCAw8PFgIeBFRleHQFFdin2LPYqtin2YYg2YXYsdqp2LLbjGRkAgUPDxYCHwAFFDIuMy40LjIgLSAxNDAwLzAzLzE5ZGQCBw9kFgJmD2QWAgIJDxBkDxYQZgIBAgICAwIEAgUCBgIHAggCCQIKAgsCDAINAg4CDxYQEAUOMTIxIC0g2YXYsdmD2LIFATFnEAUM2KLYtNiq2YrYp9mGBQIxMGcQBRjYp9mF2YjYsSDYtNix2YIg2KfYsdin2YMFATJnEAUY2KfZhdmI2LEg2LrYsdioINin2LHYp9mDBQEzZxAFCNiq2YHYsdi0BQE3ZxAFCNiu2YXZitmGBQE1ZxAFCtiu2YbYr9in2KgFAjEzZxAFDNiv2YTZitis2KfZhgUBOGcQBQjYs9in2YjZhwUBNGcQBQjYs9iq2KfYrwUCOTlnEAUK2LTYp9iy2YbYrwUBNmcQBQ/Yutix2YIg2KLYqNin2K8FAjE1ZxAFDNmB2LHZhdmH2YrZhgUCMTFnEAUM2YPZhdmK2KzYp9mGBQIxMmcQBQ7Zhdin2YXZiNmG2YrZhwUCMTRnEAUK2YXYrdmE2KfYqgUBOWdkZGQXT19q7Sxq9p0x/9wSYjYzlIiiCrV0qpnQmVlCJkCovQ==",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "__VIEWSTATEGENERATOR",
+					"value": "0C51E059",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "__EVENTVALIDATION",
+					"value": "/wEdABVT6MbrR46Aui4qYInhr+eHVK7BrRAtEiqu9nGFEI+jB3Y2+Mc6SrnAqio3oCKbxYaOTCNOXZiz7ZoQ2Ypf6pnIaqqpUVWvLsnGlIWauGUhs4HM9LnlKO1H69eS+DuhK0bfxBxub48iL258195+eI2Fe62uNerrP0JUb9JNGu6a+vft/9onWdMVVpKI9dbfwXq69mJ93pmYqvmEcGAn6+LUXhLBbqkH62oLY4kDb0xKiGjr+b2sGyIiGcNgP8bWh+lG1VjeeT8HU+zG0Fst8tSoT8/3k25JF1ud+aPXRCDVpWvmbR8d37gz80iQDRsepi+QXsvq/YW00n8g8WCTwkGHt4A5sdauP6uE2GgyV1XgOW+guw6LFNZCSc1u05SFywKzIBlgGjsSd/Cs6vLsV6813m1re+op15Ka7iC+pL+mZ6KeKEbp39eHc9mbdvkCgxANVyq+JwuCqGRRAOIeYdifTj7vfUTmGlRNXA3lwqP+jA==",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "txtUsername",
+					"value": "admin",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "txtPassword",
+					"value": "T@7844#",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "ddlArea\n",
+					"value": "99",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "BDC_VCID_c_frmlogin_cpcaptcha",
+					"value": "9905a5e67b3144fb9c5c67751aa60833",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "BDC_BackWorkaround_c_frmlogin_cpcaptcha",
+					"value": "1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "BDC_SP_c_frmlogin_cpcaptcha",
+					"value": "288190380",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "txtCaptchaCode",
+					"value": "5TVB8J",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "__ASYNCPOST",
+					"value": "true",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				}
+			],
+			"dataMode": "urlencoded",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": ""
+				},
+				{
+					"key": "Referer",
+					"value": "<script>omid</script>",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "Content-Type: application/x-www-form-urlencoded\nReferer: <script>omid</script>\n",
+			"pathVariables": {}
+		},
 		{
 			"id": "a8d6bc92-eb7b-4ba1-864f-80660c3f162c",
 			"name": "Belali Test",
