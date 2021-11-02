@@ -1,0 +1,129 @@
+{
+	"id": "3539ff23-7177-4a4a-b446-c47084b13e8c",
+	"name": "Test_Raya",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"0390d8a9-67fa-4ff3-99ff-0c2b30bcc2d1",
+		"1e45f6e3-d113-4991-b69b-37c912c22523",
+		"f9883cea-76dd-450e-a436-8e89d7a4b4ae",
+		"0ffedd2f-c6e2-43c1-93da-01ff32f511be",
+		"2ebd77c2-3877-4ecf-a98a-2a6ae86ce2b8"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "0390d8a9-67fa-4ff3-99ff-0c2b30bcc2d1",
+			"name": "OperationList",
+			"url": "{{host}}/BaseInfo/tamiroperationlist",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"TamirNetworkType\" : \"LP\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "0ffedd2f-c6e2-43c1-93da-01ff32f511be",
+			"name": "MPCloserTypeList",
+			"url": "{{host}}/BaseInfo/mpclosertypelist",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "1e45f6e3-d113-4991-b69b-37c912c22523",
+			"name": "AreaList",
+			"url": "{{host}}/BaseInfo/arealist",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "2ebd77c2-3877-4ecf-a98a-2a6ae86ce2b8",
+			"name": "{{host}}/NewTamirRequest/Maz_SetRequestTamir",
+			"url": "{{host}}/NewTamirRequest/SetRequestTamir",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": ""
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"TamirId\" : 9900000000000033,\n\t\"TamirInfo\" : {\n        \"PeymankarId\": 40133511,\n        \"DisconnectDate\": \"1400/08/10\",\n        \"DisconnectTime\": \"11:20\",\n        \"ConnectDate\": \"1400/08/10\",\n        \"ConnectTime\": \"11:45\",\n        \"AreaId\": 3,\n        \"MPCloserTypeId\": 6,\n        \"IsWarmLine\": 1,\n        \"CurrentValue\": 0,\n        \"WorkingAddress\": \"Run your own business !!!\",\n        \"GpsX\": 121654.5416,\n        \"GpsY\": 123456.222,\n\t\t\"CriticalsAddress\": \"Don't be nosy\",\n        \"IsInCityService\": 0,\n        \"NetworkType\": \"MP\",\n        \"OperationList\": [\n\t\t    \t{\n\t\t    \t\"OperationId\" : 990127647,\n\t\t    \t\"OperationCount\" : 2\n        \t\t},\n        \t\t{\n\t\t    \t\"OperationId\" : 990129477,\n\t\t    \t\"OperationCount\" : 2\n        \t\t}\n        \t],\n        \"files\" : [\n        \t\t{\n        \t\t\t\"name\" : \"attachment.jpg\",\n        \t\t\t\"type\" : \"Image\",\n        \t\t\t\"base64\" : \"/9j/4AAQSkZJRgABAQEAYABgAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/4gIcSUNDX1BST0ZJTEUAAQEAAAIMbGNtcwIQAABtbnRyUkdCIFhZWiAH3AABABkAAwApADlhY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWxjbXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApkZXNjAAAA/AAAAF5jcHJ0AAABXAAAAAt3dHB0AAABaAAAABRia3B0AAABfAAAABRyWFlaAAABkAAAABRnWFlaAAABpAAAABRiWFlaAAABuAAAABRyVFJDAAABzAAAAEBnVFJDAAABzAAAAEBiVFJDAAABzAAAAEBkZXNjAAAAAAAAAANjMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAEZCAABYWVogAAAAAAAA9tYAAQAAAADTLVhZWiAAAAAAAAADFgAAAzMAAAKkWFlaIAAAAAAAAG+iAAA49QAAA5BYWVogAAAAAAAAYpkAALeFAAAY2lhZWiAAAAAAAAAkoAAAD4QAALbPY3VydgAAAAAAAAAaAAAAywHJA2MFkghrC/YQPxVRGzQh8SmQMhg7kkYFUXdd7WtwegWJsZp8rGm/fdPD6TD////bAEMAAgEBAgEBAgICAgICAgIDBQMDAwMDBgQEAwUHBgcHBwYHBwgJCwkICAoIBwcKDQoKCwwMDAwHCQ4PDQwOCwwMDP/bAEMBAgICAwMDBgMDBgwIBwgMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIAGwAbAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP1TvvBOkX826SyjZs8nFNh+Hmip0sYq0Y8g1Mr7uOprsOaxRg8H6Tb/AHLGHj2rJ+LPxV8E/s5fDXVPGXjXWNK8K+F9Fj8y81G+YrHHn7qqoBeSRsYWNFZ3PCqTxXTZwfavw5/4OJ/j1q/7Q/7bfhz4Mx6wui+EPCtxYae7yk/Zhf3vlNNeSjIB8pJo4+T8oifGN7EzLsKUuVXO/wD2nP8Ag6F0HWPEk2n/AAp+HGqX2mwOVXV/EWoix+0gHqtnCHYKeoLTBsEZRTkBP2dv+C+y+OtUhh8ceBb+yspG/e33h2/Fw9uvUt9nnVdwAyT++XAHQ1D/AMFRf+CSPwn/AGWvgh4Z8OfDb4HeMdavza6jc618TE8Q3R/4RsWMMcgk1CFt9rJ9rZnRY1S3+dAkO6RwlfMv7OH7PGn+D/B9xrWvTRwLHIyo24CKGJODI3TJYgnBP3dv96vNzbNsNllH2+Jbs2krK7bfZHucNcLZln2MeDwCXMouTbdopKyu3Z9Wl6vtdn72eGfhwdSs47hdR1SHcqloLyyks7mAkA7ZIZVWSNsEHDKD0PQg12Wk+Eo7AjfdXE231NfCX/BNr/gpr4L8X+HtN8Fza14013xFqfisWqz6xdrdLafbVIWCNnxKkDXMbyojmTY08qqY02IPvkMynn+ddWFxFPE01Vhe3Zppryadmn/S0OLMctrYHESwte3NHs1JPs002mn5ej1ui7bww2koZdxxzkmrt345bRrKSaSWO3t4V3SSyuERF9Sx4A9zWOJ2yf5V5b8d9ee/8V6bo7NmzhjW9mT+GVy7Kgb/AHdpIH+3nqBWlTliuZnJGLbsj0q18fWni2VmtLyG6LDPyZ5qRrhiv0ryfTn+xXKXUDNHNCNwZT1HHFer/wBrweJdFsdQhXY0yBJR/ecAfN+PP5VNGtzPlZVSlZXRBNOw96ha6YN/FUl1ujt2ZY/McdFzjNcjf614rF032fQbNouxe55P6V1RVzmcrHZEKvNPVueh5pZuo/kKRH5P6YqTUfHJyP4a/BX/AIOIPgRd+Dv229e1q4ty2m+NLS11ezkK/LIvkR28yntkTQyZHUKyE/eFfvQMNzmvDP8Agoj8Gfgv8V/2bNY1D45NDpvg7wlG2oNrazNBeaOWKoTbuqszPK3lxiHY4lcxgIzhMTIzqRuj+dfxt/wUF+NPjb4W6f4K174neMNc8M6T5Yg02+vjLF+6/wBT5jY3zeXgFBKzbdoxjAx1vhD/AIKCeCNVurPT/iL4Z1pfD9pHEtvDpWpkIpRQo89Qqu44yChPUDbwWPo/wF/4IzeLP+Cg3iHWPF3wpuNS+G/wWmupYNA1Px1JDqOvazGjFTMsdrbwxBMjBx8qtuVZZtrMPLP2zv8Agi18UP2Fp/7Y8UWY8VeEcb28UaQJLqztGyBtu42UNbEkjDOPLYkBZGbIHxuZ5lkWMxsctxNXlrJvl+KPvaXUZW5JS/upuS103PquHs2zjJITxeCs4TtzpqMlKKvZST95R1vpZPR30R+if/BNf4H6h+2v8Rfhr8QPB3gOTwX8E/AWvvrqa3ePCsmu3ULJ5dvaxr++YGSMeZJMqjA4YsoVv1t8vePav5Yf2bfjtrX7OHiKHUPD+uapoXIU3+i3T2NxGM5wXjIbGSepIOSPUV+vH7Bf/BZ7VNdgt9J+Kqrqmk/LHB4tsrUrNFxx9rhjG2QY6yQqHGOUkJLD6jL8BTwlFUKV2lfd3eru/wAzxs4z6tmmNnjsXZSlbZWSSSSSXTRI/SN+D34615B+0zD/AMIZJH4umhkbR7e2EOpSopb7AFLMs7gZ/d4Yhm6JtUngkj1LRdftfEOkWuoafeWupaffRLcWt1bTLLDcxsMh0dSQynsRkV8Q/wDBb/8A4Kl6p+wH8KdJ8NeA7i1h+KXjaCS5tbuWJJx4e05G8trzynBR5pJcxQK4KExzuQfKCP0VafPGzOONTkfMekH4+6LqGmtJpt5HcxspPmIwKY65zn0r1D9nHx3J4i8CyXVxMv8AZ6S+XbztwsxXIbb6hTxnpnjqDX88f/BN39q2f4K/ta2Xifxp53jDQ9XuimtaRqMomtbhJ5F824EbAoJo8l02qoyu0nYzCv6RvEPwwjn3WSutulr+5SONQscarwFVRwAMYAHSuXD4WUal6ktC54mM4WgtSvrvxp0PREK+c88i9kFcZqX7T6rdsINNYx9ix5NX779naO4Y4vGG72rnb39nLUYrhlgkjkj7EtjNerH2fU4pKp0PdAM/h+lO8vP9KYDgL7dakEhc+3tWB0jBGw/3vavyq/4LD+Pbn9vf/gpF8I/2PdHvrq38NabcJ4l8dS28m1s/ZmuTGSOjRWOfLJ483URkZjWv1ZlvrXTbeS6vriGzs7VGmubiZtsdvEgLO7HsqqCST0ANfh3/AMEPfiHJ+2L/AMFj/j58YbtZPL1TSNQvbRJR89ot7qdv9nj9vLtoTGB6DFZVpNR0JtdpH7KeAPCem+EfDOm6VpNha6Zpel20dpY2dsgjhtII0CRxIo4VFRQoUdABWxq3hyDW9JuLa5tobi3uonhmhljEkc0bAqyOrAhlZSQQQQQSCKgsJvKC+1dZoLxT2rKwycd68DEYOhi6UsPiIKUJKzTV0d0KkqclODsz8Nv+Cv3/AARnb4HjUvit8G9Ohh8O2ayXmt+GYo/k02PlpJbZVHNqBlmj+9bgbkJt1Mdt8l/scftE2/w/12PSb5v+Kf8AEDqMTNt+xT8ryecANwe/Cmv6UPHOiLcTMsY6ncD/AHSK/AP/AILR/sC6d+yF8Sf+Eq8K2qaf4N8WXzA6dAuyHRb7aZDHF2WGVVZ40HEZilQAII1HiZPmOIyjH08nxs3OlU/g1JO7TSu6U3u2krwm9ZJOMm5K8tsZg44mhLGUUlKPxxW1npzJdr7rputNvuL9hH9rmb9mbxfFo+sXk0nw516YGUPlo9HmcgC7j/uoSf3ijhly4G5QH/Nn/gtb+0XJ+0F/wU4+Jk8d19o0vwxqf/CL2Plyb40h01TbMEIOCrXQu5hg4zcE1zfwP/bnuvDnhyDTdYuvtFvZgKhdsSKoxhScfN6c5/pXzdqt9cXWq3F3cEtdXTF5D03MTlj+LE1+h1JReqPnYyklyvY674XD+2PiboNjH80l9qFtbgKPvF5FX9c1/XXrU6za1dNn70znHrya/lf/AOCUnwNvv2h/+Civwh8OwxtLaw+IrfWdRwMiOxsmF3cEn+HMcJQE8bnUckgV/UXLds8jMTyxz+JrLrc6qGxZcbj70x2UEduPWojdgHHelFyJORyM0zYtxESr+PT1oSTJ4HtmqsFyuP722vjn/gpD/wAFldD/AGAvGcPhC18D6x408WXGnR6nhrxdN022ilZ1jLTFJHkOUJKpHt4xvDZClxSklqzN/wCDgr9t6w/ZP/YD1/wvbXa/8Jr8Xrebw1pNqrfvI7KQBdQumH/PNYGMIPXzLqPAIVsfAv8Awat6jDD8evjJbsy/aJtA02VCe6pczB/1df0r4t/bV/aQ8fftzfH3VPH/AI9vobnVLxVt7a2twUstItEz5drbISdkS7mPJJZnd2LOzMftP/g3W/Zk+KHgT9o/VUi3jKCu0x7fvKzY/HGMj16VW0DTxqrqZJZl+bHyEDj8q9k+H3wJ0LVLFbi5+2TMrAhTLtXoD0UCt6ljKN+h5Zb6ntGGXcD97n5SPxxn8farvh3Tp1Pl6Rpezf1FpaBd/wD3yBX0ZpXwu8P6GGFvpNmGUHDOnmN3HVs+lbNxDHbeXHHHHGpi3YVdvOAOg47/AMq8+VGm3ex3RrVErXPnmD4X+MNXUOumyLnI3TSKp5+pz3rm/jD4N1L4V+GP7Q1zUdKs2mJW3gilMtxO3+yAAMDjJJAHueK+n55nJPzFcKTx7Y/x/QV8F/tH+NdQ+IHxB1J9SmMm2ZoI1UkLCikgBRnj/Ek1lWpqMdAjNt6nm998abGL4jR2uq3S2qrAJLd5CFieVmYMCem4Lt2567m68V3Ft4tt7mFGSRG3HO4EYx9a+R/jRq81nrgj3LLGzGJlkG4MN2P8/WsWyjk06FZLO6vrAsASLa4eNfyziv52454BWaZlLFzrNSklZWuklst1b8dbvqf0hwLxJSoZTCjTpaRum72bfV9b3+Vlp0PtrS7lte1OO3toZbi4mYJHHChkZz6Ada+jPhR4Rn8D6K8N46pqEpRriNfnFt6I2Oj4ySMjGAOtfnh+zJ8VvEUfjiz05dYvFjvLmK3klV8TFHYBhu/xzX6Rz6ZH4R8ONa2e5Uhby9zYZpMZJZuOSdoz24HAwMeHwN4eypZ8qlWaaoWlo3dvppb73fpazvdbeIXEtsqjTpp2rXWvlvd3+5W87q1mmuSm+kxtSRsquSSU3fUHpjHTn61izXcgkkKtIw2BkU4JO0kDeDggjOeoHQ5zTZbyS6gkk3bWklCHaOMN1HPbnvR5f2mOOVuH+8DgHacMe/rtGc9fwGP6mox0P5pqu7IjLsSRV2nozBWIUYyHAz2Kjp2Lc5wKmh827j3G4aFskMsb/KDk/TP1wM+g6VkO/m2kE2AsksfmOy8bjuZOR0+6MdO59atQ2kd0n7xd3l/IuSeB1/qa6Uc5/9k=\"\n        \t\t}\n        \t]\n\t}\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "f9883cea-76dd-450e-a436-8e89d7a4b4ae",
+			"name": "PeymankarList",
+			"url": "{{host}}/BaseInfo/peymankarlist",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"AreaId\" : 2\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}
