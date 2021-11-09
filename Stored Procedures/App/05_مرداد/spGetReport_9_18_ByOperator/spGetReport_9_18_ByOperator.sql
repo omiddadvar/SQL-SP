@@ -3,14 +3,14 @@ ALTER PROCEDURE spGetReport_9_18_ByOperator
   @FromDate AS VARCHAR(10)
   ,@ToDate AS VARCHAR(10)
   ,@AreaId AS INT = -1
-  ,@OperatorIds AS VARCHAR(100)
+  ,@OperatorIds AS VARCHAR(MAX)
   ,@IsLight AS BIT = 0
   AS
   BEGIN
 
     /* enforce filters */
-  	DECLARE @lSQL AS VARCHAR(2000) = 'SELECT TblRequest.RequestId, TblRequest.AreaId FROM TblRequest '
-    DECLARE @lWhere AS VARCHAR(1000) =  ' WHERE TblRequest.DisconnectDatePersian BETWEEN '''+ @FromDate + ''' AND ''' + @ToDate + ''''
+  	DECLARE @lSQL AS VARCHAR(MAX) = 'SELECT TblRequest.RequestId, TblRequest.AreaId FROM TblRequest '
+    DECLARE @lWhere AS VARCHAR(MAX) =  ' WHERE TblRequest.DisconnectDatePersian BETWEEN '''+ @FromDate + ''' AND ''' + @ToDate + ''''
     CREATE TABLE #tmp(
         RequestId BIGINT,
         AreaId BIGINT
@@ -27,7 +27,6 @@ ALTER PROCEDURE spGetReport_9_18_ByOperator
     END
     SET @lSQL = @lSQL + @lWhere
     INSERT INTO #tmp EXEC(@lSQL)
-    
 
       /*  Main Data :*/
       SELECT R.AreaId ,A.Area , ISNULL(Info.QnsAreaUserId , -1) AS OperatorId
@@ -86,3 +85,4 @@ ALTER PROCEDURE spGetReport_9_18_ByOperator
       DROP TABLE #tempCount
       DROP TABLE #tmp
   END
+
