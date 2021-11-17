@@ -1,0 +1,41 @@
+IP Valid : 80.191.237.227:8855
+user : 	administrator
+pass : 	T@2@rv1400
+
+„—ò“ 121 :
+192.168.107.120
+
+
+--http://10.148.144.65/TZServices/HavadesInform.asmx
+http://192.168.100.35/TZServices/HavadesInform.asmx
+
+
+
+÷»ÿ „ò«·„«  :
+192.168.107.44
+
+dehghan.iut@gmail.com
+motevaselian@yahoo.com
+
+IP Server :
+
+«Ì·«„ :
+192.168.101.121
+administrator
+T@2@rv1400
+
+
+” «œ:
+192.168.100.35
+administrator
+T@2@rv1400
+
+„«»ﬁÌ ‰Ê«ÕÌ:
+10.148.***/...
+administrator
+T@2@rv00***
+
+File Server:
+IP : 192.168.200.12
+User : administrator
+Pass : T@zarv98
