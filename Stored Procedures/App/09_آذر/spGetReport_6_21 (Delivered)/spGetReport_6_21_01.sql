@@ -1,5 +1,5 @@
 
-ALTER PROCEDURE dbo.spGetReport_6_21_01
+ALTER PROCEDURE spGetReport_6_21_01
    @aAreaIds AS VARCHAR(100)
   ,@aMPPost AS VARCHAR(100)
   ,@aMPFeederIds AS VARCHAR(100) 
