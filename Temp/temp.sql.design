@@ -13,20 +13,15 @@
     <ConnectionString>Data Source=10.10.15.12;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
     <Database>CCRequesterSetad</Database>
   </Connection>
-  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="75">
     <View Name="Design" Visible="False" />
     <View Name="Code" Active="True" Visible="True">
       <Data>
         <Parameters>
-          <Parameter Name="@aAreaIDs" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aDatePersian" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aDate" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aIsLPReq" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aIsMPReq" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aIsFoghTReq" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aMPPostIDs" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aMPFeederIDs" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aIsTamir" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aAreaIds" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aMPPost" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aMPFeederIds" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aLPPostIds" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
