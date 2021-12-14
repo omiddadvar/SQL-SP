@@ -17,7 +17,7 @@ BEGIN
           ,Dej.IsReleh ,Dej.IsTermometer ,Dej.Isfan ,Dej.IsRelehBokh ,Releh.RelehType
 		  ,Fuse.SerialNumber AS FSerial ,Spc_FacF.SpecValue AS FFac ,Spc_ModF.SpecValue AS FMod 
           ,Spc_AppF.SpecValue AS FApp ,Spc_Curr.SpecValue AS FCurr
-          ,CASE WHEN FuseSecsunerId IS NOT NULL THEN ''”ò”ÌÊ‰— ›ÌÊ“œ«—'' ELSE NULL END AS FType
+          ,CASE WHEN FuseSecsunerId IS NOT NULL THEN ''”ò”ÌÊ‰— ›ÌÊ“œ«—'' ELSE '''' END AS FType
         FROM Tbl_LPPost LPP
         INNER JOIN Tbl_MPFeeder MPF ON LPP.MPFeederId = MPF.MPFeederId
         INNER JOIN Tbl_MPPost MPP ON MPF.MPPostId = MPP.MPPostId
@@ -66,6 +66,5 @@ BEGIN
       SET @lSQL = @lSQL + @lWhere
       
       EXEC(@lSQL)
---      PRINT(@lSQL)
 END 
 GO
