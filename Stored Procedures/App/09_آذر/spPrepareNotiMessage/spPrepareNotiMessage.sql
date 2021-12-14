@@ -1,5 +1,5 @@
-USE CCRequesterSetad
-GO
+--USE CCRequesterSetad
+--GO
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].spPrepareNotiMessage') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
   DROP PROCEDURE [dbo].spPrepareNotiMessage
 GO
@@ -16,7 +16,7 @@ AS
     SELECT @lText = ConfigText FROM Tbl_Config WHERE ConfigName = 'NotifBaBarname'
     IF @lText IS NULL OR @lText = '' 
       BEGIN
-        RAISERROR('NotifBaBarname Is Empty - Tbl_Config' , 16 , 1);                      	
+        RAISERROR('NotifBaBarname Is Empty - Tbl_Config' , 16 , 1); 	
       END
     SELECT * INTO #tmp FROM TblRequest WHERE RequestId = @aReqId
     
@@ -33,7 +33,10 @@ AS
       INNER JOIN TblTamirRequest TR ON C.TamirRequestId = TR.TamirRequestId 
       INNER JOIN Tbl_TamirRequestSubject Sub ON TR.TamirRequestSubjectId = Sub.TamirRequestSubjectId
       WHERE R.RequestId = @aReqId
-    
+    SET @lText = REPLACE(@lText , 'Ì' , 'Ì')
+    IF CHARINDEX('„œÌ—Ì  «÷ÿ—«—Ì »«—',@lText) > 0 BEGIN
+      	 SET @lText = REPLACE(@lText , 'ÃÂ  »Â»Êœ ‰Ì—Ê —”«‰Ì' , '«Õ „«·«')
+      END
     SET @lText = REPLACE(@lText , 'DisconnectDatePersian' , @lDisconnectDatePersian)
     SET @lText = REPLACE(@lText , 'DisconnectTime' , @lDisconnectTime)
     SET @lText = REPLACE(@lText , 'ss' , CAST(@lDuration AS VARCHAR(4)))
