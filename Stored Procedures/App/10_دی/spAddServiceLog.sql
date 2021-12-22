@@ -1,4 +1,6 @@
+
 ALTER PROCEDURE spAddServiceLog
+  @aApplicationId AS INT,
 	@aLogTypeId As INT,
 	@aURL AS NVARCHAR(500),
   @aParams AS NVARCHAR(4000),
@@ -9,22 +11,12 @@ BEGIN
   Declare @lNewId AS BIGINT,
     @lDT AS DATETIME = GETDATE()
   
-  INSERT INTO TblServiceLog (LogTypeId,LogDT, URL, Params, Result, IsSuccessful)
-    VALUES (@aLogTypeId,@lDT, @aURL, @aParams, @aResult, @aIsSuccess);
+  INSERT INTO TblServiceLog (LogTypeId,ApplicationId,LogDT, URL, Params, Result, IsSuccessful)
+    VALUES (@aLogTypeId,@aApplicationId,@lDT, @aURL, @aParams, @aResult, @aIsSuccess);
 
   SET @lNewId = @@IDENTITY
   IF @lNewId % 1000 = 0 BEGIN
     DELETE FROM TblServiceLog WHERE LogDT < DATEADD(DAY,-10,@lDT)
   END
-  SELECT @lNewId AS LogTypeId
+  SELECT @lNewId AS ServiceLogId
 END
-
-EXEC spAddServiceLog @aLogTypeId = 1
-                    ,@aURL = N'www.adrinsoft.ir'
-                    ,@aParams = N'{name : "omid" , task : "Run your business !!!!"}'
-                    ,@aResult = N'{status : True , Data : "Fuck Off :D"}'
-                    ,@aIsSuccess = 1
-
-
-SELECT * FROM TblServiceLog 
-
