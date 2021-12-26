@@ -1,4 +1,4 @@
-CREATE PROCEDURE dbo.spGetReport_6_21_03
+ALTER PROCEDURE dbo.spGetReport_6_21_03
    @aAreaIds AS VARCHAR(100)
   ,@aMPPost AS VARCHAR(100)
   ,@aMPFeederIds AS VARCHAR(100) 
@@ -15,6 +15,9 @@ CREATE PROCEDURE dbo.spGetReport_6_21_03
           ,Dej.SerialNumber ,Spc_Type.SpecValue AS DType , Spc_Fac.SpecValue AS DFac ,Spc_Mod.SpecValue AS DMod
           ,Spc_App.SpecValue AS DApp ,Spc_FCurr.SpecValue AS DFCurr ,Spc_RelehDC.SpecValue AS DRCycle
           ,Dej.IsReleh ,Dej.IsTermometer ,Dej.Isfan ,Dej.IsRelehBokh ,Releh.RelehType
+          ,Spc_R1Curr.SpecValue AS Releh1Curr ,Spc_R1Time.SpecValue AS Releh1Time , Spc_R1Instant.SpecValue AS Releh1Instant
+          , Dej.AdjustCurrentEF_2 AS Releh2EFCurr, Dej.AdjustTimeEF_2 AS Releh2EFTime
+          , Dej.AdjustCurrentOC_2 AS Releh2OCCurr, Dej.AdjustTimeOC_2 AS Releh2OCTime, Dej.AdjustReleh_2 AS Releh2Instant
         FROM Tbl_LPPost LPP
         INNER JOIN Tbl_MPFeeder MPF ON LPP.MPFeederId = MPF.MPFeederId
         INNER JOIN Tbl_MPPost MPP ON MPF.MPPostId = MPP.MPPostId
@@ -28,12 +31,17 @@ CREATE PROCEDURE dbo.spGetReport_6_21_03
         LEFT JOIN TblSpec SpcC_Fac ON Info.spcCutout_FactoryId = SpcC_Fac.SpecId
         LEFT JOIN TblSpec SpcC_Kind ON Info.spcCutout_TypeId = SpcC_Kind.SpecId
         LEFT JOIN TblSpec Spc_Type ON Dej.spcDejenctortypeId = Spc_Type.SpecId
-        LEFT JOIN TblSpec Spc_Fac ON Dej.spcDejenctor_FactoryId = Spc_Type.SpecId
-        LEFT JOIN TblSpec Spc_Mod ON Dej.spcModelId = Spc_Type.SpecId
-        LEFT JOIN TblSpec Spc_App ON Dej.spcApplicationId = Spc_Type.SpecId
-        LEFT JOIN TblSpec Spc_FCurr ON Dej.spcFCurrentId = Spc_Type.SpecId
-        LEFT JOIN TblSpec Spc_RelehDC ON Dej.spcRelehDCCycleType = Spc_Type.SpecId
-        LEFT JOIN Tbl_RelehType Releh ON Dej.RelehTypeId = Releh.RelehTypeId '
+        LEFT JOIN TblSpec Spc_Fac ON Dej.spcDejenctor_FactoryId = Spc_Fac.SpecId
+        LEFT JOIN TblSpec Spc_Mod ON Dej.spcModelId = Spc_Mod.SpecId
+        LEFT JOIN TblSpec Spc_App ON Dej.spcApplicationId = Spc_App.SpecId
+        LEFT JOIN TblSpec Spc_FCurr ON Dej.spcFCurrentId = Spc_FCurr.SpecId
+        LEFT JOIN TblSpec Spc_RelehDC ON Dej.spcRelehDCCycleType = Spc_RelehDC.SpecId
+        LEFT JOIN Tbl_RelehType Releh ON Dej.RelehTypeId = Releh.RelehTypeId
+      
+        LEFT JOIN TblSpec Spc_R1Curr ON Dej.spcAdjustCurrent_1Id = Spc_R1Curr.SpecId
+        LEFT JOIN TblSpec Spc_R1Time ON Dej.spcAdjustTime_1Id = Spc_R1Time.SpecId
+        LEFT JOIN TblSpec Spc_R1Instant ON Dej.spcAdjustReleh_1Id = Spc_R1Instant.SpecId
+      '
       
       SET @lWhere = ' WHERE LPP.IsHavayi = 0'
       IF @aLPPostIds <> '' BEGIN

@@ -64,7 +64,6 @@ BEGIN
       	SET @lWhere = @lWhere + ' AND A.AreaId IN (' + @aAreaIds + ')'
       END
       SET @lSQL = @lSQL + @lWhere
-      
       EXEC(@lSQL)
 END 
 GO
