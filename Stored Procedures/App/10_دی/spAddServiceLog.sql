@@ -5,14 +5,15 @@ ALTER PROCEDURE spAddServiceLog
 	@aURL AS NVARCHAR(500),
   @aParams AS NVARCHAR(4000),
   @aResult AS NVARCHAR(4000),
+  @aError AS NVARCHAR(4000),
   @aIsSuccess AS BIT
 As
 BEGIN
   Declare @lNewId AS BIGINT,
     @lDT AS DATETIME = GETDATE()
   
-  INSERT INTO TblServiceLog (LogTypeId,ApplicationId,LogDT, URL, Params, Result, IsSuccessful)
-    VALUES (@aLogTypeId,@aApplicationId,@lDT, @aURL, @aParams, @aResult, @aIsSuccess);
+  INSERT INTO TblServiceLog (LogTypeId,ApplicationId,LogDT, URL, Params, Result , Error, IsSuccessful)
+    VALUES (@aLogTypeId,@aApplicationId,@lDT, @aURL, @aParams, @aResult, @aError, @aIsSuccess);
 
   SET @lNewId = @@IDENTITY
   IF @lNewId % 1000 = 0 BEGIN
