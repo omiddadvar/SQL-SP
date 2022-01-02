@@ -23,6 +23,7 @@
           <Parameter Name="@aURL" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aParams" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aResult" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aError" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aIsSuccess" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
