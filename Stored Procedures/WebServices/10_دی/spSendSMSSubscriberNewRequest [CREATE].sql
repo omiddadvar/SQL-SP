@@ -1,6 +1,6 @@
-ALTER PROCEDURE spSendSMSOutageSubscriber
-  @aRequestId AS BIGINT,
-  @aMobile AS VARCHAR(20)
+CREATE PROCEDURE spSendSMSSubscriberNewRequest
+  @aRequestNumber AS BIGINT,
+  @aMobile AS NVARCHAR(20)
   AS
   BEGIN
     DECLARE @lBody AS NVARCHAR(2000)= N''
@@ -10,11 +10,12 @@ ALTER PROCEDURE spSendSMSOutageSubscriber
       SELECT @lBody = ConfigText FROM Tbl_Config WHERE ConfigName = 'SMSSubscriberNewRequest'
       SELECT @lProvince = ConfigValue FROM Tbl_Config WHERE ConfigName = 'ToziName'
       
-      SELECT TOP(1) CAST(RequestNumber AS VARCHAR(20)) AS RequestNumber , CAST(TrackingCode AS VARCHAR(20)) AS TrackingCode,
+      SELECT TOP(1) RequestNumber , CAST(TrackingCode AS VARCHAR(20)) AS TrackingCode,
           Address , DataEntryDTPersian ,DataEntryTime , DisconnectDatePersian , DisconnectTime
         INTO #tmp
         FROM TblRequest
-        WHERE RequestId = @aRequestId
+        WHERE RequestNumber = @aRequestNumber
+
       SET @lBody = REPLACE(@lBody , 'DataEntryDate' , ISNULL((SELECT TOP(1) DataEntryDTPersian FROM #tmp) , '____/__/__'))
       SET @lBody = REPLACE(@lBody , 'DataEntryTime' , ISNULL((SELECT TOP(1) DataEntryTime FROM #tmp) , '__:__'))
       SET @lBody = REPLACE(@lBody , 'DisconnectDate' , ISNULL((SELECT TOP(1) DisconnectDatePersian FROM #tmp) , '____/__/__'))
@@ -24,11 +25,13 @@ ALTER PROCEDURE spSendSMSOutageSubscriber
       SET @lBody = REPLACE(@lBody , 'RequestNumber' , ISNULL((SELECT TOP(1) RequestNumber FROM #tmp) , '__'))
       SET @lBody = REPLACE(@lBody , 'TrackingCode' , ISNULL((SELECT TOP(1) TrackingCode FROM #tmp) , '__'))
       
-      SET @lDesc = 'SMSSubscriberNewRequest : ' + ISNULL((SELECT TOP(1) RequestNumber FROM #tmp) , '#RequestNumber#')
+      SET @lDesc = 'SMSSubscriberNewRequest : ' + ISNULL(CAST(@aRequestNumber AS VARCHAR(20)) , '#RequestNumber#')
       DROP TABLE #tmp
-
+      
       EXEC spCreateSMS @lBody ,@aMobile ,@lDesc , NULL
     END TRY
     BEGIN CATCH
     END CATCH
   END
+
+

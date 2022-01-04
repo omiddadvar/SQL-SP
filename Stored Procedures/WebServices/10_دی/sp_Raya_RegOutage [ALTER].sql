@@ -353,7 +353,10 @@ AS
 		COMMIT TRAN @InsertRequest
 	END
   /*------------------------------------<SMS>------------------------------------*/
-  EXEC spSendSMSOutageSubscriber @RequestId , @Mobile
-  /*----------------------------------- </SMS>-----------------------------------*/
+  /*Execute spCreateSMS and trap it here with #tmpDummy in order to not return any SMSId*/
+  CREATE TABLE #tmpDummy ( SMSId BIGINT )
+  INSERT INTO #tmpDummy EXEC spSendSMSOutageSubscriber @RequestNumber , @Mobile
+  DROP TABLE #tmpDummy
+  /*-----------------------------------</SMS>-----------------------------------*/
 	SELECT @lTrackingCode AS TrackingCode, @ErrorMessage AS ResultMessage
 GO
