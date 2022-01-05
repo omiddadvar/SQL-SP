@@ -20,7 +20,7 @@ BEGIN
     VALUES (@aLogTypeId, @aApplicationId, @aKeyTypeId ,@aKeyId ,@aLevelId ,@lDT, @aURL ,@aMethod , @aParams, @aResult, @aError, @aIsSuccess);
 
   SET @lNewId = @@IDENTITY
-  IF @lNewId % 1000 = 0 BEGIN
+  IF @lNewId % 100 = 0 BEGIN
     DELETE FROM TblServiceLog WHERE LogDT < DATEADD(DAY, -10, @lDT)
   END
   SELECT @lNewId AS ServiceLogId
