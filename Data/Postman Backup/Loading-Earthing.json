@@ -1,0 +1,86 @@
+{
+	"id": "14945f2d-ff84-44ab-8819-d19b291072c6",
+	"name": "Loading-Earthing",
+	"description": "• LPPostLoading\n• LPPostEarthing\n• LPFeederLoading",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"dcb5f591-f6b0-46b6-8b92-9948354f522f",
+		"50711c35-17c7-400f-8da8-042b0b9bb79f",
+		"6f1da918-9865-4e1e-8b2b-efea3de54400"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "50711c35-17c7-400f-8da8-042b0b9bb79f",
+			"name": "LPFeederLoad",
+			"url": "{{host}}/Loading/SetLPFeederLoadInfo",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"GISCode\" : \"GSg573-F1\",\n\t\"DatePersian\" : \"1400/10/30\",\n\t\"Time\" : \"13:00\",\n\t\"RCurrent\" : 190,\n\t\"SCurrent\" : 230,\n\t\"TCurrent\" : 225,\n\t\"NolCurrent\" : 310\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "6f1da918-9865-4e1e-8b2b-efea3de54400",
+			"name": "LPPostEarth",
+			"url": "{{host}}/Loading/SetLPPostEarthInfo",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"GISCode\" : \"11-0157hg\",\n\t\"DatePersian\" : \"1400/10/30\",\n\t\"Time\" : \"13:00\",\n\t\"Earth\" : 200,\n\t\"EarthE\" : 250\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "dcb5f591-f6b0-46b6-8b92-9948354f522f",
+			"name": "LPPostLoad",
+			"url": "{{host}}/Loading/SetLPPostLoadInfo",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\r\n \"GISCode\" : \"PLS5683946\",\r\n \"DatePersian\" : \"1400/10/30\",\r\n \"Time\" : \"12:00\",\r\n \"RCurrent\" : 180,\r\n \"SCurrent\" : 220.5,\r\n \"TCurrent\" : 215.98,\r\n \"NolCurrent\" : 300.8\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}
