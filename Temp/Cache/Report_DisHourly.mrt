@@ -1,0 +1,1145 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <XML Ref="2" type="Stimulsoft.Report.Dictionary.StiXmlDatabase" isKey="true">
+        <Alias>XML</Alias>
+        <Key />
+        <Name>XML</Name>
+        <PathData>C:\Users\dadvar\Desktop\Report_DisHourly.xml</PathData>
+        <PathSchema>C:\Users\dadvar\Desktop\Report_DisHourly.xml</PathSchema>
+      </XML>
+    </Databases>
+    <DataSources isList="true" count="1">
+      <Tbl_ReportDisHourly Ref="3" type="DataTableSource" isKey="true">
+        <Alias>Tbl_ReportDisHourly</Alias>
+        <Columns isList="true" count="28">
+          <value>ToziId,System.String</value>
+          <value>ToziName,System.String</value>
+          <value>Hour00,System.Double</value>
+          <value>Hour01,System.Double</value>
+          <value>Hour02,System.Double</value>
+          <value>Hour03,System.Double</value>
+          <value>Hour04,System.Double</value>
+          <value>Hour05,System.Double</value>
+          <value>Hour06,System.Double</value>
+          <value>Hour07,System.Double</value>
+          <value>Hour08,System.Double</value>
+          <value>Hour09,System.Double</value>
+          <value>Hour10,System.Double</value>
+          <value>Hour11,System.Double</value>
+          <value>Hour12,System.Double</value>
+          <value>Hour13,System.Double</value>
+          <value>Hour14,System.Double</value>
+          <value>Hour15,System.Double</value>
+          <value>Hour16,System.Double</value>
+          <value>Hour17,System.Double</value>
+          <value>Hour18,System.Double</value>
+          <value>Hour19,System.Double</value>
+          <value>Hour20,System.Double</value>
+          <value>Hour21,System.Double</value>
+          <value>Hour22,System.Double</value>
+          <value>Hour23,System.Double</value>
+          <value>DatePersian,System.String</value>
+          <value>Province,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Name>Tbl_ReportDisHourly</Name>
+        <NameInSource>XML.Tbl_ReportDisHourly</NameInSource>
+      </Tbl_ReportDisHourly>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="1">
+      <value>,FilterInfo,FilterInfo,,System.String,,True,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <table Ref="4" type="Page" isKey="true">
+      <Border>All;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="6">
+        <PageHeaderBand1 Ref="5" type="PageHeaderBand" isKey="true">
+          <Border>All;Black;1;Solid;False;4;Black</Border>
+          <Brush>[255:242:0]</Brush>
+          <ClientRectangle>0,0.4,27.8,1.4</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text3 Ref="6" type="Text" isKey="true">
+              <Brush>[235:241:221]</Brush>
+              <ClientRectangle>0,0,27.69,1.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,18,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>گزارش کمبود توليد ساعت به ساعت</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageHeaderBand1>
+        <PageHeaderBand2 Ref="7" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2.6,27.8,0</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Name>PageHeaderBand2</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageHeaderBand2>
+        <ReportTitleBand1 Ref="8" type="ReportTitleBand" isKey="true">
+          <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
+          <Brush>[255:194:14]</Brush>
+          <ClientRectangle>0,3.4,27.8,0.8</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text46 Ref="9" type="Text" isKey="true">
+              <Border>Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,27.89,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text46</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>{FilterInfo}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text46>
+          </Components>
+          <Conditions isList="true" count="1">
+            <value>_x007B_FilterInfo_x0020__x003D__x003D__x0022__x0022__x007D_,Red,Transparent,Arial_x002C_8,False,False,,,None</value>
+          </Conditions>
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </ReportTitleBand1>
+        <ColumnHeaderBand1 Ref="10" type="Stimulsoft.Report.Components.StiColumnHeaderBand" isKey="true">
+          <Border>All;Black;1;Solid;False;4;Black</Border>
+          <Brush>[0:183:239]</Brush>
+          <ClientRectangle>0,5,27.8,1.2</ClientRectangle>
+          <Components isList="true" count="24">
+            <Text5 Ref="11" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>23,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>00
+</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text4 Ref="12" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>22,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>f9077d46a8ba43f99b228339dc6dc24c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>01
+</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text1 Ref="13" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>21,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>c09b62f5a70c416c87a68895b4162e54</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>02</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text6 Ref="14" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>20,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>07238c44a4ce48c8ac5be263fed6e9bc</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>03</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text7 Ref="15" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>19,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>2c5582b0614547e187b64bf2e2c1c3e9</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>04</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text8 Ref="16" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>18,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>70e1152d788a46a59f5e02b36c3db15d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>05</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text9 Ref="17" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>17,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>a7de4aecb4794ec590cce09891fa83da</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>06</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text10 Ref="18" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>16,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>b50bc9f1b02f4284b0682ae625b2e0dd</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>07</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text11 Ref="19" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>15,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>34914de525454f06bc76017fe7e06ad7</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>08</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text12 Ref="20" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>14,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>ddb5941493f942b1a7f294925491e47b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>09</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text13 Ref="21" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>13,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>d2911b85a4bf45bf86f7846b115a1f8c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>10</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 Ref="22" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>12,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>bdd2920d90e342d0b6f548a19c8b4899</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>11</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text15 Ref="23" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>11,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>058b6fc6b6fb4c2fa2c26d11c3950072</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>12</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text19 Ref="24" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>10,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>63cf83a7dc154c2e89b9d6dc7a2230f4</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>13</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+            <Text20 Ref="25" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>9,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>0de55c4dbe9d4b62a6fccb94d8fb72f6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>14</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text21 Ref="26" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>8,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>3bdbe98a63dc46679c83e9cf27868eb5</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>15</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text22 Ref="27" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>7,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>6aaab5e5ff5242a6ba9223399f84492c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>16</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text23 Ref="28" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>6,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>78f8d75db51441ebbd38bfae70210d6b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>17</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text24 Ref="29" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>5,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>2f7e581a206f48b7a6ec3d81b4777b25</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>18</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Text25 Ref="30" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>4,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>1a61af33f8164fb09ecbd98d5ade055f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>19</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Text26 Ref="31" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>3,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>0c1d0dc3db4440caa68037d9587d54ae</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>20</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text26>
+            <Text57 Ref="32" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>2,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>034860bda00b49088c6db001e589de46</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text57</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>21</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text57>
+            <Text58 Ref="33" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>1,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>9f3e54dff63547e1bfb2add269730066</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text58</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>22</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text58>
+            <Text59 Ref="34" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:253:215]</Brush>
+              <ClientRectangle>0,0,1,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,12,Bold</Font>
+              <Guid>ebfb10f900374e7f9525baced1974e35</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text59</Name>
+              <Page isRef="4" />
+              <Parent isRef="10" />
+              <Text>23</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text59>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ColumnHeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </ColumnHeaderBand1>
+        <GroupHeaderBand1 Ref="35" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,7,27.8,1</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text27 Ref="36" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Yellow</Brush>
+              <ClientRectangle>0,0,27.8,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,14,Bold</Font>
+              <Guid>0031641440804647acdb40d674a36ed3</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="4" />
+              <Parent isRef="35" />
+              <Text>{Tbl_ReportDisHourly.ToziName}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+          </Components>
+          <Condition>{Tbl_ReportDisHourly.ToziId}</Condition>
+          <Conditions isList="true" count="0" />
+          <Guid>7b13f7ea7ee84823903b8e03c9707383</Guid>
+          <KeepGroupTogether>True</KeepGroupTogether>
+          <Name>GroupHeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <PrintOnAllPages>True</PrintOnAllPages>
+        </GroupHeaderBand1>
+        <DataBand3 Ref="37" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,8.8,27.8,0.8</ClientRectangle>
+          <Components isList="true" count="25">
+            <Text16 Ref="38" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>23,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>7bd740f3f4f44286a319c145325d21eb</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour00}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text18 Ref="39" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>22,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>35092fd9d1e341b6b2e72a20e2daa72b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour01}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text81 Ref="40" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>21,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>a004fed9c1b14d8cb2afcb5ef29fcce7</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text81</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour02}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text81>
+            <Text82 Ref="41" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>20,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>2b62267362cc4efc901ee4755c07d4b7</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text82</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour03}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text82>
+            <Text83 Ref="42" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>19,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>f305da0c1fe74e4cb3b966e70676e2b2</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text83</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour04}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text83>
+            <Text84 Ref="43" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>18,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>b7184093aca649b8b89d81f3e473684f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text84</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour05}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text84>
+            <Text85 Ref="44" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>17,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>1b5af370aace424b80a4afb265df0cf6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text85</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour06}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text85>
+            <Text86 Ref="45" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>16,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>c9440e5223504e9882d11935310991d5</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text86</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour07}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text86>
+            <Text87 Ref="46" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>15,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>e03c2882474649c7aa13eda0f4380a91</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text87</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour08}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text87>
+            <Text89 Ref="47" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>14,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>a310fe34cf404dd8bb28d2b8836c33a4</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text89</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour09}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text89>
+            <Text90 Ref="48" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>13,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>c077150a4d5348d2896ea459c1f5d548</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text90</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour10}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text90>
+            <Text91 Ref="49" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>12,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>28c948888b9d4c49803f98d3f89fabf1</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text91</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour11}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text91>
+            <Text92 Ref="50" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>11,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>78aaa5a3529f4b479227b329fdbfde42</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text92</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour12}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text92>
+            <Text93 Ref="51" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>10,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>9876873a275a44f080bee66ed43881fb</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text93</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour13}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text93>
+            <Text94 Ref="52" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>9,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>0a678a1b1f6848d8baac73743d63c472</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text94</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour14}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text94>
+            <Text95 Ref="53" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>8,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>44987188d5674d9ea37b3f6bad690a26</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text95</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour15}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text95>
+            <Text96 Ref="54" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>7,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>769af177d3f343b6ac77cf7e4e6b66b0</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text96</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour16}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text96>
+            <Text97 Ref="55" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>6,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>78c296a9f4b9435e99625853196868e8</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text97</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour17}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text97>
+            <Text98 Ref="56" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>5,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>5d8ff9a83a3a4557bebbfd65719d771c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text98</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour18}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text98>
+            <Text99 Ref="57" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>4,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>d2b68f5e95b648e8bfa0c22fb5931918</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text99</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour19}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text99>
+            <Text100 Ref="58" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>3,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>af9adab392994d88a3b77ebcf2cc0b4c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text100</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour20}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text100>
+            <Text101 Ref="59" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>2,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>b20b186a330f41b985ba138409efd6e1</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text101</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour21}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text101>
+            <Text102 Ref="60" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>1,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>39f0d0c4bef74304952f8733ee9845bb</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text102</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour22}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text102>
+            <Text103 Ref="61" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,1,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>70e2fd598a6949fe83b596faf9ee089f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text103</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.Hour23}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text103>
+            <Text17 Ref="62" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>24,0,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Mitra,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="4" />
+              <Parent isRef="37" />
+              <Text>{Tbl_ReportDisHourly.DatePersian}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>Tbl_ReportDisHourly</DataSourceName>
+          <Filters isList="true" count="1">
+            <value>_x007B_Tbl_ReportDisHourly.ToziId_x0020__x0021__x003D__x0020__x0022_-1_x0022__x007D_</value>
+          </Filters>
+          <Guid>579e1f3e36234d9baf999e9600a045d1</Guid>
+          <Name>DataBand3</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Sort isList="true" count="4">
+            <value>DESC</value>
+            <value>ToziName</value>
+            <value>DESC</value>
+            <value>DatePersian</value>
+          </Sort>
+        </DataBand3>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>def469a30c8f467d8d11677a736b9d5e</Guid>
+      <LargeHeight>True</LargeHeight>
+      <Margins>1,1,1,1</Margins>
+      <Name>table</Name>
+      <Orientation>Landscape</Orientation>
+      <PageHeight>21</PageHeight>
+      <PageWidth>29.8</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <RightToLeft>True</RightToLeft>
+      <Watermark Ref="63" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </table>
+  </Pages>
+  <PrinterSettings Ref="64" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>1/15/2022 5:25:32 PM</ReportChanged>
+  <ReportCreated>12/5/2017 5:03:29 PM</ReportCreated>
+  <ReportFile>C:\Users\dadvar\Desktop\Report_DisHourly.mrt</ReportFile>
+  <ReportGuid>761062908662433a8b4a0dcbe6100439</ReportGuid>
+  <ReportImage isNull="true" />
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2017.1.6.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="1">
+    <Style1 Ref="65" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Brush>Gainsboro</Brush>
+      <Conditions isList="true" count="0" />
+      <Font>Arial,8</Font>
+      <Name>Style1</Name>
+      <TextBrush>Black</TextBrush>
+    </Style1>
+  </Styles>
+</StiSerializer>
