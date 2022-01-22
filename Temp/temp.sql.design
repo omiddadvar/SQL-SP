@@ -13,7 +13,7 @@
     <ConnectionString>Data Source=172.16.100.6;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
     <Database>CcrequesterSetad</Database>
   </Connection>
-  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="61">
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="False" />
     <View Name="Code" Active="True" Visible="True">
       <Data>
@@ -23,6 +23,7 @@
           <Parameter Name="@aURL" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aParams" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aResult" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aCompany" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aMethod" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aError" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aKeyId" Direction="Input" DbType="VarChar" />

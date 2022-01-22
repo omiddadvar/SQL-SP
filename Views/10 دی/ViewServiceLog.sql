@@ -1,10 +1,11 @@
-CREATE VIEW ViewServiceLog 
+ALTER VIEW ViewServiceLog 
   AS
 	SELECT L.ServiceLogId
   	,T.ServiceLogType
   	,A.LogApplication
   	,K.KeyTypeName
   	,L.KeyId
+    ,L.Company
   	,L.Method
   	,LEVEL.LevelName
   	,dbo.MiladiToShamsi(L.LogDT) AS LogPersianDate
