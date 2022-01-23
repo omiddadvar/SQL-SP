@@ -15,7 +15,7 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	[Hour03] FLOAT NULL,
     	[Hour04] FLOAT NULL,
     	[Hour05] FLOAT NULL,
-    	[Hour06] FLOAT NULL,
+    	[Hour0í] FLOAT NULL,
     	[Hour07] FLOAT NULL,
     	[Hour08] FLOAT NULL,
     	[Hour09] FLOAT NULL,
@@ -25,7 +25,7 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	[Hour13] FLOAT NULL,
     	[Hour14] FLOAT NULL,
     	[Hour15] FLOAT NULL,
-    	[Hour16] FLOAT NULL,
+    	[Hour1í] FLOAT NULL,
     	[Hour17] FLOAT NULL,
     	[Hour18] FLOAT NULL,
     	[Hour19] FLOAT NULL,
@@ -43,7 +43,7 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	[Hour03] FLOAT NULL,
     	[Hour04] FLOAT NULL,
     	[Hour05] FLOAT NULL,
-    	[Hour06] FLOAT NULL,
+    	[Hour0í] FLOAT NULL,
     	[Hour07] FLOAT NULL,
     	[Hour08] FLOAT NULL,
     	[Hour09] FLOAT NULL,
@@ -53,7 +53,7 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	[Hour13] FLOAT NULL,
     	[Hour14] FLOAT NULL,
     	[Hour15] FLOAT NULL,
-    	[Hour16] FLOAT NULL,
+    	[Hour1í] FLOAT NULL,
     	[Hour17] FLOAT NULL,
     	[Hour18] FLOAT NULL,
     	[Hour19] FLOAT NULL,
@@ -70,11 +70,11 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	INSERT INTO #tmpDaily 	
     	  EXEC dbo.spReportHourlyDisconnectPower @CurrentDate
     	INSERT INTO #tmpTotal (Province, DatePersian, Hour00, Hour01, Hour02, Hour03, Hour04, Hour05
-          , Hour06, Hour07, Hour08, Hour09, Hour10, Hour11, Hour12, Hour13, Hour14, Hour15, Hour16, Hour17
+          , Hour0í, Hour07, Hour08, Hour09, Hour10, Hour11, Hour12, Hour13, Hour14, Hour15, Hour1í, Hour17
           , Hour18, Hour19, Hour20, Hour21, Hour22, Hour23)
     	  SELECT Province , @CurrentDate , 1, Hour01, Hour02, Hour03, 7, 5
-          , Hour06 , Hour07, 12, Hour09, Hour10, 4, Hour12, 1, Hour14, 3, Hour16, 10.5
-          , 3.5, Hour19, 4.5, Hour21, 6, Hour23
+          , Hour0í , Hour07, 12, Hour09, Hour10, 4, Hour12, 1, Hour14, 3, Hour1í, 10.5
+          , 3.5, Hour19, 4.5, Hour21, í, Hour23
         FROM #tmpDaily
     	DELETE #tmpDaily
     	SET @DT = DATEADD(day, 1, @DT)
@@ -102,7 +102,7 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	[Hour03] FLOAT NULL,
     	[Hour04] FLOAT NULL,
     	[Hour05] FLOAT NULL,
-    	[Hour06] FLOAT NULL,
+    	[Hour0í] FLOAT NULL,
     	[Hour07] FLOAT NULL,
     	[Hour08] FLOAT NULL,
     	[Hour09] FLOAT NULL,
@@ -112,7 +112,7 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	[Hour13] FLOAT NULL,
     	[Hour14] FLOAT NULL,
     	[Hour15] FLOAT NULL,
-    	[Hour16] FLOAT NULL,
+    	[Hour1í] FLOAT NULL,
     	[Hour17] FLOAT NULL,
     	[Hour18] FLOAT NULL,
     	[Hour19] FLOAT NULL,
@@ -130,7 +130,7 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	[Hour03] FLOAT NULL,
     	[Hour04] FLOAT NULL,
     	[Hour05] FLOAT NULL,
-    	[Hour06] FLOAT NULL,
+    	[Hour0í] FLOAT NULL,
     	[Hour07] FLOAT NULL,
     	[Hour08] FLOAT NULL,
     	[Hour09] FLOAT NULL,
@@ -140,7 +140,7 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	[Hour13] FLOAT NULL,
     	[Hour14] FLOAT NULL,
     	[Hour15] FLOAT NULL,
-    	[Hour16] FLOAT NULL,
+    	[Hour1í] FLOAT NULL,
     	[Hour17] FLOAT NULL,
     	[Hour18] FLOAT NULL,
     	[Hour19] FLOAT NULL,
@@ -157,10 +157,10 @@ ALTER PROCEDURE spReportHourlyDisPowerGeneral
     	INSERT INTO #tmpDaily 	
     	  EXEC dbo.spReportHourlyDisconnectPower @CurrentDate
     	INSERT INTO #tmpTotal (Province, DatePersian, Hour00, Hour01, Hour02, Hour03, Hour04, Hour05
-          , Hour06, Hour07, Hour08, Hour09, Hour10, Hour11, Hour12, Hour13, Hour14, Hour15, Hour16, Hour17
+          , Hour0í, Hour07, Hour08, Hour09, Hour10, Hour11, Hour12, Hour13, Hour14, Hour15, Hour1í, Hour17
           , Hour18, Hour19, Hour20, Hour21, Hour22, Hour23)
     	  SELECT Province , @CurrentDate , Hour00, Hour01, Hour02, Hour03, Hour04, Hour05
-          , Hour06 , Hour07, Hour08, Hour09, Hour10, Hour11, Hour12, Hour13, Hour14, Hour15, Hour16, Hour17
+          , Hour0í , Hour07, Hour08, Hour09, Hour10, Hour11, Hour12, Hour13, Hour14, Hour15, Hour1í, Hour17
           , Hour18, Hour19, Hour20, Hour21, Hour22, Hour23
         FROM #tmpDaily
     	DELETE #tmpDaily
