@@ -23,6 +23,7 @@ from Tbl_EventLogCenter where EventId = 297355715
 
 
 ------------------Prianshahr----------------
+
 select * from Tbl_EventLogCenter 
 	where TableName = 'TblMPRequestKey' 
 		and PrimaryKeyId = 99000000015960

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), SQL document design file -->
+<!-- Modifying this generated file will probably render it invalid -->
+<Document>
+  <Properties>
+    <Type>SQL Document Design</Type>
+    <DatabaseProvider>aa8afe9c-7d62-4564-b477-c12e62e0f440</DatabaseProvider>
+    <ProviderVersion>5.8.127.0</ProviderVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </Properties>
+  <Connection Name="10.10.15.12">
+    <Category>00000000-0000-0000-0000-000000000000</Category>
+    <ConnectionString>Data Source=10.10.15.12;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
+    <Database>CCRequesterSetad</Database>
+  </Connection>
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
+    <View Name="Design" Visible="False" />
+    <View Name="Code" Active="True" Visible="True">
+      <Data>
+        <Parameters>
+          <Parameter Name="@aLogTypeId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aApplicationId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aURL" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aParams" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aResult" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aCompany" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aMethod" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aError" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aKeyId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aKeyTypeId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aIsSuccess" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aLevelId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aFromDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aToDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@FromDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@ToDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@AreaId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@OperatorIds" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@IsLight" Direction="Input" DbType="VarChar" />
+        </Parameters>
+      </Data>
+    </View>
+    <View Name="Data" Visible="True" />
+    <View Name="Profiler" Visible="False" />
+    <View Name="PivotGrid" Visible="False" />
+  </Views>
+  <ProfilingMode Enabled="False" />
+  <LiveProfilingMode Enabled="False" />
+</Document>
