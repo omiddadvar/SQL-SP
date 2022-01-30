@@ -1,0 +1,651 @@
+{
+	"id": "a0754361-9cd3-4109-8f61-42ecfb732a13",
+	"name": "TzTestWebAPI",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"32b9fadc-b84f-4530-b9c7-f133e1e56bf0",
+		"610bb559-edbe-47bb-8360-24ffe5bd58e0",
+		"eb330bac-9b6c-4be1-bcde-83fdff77fb44"
+	],
+	"folders_order": [
+		"a42cfd13-452b-4e02-9dee-2749659daf93",
+		"a19162b7-6749-4827-9f8f-30a3532db540",
+		"105a63ba-cb83-456d-9672-09627de108cb",
+		"75088a13-cfe7-410b-a63a-9e5f02583285",
+		"7e38fab9-e3c3-4eb4-a132-edb42c6311f6",
+		"1b631254-a11c-44c5-be38-8824cf897994",
+		"917f1b93-f1ce-44c0-93b1-6e791297ecce"
+	],
+	"folders": [
+		{
+			"id": "a19162b7-6749-4827-9f8f-30a3532db540",
+			"name": "Automation",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a0754361-9cd3-4109-8f61-42ecfb732a13",
+			"folder": null,
+			"order": [
+				"57d79c90-a66c-4fb4-8d72-c00478afe017"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "a42cfd13-452b-4e02-9dee-2749659daf93",
+			"name": "BaseInfo",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a0754361-9cd3-4109-8f61-42ecfb732a13",
+			"folder": null,
+			"order": [
+				"6e4e0c82-dcd2-4563-bcef-e86be1d529d3",
+				"5413a3d2-6ad7-4fe0-ad88-0080168baa52"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "7e38fab9-e3c3-4eb4-a132-edb42c6311f6",
+			"name": "File",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a0754361-9cd3-4109-8f61-42ecfb732a13",
+			"folder": null,
+			"order": [
+				"cc5733c7-8041-4b20-a612-7cd078d92156"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "75088a13-cfe7-410b-a63a-9e5f02583285",
+			"name": "GIS",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a0754361-9cd3-4109-8f61-42ecfb732a13",
+			"folder": null,
+			"order": [
+				"046af130-b3de-4ba9-9680-db2ed7a9ad8d",
+				"c87b4312-4f78-48b8-bcb8-f7137459ac4b",
+				"2566268c-2260-4186-9b8e-15c0be90f132",
+				"6c192198-c81e-46c2-bb23-ea7861a31e03",
+				"73b6ef92-f734-4041-b94b-e41177442259",
+				"d5b41df5-27f5-4f2f-8bac-27046a9a7bc9",
+				"332a4dd1-bfa1-4a04-80ee-9af26b23d4a6",
+				"82676b58-9745-4866-97ad-6e1abf20afef"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "105a63ba-cb83-456d-9672-09627de108cb",
+			"name": "Homa",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a0754361-9cd3-4109-8f61-42ecfb732a13",
+			"folder": null,
+			"order": [
+				"dbf61845-cc64-4d51-8c24-f60b89b48202",
+				"75e2e931-2fde-4977-a49b-0721ea524568"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "917f1b93-f1ce-44c0-93b1-6e791297ecce",
+			"name": "Notification",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a0754361-9cd3-4109-8f61-42ecfb732a13",
+			"folder": null,
+			"order": [
+				"41fba1a8-682d-4a26-b0ed-d30911329b68"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "1b631254-a11c-44c5-be38-8824cf897994",
+			"name": "Service",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a0754361-9cd3-4109-8f61-42ecfb732a13",
+			"folder": null,
+			"order": [
+				"1d496c04-14d4-40ad-8d15-2668888586ea"
+			],
+			"folders_order": []
+		}
+	],
+	"requests": [
+		{
+			"id": "046af130-b3de-4ba9-9680-db2ed7a9ad8d",
+			"name": "Get MV Outage",
+			"url": "{{host}}/api/gis/getmvoutage",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
+			"rawModeData": "{\r\n    \"FromDate\": \"1400/01/01\",\r\n    \"FromTime\": \"00:00\",\r\n    \"ToDate\": \"1400/02/01\",\r\n    \"ToTime\": \"23:59\"\r\n  }",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "1d496c04-14d4-40ad-8d15-2668888586ea",
+			"name": "Service Status",
+			"url": "{{host}}/api/service/status",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "1b631254-a11c-44c5-be38-8824cf897994",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "2566268c-2260-4186-9b8e-15c0be90f132",
+			"name": "Get Single Outage",
+			"url": "{{host}}/api/gis/getsinglesuboutage",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
+			"rawModeData": "{\r\n    \"FromDate\": \"1400/01/01\",\r\n    \"FromTime\": \"00:00\",\r\n    \"ToDate\": \"1400/02/01\",\r\n    \"ToTime\": \"23:59\"\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "32b9fadc-b84f-4530-b9c7-f133e1e56bf0",
+			"name": "Test",
+			"url": "{{host}}/api/gis/all",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "332a4dd1-bfa1-4a04-80ee-9af26b23d4a6",
+			"name": "Tavanir Get Planned Outage List",
+			"url": "{{host}}/api/gis/tavanirgetplanoutagelist",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
+			"rawModeData": "{\r\n    \"AreaId\": 15,\r\n    \"DateFrom\": \"1400/01/01\",\r\n    \"DateTo\": \"1400/02/01\",\r\n    \"BillingId\": \"ded448r4gt84gt4\"\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "41fba1a8-682d-4a26-b0ed-d30911329b68",
+			"name": "Send Notification",
+			"url": "{{host}}/api/notification/send",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "917f1b93-f1ce-44c0-93b1-6e791297ecce",
+			"rawModeData": "{\r\n    \"Title\": \"Test Title\",\r\n    \"Text\": \"Text Text Text Text Text\",\r\n    \"SubscriberList\": \"\"\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "5413a3d2-6ad7-4fe0-ad88-0080168baa52",
+			"name": "TestUpload",
+			"url": "{{host}}/api/baseinfo/uploadtest",
+			"description": "",
+			"data": [
+				{
+					"key": "Tamir",
+					"value": "",
+					"description": "",
+					"type": "file",
+					"enabled": true
+				},
+				{
+					"key": "fffff",
+					"value": "",
+					"description": "",
+					"type": "file",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "multipart/form-data"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "noauth"
+			},
+			"events": [],
+			"folder": "a42cfd13-452b-4e02-9dee-2749659daf93",
+			"responses": [
+				{
+					"id": "26cc6710-15b7-4d3c-86f1-3b9a9dab433a",
+					"name": "TestUpload",
+					"status": "",
+					"mime": "",
+					"language": "json",
+					"text": "{\"Message\":\"FileNames : [4.gif,waitingIcon.gif]\",\"IsSuccessful\":true,\"Data\":\"Created\"}",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"requestObject": {
+						"url": "{{host}}/api/baseinfo/uploadtest",
+						"pathVariableData": [],
+						"queryParams": [],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"disabled": false
+							}
+						],
+						"data": [
+							{
+								"key": "Tamir",
+								"value": null,
+								"description": "",
+								"type": "file",
+								"enabled": true
+							},
+							{
+								"key": "fffff",
+								"value": null,
+								"description": "",
+								"type": "file",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"headers": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Length",
+							"value": "86",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 25 Jan 2022 08:42:25 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "-1",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "X-AspNet-Version",
+							"value": "4.0.30319",
+							"name": "X-AspNet-Version",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET",
+							"name": "X-Powered-By",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						},
+						{
+							"key": "X-SourceFiles",
+							"value": "=?UTF-8?B?RDpcU291cmNlQ29kZVxUWlRlc3RTeXN0ZW1cVHJvdWJsZVNob290aW5nV2ViQVBJXGFwaVxiYXNlaW5mb1x1cGxvYWR0ZXN0?=",
+							"name": "X-SourceFiles",
+							"description": "Custom header"
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "ASP.NET_SessionId",
+							"path": "/",
+							"secure": false,
+							"url": "http://localhost:5500",
+							"value": "kzx03urhub5bqw4nvthcvfww"
+						}
+					],
+					"request": "5413a3d2-6ad7-4fe0-ad88-0080168baa52",
+					"collection": "a0754361-9cd3-4109-8f61-42ecfb732a13"
+				}
+			],
+			"headers": "Content-Type: multipart/form-data\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "57d79c90-a66c-4fb4-8d72-c00478afe017",
+			"name": "CheckAll",
+			"url": "{{host}}/api/automation/checkall",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "a19162b7-6749-4827-9f8f-30a3532db540",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "610bb559-edbe-47bb-8360-24ffe5bd58e0",
+			"name": "Test Post",
+			"url": "{{host}}/api/gis/setnames",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "[\n\t{\n\t\t\"fullname\" : \"omid\",\n\t\t\"age\" : 27,\n\t\t\"phone\" : \"11111111111\"\n\t},\n\t{\n\t\t\"fullname\" : \"ali\",\n\t\t\"age\" : 25,\n\t\t\"phone\" : \"22222222222\"\n\t}\n]",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "6c192198-c81e-46c2-bb23-ea7861a31e03",
+			"name": "Get Subscriber Info",
+			"url": "{{host}}/api/gis/getsubscriberinfo",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
+			"rawModeData": "{\r\n    \"Code\": \"123456789\",\r\n    \"CodeType\": 5,\r\n    \"AreaId\": 2\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "6e4e0c82-dcd2-4563-bcef-e86be1d529d3",
+			"name": "AllAreas",
+			"url": "{{host}}/api/baseinfo/areas",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "a42cfd13-452b-4e02-9dee-2749659daf93",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "73b6ef92-f734-4041-b94b-e41177442259",
+			"name": "Get Subsciber Parents",
+			"url": "{{host}}/api/gis/getsubscriberparent",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
+			"rawModeData": "{\r\n    \"SubscriberName\": \"Mamad\",\r\n    \"SubscriberTel\": \"02188997745\",\r\n    \"SubscriberNo\": \"09123333333\",\r\n    \"SubscriberFileNo\": \"13654\",\r\n    \"SubscriberID\": \"cdc454rfr6\",\r\n    \"SubscriberBillingID\": \"ded448r4gt84gt4\",\r\n    \"SubscriberGpsX\": 1669554.95454,\r\n    \"SubscriberGpsY\": 6561851.665\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "75e2e931-2fde-4977-a49b-0721ea524568",
+			"name": "Check Homa Service",
+			"url": "{{host}}/api/homa/checkhomaservice",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "105a63ba-cb83-456d-9672-09627de108cb",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "82676b58-9745-4866-97ad-6e1abf20afef",
+			"name": "Get DC Sublist",
+			"url": "{{host}}/api/gis/tavanirgetoutagelist",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
+			"rawModeData": "12365459",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "c87b4312-4f78-48b8-bcb8-f7137459ac4b",
+			"name": "Get LV Outage",
+			"url": "{{host}}/api/gis/getlvoutage",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
+			"rawModeData": "{\r\n    \"FromDate\": \"1400/01/01\",\r\n    \"FromTime\": \"00:00\",\r\n    \"ToDate\": \"1400/02/01\",\r\n    \"ToTime\": \"23:59\"\r\n  }",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "cc5733c7-8041-4b20-a612-7cd078d92156",
+			"name": "Check FileServer",
+			"url": "{{host}}/api/file/test",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "7e38fab9-e3c3-4eb4-a132-edb42c6311f6",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "d5b41df5-27f5-4f2f-8bac-27046a9a7bc9",
+			"name": "Tavanir Get Outage List",
+			"url": "{{host}}/api/gis/tavanirgetoutagelist",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
+			"rawModeData": "{\r\n    \"AreaId\": 15,\r\n    \"DateFrom\": \"1400/01/01\",\r\n    \"DateTo\": \"1400/02/01\",\r\n    \"BillingId\": \"ded448r4gt84gt4\"\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "dbf61845-cc64-4d51-8c24-f60b89b48202",
+			"name": "Check Map Service",
+			"url": "{{host}}/api/homa/checkmapservice",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "105a63ba-cb83-456d-9672-09627de108cb",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "eb330bac-9b6c-4be1-bcde-83fdff77fb44",
+			"name": "FileTest (Delete)",
+			"url": "{{host}}/api/file/testdelete",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		}
+	]
+}
