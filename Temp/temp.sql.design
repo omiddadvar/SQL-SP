@@ -30,13 +30,6 @@
           <Parameter Name="@aKeyTypeId" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aIsSuccess" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aLevelId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aFromDate" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aToDate" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@FromDate" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@ToDate" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@AreaId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@OperatorIds" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@IsLight" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
