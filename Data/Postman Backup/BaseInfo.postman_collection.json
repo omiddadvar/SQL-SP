@@ -73,7 +73,7 @@
 			"auth": null,
 			"events": [],
 			"folder": null,
-			"rawModeData": "{\n\t\"TamirNetworkType\" : \"LP\"\n}",
+			"rawModeData": "{\n\t\"TamirNetworkType\" : \"MP\"\n}",
 			"headers": "Content-Type: application/json\n",
 			"pathVariables": {}
 		},

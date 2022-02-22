@@ -17,7 +17,8 @@
 		"75088a13-cfe7-410b-a63a-9e5f02583285",
 		"7e38fab9-e3c3-4eb4-a132-edb42c6311f6",
 		"1b631254-a11c-44c5-be38-8824cf897994",
-		"917f1b93-f1ce-44c0-93b1-6e791297ecce"
+		"917f1b93-f1ce-44c0-93b1-6e791297ecce",
+		"7a1ef892-5958-4d7e-9756-7adacba93a28"
 	],
 	"folders": [
 		{
@@ -108,6 +109,19 @@
 			"folders_order": []
 		},
 		{
+			"id": "7a1ef892-5958-4d7e-9756-7adacba93a28",
+			"name": "SMS",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a0754361-9cd3-4109-8f61-42ecfb732a13",
+			"folder": null,
+			"order": [
+				"80b7e7b7-d00a-45c7-bc83-430a5f3217d8"
+			],
+			"folders_order": []
+		},
+		{
 			"id": "1b631254-a11c-44c5-be38-8824cf897994",
 			"name": "Service",
 			"description": "",
@@ -150,16 +164,22 @@
 			"name": "Service Status",
 			"url": "{{host}}/api/service/status",
 			"description": "",
-			"data": null,
-			"dataMode": "params",
-			"headerData": [],
-			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
 			"pathVariableData": [],
 			"queryParams": [],
 			"auth": null,
 			"events": [],
 			"folder": "1b631254-a11c-44c5-be38-8824cf897994",
-			"headers": "",
+			"rawModeData": "{\"AreaId\" : 2}",
+			"headers": "Content-Type: application/json\n",
 			"pathVariables": {}
 		},
 		{
@@ -466,7 +486,7 @@
 			"auth": null,
 			"events": [],
 			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
-			"rawModeData": "{\r\n    \"Code\": \"123456789\",\r\n    \"CodeType\": 5,\r\n    \"AreaId\": 2\r\n}",
+			"rawModeData": "{\r\n    \"Code\": \"123456\",\r\n    \"CodeType\": 4,\r\n    \"AreaId\": 2\r\n}",
 			"headers": "Content-Type: application/json\n",
 			"pathVariables": {}
 		},
@@ -528,9 +548,26 @@
 			"pathVariables": {}
 		},
 		{
+			"id": "80b7e7b7-d00a-45c7-bc83-430a5f3217d8",
+			"name": "SMS Subscribers",
+			"url": "{{host}}/api/sms/editsubscribers",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "7a1ef892-5958-4d7e-9756-7adacba93a28",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
 			"id": "82676b58-9745-4866-97ad-6e1abf20afef",
 			"name": "Get DC Sublist",
-			"url": "{{host}}/api/gis/tavanirgetoutagelist",
+			"url": "{{host}}/api/gis/getdcsublist",
 			"description": "",
 			"data": [],
 			"dataMode": "raw",
@@ -546,7 +583,7 @@
 			"auth": null,
 			"events": [],
 			"folder": "75088a13-cfe7-410b-a63a-9e5f02583285",
-			"rawModeData": "12365459",
+			"rawModeData": "{\"RequestPostFeederId\" : 2100150132465}",
 			"headers": "Content-Type: application/json\n",
 			"pathVariables": {}
 		},

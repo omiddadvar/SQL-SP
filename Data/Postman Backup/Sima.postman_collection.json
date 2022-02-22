@@ -1,0 +1,38 @@
+{
+	"id": "2063599b-e456-457a-9c78-2a6400f9c3be",
+	"name": "Sima",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"14b3cf67-69ce-4f69-906f-1a678af2e30c"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "14b3cf67-69ce-4f69-906f-1a678af2e30c",
+			"name": "Indicators Report",
+			"url": "{{host}}/SimaServices/GetIndicatorsReport",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"FromDate\" : \"1395/01/01\",\n\t\"ToDate\" : \"1400/12/03\",\n\t\"AreaIds\" : [2]\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}
