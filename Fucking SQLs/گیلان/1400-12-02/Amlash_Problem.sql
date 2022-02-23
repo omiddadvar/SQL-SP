@@ -30,3 +30,9 @@ WHERE RequestId IN (
 	WHERE 
 		tR.AreaId IN (SELECT AreaId FROM Tbl_Area WHERE Server121Id <> 3)
 )
+
+
+select * from TblSubscriberSMSSend where RequestId Not In 
+(
+	Select RequestId from TblRequest where DisconnectDatePersian >= '1397/01/01'
+)
