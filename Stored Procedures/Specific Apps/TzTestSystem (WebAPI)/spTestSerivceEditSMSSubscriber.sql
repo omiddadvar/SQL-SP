@@ -7,7 +7,7 @@ CREATE PROCEDURE spTestSerivceEditSMSSubscriber
   BEGIN
   	DECLARE @ID AS BIGINT
 
-    SELECT @ID = ISNULL(TestServiceSMSId,-1) FROM Tbl_TestServiceSMS WHERE MobileNo LIKE @Mobile
+    SELECT @ID = ISNULL(TestServiceSMSId,-1) FROM Tbl_TestServiceSMS WHERE MobileNo LIKE '%' + @Mobile + '%'
 
     IF @ID > 0
     BEGIN
@@ -16,7 +16,7 @@ CREATE PROCEDURE spTestSerivceEditSMSSubscriber
     ELSE
     BEGIN
       INSERT INTO Tbl_TestServiceSMS (Name, MobileNo, IsActive)
-        VALUES (@Name, @Mobile, @IsActive);
+        VALUES (@Name, @Mobile, @IsActive)
     END
 
   END
