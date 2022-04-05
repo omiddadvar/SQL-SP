@@ -6,14 +6,15 @@
 	"events": null,
 	"variables": [],
 	"order": [
-		"14b3cf67-69ce-4f69-906f-1a678af2e30c"
+		"14b3cf67-69ce-4f69-906f-1a678af2e30c",
+		"ee207627-93f1-4c94-bbb6-72f5b7f0d66c"
 	],
 	"folders_order": [],
 	"folders": [],
 	"requests": [
 		{
 			"id": "14b3cf67-69ce-4f69-906f-1a678af2e30c",
-			"name": "Indicators Report",
+			"name": "Indicators Report Sistan",
 			"url": "{{host}}/SimaServices/GetIndicatorsReport",
 			"description": "",
 			"data": [],
@@ -30,7 +31,30 @@
 			"auth": null,
 			"events": [],
 			"folder": null,
-			"rawModeData": "{\n\t\"FromDate\" : \"1395/01/01\",\n\t\"ToDate\" : \"1400/12/03\",\n\t\"AreaIds\" : [2]\n}",
+			"rawModeData": "{\n\t\"FromDate\" : \"1395/01/01\",\n\t\"ToDate\" : \"1400/12/03\",\n\t\"AreaIds\" : [2,3]\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "ee207627-93f1-4c94-bbb6-72f5b7f0d66c",
+			"name": "Indicators Report All (Golestan)",
+			"url": "{{host}}/SimaServices/GetIndicatorsAll",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"FromDate\" : \"1395/01/01\",\n\t\"ToDate\" : \"1400/12/03\",\n\t\"AreaIds\" : [2,3]\n}",
 			"headers": "Content-Type: application/json\n",
 			"pathVariables": {}
 		}
