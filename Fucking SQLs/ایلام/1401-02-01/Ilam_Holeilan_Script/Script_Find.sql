@@ -1,19 +1,7 @@
-/*
-  CREATE TABLE #tmp
-(
-	RequestId BIGINT UNIQUE,
-	IsMP BIT,
-	MPRequstId BIGINT NULL,
-  LPRequstId BIGINT NULL,
-  MPFeederId INT NULL,
-  LPPostId INT NULL,
-  LPFeederId INT NULL,
-  AreaId INT,
-  Type VARCHAR(3) NULL
-)
-*/
-SELECT TOP(100) R.RequestId , CAST(1 AS BIT) AS IsMP , MPR.MPRequestId , CAST(NULL AS BIGINT) AS LPRequstId
-    , MPR.MPFeederId , MPR.LPPostId , NULL AS LPFeederId
+
+DECLARE @AreaId AS INT = 10
+/*----------------MP Request-----------------*/
+SELECT TOP(100) R.RequestId
     , CASE WHEN R.IsDisconnectMPFeeder = 1 THEN MPF.AreaId
            WHEN MPR.IsTotalLPPostDisconnected = 1 THEN LPP.AreaId
            ELSE  NULL END AS AreaId
@@ -26,11 +14,12 @@ SELECT TOP(100) R.RequestId , CAST(1 AS BIT) AS IsMP , MPR.MPRequestId , CAST(NU
   LEFT JOIN Tbl_LPPost LPP ON MPR.LPPostId = LPP.LPPostId
   WHERE R.IsMPRequest = 1 AND R.MPRequestId IS NOT NULL
     AND (R.IsDisconnectMPFeeder = 1 OR MPR.IsTotalLPPostDisconnected = 1)
+    AND ISNULL(MPF.AreaId , @AreaId) = @AreaId 
+    AND ISNULL(LPP.AreaId , @AreaId) = @AreaId
 
 
-
-SELECT  TOP(100) R.RequestId , CAST(0 AS BIT) AS IsMP , CAST(NULL AS BIGINT) AS MPRequestId , LPR.LPRequestId
-    , NULL AS MPFeederId , LPR.LPPostId , LPR.LPFeederId
+/*----------------LP Request-----------------*/
+SELECT  TOP(100) R.RequestId
     , CASE WHEN LPR.IsTotalLPPostDisconnected = 1 THEN LPP.AreaId
            WHEN LPR.IsTotalLPFeederDisconnected = 1 THEN LPF.AreaId
            ELSE  NULL END AS AreaId
@@ -43,4 +32,5 @@ SELECT  TOP(100) R.RequestId , CAST(0 AS BIT) AS IsMP , CAST(NULL AS BIGINT) AS 
   LEFT JOIN Tbl_LPFeeder LPF ON LPR.LPFeederId = LPF.LPFeederId
   WHERE R.IsLPRequest = 1 AND R.LPRequestId IS NOT NULL
     AND (LPR.IsTotalLPPostDisconnected = 1 OR LPR.IsTotalLPFeederDisconnected = 1)
-
+    AND ISNULL(LPP.AreaId , @AreaId) = @AreaId
+    AND ISNULL(LPF.AreaId , @AreaId) = @AreaId 
