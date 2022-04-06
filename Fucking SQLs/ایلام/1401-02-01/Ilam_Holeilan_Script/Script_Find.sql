@@ -38,3 +38,8 @@ UNION
         (ISNULL(LPR.IsTotalLPPostDisconnected ,0) = 0 AND LPF.AreaId = @AreaId) 
       ) 
   ) tA
+
+
+  
+/*-----------------Replicate---------------*/
+
