@@ -16,22 +16,7 @@
   <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="False" />
     <View Name="Code" Active="True" Visible="True">
-      <Data>
-        <Parameters>
-          <Parameter Name="@aLogTypeId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aApplicationId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aURL" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aParams" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aResult" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aCompany" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aMethod" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aError" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aKeyId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aKeyTypeId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aIsSuccess" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aLevelId" Direction="Input" DbType="VarChar" />
-        </Parameters>
-      </Data>
+      <Data />
     </View>
     <View Name="Data" Visible="True" />
     <View Name="Profiler" Visible="False" />
