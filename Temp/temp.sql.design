@@ -13,10 +13,14 @@
     <ConnectionString>Data Source=10.10.15.12;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
     <Database>CCRequesterSetad</Database>
   </Connection>
-  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="73">
     <View Name="Design" Visible="False" />
     <View Name="Code" Active="True" Visible="True">
-      <Data />
+      <Data>
+        <Parameters>
+          <Parameter Name="@lGroupMPFeederId" Direction="Input" DbType="VarChar" />
+        </Parameters>
+      </Data>
     </View>
     <View Name="Data" Visible="True" />
     <View Name="Profiler" Visible="False" />
