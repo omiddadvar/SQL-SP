@@ -1,4 +1,5 @@
-﻿CREATE PROC Emergency.spGetFeederGroupPlan @lGroupMPFeederId AS BIGINT
+﻿
+CREATE PROC Emergency.spGetFeederGroupPlan @lGroupMPFeederId AS BIGINT
 AS
 BEGIN
 	SELECT MPT.MPFeederTemplateId
@@ -20,14 +21,14 @@ BEGIN
 		,MPF.Voltage
 
 
-
 	SELECT T.MPFeederTemplateId
 		,T.MPFeederId
 		,T.MPFeederName
 		,T.MPFeederDisconnectCount
-		,ROUND(3 * T.Voltage * C.CurrentValue * C.CosinPhi / 1000000, 2) AS CurrentValueMW
-		,C.CurrentValue
-  	FROM (
+		,ISNULL(ROUND(3 * T.Voltage * C.CurrentValue * C.CosinPhi / 1000000, 2),0) AS CurrentValueMW
+		,ISNULL(C.CurrentValue, 0) AS CurrentValue
+  	FROM #tmp T
+    LEFT JOIN (
   		SELECT L.MPFeederId
   			,H.CurrentValue
   			,H.CosinPhi
@@ -38,16 +39,11 @@ BEGIN
   				) AS RowNum
   		FROM Tbl_MPFeederLoad L
   		INNER JOIN Tbl_MPFeederLoadHours H ON L.MPFeederLoadId = H.MPFeederLoadId
-  		) C
-	INNER JOIN #tmp T ON C.MPFeederId = T.MPFeederId
-	WHERE RowNum = 1
+  		) C ON C.MPFeederId = T.MPFeederId
+	WHERE ISNULL(C.RowNum , 1) = 1
 
 	DROP TABLE #tmp
 END
 
 
-/*
-
-EXEC Emergency.spGetFeederGroupPlan @lGroupMPFeederId = 990188852
-
-*/
+--EXEC Emergency.spGetFeederGroupPlan @lGroupMPFeederId = 990188852
