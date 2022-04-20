@@ -18,7 +18,7 @@
     <View Name="Code" Active="True" Visible="True">
       <Data>
         <Parameters>
-          <Parameter Name="@lGroupMPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aGroupMPFeederId" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>

@@ -1,5 +1,5 @@
 ﻿
-CREATE PROC Emergency.spGetFeederGroupPlan @lGroupMPFeederId AS BIGINT
+CREATE PROC Emergency.spGetFeederGroupPlan @aGroupMPFeederId AS BIGINT
 AS
 BEGIN
 	SELECT MPT.MPFeederTemplateId
@@ -14,7 +14,7 @@ BEGIN
 	LEFT JOIN TblRequest R ON MP.MPRequestId = R.MPRequestId
 		AND DATEDIFF(DAY, R.DisconnectDT, GETDATE()) <= 20
 	WHERE ISNULL(R.IsDisconnectMPFeeder, 1) = 1
-		AND MPT.GroupMPFeederId = @lGroupMPFeederId
+		AND MPT.GroupMPFeederId = @aGroupMPFeederId
 	GROUP BY MPT.MPFeederTemplateId
 		,MPF.MPFeederId
 		,MPF.MPFeederName
@@ -27,6 +27,7 @@ BEGIN
 		,T.MPFeederDisconnectCount
 		,ISNULL(ROUND(3 * T.Voltage * C.CurrentValue * C.CosinPhi / 1000000, 2),0) AS CurrentValueMW
 		,ISNULL(C.CurrentValue, 0) AS CurrentValue
+    ,CAST(0 AS BIT) AS IsSelected
   	FROM #tmp T
     LEFT JOIN (
   		SELECT L.MPFeederId
