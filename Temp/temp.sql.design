@@ -19,6 +19,15 @@
       <Data>
         <Parameters>
           <Parameter Name="@aGroupMPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aFromDT" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aToDT" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aMPPostId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aMPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aCurRequestId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@NetworkTypeId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aLPPostId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aLPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aFeederPartId" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
