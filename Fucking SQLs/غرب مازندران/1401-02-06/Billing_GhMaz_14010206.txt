@@ -1,0 +1,28 @@
+http://192.168.201.28:8081/api/BranchDataApi?billId=12119911073632
+
+{
+    "BillID": 0.0,
+    "OwnerName": null,
+    "OwnerFamily": null,
+    "FixedTel": null,
+    "MobileNo": null,
+    "Address": null,
+    "CityName": null,
+    "RgnName": null,
+    "BranchStatCode": null,
+    "CrdbTot": 0,
+    "BranchSrl": 0,
+    "BranchCode": 0,
+    "CityCode": 0,
+    "RgnCode": 0,
+    "EshterakCode": null,
+    "LatitueX": 0.0,
+    "LongitudeY": 0.0,
+    "PoNum": 0.0
+}
+
+http://192.168.201.28:8081/api/BranchDataApi?billId=2730490714222
+
+{
+    "Message": "An error has occurred."
+}
