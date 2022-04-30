@@ -4,12 +4,14 @@ AS
 BEGIN
 	SELECT MPT.MPFeederTemplateId
 		,MPF.MPFeederId
+    ,MPP.MPPostName
 		,MPF.MPFeederName
 		,COUNT(R.MPRequestId) AS MPFeederDisconnectCount
 		,MPF.Voltage
 	INTO #tmp
 	  FROM Emergency.Tbl_MPFeederTemplate MPT
 	INNER JOIN Tbl_MPFeeder MPF ON MPT.MPFeederId = MPF.MPFeederId
+  INNER JOIN Tbl_MPPost MPP ON MPF.MPPostId = MPP.MPPostId
 	LEFT JOIN TblMPRequest MP ON MPF.MPFeederId = MP.MPFeederId
 	LEFT JOIN TblRequest R ON MP.MPRequestId = R.MPRequestId
 		AND DATEDIFF(DAY, R.DisconnectDT, GETDATE()) <= 20
@@ -19,10 +21,12 @@ BEGIN
 		,MPF.MPFeederId
 		,MPF.MPFeederName
 		,MPF.Voltage
+    ,MPP.MPPostName
 
 
 	SELECT T.MPFeederTemplateId
 		,T.MPFeederId
+    ,T.MPPostName
 		,T.MPFeederName
 		,T.MPFeederDisconnectCount
 		,ISNULL(ROUND(3 * T.Voltage * C.CurrentValue * C.CosinPhi / 1000000, 2),0) AS CurrentValueMW
@@ -47,4 +51,4 @@ BEGIN
 END
 
 
---EXEC Emergency.spGetFeederGroupPlan @lGroupMPFeederId = 990188852
+-- EXEC Emergency.spGetFeederGroupPlan @aGroupMPFeederId = 990188852
