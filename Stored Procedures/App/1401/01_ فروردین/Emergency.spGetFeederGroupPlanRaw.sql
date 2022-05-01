@@ -1,5 +1,5 @@
 ﻿
-CREATE PROC Emergency.spGetFeederGroupPlan @aGroupMPFeederId AS BIGINT
+CREATE PROC Emergency.spGetFeederGroupPlanRaw @aGroupMPFeederId AS BIGINT
 AS
 BEGIN
 	SELECT MPT.MPFeederTemplateId

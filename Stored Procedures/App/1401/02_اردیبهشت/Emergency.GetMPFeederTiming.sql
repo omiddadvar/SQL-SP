@@ -1,4 +1,5 @@
-﻿CREATE PROC Emergency.GetMPFeederTiming @aTiminigMPFeederId AS INTEGER
+﻿
+ALTER PROC Emergency.spGetMPFeederTiming @aTiminigId AS INTEGER
 AS
 BEGIN
 	SELECT TMPF.TimingMPFeederId
@@ -14,11 +15,13 @@ BEGIN
     ,TMPF.IsDisconnectMPFeeder
 	INTO #tmp
 	FROM Emergency.TblTimingMPFeeder TMPF
-	INNER JOIN Tbl_MPFeeder MPF ON TMPF.MPFeederId = MPF.MPFeederId
-	INNER JOIN Tbl_MPPost MPP ON MPF.MPPostId = MPP.MPPostId
+  	INNER JOIN Tbl_MPFeeder MPF ON TMPF.MPFeederId = MPF.MPFeederId
+  	INNER JOIN Tbl_MPPost MPP ON MPF.MPPostId = MPP.MPPostId
+  WHERE TMPF.TimingId = @aTiminigId
 
-	SELECT T.*
-		,CASE WHEN T.IsDisconnectMPFeeder = 1 THEN ISNULL(LOAD.CurrentValue, 0) ELSE 0 END AS CurrentValueMW
+	SELECT T.* , CAST(0 AS FLOAT) AS PreCurrentValue
+		,CASE WHEN T.IsDisconnectMPFeeder = 1 THEN ISNULL(LOAD.CurrentValue, 0) ELSE CAST(0 AS FLOAT) END AS CurrentValue
+    , CAST(0 AS NotDone)
 	FROM #tmp T
 	LEFT JOIN (
 		SELECT L.MPFeederId
@@ -34,3 +37,6 @@ BEGIN
 
 	DROP TABLE #tmp
 END
+
+
+--EXEC Emergency.spGetMPFeederTiming @aTiminigId = 990188894
