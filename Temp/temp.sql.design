@@ -19,6 +19,11 @@
       <Data>
         <Parameters>
           <Parameter Name="@aGroupMPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aAreaId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@IsAll" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aWhereClause" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aWhereClauseOR" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aMPPostId" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>

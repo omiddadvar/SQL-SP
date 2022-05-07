@@ -47,7 +47,7 @@ CREATE PROC Emergency.spGetFeederGroupTiming
 
 /*
 
-EXEC Emergency.spGetFeederGroupTiming @aGroupMPFeederIds = '990188852'
+EXEC Emergency.spGetFeederGroupTiming @aGroupMPFeederIds = ''
                                      ,@aFromDate = '1401/01/20'
                                      ,@aFromTime = '24:00'
                                      ,@aToDate = '1401/03/01'

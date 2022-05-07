@@ -1,4 +1,4 @@
-﻿ALTER PROC Emergency.spGetFeederGroupPlan @aGroupMPFeederId AS BIGINT
+﻿CREATE PROC Emergency.spGetFeederGroupPlan @aGroupMPFeederId AS BIGINT
 	,@aTimingId AS INT = - 1
 AS
 BEGIN
