@@ -29,10 +29,10 @@ BEGIN
   		AND TMPF.MPFeederTemplateId = MPFT.MPFeederTemplateId
     WHERE ISNULL(T.TimingId , -1) = @aTimingId
 
-	SELECT * FROM #tmpResult
+	SELECT * , CAST(1 AS BIT) AS IsOk FROM #tmpResult
 
 	DROP TABLE #tmpResult
 END
 
---  EXEC Emergency.spGetFeederGroupPlan 990188852 , -1
+--  EXEC Emergency.spGetFeederGroupPlan 990188866,990188897
 

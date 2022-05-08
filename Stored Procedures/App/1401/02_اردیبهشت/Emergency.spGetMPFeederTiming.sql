@@ -19,11 +19,9 @@ BEGIN
   	INNER JOIN Tbl_MPPost MPP ON MPF.MPPostId = MPP.MPPostId
   WHERE TMPF.TimingId = @aTiminigId
 
-  SELECT * FROM #tmp
-
 	SELECT T.* , CAST(0 AS FLOAT) AS PreCurrentValue
 		,CASE WHEN T.IsDisconnectMPFeeder = 1 THEN ISNULL(LOAD.CurrentValue, 0) ELSE CAST(0 AS FLOAT) END AS CurrentValue
-    --, CAST(0 AS NotDone)
+    , CAST(0 AS BIT) AS NotDone
 	FROM #tmp T
 	LEFT JOIN (
 		SELECT L.MPFeederId
