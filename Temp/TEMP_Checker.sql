@@ -11,11 +11,16 @@ SELECT * FROM Emergency.Tbl_GroupMPFeeder
 
 SELECT * FROM Tbl_MPFeeder WHERE MPFeederId = 3
 
+EXEC  Emergency.spGetMPFeederTiming 990188926
 
 
 
-
-
+--UPDATE Emergency.TblTimingMPFeeder SET ConnectDT = GETDATE() , 
+--      ConnectDatePersian = '1401/02/20' , ConnectTime = '17:30'
+--    WHERE TimingMPFeederId IN (990188939)
+--
+--
+--990188940
 
 
 
