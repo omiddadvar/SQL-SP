@@ -21,12 +21,6 @@ SELECT * FROM Tbl_MPFeeder WHERE MPFeederId = 3
 
 
 
-
-
-
-
-
-
 /*
 SELECT * FROM Tbl_ServiceLogApplication 
 SELECT * FROM Tbl_ServiceLogKeyType 

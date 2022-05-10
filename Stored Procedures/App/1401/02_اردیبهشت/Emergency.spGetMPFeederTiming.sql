@@ -22,6 +22,7 @@ BEGIN
 	SELECT T.* , CAST(0 AS FLOAT) AS PreCurrentValue
 		,CASE WHEN T.IsDisconnectMPFeeder = 1 THEN ISNULL(LOAD.CurrentValue, 0) ELSE CAST(0 AS FLOAT) END AS CurrentValue
     , CAST(0 AS BIT) AS NotDone
+  , CASE WHEN T.DisconnectDatePersian IS NULL THEN 1 WHEN T.ConnectDatePersian IS NULL THEN 2 ELSE 0 END AS ChangeStateId
 	FROM #tmp T
 	LEFT JOIN (
 		SELECT L.MPFeederId
@@ -39,4 +40,4 @@ BEGIN
 END
 
 
---  EXEC Emergency.spGetMPFeederTiming @aTiminigId = 990188900
+--  EXEC Emergency.spGetMPFeederTiming @aTiminigId = 990188926
