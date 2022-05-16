@@ -35,7 +35,7 @@ BEGIN
     ,ISNULL(T.PreCurrentValue , 0) AS PreCurrentValue
 		,ISNULL(T.CurrentValue,
           CASE WHEN T.IsDisconnectMPFeeder = 1 THEN ISNULL(LOAD.CurrentValue, 0) ELSE CAST(0 AS FLOAT) END) AS CurrentValue
-    , CAST(0 AS BIT) AS NotDone
+    , CAST(0 AS BIT) AS Canceled
   , CASE WHEN T.DisconnectDatePersian IS NULL  THEN 0 WHEN T.ConnectDatePersian IS NULL THEN 1 ELSE 2 END AS ChangeStateId
 	FROM #tmp T
 	LEFT JOIN (
