@@ -1,5 +1,5 @@
 
-CREATE PROC Emergency.spGetFeederGroupTiming
+ALTER PROC Emergency.spTimingMonitoring
     @aGroupMPFeederIds AS VARCHAR(2000),
     @aFromDate AS VARCHAR(10) = '',
     @aFromTime AS VARCHAR(5) = '',
@@ -34,11 +34,11 @@ CREATE PROC Emergency.spGetFeederGroupTiming
         	,T.ForecastConnectTime
         	,T.ForecastMW
       FROM Emergency.TblTiming T
-      INNER JOIN Emergency.Tbl_TimingState E ON T.TimingStateId = E.TimingStateId
-      INNER JOIN Emergency.Tbl_GroupMPFeeder G ON T.GroupMPFeederId = G.GroupMPFeederId
-      INNER JOIN #tmp ON T.GroupMPFeederId = #tmp.GroupMPFeederId
-      WHERE (LEN(@aFromDate) * LEN(@aFromTime) = 0 OR T.ForecastDisconnectDT >= @lFromDT)
-      	AND (LEN(@aToDate) * LEN(@aToTime) = 0 OR T.ForecastDisconnectDT <= @lToDT)
+        INNER JOIN Emergency.Tbl_TimingState E ON T.TimingStateId = E.TimingStateId
+        INNER JOIN Emergency.Tbl_GroupMPFeeder G ON T.GroupMPFeederId = G.GroupMPFeederId
+        INNER JOIN #tmp ON T.GroupMPFeederId = #tmp.GroupMPFeederId
+        WHERE (LEN(@aFromDate) * LEN(@aFromTime) = 0 OR T.ForecastDisconnectDT >= @lFromDT)
+        	AND (LEN(@aToDate) * LEN(@aToTime) = 0 OR T.ForecastDisconnectDT <= @lToDT)
     
     DROP TABLE #tmp
   END
@@ -47,7 +47,7 @@ CREATE PROC Emergency.spGetFeederGroupTiming
 
 /*
 
-EXEC Emergency.spGetFeederGroupTiming @aGroupMPFeederIds = ''
+EXEC Emergency.spTimingMonitoring @aGroupMPFeederIds = ''
                                      ,@aFromDate = '1401/01/20'
                                      ,@aFromTime = '24:00'
                                      ,@aToDate = '1401/03/01'

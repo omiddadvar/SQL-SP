@@ -32,7 +32,7 @@ BEGIN
 		,ISNULL(ROUND(3 * T.Voltage * C.CurrentValue * C.CosinPhi / 1000000, 2),0) AS CurrentValueMW
 		,ISNULL(C.CurrentValue, 0) AS CurrentValue
     ,CAST(0 AS BIT) AS IsSelected
-  	FROM #tmp T
+	FROM #tmp T
     LEFT JOIN (
   		SELECT L.MPFeederId
   			,H.CurrentValue
