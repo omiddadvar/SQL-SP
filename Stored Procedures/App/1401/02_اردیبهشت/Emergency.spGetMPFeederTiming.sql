@@ -7,6 +7,7 @@ BEGIN
 		,TMPF.MPFeederId
 		,MPP.MPPostName
 		,MPF.MPFeederName
+    ,R.RequestNumber
 		,TMPF.DisconnectDatePersian
 		,TMPF.DisconnectTime
 		,TMPF.ConnectDatePersian
@@ -20,11 +21,13 @@ BEGIN
 	FROM Emergency.TblTimingMPFeeder TMPF
   	INNER JOIN Tbl_MPFeeder MPF ON TMPF.MPFeederId = MPF.MPFeederId
   	INNER JOIN Tbl_MPPost MPP ON MPF.MPPostId = MPP.MPPostId
+    LEFT JOIN TblRequest R ON TMPF.RequestId = R.RequestId
   WHERE TMPF.TimingId = @aTiminigId
 
 	SELECT T.TimingMPFeederId
 		,T.MPFeederTemplateId
 		,T.MPFeederId
+    ,T.RequestNumber
 		,T.MPPostName
 		,T.MPFeederName
 		,T.DisconnectDatePersian

@@ -30,8 +30,6 @@
           <Parameter Name="@aFromTime" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aToDate" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aToTime" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aTimingId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aIsFTOutage" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
