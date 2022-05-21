@@ -33,6 +33,7 @@ ALTER PROC Emergency.spTimingMonitoring
         	,T.ForecastConnectDatePersian
         	,T.ForecastConnectTime
         	,T.ForecastMW
+          ,T.Comments
       FROM Emergency.TblTiming T
         INNER JOIN Emergency.Tbl_TimingState E ON T.TimingStateId = E.TimingStateId
         INNER JOIN Emergency.Tbl_GroupMPFeeder G ON T.GroupMPFeederId = G.GroupMPFeederId
@@ -50,7 +51,7 @@ ALTER PROC Emergency.spTimingMonitoring
 EXEC Emergency.spTimingMonitoring @aGroupMPFeederIds = ''
                                      ,@aFromDate = '1401/01/20'
                                      ,@aFromTime = '24:00'
-                                     ,@aToDate = '1401/03/01'
+                                     ,@aToDate = '1401/03/05'
                                      ,@aToTime = '12:00' 
 
 */
