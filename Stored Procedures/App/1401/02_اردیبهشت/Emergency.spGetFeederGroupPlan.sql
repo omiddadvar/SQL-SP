@@ -1,9 +1,11 @@
-﻿CREATE PROC Emergency.spGetFeederGroupPlan @aGroupMPFeederId AS BIGINT
+﻿
+ALTER PROC Emergency.spGetFeederGroupPlan @aGroupMPFeederId AS BIGINT
 	,@aTimingId AS INT = - 1
 AS
 BEGIN
 	CREATE TABLE #tmpResult (
 		MPFeederTemplateId INT
+    ,Area NVARCHAR(50)
 		,MPFeederId INT
 		,MPPostName NVARCHAR(30)
 		,MPFeederName NVARCHAR(50)

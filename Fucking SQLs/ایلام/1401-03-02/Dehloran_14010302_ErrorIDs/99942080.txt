@@ -1,0 +1,10 @@
+System.Exception: Violation of PRIMARY KEY constraint 'PK_BTbl_Picture'. Cannot insert duplicate key in object 'dbo.BTblPicture'. The duplicate key value is (900000000000002).  The statement has been terminated. 
+---> System.Data.SqlClient.SqlException: Violation of PRIMARY KEY constraint 'PK_BTbl_Picture'. Cannot insert duplicate key in object 'dbo.BTblPicture'. The duplicate key value is (900000000000002).  The statement has been terminated.  
+
+at System.Data.Common.DbDataAdapter.UpdatedRowStatusErrors(RowUpdatedEventArgs rowUpdatedEvent, BatchCommandInfo[] batchCommands, Int32 commandCount)  
+at System.Data.Common.DbDataAdapter.UpdatedRowStatus(RowUpdatedEventArgs rowUpdatedEvent, BatchCommandInfo[] batchCommands, Int32 commandCount)  
+at System.Data.Common.DbDataAdapter.Update(DataRow[] dataRows, DataTableMapping tableMapping)  
+at System.Data.Common.DbDataAdapter.Update(DataRow[] dataRows)  
+at Bargh_UpdateDatabase.frmUpdateDataset.UpdateDataSet(String BT_Name, DataSet& ds, Object AreaId, Int16 RequestType, Boolean aIsAutoID, SqlTransaction aTrans, Boolean aIsForceUpdate, Boolean aIsReplicate, Boolean aIsUpdateDeleteRecords, Int32 aCommandTimeOut, Boolean aIsApplyOnDeleteRecords)     --- End of inner exception stack trace ---  
+at Bargh_UpdateDatabase.frmUpdateDataset.UpdateDataSet(String BT_Name, DataSet& ds, Object AreaId, Int16 RequestType, Boolean aIsAutoID, SqlTransaction aTrans, Boolean aIsForceUpdate, Boolean aIsReplicate, Boolean aIsUpdateDeleteRecords, Int32 aCommandTimeOut, Boolean aIsApplyOnDeleteRecords)  
+at Bazdid_App.frmImportFromPocketPC.ImportXMLs()

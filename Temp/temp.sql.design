@@ -15,7 +15,7 @@
   </Connection>
   <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="False" />
-    <View Name="Code" Active="True" Visible="True">
+    <View Name="Code" Visible="True">
       <Data>
         <Parameters>
           <Parameter Name="@aGroupMPFeederId" Direction="Input" DbType="VarChar" />
@@ -30,26 +30,10 @@
           <Parameter Name="@aFromTime" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aToDate" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aToTime" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lFromDatePersian" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lToDatePersian" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lAreaId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lMPPostId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lMPFeederIds" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lOwnershipId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lIsActive" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lBazdidMaster" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lMPFeederPart" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lParts" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lAddress" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lBazdidSpeciality" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lServiceNumber" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lFromDateBazdid" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lToDateBazdid" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@lWorkCommand" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
-    <View Name="Data" Visible="True" />
+    <View Name="Data" Active="True" Visible="True" />
     <View Name="Profiler" Visible="False" />
     <View Name="PivotGrid" Visible="False" />
   </Views>

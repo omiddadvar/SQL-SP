@@ -5,8 +5,10 @@ BEGIN
 	SELECT TMPF.TimingMPFeederId
 		,TMPF.MPFeederTemplateId
 		,TMPF.MPFeederId
+    ,A.Area
 		,MPP.MPPostName
 		,MPF.MPFeederName
+    ,TMPF.RequestId
     ,R.RequestNumber
 		,TMPF.DisconnectDatePersian
 		,TMPF.DisconnectTime
@@ -21,13 +23,16 @@ BEGIN
 	FROM Emergency.TblTimingMPFeeder TMPF
   	INNER JOIN Tbl_MPFeeder MPF ON TMPF.MPFeederId = MPF.MPFeederId
   	INNER JOIN Tbl_MPPost MPP ON MPF.MPPostId = MPP.MPPostId
+    INNER JOIN Tbl_Area A ON TMPF.AreaId = A.AreaId
     LEFT JOIN TblRequest R ON TMPF.RequestId = R.RequestId
   WHERE TMPF.TimingId = @aTiminigId
 
 	SELECT T.TimingMPFeederId
 		,T.MPFeederTemplateId
 		,T.MPFeederId
+    ,T.RequestId
     ,T.RequestNumber
+    ,T.Area
 		,T.MPPostName
 		,T.MPFeederName
 		,T.DisconnectDatePersian

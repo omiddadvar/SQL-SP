@@ -1,5 +1,5 @@
 ﻿
-CREATE PROC Emergency.spGetFeederGroupPlanRaw @aGroupMPFeederId AS BIGINT
+ALTER PROC Emergency.spGetFeederGroupPlanRaw @aGroupMPFeederId AS BIGINT
 AS
 BEGIN
 	SELECT MPT.MPFeederTemplateId
@@ -8,10 +8,12 @@ BEGIN
 		,MPF.MPFeederName
 		,COUNT(R.MPRequestId) AS MPFeederDisconnectCount
 		,MPF.Voltage
+    ,A.Area
 	INTO #tmp
 	  FROM Emergency.Tbl_MPFeederTemplate MPT
 	INNER JOIN Tbl_MPFeeder MPF ON MPT.MPFeederId = MPF.MPFeederId
   INNER JOIN Tbl_MPPost MPP ON MPF.MPPostId = MPP.MPPostId
+  INNER JOIN Tbl_Area A ON MPT.AreaId = A.AreaId
 	LEFT JOIN TblMPRequest MP ON MPF.MPFeederId = MP.MPFeederId
 	LEFT JOIN TblRequest R ON MP.MPRequestId = R.MPRequestId
 		AND DATEDIFF(DAY, R.DisconnectDT, GETDATE()) <= 20
@@ -22,9 +24,11 @@ BEGIN
 		,MPF.MPFeederName
 		,MPF.Voltage
     ,MPP.MPPostName
+    ,A.Area
 
 
 	SELECT T.MPFeederTemplateId
+    ,T.Area
 		,T.MPFeederId
     ,T.MPPostName
 		,T.MPFeederName
