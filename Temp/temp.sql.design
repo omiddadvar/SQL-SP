@@ -18,11 +18,9 @@
     <View Name="Code" Active="True" Visible="True">
       <Data>
         <Parameters>
-          <Parameter Name="@aAreaIDs" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aStartDate" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aEndDate" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aDisGroupSetIDs" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@aIsWarmline" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@CallerId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@BillingIDTypeId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@BillingID" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
