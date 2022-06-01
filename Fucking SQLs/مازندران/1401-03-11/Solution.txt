@@ -1,0 +1,162 @@
+ALTER VIEW [dbo].[ViewMonitoringHoma]
+AS
+SELECT tReq.RequestId,
+	tReq.CallId,
+	tReq.RequestNumber AS RequestNo,
+	CAST(0 AS INT) AS RequestType,
+	CAST('' AS NVARCHAR(5)) AS RequestTypeTag,
+	tReq.DisconnectDatePersian,
+	tReq.DisconnectTime,
+	tReq.ConnectDatePersian,
+	tReq.ConnectTime,
+	tReq.SubscriberName AS Requester,
+	tReq.AreaId,
+	tReq.CityId,
+	isnull(Tbl_LPPost.LPPostId,tRPostFeeder.LPPostId) as LPPostId,	
+	isnull(tLPR.LPFeederId,tRPostFeeder.LPFeederId) as LPFeederId,	
+	tAU.UserName,
+	tReq.Address,
+	tReq.DisconnectGroupSetId,
+	CAST(tReq.Priority AS VARCHAR(20)) AS Priority,
+	ISNULL(tLPR.CurrentValue, 0) + ISNULL(tMPR.CurrentValue, 0) + ISNULL(tFTR.CurrentValue, ISNULL(tFTRMPF.CurrentValue, 0)) AS CurrentValue, 
+	ISNULL(tMPR.PreCurrentValue,ISNULL(tFTRMPF.PreCurrentValue, 0)) AS PreCurrentValue, 
+	CAST(tReq.DisconnectInterval / 60 AS VARCHAR(5)) + ':' + CAST(tReq.DisconnectInterval % 60 AS VARCHAR(2)) AS DisconnectInterval,
+	ISNULL(tReq.DisconnectPower, ISNULL(tMPR.DisconnectPower, tLPR.DisconnectPower)) AS DisconnectPower,
+	tReq.CallReasonId,
+	ISNULL(NULLIF(tLPR.IsSingleSubscriber, 0), tReq.IsSingleSubscriber) AS IsSingleSubscriber,
+	ISNULL(NULLIF(tLPR.IsOnePhaseSingleSubscriber, 0), tReq.IsOnePhaseSingleSubscriber) AS IsOnePhaseSingleSubscriber,
+	ISNULL(tReq.IsDisconnectMPFeeder, 0) AS IsDisconnectMPFeeder,
+	ISNULL(tLPR.IsTotalLPPostDisconnected, ISNULL(tMPR.IsTotalLPPostDisconnected, 0)) AS IsTotalLPPostDisconnected,
+	ISNULL(tLPR.IsTotalLPFeederDisconnected, 0) AS IsTotalLPFeederDisconnected,
+	tLPR.PartialLPFeederDisconnectState,
+	isnull(Tbl_MPFeeder.MPFeederId,tRPostFeeder.MPFeederId) as MPFeederId,
+	isnull(Tbl_MPPost.MPPostId,tRPostFeeder.MPPostId) as MPPostId,	
+	tMPR.OCEFRelayActionId,
+	tMPR.OCPhaseCount,
+	tMPR.RecloserActionId,
+	tReq.DataEntryDT,
+	tReqI.IsWatched,
+	tReq.AreaUserId,
+	tReq.IsLightRequest,
+	IsLPRequest = ISNULL(ISNULL(NULLIF(tReq.IsLPRequest,0),CASE 
+						WHEN ISNULL(tTRCn.TamirNetworkTypeId,0) = 3 THEN 1 
+						WHEN ISNULL(tTREm.TamirNetworkTypeId,0) = 3 THEN 1 
+						WHEN ISNULL(tTRMv.TamirNetworkTypeId,0) = 3 THEN 1 END),0),
+	IsMPRequest = ISNULL(ISNULL(NULLIF(tReq.IsMPRequest,0),CASE 
+						WHEN ISNULL(tTRCn.TamirNetworkTypeId,0) = 2 THEN 1 
+						WHEN ISNULL(tTREm.TamirNetworkTypeId,0) = 2 THEN 1 
+						WHEN ISNULL(tTRMv.TamirNetworkTypeId,0) = 2 THEN 1 END),0),
+	tReq.IsTamir,
+	tReq.EndJobStateId, 
+	IsFogheToziRequest = ISNULL(ISNULL(NULLIF(tReq.IsFogheToziRequest,0),CASE 
+						WHEN ISNULL(tTRCn.TamirNetworkTypeId,0) = 1 THEN 1 
+						WHEN ISNULL(tTREm.TamirNetworkTypeId,0) = 1 THEN 1 
+						WHEN ISNULL(tTRMv.TamirNetworkTypeId,0) = 1 THEN 1 END),0),
+	tMPR.DisconnectGroupMPPrimaryId,
+	tReq.HasManoeuvre AS IsManoeuvred,
+	tReq.ReferToId,
+	tReqI.SendTimeInterval,
+	tFTR.MPPostId AS MPPostIdFT,
+	tReq.Telephone,
+	tReqI.EnvironmentTypeId,
+	tReq.ZoneId,
+	Cast(0 AS INT) MultiStepCount,
+	ISNULL(ISNULL((tMPR.RequestDEInterval - (tReq.DisconnectInterval + ISNULL(tReq.OverlapTime,0))), (tLPR.RequestDEInterval - (tReq.DisconnectInterval + ISNULL(tReq.OverlapTime,0)))), (tFTR.RequestDEInterval - tFTR.DisconnectInterval)) AS DelayInterval,
+	ISNULL(ISNULL(tMPR.IsWarmLine, tLPR.IsWarmLine), 0) AS IsWarmLine,
+	tAU.AreaId AS RegisterAreaId,
+	tReqI.IsDCErja,
+	tReq.TamirTypeId,
+	ISNULL(tTRCn.TamirRequestId, ISNULL(tTREm.TamirRequestId, tTRD.TamirRequestId)) AS TamirRequestId,
+	IsTamirRequest = CASE 
+		WHEN NOT ISNULL(tTRCn.TamirRequestId, ISNULL(tTREm.TamirRequestId, tTRD.TamirRequestId)) IS NULL
+			THEN Cast(1 AS BIT)
+		ELSE Cast(0 AS BIT)
+		END,
+	IsFollowRequest = CAST(CASE 
+			WHEN ISNULL(tFR.FollowRequestId, 0) > 0
+				THEN 1
+			ELSE 0
+			END AS BIT),
+	ISNULL(ISNULL((tMPR.RequestDEInterval - tMPR.DisconnectInterval), (tLPR.RequestDEInterval - tLPR.DisconnectInterval)), 0) AS MainDelayInterval,
+	IsSMS = CAST(CASE 
+			WHEN NULLIF(ISNULL(tGSMS.GISSMSReceviedId, 0), 0) IS NULL
+				THEN 0
+			ELSE 1
+			END AS BIT),
+	IsMultiStep = dbo.IsMultiStep(tReq.MPRequestId, tReq.LPRequestId,tReq.FogheToziDisconnectId),
+	IsAVL = dbo.IsAVL(tReq.RequestId),
+	tReq.Mobile,
+	tReq.DataEntryDTPersian,
+	tReq.DataEntryTime,
+	ISNULL(tReqI.IsWebService,0) AS IsWebService,
+	ISNULL(tGSMS.MediaTypeId, ISNULL(tRD.MediaTypeId, case when not tReq.CallId is null then 2 else 10 end)) as MediaTypeId,
+	ISNULL(tReq.IsTempBefore,0) AS IsTempBefore,
+	tReq.TamirDisconnectFromDatePersian,
+	tReq.TamirDisconnectFromTime,
+	tReq.TamirDisconnectToDatePersian,
+	tReq.TamirDisconnectToTime,
+	ISNULL(tReq.OverLapTime,0) AS OverLapTime,
+	tSMS.SubscriberConfirmStateId,
+	tSCS.SubscriberConfirmState,
+	SMSSurveyResult = ISNULL(tQISMS.QuestionItem,''),
+	IVRSurveyResult = ISNULL(tQIIVR.QuestionItem,''),
+	tReq.TrackingCode,
+	tReq.Comments,
+	tReq.ExtraComments,
+	TblJob.JobStatusId,
+	Tbl_TabletUser.MasterId,
+	TblOnCall.TabletId,
+	ISNULL(tReqI.BillingID,'') as BillingID,
+	dbo.GetErjaStatus(tReq.RequestId) as ErjaStatus,
+	[dbo].[GetJobStatus](tReq.RequestId) as JobStatus
+FROM 
+	TblRequest tReq
+	LEFT JOIN TblRequestInfo tReqI ON tReq.RequestId = tReqI.RequestId
+	LEFT JOIN TblSubscriberSMSSend tSMS ON tReq.RequestId = tSMS.RequestId
+	LEFT JOIN Tbl_SubscriberConfirmState tSCS ON tSMS.SubscriberConfirmStateId = tSCS.SubscriberConfirmStateId
+	LEFT JOIN TblMPRequest tMPR ON tReq.MPRequestId = tMPR.MPRequestId
+	LEFT JOIN TblLPRequest tLPR ON tReq.LPRequestId = tLPR.LPRequestId
+	LEFT JOIN TblFogheToziDisconnect tFTR ON TReq.FogheToziDisconnectId = tFTR.FogheToziDisconnectId
+	LEFT JOIN Tbl_AreaUser tAU ON tReq.AreaUserId = tAU.AreaUserId
+	LEFT JOIN TblTamirRequestConfirm tTRC ON tReq.RequestId = tTRC.RequestId
+	LEFT JOIN TblTamirRequest tTRCn ON tTRC.TamirRequestId = tTRCn.TamirRequestId
+	LEFT JOIN TblTamirRequest tTREm ON tReq.RequestId = tTREm.EmergencyRequestId
+	LEFT JOIN Tbl_GISSMSRecevied tGSMS ON tReq.RequestId = tGSMS.RequestId
+	LEFT JOIN TblRequestData tRD ON tReq.RequestId = tRD.RequestId
+	LEFT JOIN TblTamirRequestDisconnect tTRD ON tReq.RequestId = tTRD.RequestId
+	LEFT JOIN TblTamirRequest tTRMv ON tTRD.TamirRequestId = tTRMv.TamirRequestId
+	LEFT JOIN Tbl_LPPost ON ISNULL(tLPR.LPPostId, ISNULL(tMPR.LPPostId, ISNULL(tTRCn.LPPostId, ISNULL(tTREm.LPPostId, tTRMv.LPPostId)))) = Tbl_LPPost.LPPostId
+	LEFT JOIN Tbl_MPFeeder ON ISNULL(tMPR.MPFeederId, ISNULL(tTRCn.MPFeederId, ISNULL(tTREm.MPFeederId, ISNULL(tTRMv.MPFeederId,Tbl_LPPost.MPFeederId)))) = Tbl_MPFeeder.MPFeederId
+	LEFT JOIN Tbl_MPPost ON ISNULL(tMPR.MPPostId, ISNULL(tTRCn.MPPostId, ISNULL(tTREm.MPPostId, ISNULL(tTRMv.MPPostId,Tbl_MPFeeder.MPPostId)))) = Tbl_MPPost.MPPostId
+	LEFT OUTER JOIN 
+	(
+		SELECT FogheToziDisconnectId, SUM(CurrentValue) AS CurrentValue , SUM(PreCurrentValue) AS PreCurrentValue 
+		FROM TblFogheToziDisconnectMPFeeder
+		GROUP BY FogheToziDisconnectId
+	) AS tFTRMPF ON tFTR.FogheToziDisconnectId = tFTRMPF.FogheToziDisconnectId
+	LEFT JOIN 
+	(
+		SELECT 
+			RequestId,
+			Max(FollowRequestId) FollowRequestId
+		FROM TblFollowRequest
+		GROUP BY RequestId
+	) tFR ON tReq.RequestId = tFR.RequestId
+	LEFT JOIN TblQuestionItem tQISMS ON dbo.GetMaxSMSQuestionItemId(tReq.RequestId) = tQISMS.QuestionItemId
+	LEFT JOIN TblQuestionItem tQIIVR ON dbo.GetMaxIVRQuestionItemId(tReq.RequestId) = tQIIVR.QuestionItemId
+	LEFT JOIN Homa.TblJob TblJob ON tReq.RequestId = TblJob.RequestId
+	LEFT JOIN Homa.TblOnCall TblOnCall ON TblJob.OnCallId = TblOnCall.OnCallId
+	LEFT JOIN Homa.Tbl_TabletUser Tbl_TabletUser ON TblOnCall.TabletUserId = Tbl_TabletUser.TabletUserId
+	LEFT JOIN Tbl_Master Tbl_Master ON Tbl_TabletUser.MasterId = Tbl_Master.MasterId
+	LEFT JOIN 
+	(
+		SELECT 
+			RequestId,
+			min(MPFeederId) as MPFeederId,
+			min(MPPostId) as MPPostId,
+			min(LPPostId) as LPPostId,
+			min(LPFeederId) as LPFeederId
+		FROM TblRequestPostFeeder
+		GROUP BY RequestId
+	) tRPostFeeder ON tReq.RequestId = tRPostFeeder.RequestId
+GO
