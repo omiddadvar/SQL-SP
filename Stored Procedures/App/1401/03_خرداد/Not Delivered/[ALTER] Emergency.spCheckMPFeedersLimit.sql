@@ -1,14 +1,11 @@
-ALTER PROC Emergency.spCheckMPFeedersLimit @aStartDate AS VARCHAR(10),
+ALTER PROC Emergency.spCheckMPFeedersLimit 
+  @aStartDate AS VARCHAR(10),
 	@aStartTime AS VARCHAR(5),
 	@aEndDate AS VARCHAR(10),
 	@aEndTime AS VARCHAR(5),
 	@aMPFeederTemplateIDs AS VARCHAR(5000) = ''
 AS
 BEGIN
-	DECLARE @lStartDT AS DATETIME = dbo.ShamsiDateTimeToMiladi(@aStartDate, @aStartTime)
-	DECLARE @lEndtDT AS DATETIME = dbo.ShamsiDateTimeToMiladi(@aEndDate, @aEndTime)
-	DECLARE @lStartDayOfWeekId AS INT = DATEPART(DW, @lStartDT)
-	DECLARE @lEndDayOfWeekId AS INT = DATEPART(DW, @lEndtDT)
 	DECLARE @lSQL AS VARCHAR(2000) = 'SELECT MPFeederTemplateId FROM Emergency.Tbl_MPFeederTemplate'
 
 	IF LEN(@aMPFeederTemplateIDs) > 0
@@ -32,7 +29,7 @@ BEGIN
 			END AS IsOk,
     COUNT(MPFLD.MPFeederLimitDayId) AS FaultyCount
 	FROM 
-    Emergency.Tbl_MPFeederTemplate MPT
+    Emergency.Tbl_MPFeederTemplate MPT  
   	INNER JOIN #tmp ON MPT.MPFeederTemplateId = #tmp.MPFeederTemplateId
   	INNER JOIN Emergency.Tbl_MPFeederLimitType MPFL ON MPT.MPFeederLimitTypeId = MPFL.MPFeederLimitTypeId
   	LEFT JOIN BTbl_Holiday Holi ON Holi.HolidayDatePersian IN (
@@ -41,46 +38,16 @@ BEGIN
   			)
   	LEFT JOIN Emergency.Tbl_MPFeederLimitDay MPFLD ON MPFL.MPFeederLimitTypeId = MPFLD.MPFeederLimitTypeId
   		AND (
-  			(
-  				(
-  					MPFLD.WeekDayId = @lStartDayOfWeekId
-  					OR (
-  						MPFLD.IsHoliday = 1
-  						AND Holi.HolidayId IS NOT NULL
-              AND Holi.HolidayDatePersian = @aStartDate
-  						)
-  					)
-  				AND (
-  					(
-  						dbo.ShamsiDateTimeToMiladi(@aStartDate, MPFLD.StartTime) BETWEEN @lStartDT
-  							AND @lEndtDT
-  						)
-  					OR (
-  						dbo.ShamsiDateTimeToMiladi(@aStartDate, MPFLD.EndTime) BETWEEN @lStartDT
-  							AND @lEndtDT
-  						)
-  					)
-  				)
-  			OR (
-  				(
-  					MPFLD.WeekDayId = @lEndDayOfWeekId
-  					OR (
-  						MPFLD.IsHoliday = 1
-  						AND Holi.HolidayId IS NOT NULL
-              AND Holi.HolidayDatePersian = @aEndDate
-  						)
-  					)
-  				AND (
-  					(
-  						dbo.ShamsiDateTimeToMiladi(@aEndDate, MPFLD.StartTime) BETWEEN @lStartDT
-  							AND @lEndtDT
-  						)
-  					OR (
-  						dbo.ShamsiDateTimeToMiladi(@aEndDate, MPFLD.EndTime) BETWEEN @lStartDT
-  							AND @lEndtDT
-  						)
-  					)
-  				)
+        Emergency.fnCheckMPFeedersLimit_SomeDays(@aStartDate , @aStartTime , @aEndDate, @aEndTime 
+                , MPFLD.IsHoliday, Holi.HolidayDatePersian, MPFLD.WeekDayId
+                , MPFLD.StartTime , MPFLD.EndTime , 1) = 0
+        OR
+        Emergency.fnCheckMPFeedersLimit_SomeDays(@aStartDate , @aStartTime , @aEndDate, @aEndTime 
+                , MPFLD.IsHoliday, Holi.HolidayDatePersian, MPFLD.WeekDayId
+                , MPFLD.StartTime , MPFLD.EndTime , 0) = 0
+        OR
+        Emergency.fnCheckMPFeedersLimit_AllDays(@aStartDate , @aStartTime , @aEndDate, @aEndTime 
+                , MPFLD.IsHoliday, MPFLD.WeekDayId, MPFLD.StartTime , MPFLD.EndTime) = 0
   			)
 	GROUP BY MPT.MPFeederTemplateId,
 		MPT.MPFeederId,
