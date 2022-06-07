@@ -28,7 +28,7 @@ BEGIN
 		FROM TblMPRequest
 		INNER JOIN TblRequest ON TblMPRequest.MPRequestId = TblRequest.MPRequestId
 		INNER JOIN TblMPRequestKey ON TblMPRequest.MPRequestId = TblMPRequestKey.MPRequestId
-		WHERE TblMPRequest.DisconnectDT >= DATEADD(day, - 20, getdate())
+		WHERE TblMPRequest.DisconnectDT >= DATEADD(day, - @aDayCount, getdate())
 			AND ISNULL(TblRequest.IsDisconnectMPFeeder, 1) = 0
 			AND TblMPRequest.MPFeederId = @MPFeederId
 			AND TblMPRequestKey.MPFeederKeyId = @MPFeederKeyId
@@ -38,7 +38,7 @@ BEGIN
 	FROM dbo.TblFogheToziDisconnect
 	INNER JOIN TblRequest ON TblRequest.FogheToziDisconnectId = TblFogheToziDisconnect.FogheToziDisconnectId
 	INNER JOIN dbo.TblFogheToziDisconnectMPFeeder ON TblFogheToziDisconnect.FogheToziDisconnectId = TblFogheToziDisconnectMPFeeder.FogheToziDisconnectId
-		AND TblRequest.DisconnectDT >= DATEADD(day, - 20, getdate())
+		AND TblRequest.DisconnectDT >= DATEADD(day, - @aDayCount, getdate())
 		AND TblFogheToziDisconnectMPFeeder.MPFeederId = @MPFeederId
 
 	RETURN isnull(@CntFT, 0) + isnull(@CntMP1, 0) + isnull(@CntMP2, 0)

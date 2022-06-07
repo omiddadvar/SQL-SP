@@ -36,6 +36,8 @@
           <Parameter Name="@aEndDate" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aEndTime" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aMPFeederTemplateIDs" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aDayCount" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aTimingId" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
