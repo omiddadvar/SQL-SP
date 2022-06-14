@@ -28,6 +28,6 @@ ALTER PROC Emergency.spGetReportDisconnectAreas
 
 /*
 
-EXEC Emergency.spGetReportDisconnectAreas '1401/03/21' , '2,3'
+EXEC Emergency.spGetReportDisconnectAreas '1401/03/24' , '2,3'
 
 */
