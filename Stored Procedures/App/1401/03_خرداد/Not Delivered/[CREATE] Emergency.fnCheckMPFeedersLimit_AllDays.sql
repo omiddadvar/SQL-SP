@@ -1,4 +1,4 @@
-﻿ALTER FUNCTION Emergency.fnCheckMPFeedersLimit_AllDays(
+﻿CREATE FUNCTION Emergency.fnCheckMPFeedersLimit_AllDays(
   @aStartDate AS VARCHAR(10),
   @aStartTime AS VARCHAR(5),
   @aEndDate AS VARCHAR(10),
