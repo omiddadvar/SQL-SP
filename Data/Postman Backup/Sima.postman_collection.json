@@ -1,62 +1,66 @@
 {
-	"id": "2063599b-e456-457a-9c78-2a6400f9c3be",
-	"name": "Sima",
-	"description": "",
-	"auth": null,
-	"events": null,
-	"variables": [],
-	"order": [
-		"14b3cf67-69ce-4f69-906f-1a678af2e30c",
-		"ee207627-93f1-4c94-bbb6-72f5b7f0d66c"
-	],
-	"folders_order": [],
-	"folders": [],
-	"requests": [
+	"info": {
+		"name": "Sima",
+		"_postman_id": "2063599b-e456-457a-9c78-2a6400f9c3be",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
 		{
-			"id": "14b3cf67-69ce-4f69-906f-1a678af2e30c",
 			"name": "Indicators Report Sistan",
-			"url": "{{host}}/SimaServices/GetIndicatorsReport",
-			"description": "",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"method": "POST",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n\t\"FromDate\" : \"1395/01/01\",\n\t\"ToDate\" : \"1400/12/03\",\n\t\"AreaIds\" : [2,3]\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"FromDate\" : \"1395/01/01\",\n\t\"ToDate\" : \"1400/12/03\",\n\t\"AreaIds\" : [2,3]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/SimaServices/GetIndicatorsReport",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"SimaServices",
+						"GetIndicatorsReport"
+					]
+				},
+				"description": ""
+			},
+			"response": []
 		},
 		{
-			"id": "ee207627-93f1-4c94-bbb6-72f5b7f0d66c",
 			"name": "Indicators Report All (Golestan)",
-			"url": "{{host}}/SimaServices/GetIndicatorsAll",
-			"description": "",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"method": "POST",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n\t\"FromDate\" : \"1395/01/01\",\n\t\"ToDate\" : \"1400/12/03\",\n\t\"AreaIds\" : [2,3]\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"FromDate\" : \"1395/01/01\",\n\t\"ToDate\" : \"1400/12/03\",\n\t\"AreaIds\" : [2,3]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/SimaServices/GetIndicatorsAll",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"SimaServices",
+						"GetIndicatorsAll"
+					]
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }

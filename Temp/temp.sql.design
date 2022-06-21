@@ -22,6 +22,17 @@
           <Parameter Name="@BillingIDTypeId" Direction="Input" DbType="VarChar" />
           <Parameter Name="@BillingID" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aTimingMPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aToolIDs" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aStationIDs" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aTypeID" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aFromDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aMPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aLPPostId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aLPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aToDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aAreaId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aPersianDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aAreaIDs" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>

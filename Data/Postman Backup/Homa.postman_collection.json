@@ -1,0 +1,154 @@
+{
+	"info": {
+		"name": "Homa",
+		"_postman_id": "e1495a63-4f87-4076-8ac8-0fd7b36eed69",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetSubscriberOutageByTrackingCode",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"LoginUserName\" : \"homa\",\n\t\"LoginPassword\" : \"homa@123\",\n\t\"TelNo\" : \"091216565\" \n}"
+				},
+				"url": {
+					"raw": "10.10.15.91:8040/Homa/GetSubscriberOutageInfoByTelNo",
+					"host": [
+						"10",
+						"10",
+						"15",
+						"91"
+					],
+					"port": "8040",
+					"path": [
+						"Homa",
+						"GetSubscriberOutageInfoByTelNo"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetAreaFromBillingJd",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"LoginUserName\" : \"homa\",\n\t\"LoginPassword\" : \"homa@123\",\n\t\"BillingId\" : \"55555555555\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/Homa/GetAreaFromBillingId",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"Homa",
+						"GetAreaFromBillingId"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterSubscriberFromBillingId",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"LoginUserName\":\"homa\",\n\t\"LoginPassword\":\"homa@123\",\n\t\"MediaTypeId\" : 1,\n\t\"TelNo\" : \"0216565655\",\n\t\"MobileNo\" : \"093612244201\",\n\t\"SubscriberName\" : \"Mamad Gholi\",\n\t\"MelliCode\" : \"0065992233\",\n\t\"RegComments\" : \"Go home buddy...\",\n\t\"Password\" : \"pop@123\",\n\t\"BillingID\" : \"1234567890111\",\n\t\"BillingIDTypeId\" : 1\n}\n"
+				},
+				"url": {
+					"raw": "{{host}}/Homa/RegisterSubscriberFromBillingId",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"Homa",
+						"RegisterSubscriberFromBillingId"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetSubscriberBillings ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"LoginUserName\":\"homa\",\n\t\"LoginPassword\":\"homa@123\",\n\t\"CallerId\" : \"0216565655\",\n\t\"BillingIDTypeId\" : 1\n}\n"
+				},
+				"url": {
+					"raw": "{{host}}/Homa/GetSubscriberBillings",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"Homa",
+						"GetSubscriberBillings"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DelSubscriberBillingID",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"LoginUserName\":\"homa\",\n\t\"LoginPassword\":\"homa@123\",\n\t\"CallerId\":\"0216565655\",\n\t\"BillingID\":\"1234567890111\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/Homa/DelSubscriberBillingID",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"Homa",
+						"DelSubscriberBillingID"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
