@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), SQL document design file -->
+<!-- Modifying this generated file will probably render it invalid -->
+<Document>
+  <Properties>
+    <Type>SQL Document Design</Type>
+    <DatabaseProvider>aa8afe9c-7d62-4564-b477-c12e62e0f440</DatabaseProvider>
+    <ProviderVersion>5.8.127.0</ProviderVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </Properties>
+  <Connection Name="10.10.15.12">
+    <Category>e48bae52-25bc-4af0-bd93-c5cfc0c5aed1</Category>
+    <ConnectionString>Data Source=10.10.15.12;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
+    <Database>CCRequesterSetad</Database>
+  </Connection>
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
+    <View Name="Design" Visible="False" />
+    <View Name="Code" Active="True" Visible="True">
+      <Data>
+        <Parameters>
+          <Parameter Name="@CallerId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@BillingIDTypeId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@BillingID" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aTimingMPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aToolIDs" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aStationIDs" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aTypeID" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aFromDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aMPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aLPPostId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aLPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aToDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aAreaId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aPersianDate" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aAreaIDs" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aGroupMPFeederId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aDayCount" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aTimingId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aDisDatePersian" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aDisTime" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@cdcdcdcd" Direction="Input" DbType="VarChar" />
+        </Parameters>
+      </Data>
+    </View>
+    <View Name="Data" Visible="True" />
+    <View Name="Profiler" Visible="False" />
+    <View Name="PivotGrid" Visible="False" />
+  </Views>
+  <ProfilingMode Enabled="False" />
+  <LiveProfilingMode Enabled="False" />
+</Document>
