@@ -1,0 +1,334 @@
+{
+	"info": {
+		"name": "Tavanir Testing",
+		"_postman_id": "908c4dd2-9cdb-4c2f-b879-49d2cf92dcf6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetMonitoring",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetMonitoring",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetMonitoring"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetEnergyIndexMonitoring",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetEnergyIndexMonitoring",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetEnergyIndexMonitoring"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetFTPostOutageChartInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetFTPostOutageChartInfo",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetFTPostOutageChartInfo"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetMPFeederOutageChartInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetMPFeederOutageChartInfo",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetMPFeederOutageChartInfo"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetLPPostOutageChartInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetLPPostOutageChartInfo",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetLPPostOutageChartInfo"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetMapInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetMapInfo",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetMapInfo"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetFTPostStatus",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetFTPostStatus",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetFTPostStatus"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetMPFeederStatus",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetMPFeederStatus",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetMPFeederStatus"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetReliabilityIndex",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetReliabilityIndex",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetReliabilityIndex"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetDailyInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetDailyInfo",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetDailyInfo"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetEnergyHourByHour",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetEnergyHourByHour",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetEnergyHourByHour"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetSerghatParts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FogheToziReasons\": null,\r\n    \"IsPlanned\": \"0\",\r\n    \"NetworkTypes\": null,\r\n    \"OutageDateFrom\": \"1401/04/06\",\r\n    \"OutageDateTo\": \"1401/04/06\",\r\n    \"OutageGroups\": null,\r\n    \"OutageProblems\": null,\r\n    \"OutageReasons\": null,\r\n    \"OutageTimeFrom\": \"00:00\",\r\n    \"OutageTimeTo\": \"\",\r\n    \"ProblemReasons\": null,\r\n    \"RecordCount\": \"999\",\r\n    \"ToziId\": 15\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/GetSerghatParts",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"GetSerghatParts"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
