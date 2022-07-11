@@ -116,18 +116,18 @@ FROM #tblTmpLastAllCurrentValue
 
 DROP TABLE #tblTmpLastAllCurrentValue
 
-SELECT ROUND(SUM(t1.SAIFI_Sub) / @lAllSubCount, 4) AS SAIFI_Sub,
-	ROUND(SUM(t5.SAIFI_Amper / NULLIF(@lLastAllCurrentValue, 0)), 4) AS SAIFI_Amper,
-	ROUND(SUM(t1.SAIDI_Sub) / @lAllSubCount, 4) AS SAIDI_Sub,
-	ROUND(SUM(t5.SAIDI_Amper / NULLIF(@lLastAllCurrentValue, 0)), 4) AS SAIDI_Amper,
-	ROUND(SUM(t2.T_SAIFI_Trans) / NULLIF(SUM(LPPostCount), 0), 4) AS T_SAIFI_Trans,
-	ROUND(SUM(t6.T_SAIFI_Amper) / @lLPPostCount, 4) AS T_SAIFI_Amper,
-	ROUND(SUM(t2.T_SAIDI_Trans) / NULLIF(SUM(LPPostCount), 0), 4) AS T_SAIDI_Trans,
-	ROUND(SUM(t6.T_SAIDI_Amper) / @lLPPostCount, 4) AS T_SAIDI_Amper,
-	ROUND((SUM(t1.SAIDI_Sub) / @lAllSubCount) / NULLIF((SUM(t1.SAIFI_Sub) / @lAllSubCount), 0), 4) AS CAIDI,
-	ROUND(SUM(t3.MAIFI) / @lAllSubCount, 4) AS MAIFI,
-	ROUND(SUM(t7.ENS), 4) AS ENS,
-	ROUND(SUM(t4.AENS) / @lAllSubCount, 4) AS AENS
+SELECT ISNULL(ROUND(SUM(t1.SAIFI_Sub) / NULLIF(@lAllSubCount,0), 4),0) AS SAIFI_Sub,
+	ISNULL(ROUND(SUM(t5.SAIFI_Amper / NULLIF(@lLastAllCurrentValue, 0)), 4),0) AS SAIFI_Amper,
+	ISNULL(ROUND(SUM(t1.SAIDI_Sub) / NULLIF(@lAllSubCount,0), 4),0) AS SAIDI_Sub,
+	ISNULL(ROUND(SUM(t5.SAIDI_Amper / NULLIF(@lLastAllCurrentValue, 0)), 4),0) AS SAIDI_Amper,
+	ISNULL(ROUND(SUM(t2.T_SAIFI_Trans) / NULLIF(SUM(LPPostCount), 0), 4),0) AS T_SAIFI_Trans,
+	ISNULL(ROUND(SUM(t6.T_SAIFI_Amper) / NULLIF(@lLPPostCount,0), 4),0) AS T_SAIFI_Amper,
+	ISNULL(ROUND(SUM(t2.T_SAIDI_Trans) / NULLIF(SUM(LPPostCount), 0), 4),0) AS T_SAIDI_Trans,
+	ISNULL(ROUND(SUM(t6.T_SAIDI_Amper) / NULLIF(@lLPPostCount,0), 4),0) AS T_SAIDI_Amper,
+	ISNULL(ROUND((SUM(t1.SAIDI_Sub) / NULLIF(@lAllSubCount,0)),0) / NULLIF((SUM(t1.SAIFI_Sub) / NULLIF(@lAllSubCount,0)), 0), 4) AS CAIDI,
+	ISNULL(ROUND(SUM(t3.MAIFI) / NULLIF(@lAllSubCount,0), 4),0) AS MAIFI,
+	ISNULL(ROUND(SUM(t7.ENS), 4),0) AS ENS,
+	ISNULL(ROUND(SUM(t4.AENS) / NULLIF(@lAllSubCount,0), 4),0) AS AENS
 FROM Tbl_Area
 LEFT JOIN (
 	SELECT TblRequest.AreaId,
@@ -279,3 +279,5 @@ WHERE Tbl_Area.AreaId IN (
 DROP TABLE #tblTmpRequest
 
 DROP TABLE #tblTmpArea
+
+
