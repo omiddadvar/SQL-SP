@@ -38,13 +38,6 @@
           <Parameter Name="@aTimingId" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aDisDatePersian" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aDisTime" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@FromDatePersian" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@ToDatePersian" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@AreaIDs" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@IsDCMPFeeder" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@OwnershipId" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@IsWithFogheTozi" Direction="Input" DbType="VarChar" />
-          <Parameter Name="@IsTamir" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>

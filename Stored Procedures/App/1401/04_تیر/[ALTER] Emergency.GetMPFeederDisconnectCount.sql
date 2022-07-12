@@ -21,6 +21,7 @@ BEGIN
 	WHERE TblMPRequest.DisconnectDT >= DATEADD(day, - @aDayCount, getdate())
 		AND ISNULL(TblRequest.IsDisconnectMPFeeder, 1) = 1
 		AND TblMPRequest.MPFeederId = @MPFeederId
+    AND ISNULL(TblMPRequest.IsWarmLine , 0) = 0
 
 	IF @IsDisconnectMPFeeder = 0
 	BEGIN
@@ -32,6 +33,7 @@ BEGIN
 			AND ISNULL(TblRequest.IsDisconnectMPFeeder, 1) = 0
 			AND TblMPRequest.MPFeederId = @MPFeederId
 			AND TblMPRequestKey.MPFeederKeyId = @MPFeederKeyId
+      AND ISNULL(TblMPRequest.IsWarmLine , 0) = 0
 	END
 
 	SELECT @CntFT = COUNT(*)
@@ -44,3 +46,4 @@ BEGIN
 	RETURN isnull(@CntFT, 0) + isnull(@CntMP1, 0) + isnull(@CntMP2, 0)
 END
 GO
+
