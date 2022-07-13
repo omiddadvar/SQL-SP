@@ -8,9 +8,9 @@
     <ProviderVersion>5.8.127.0</ProviderVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </Properties>
-  <Connection Name="10.10.15.12">
+  <Connection Name="10.10.10.241">
     <Category>e48bae52-25bc-4af0-bd93-c5cfc0c5aed1</Category>
-    <ConnectionString>Data Source=10.10.15.12;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
+    <ConnectionString>Data Source=10.10.10.241;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
     <Database>CCRequesterSetad</Database>
   </Connection>
   <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
@@ -38,6 +38,7 @@
           <Parameter Name="@aMPFeederTemplateIDs" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aDayCount" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aTimingId" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aTime" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>
