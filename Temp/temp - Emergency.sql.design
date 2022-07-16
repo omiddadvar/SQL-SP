@@ -39,6 +39,7 @@
           <Parameter Name="@aDayCount" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aTimingId" Direction="Input" DbType="VarChar" />
           <Parameter Name="@aTime" Direction="Input" DbType="VarChar" />
+          <Parameter Name="@aPersianDate" Direction="Input" DbType="VarChar" />
         </Parameters>
       </Data>
     </View>

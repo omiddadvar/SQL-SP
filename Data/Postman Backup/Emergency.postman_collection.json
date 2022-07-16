@@ -1,0 +1,94 @@
+{
+	"info": {
+		"name": "Emergency",
+		"_postman_id": "5eef1992-8cc5-4d6e-abd0-f090c51d171d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetOnlineActivePower",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"PersianDate\" : \"1401/04/11\",\n\t\"Time\" : \"10:12\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/EmergencyReport/GetOnlineActivePower",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"EmergencyReport",
+						"GetOnlineActivePower"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetOnlineDisconnectPower",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"PersianDate\" : \"1401/04/10\",\n\t\"Time\" : \"10:00\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/EmergencyReport/GetOnlineDisconnectPower",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"EmergencyReport",
+						"GetOnlineDisconnectPower"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetDisconnectFeeders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"AreaIds\" : [2,3]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/EmergencyReport/GetDisconnectFeeders",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"EmergencyReport",
+						"GetDisconnectFeeders"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
