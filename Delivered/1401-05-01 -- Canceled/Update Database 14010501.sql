@@ -116,9 +116,7 @@ GO
 
 
 /*--------Ahvaz--------Ahvaz------------Ahvaz------Ahvaz--------Ahvaz--------*/
-
 /*--------[ALTER]------Emergency.spGetDisconnectMPFeeders--------------------*/
-
 /*--------Ahvaz--------Ahvaz------------Ahvaz------Ahvaz--------Ahvaz--------*/
 
 ALTER PROCEDURE spGetDisconnectMPFeeders
