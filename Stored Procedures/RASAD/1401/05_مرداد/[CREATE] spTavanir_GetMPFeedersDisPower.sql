@@ -1,7 +1,6 @@
 ﻿
-CREATE PROCEDURE spTavanir_GetMPFeedersDisPower
-    @aToziId AS INT
-   ,@aFromDate AS VARCHAR(10)
+CREATE PROCEDURE dbo.spTavanir_GetMPFeedersDisPower
+   @aFromDate AS VARCHAR(10)
    ,@aFromTime AS VARCHAR(5)
    ,@aToDate AS VARCHAR(10)
    ,@aToTime AS VARCHAR(5)
@@ -21,9 +20,9 @@ AS
     
     SELECT 
          CAST(1 AS Bit) AS AllAreas
-        ,ROUND(AVG(V.CurrentValue) , 3) AS CurrentValueAvg
-        ,AVG(ABS(ISNULL(R.DisconnectInterval ,0))) AS DisconnectIntervalAvg
-        ,ROUND(SUM(V.DisconnectPower) , 3) AS DisconnectPowerSum
+        ,ISNULL(ROUND(AVG(ISNULL(V.CurrentValue, 0)) , 3), 0) AS CurrentValueAvg
+        ,ISNULL(AVG(ABS(ISNULL(R.DisconnectInterval ,0))), 0) AS DisconnectIntervalAvg
+        ,ISNULL(ROUND(SUM(ISNULL(V.DisconnectPower, 0)) , 3),0) AS DisconnectPowerSum
     INTO #tmpMonitoring
     FROM ViewMonitoring V
       INNER JOIN TblRequest R ON V.RequestId = R.RequestId
@@ -31,8 +30,7 @@ AS
       AND R.IsDisconnectMPFeeder = 1
     
     
-    SELECT @aToziId AS ToziId
-         , M.CurrentValueAvg
+    SELECT M.CurrentValueAvg
          ,CAST(M.DisconnectIntervalAvg / 60 AS varchar(5)) + ':' + CAST(M.DisconnectIntervalAvg % 60 AS varchar(2)) 
               AS DisconnectIntervalAvg
          , M.DisconnectPowerSum 
@@ -45,14 +43,21 @@ AS
     DROP TABLE #tmpDisFeederCount
 
   END
+GO
+
+
 
 /*
 
-EXEC spTavanir_GetMPFeedersDisPower @aToziId = 3
-                                ,@aFromDate = '1401/03/01'
+EXEC spTavanir_GetMPFeedersDisPower '1401/05/03', '00:00', '1401/05/03' , '23:59'
+
+EXEC spTavanir_GetMPFeedersDisPower 
+                                @aFromDate = '1401/03/01'
                                 ,@aFromTime = '11:00'
                                 ,@aToDate = '1401/05/01'
                                 ,@aToTime = '12:00'
+
+
 
 */
 /*
@@ -69,3 +74,4 @@ SET IDENTITY_INSERT Tbl_AccessType OFF
 
 
 */
+
