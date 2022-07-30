@@ -1,4 +1,6 @@
-﻿
+﻿/*--------CREATED on 1401/05/03 */
+/*--------ALTERED on 1401/05/08 */
+
 CREATE PROCEDURE dbo.spTavanir_GetMPFeedersDisPower
    @aFromDate AS VARCHAR(10)
    ,@aFromTime AS VARCHAR(5)
@@ -11,11 +13,14 @@ AS
 
     SELECT CAST(1 AS Bit) AS AllAreas 
           ,COUNT(MPR.MPFeederId) AS DisconnectFeederCount
+          ,COUNT(LiveMPR.MPFeederId) AS LiveDisconnectFeederCount
     INTO #tmpDisFeederCount
     FROM TblRequest R
-      INNER JOIN TblMPRequest MPR ON R.MPRequestId = MPR.MPRequestId
-      WHERE MPR.EndJobStateId IN (4,5)
-        AND R.IsDisconnectMPFeeder = 1
+      LEFT JOIN TblMPRequest MPR ON R.MPRequestId = MPR.MPRequestId
+                                AND MPR.DisconnectDT BETWEEN @lFromDate AND @lToDate
+      LEFT JOIN TblMPRequest LiveMPR ON R.MPRequestId = LiveMPR.MPRequestId 
+                                    AND LiveMPR.EndJobStateId IN (4,5)
+      WHERE R.IsDisconnectMPFeeder = 1
     
     
     SELECT 
@@ -31,10 +36,10 @@ AS
     
     
     SELECT M.CurrentValueAvg
-         ,CAST(M.DisconnectIntervalAvg / 60 AS varchar(5)) + ':' + CAST(M.DisconnectIntervalAvg % 60 AS varchar(2)) 
-              AS DisconnectIntervalAvg
+         ,CAST(M.DisconnectIntervalAvg / 60 AS varchar(5)) + ':' + CAST(M.DisconnectIntervalAvg % 60 AS varchar(2))               AS DisconnectIntervalAvg
          , M.DisconnectPowerSum 
          , C.DisconnectFeederCount
+         , C.LiveDisconnectFeederCount
     FROM #tmpMonitoring M
       INNER JOIN #tmpDisFeederCount C ON M.AllAreas = C.AllAreas
     
@@ -46,7 +51,7 @@ AS
 GO
 
 
-
+--SELECT * FROM Tbl_EndJobState ORDER BY 1
 /*
 
 EXEC spTavanir_GetMPFeedersDisPower '1401/05/03', '00:00', '1401/05/03' , '23:59'
