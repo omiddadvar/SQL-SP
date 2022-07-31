@@ -1,6 +1,3 @@
-﻿/*--------CREATED on 1401/05/03 */
-/*--------ALTERED on 1401/05/08 */
-
 CREATE PROCEDURE dbo.spTavanir_GetMPFeedersDisPower
    @aFromDate AS VARCHAR(10)
    ,@aFromTime AS VARCHAR(5)
@@ -26,7 +23,6 @@ AS
       INNER JOIN TblMPRequest LiveMPR ON R.MPRequestId = LiveMPR.MPRequestId 
       WHERE R.IsDisconnectMPFeeder = 1
         AND LiveMPR.EndJobStateId IN (4,5)
-        AND LiveMPR.EndJobStateId = R.EndJobStateId
     
     
     SELECT 
@@ -57,34 +53,3 @@ AS
 
   END
 GO
-
-
---SELECT * FROM Tbl_EndJobState ORDER BY 1
-/*
-
-EXEC spTavanir_GetMPFeedersDisPower '1401/05/03', '00:00', '1401/05/03' , '23:59'
-
-EXEC spTavanir_GetMPFeedersDisPower 
-                                @aFromDate = '1401/03/01'
-                                ,@aFromTime = '11:00'
-                                ,@aToDate = '1401/05/01'
-                                ,@aToTime = '12:00'
-
-
-
-*/
-/*
-
-SELECT * FROM Tbl_AccessType 
-
-Delete From Tbl_AccessType Where AccessType = 'ReportMPFeederDis'
--------------------------
-
-SET IDENTITY_INSERT Tbl_AccessType ON
-INSERT INTO Tbl_AccessType (AccessTypeId, AccessType, AccessTypeName)
-  VALUES (8, N'ReportMPFeederDis', N'توانايي گزارشگيري گزارش تجمعي قطعي فيدرهاي فشار متوسط');
-SET IDENTITY_INSERT Tbl_AccessType OFF
-
-
-*/
-
