@@ -1,0 +1,7 @@
+-- اعمال IsForceMPFeederMaxDCTime (اجباری بود رعایت حداکثر زمان مجاز خاموشی فیدرهای فشار متوسط) در نرم افزار درخواست خاموشی برای کار بر روی خط گرم
+IF NOT EXISTS (SELECT * FROM Tbl_Config WHERE ConfigId = 717)
+	INSERT INTO Tbl_Config(ConfigId,ConfigName,ConfigValue,ConfigText) VALUES(717,N'WarmLineEnforce_IsForceMPFeederMaxDCTime',N'False',NULL)
+GO
+
+INSERT INTO Tbl_EventLogCenter (TableName, TableNameId, PrimaryKeyId, Operation, AreaId, WorkingAreaId, DataEntryDT, SQLCommand) VALUES ('Tbl_Area',46,1,4,NULL,99,GETDATE(),N'IF NOT EXISTS (SELECT * FROM Tbl_Config WHERE ConfigId = 717) INSERT Tbl_Config (ConfigId,ConfigName,ConfigValue,ConfigText) VALUES (717,N''WarmLineEnforce_IsForceMPFeederMaxDCTime'',N''False'',NULL)')
+GO

@@ -11,13 +11,16 @@ AS
     DECLARE @lFromDate AS DATETIME = dbo.ShamsiDateTimeToMiladi(@aFromDate , @aFromTime)
            ,@lToDate AS DATETIME = dbo.ShamsiDateTimeToMiladi(@aToDate , @aToTime)
 
+    DECLARE @lNow AS DATETIME =  GETDATE()
+           ,@lYesterday AS DATETIME = DATEADD(DAY, -1, GETDATE())
+
     SELECT CAST(1 AS Bit) AS AllAreas 
           ,COUNT(DISTINCT MPR.MPFeederId) AS DisconnectFeederCount
     INTO #tmpDisFeederCount
     FROM TblRequest R
       INNER JOIN TblMPRequest MPR ON R.MPRequestId = MPR.MPRequestId
       WHERE R.IsDisconnectMPFeeder = 1
-        AND MPR.DisconnectDT BETWEEN @lFromDate AND @lToDate
+        AND R.DisconnectDT BETWEEN @lFromDate AND @lToDate
 
     SELECT CAST(1 AS Bit) AS AllAreas 
           ,COUNT(DISTINCT LiveMPR.MPFeederId) AS LiveDisconnectFeederCount
@@ -27,6 +30,7 @@ AS
       WHERE R.IsDisconnectMPFeeder = 1
         AND LiveMPR.EndJobStateId IN (4,5)
         AND LiveMPR.EndJobStateId = R.EndJobStateId
+        AND R.DisconnectDT BETWEEN @lYesterday AND @lNow
     
     
     SELECT 
