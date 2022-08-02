@@ -1,16 +1,17 @@
 ﻿/*--------CREATED on 1401/05/03 */
-/*--------ALTERED on 1401/05/08 */
+/*--------ALTERED on 1401/05/11 */
 
-CREATE PROCEDURE dbo.spTavanir_GetMPFeedersDisPower @aFromDate AS VARCHAR(10)
+CREATE PROCEDURE dbo.spTavanir_GetMPFeedersDisPower 
+   @aFromDate AS VARCHAR(10)
 	,@aFromTime AS VARCHAR(5)
 	,@aToDate AS VARCHAR(10)
 	,@aToTime AS VARCHAR(5)
 AS
 BEGIN
 	DECLARE @lFromDate AS DATETIME = dbo.ShamsiDateTimeToMiladi(@aFromDate, @aFromTime)
-		,@lToDate AS DATETIME = dbo.ShamsiDateTimeToMiladi(@aToDate, @aToTime)
+	       ,@lToDate AS DATETIME = dbo.ShamsiDateTimeToMiladi(@aToDate, @aToTime)
 	DECLARE @lNow AS DATETIME = GETDATE()
-		,@lYesterday AS DATETIME = DATEADD(DAY, - 1, GETDATE())
+		     ,@lYesterday AS DATETIME = DATEADD(DAY, - 1, GETDATE())
 
 	SELECT CAST(1 AS BIT) AS AllAreas
 		,CAST(ISNULL(Round(SUM(CASE 
