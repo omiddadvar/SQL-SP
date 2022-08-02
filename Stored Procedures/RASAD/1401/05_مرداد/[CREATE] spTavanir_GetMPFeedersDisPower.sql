@@ -92,3 +92,4 @@ SET IDENTITY_INSERT Tbl_AccessType OFF
 
 */
 
+SELECT SUM(CurrentValue) FROM TblMPRequest WHERE MPRequestId = -100
