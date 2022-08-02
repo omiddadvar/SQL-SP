@@ -10,7 +10,7 @@ BEGIN
 		,@lYesterday AS DATETIME = DATEADD(DAY, - 1, GETDATE())
 
 	SELECT CAST(1 AS BIT) AS AllAreas
-		,ISNULL(Round(SUM(CASE 
+		,CAST(ISNULL(Round(SUM(CASE 
 				WHEN R.IsDisconnectMPFeeder = 1
 					THEN 1
 				WHEN R.IsDisconnectMPFeeder = 0 AND MPR.IsNotDisconnectFeeder = 1
@@ -20,7 +20,7 @@ BEGIN
 							ELSE ISNULL((MPR.CurrentValue / NULLIF(MPR.PreCurrentValue, 0)), 0)
 							END
 				ELSE 0
-				END) , 3),0) AS DisconnectFeederCount
+				END) , 0),0) AS INT) AS DisconnectFeederCount
 	--COUNT(DISTINCT MPR.MPFeederId) AS DisconnectFeederCount
 	INTO #tmpDisFeederCount
 	FROM TblRequest R
@@ -30,7 +30,7 @@ BEGIN
 
 	SELECT CAST(1 AS BIT) AS AllAreas
 		--,COUNT(DISTINCT LiveMPR.MPFeederId) AS LiveDisconnectFeederCount
-		,ISNULL(Round(SUM(CASE 
+		,CAST(ISNULL(Round(SUM(CASE 
 				WHEN R.IsDisconnectMPFeeder = 1
 					THEN 1
 				WHEN R.IsDisconnectMPFeeder = 0 AND MPR.IsNotDisconnectFeeder = 1
@@ -40,7 +40,7 @@ BEGIN
 							ELSE ISNULL((MPR.CurrentValue / NULLIF(MPR.PreCurrentValue, 0)), 0)
 							END
 				ELSE 0
-				END) ,3),0) AS LiveDisconnectFeederCount
+				END) ,0),0) AS INT) AS LiveDisconnectFeederCount
 	INTO #tmpLiveDisFeederCount
 	FROM TblRequest R
 	INNER JOIN TblMPRequest MPR ON R.MPRequestId = MPR.MPRequestId
