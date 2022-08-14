@@ -15,8 +15,7 @@ BEGIN
 	SELECT RequestId 
 	INTO #tmpRequest 
 	FROM TblRequest 
-	WHERE DisconnectDatePersian 
-	BETWEEN @FromDate AND @ToDate
+	WHERE DisconnectDatePersian BETWEEN @FromDate AND @ToDate
 	
 	
 
@@ -146,8 +145,8 @@ BEGIN
 	/* محاسبه مدت زمان تکمیل پرونده */
 	SELECT DISTINCT Req.AreaUserId
 		,SUM(CASE 
-				WHEN ISNULL(MPReq.RequestDEInterval - MPReq.DisconnectInterval, MPReq.RequestDEInterval - MPReq.DisconnectInterval) > 0
-					THEN ISNULL(MPReq.RequestDEInterval - MPReq.DisconnectInterval, MPReq.RequestDEInterval - MPReq.DisconnectInterval)
+				WHEN ISNULL(MPReq.RequestDEInterval - MPReq.DisconnectInterval, 0) > 0
+					THEN ISNULL(MPReq.RequestDEInterval - MPReq.DisconnectInterval, 0)
 				ELSE 0
 				END) AS DelayIntervalOperator
 	INTO #temp8
