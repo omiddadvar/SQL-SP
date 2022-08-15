@@ -80,7 +80,7 @@ ORDER BY DisconnectDate DESC , DisconnectTime DESC
 
 DROP Table #tmpReq
 
-
+/*
 
 SELECT * FROM TblRequest 
 WHERE rea
@@ -88,3 +88,5 @@ WHERE rea
 
 SELECT * FROM Tbl_CallReason 
 SELECT * FROM Tbl_CallReasonLight 
+
+*/
