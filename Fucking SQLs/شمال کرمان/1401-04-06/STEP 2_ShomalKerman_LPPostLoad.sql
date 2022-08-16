@@ -23,7 +23,7 @@ BEGIN
                        ,@IsDelete = 0
                        ,@IsMergeLPFeeder = 0
                        ,@IsMergeLPTrans = 0
-                       ,@IsReplicated = 0
+                       ,@IsReplicated = 1
 
       FETCH NEXT FROM db_cursor INTO @ActiveId , @InActiveId  
 END 
