@@ -34,7 +34,7 @@
 			},
 			"response": [
 				{
-					"id": "c3a00eaf-d39e-4845-a3be-55f5438392ac",
+					"id": "39b345e0-6e24-49f2-8aae-6e753bb8e593",
 					"name": "1400/02/10 GMaz_Report_14_1",
 					"originalRequest": {
 						"method": "POST",
@@ -150,7 +150,7 @@
 			},
 			"response": [
 				{
-					"id": "efc204ab-3d4b-4648-9236-a80ce203aed5",
+					"id": "da5c5cf9-e54c-4ee2-a773-2eca34d86cc5",
 					"name": "1400/02/20 GMaz_Unstable_Feeders",
 					"originalRequest": {
 						"method": "POST",
@@ -266,7 +266,7 @@
 			},
 			"response": [
 				{
-					"id": "504a5c87-a139-44d6-a619-0c71aff92ca9",
+					"id": "f2b4db43-c2f6-4188-8b2a-b31de6639489",
 					"name": "1400/03/03 AzarGH_FeederPeak",
 					"originalRequest": {
 						"method": "POST",
@@ -382,7 +382,7 @@
 			},
 			"response": [
 				{
-					"id": "9a5c3bc7-c56c-4009-9f6d-02a5050fa23e",
+					"id": "2571497d-028f-4435-9c4a-7a04a2618a46",
 					"name": "1400/03/03  AzarGH_PostFeederLoad",
 					"originalRequest": {
 						"method": "POST",
@@ -485,20 +485,20 @@
 					"raw": "{\n\t\"FromDate\" : \"1386/02/01\",\n\t\"ToDate\" : \"1400/02/01\",\n\t\"Code\" : \"11-0109hg\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/Reports/khornorth_lppostloadbalance",
+					"raw": "{{host}}/Reports/KhorNorth_LPPostLoadBalance",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"Reports",
-						"khornorth_lppostloadbalance"
+						"KhorNorth_LPPostLoadBalance"
 					]
 				},
 				"description": ""
 			},
 			"response": [
 				{
-					"id": "02ab1bee-fcb6-4e63-b7c5-6d13cab2a56f",
+					"id": "b63502e3-e5f5-4f1a-b752-3ffc272d36b0",
 					"name": "1400/03/09 KHorNorth_LPPostLoadBalance",
 					"originalRequest": {
 						"method": "POST",
@@ -614,7 +614,7 @@
 			},
 			"response": [
 				{
-					"id": "63958291-4102-40e1-bb0a-6e3605dc1365",
+					"id": "9b397d17-8bed-4ce5-9458-a80b725b211e",
 					"name": "1400/05/03 SKerman_dashboard1",
 					"originalRequest": {
 						"method": "POST",
@@ -730,7 +730,7 @@
 			},
 			"response": [
 				{
-					"id": "5caee379-8900-40fc-b98a-dbb8479d1607",
+					"id": "0e591356-1106-4c47-a55e-6ab3cc95aebf",
 					"name": "1400/05/03 SKerman_dashboard2",
 					"originalRequest": {
 						"method": "POST",
@@ -846,7 +846,7 @@
 			},
 			"response": [
 				{
-					"id": "c112a115-9ee9-48f0-8bb5-9fcd00a816b6",
+					"id": "506b0fda-091d-47c5-9244-bc00ae6f2320",
 					"name": "1400/05/03 SKerman_dashboard3",
 					"originalRequest": {
 						"method": "POST",
@@ -963,7 +963,7 @@
 			},
 			"response": [
 				{
-					"id": "429ef448-802e-4852-abbb-afd4c3d35cdd",
+					"id": "e3fd150d-0946-458a-ac40-33bdf70503ca",
 					"name": "1400/05/03 SKerman_dashboard4",
 					"originalRequest": {
 						"method": "POST",
@@ -1050,6 +1050,34 @@
 					"body": "{\"IsSuccess\":true,\"ErrorMessage\":\"\",\"Data\":[{\"AreaId\":2,\"Area\":\"امور شرق اراك\",\"Count\":5},{\"AreaId\":3,\"Area\":\"امور غرب اراك\",\"Count\":24},{\"AreaId\":4,\"Area\":\"ساوه\",\"Count\":14},{\"AreaId\":5,\"Area\":\"خمين\",\"Count\":4},{\"AreaId\":6,\"Area\":\"شازند\",\"Count\":21},{\"AreaId\":7,\"Area\":\"تفرش\",\"Count\":6},{\"AreaId\":8,\"Area\":\"دليجان\",\"Count\":15},{\"AreaId\":9,\"Area\":\"محلات\",\"Count\":5},{\"AreaId\":13,\"Area\":\"خنداب\",\"Count\":79},{\"AreaId\":15,\"Area\":\"غرق آباد\",\"Count\":7}]}"
 				}
 			]
+		},
+		{
+			"name": "1401/05/26 Raya_GetCurrentAndFutureOutageList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n\t\"from_date\" : \"1401/05/01\",\r\n\t\"to_date\" : \"1401/05/30\",\r\n\t\"username\" : \"Raya123\",\r\n\t\"password\" : \"Raya@123Tazarv\",\r\n\t\"city\" : 2,\r\n\t\"shenase_ghabz\" : \"1234567890123\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/Raya/GetCurrentAndFutureOutageList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"Raya",
+						"GetCurrentAndFutureOutageList"
+					]
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }

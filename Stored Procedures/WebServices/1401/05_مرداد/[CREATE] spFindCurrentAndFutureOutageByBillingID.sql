@@ -1,5 +1,5 @@
-﻿--CREATE PROCEDURE spFindCurrentAndFutureOutageByBillingID
-ALTER PROCEDURE spFindCurrentAndFutureOutageByBillingID
+
+CREATE PROCEDURE spFindCurrentAndFutureOutageByBillingID
     @aFromDate AS VARCHAR(10),
     @aToDate AS VARCHAR(10),
     @aAreaId AS INT = -1,
@@ -81,10 +81,5 @@ EXEC spFindCurrentAndFutureOutageByBillingID @aFromDate = '1401/01/01',
                                              @aBillingId = '1234567890123'
 
 */
-
-SELECT R.RequestNumber ,R.EndJobStateId, I.BillingID  FROM TblRequest R
-INNER JOIN TblRequestInfo I ON R.RequestId = I.RequestId
-WHERE R.DisconnectDatePersian >= '1401/01/01' AND I.BillingID IS NOT NULL
-
 
 
