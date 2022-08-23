@@ -8,10 +8,10 @@
     <ProviderVersion>5.8.127.0</ProviderVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </Properties>
-  <Connection Name="local">
-    <Category>00000000-0000-0000-0000-000000000000</Category>
-    <ConnectionString>Encrypt=False;Integrated Security=False;User ID=sa</ConnectionString>
-    <Database>master</Database>
+  <Connection Name="10.10.10.241">
+    <Category>e48bae52-25bc-4af0-bd93-c5cfc0c5aed1</Category>
+    <ConnectionString>Data Source=10.10.10.241;Encrypt=False;Integrated Security=False;User ID=csd</ConnectionString>
+    <Database>CCRequesterSetad</Database>
   </Connection>
   <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="False" />
