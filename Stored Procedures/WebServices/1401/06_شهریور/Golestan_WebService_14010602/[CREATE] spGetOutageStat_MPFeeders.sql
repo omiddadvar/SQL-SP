@@ -1,4 +1,4 @@
-ALTER PROCEDURE spGetOutageStat_MPFeeders 
+CREATE PROCEDURE spGetOutageStat_MPFeeders 
   @aFromDate AS VARCHAR(11),
   @aToDate AS VARCHAR(11),
   @aAreaIds AS VARCHAR(2000) = ''

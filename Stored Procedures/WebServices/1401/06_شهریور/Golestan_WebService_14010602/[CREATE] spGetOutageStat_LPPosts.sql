@@ -1,5 +1,5 @@
 
-ALTER PROCEDURE spGetOutageStat_LPPosts
+CREATE PROCEDURE spGetOutageStat_LPPosts
   @aFromDate AS VARCHAR(11),
   @aToDate AS VARCHAR(11),
   @aAreaIds AS VARCHAR(2000) = ''
