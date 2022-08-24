@@ -34,7 +34,7 @@
 			},
 			"response": [
 				{
-					"id": "39b345e0-6e24-49f2-8aae-6e753bb8e593",
+					"id": "524f6c8d-1407-487a-b6f9-cad0632db416",
 					"name": "1400/02/10 GMaz_Report_14_1",
 					"originalRequest": {
 						"method": "POST",
@@ -150,7 +150,7 @@
 			},
 			"response": [
 				{
-					"id": "da5c5cf9-e54c-4ee2-a773-2eca34d86cc5",
+					"id": "d1731801-4e9d-4b1d-9e1f-b3d076890795",
 					"name": "1400/02/20 GMaz_Unstable_Feeders",
 					"originalRequest": {
 						"method": "POST",
@@ -266,7 +266,7 @@
 			},
 			"response": [
 				{
-					"id": "f2b4db43-c2f6-4188-8b2a-b31de6639489",
+					"id": "dc572db3-8dd3-40f8-a5f6-02b0cec2de02",
 					"name": "1400/03/03 AzarGH_FeederPeak",
 					"originalRequest": {
 						"method": "POST",
@@ -382,7 +382,7 @@
 			},
 			"response": [
 				{
-					"id": "2571497d-028f-4435-9c4a-7a04a2618a46",
+					"id": "1003a539-6d3f-476a-8bce-53fc4dcc8a77",
 					"name": "1400/03/03  AzarGH_PostFeederLoad",
 					"originalRequest": {
 						"method": "POST",
@@ -498,7 +498,7 @@
 			},
 			"response": [
 				{
-					"id": "b63502e3-e5f5-4f1a-b752-3ffc272d36b0",
+					"id": "cd681f08-843a-446e-9867-870f0310735d",
 					"name": "1400/03/09 KHorNorth_LPPostLoadBalance",
 					"originalRequest": {
 						"method": "POST",
@@ -614,7 +614,7 @@
 			},
 			"response": [
 				{
-					"id": "9b397d17-8bed-4ce5-9458-a80b725b211e",
+					"id": "abc4676a-148c-41e3-9eaf-c0a66fb12e62",
 					"name": "1400/05/03 SKerman_dashboard1",
 					"originalRequest": {
 						"method": "POST",
@@ -730,7 +730,7 @@
 			},
 			"response": [
 				{
-					"id": "0e591356-1106-4c47-a55e-6ab3cc95aebf",
+					"id": "d910e165-59ba-47db-9148-c7e0c67ddb38",
 					"name": "1400/05/03 SKerman_dashboard2",
 					"originalRequest": {
 						"method": "POST",
@@ -846,7 +846,7 @@
 			},
 			"response": [
 				{
-					"id": "506b0fda-091d-47c5-9244-bc00ae6f2320",
+					"id": "eeb5f805-706f-4e15-b39c-0a153bf34a38",
 					"name": "1400/05/03 SKerman_dashboard3",
 					"originalRequest": {
 						"method": "POST",
@@ -963,7 +963,7 @@
 			},
 			"response": [
 				{
-					"id": "e3fd150d-0946-458a-ac40-33bdf70503ca",
+					"id": "c0c06648-42cd-42de-a04a-b18dc1de7b9e",
 					"name": "1400/05/03 SKerman_dashboard4",
 					"originalRequest": {
 						"method": "POST",
@@ -1073,6 +1073,34 @@
 					"path": [
 						"Raya",
 						"GetCurrentAndFutureOutageList"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "1401/06/02 GetOutageStat",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"FromDate\" : \"1401/01/01\",\n\t\"ToDate\" : \"1401/06/01\",\n\t\"AreaIds\" : [2,3]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/Reports/GetOutageStat",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"Reports",
+						"GetOutageStat"
 					]
 				},
 				"description": ""

@@ -35,7 +35,8 @@ AS
 /*
 
 EXEC spGetOutageStat @aFromDate = '1400/01/01'
-                    ,@aToDate = '1401/05/30'
-                    ,@aAreaIds = ''
+                    ,@aToDate = '1401/06/01'
+                    ,@aAreaIds = '2,3'
+
 
 */
