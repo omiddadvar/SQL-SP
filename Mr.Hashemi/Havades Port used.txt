@@ -1,0 +1,13 @@
+havades Software Ports used:
+Contact Center: 	1391	(TZHavades Service)
+Havades Service: 	7841	(Setad Service & Havades Service & Software Locks)
+SQL Server:			1433	(SQL Server Services)
+Tablet:				6000	(Send & Receive data to/from PM Tablet)
+HCLSConnect:		7845	(Call Center)
+------------------------------------------------------------------------------
+Setad Service Status		6850
+http://127.0.0.1:6850
+
+Havades Service Status		6851
+http://127.0.0.1:6851
+------------------------------------------------------------------------------
