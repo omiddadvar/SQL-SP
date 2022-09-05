@@ -1,7 +1,7 @@
 ﻿/*--------CREATED on 1401/05/03 */
 /*--------ALTERED on 1401/05/11 */
 
-CREATE PROCEDURE dbo.spTavanir_GetMPFeedersDisPower 
+ALTER PROCEDURE dbo.spTavanir_GetMPFeedersDisPower 
    @aFromDate AS VARCHAR(10)
 	,@aFromTime AS VARCHAR(5)
 	,@aToDate AS VARCHAR(10)
@@ -77,37 +77,5 @@ BEGIN
 	DROP TABLE #tmpDisFeederCount
 	DROP TABLE #tmpLiveDisFeederCount
 END
-
 GO
 
-
---SELECT * FROM Tbl_EndJobState ORDER BY 1
-/*
-
-EXEC spTavanir_GetMPFeedersDisPower '1401/05/03', '00:00', '1401/05/03' , '23:59'
-
-EXEC spTavanir_GetMPFeedersDisPower 
-                                @aFromDate = '1401/03/01'
-                                ,@aFromTime = '11:00'
-                                ,@aToDate = '1401/05/01'
-                                ,@aToTime = '12:00'
-
-
-
-*/
-/*
-
-SELECT * FROM Tbl_AccessType 
-
-Delete From Tbl_AccessType Where AccessType = 'ReportMPFeederDis'
--------------------------
-
-SET IDENTITY_INSERT Tbl_AccessType ON
-INSERT INTO Tbl_AccessType (AccessTypeId, AccessType, AccessTypeName)
-  VALUES (8, N'ReportMPFeederDis', N'توانايي گزارشگيري گزارش تجمعي قطعي فيدرهاي فشار متوسط');
-SET IDENTITY_INSERT Tbl_AccessType OFF
-
-
-*/
-
-SELECT SUM(CurrentValue) FROM TblMPRequest WHERE MPRequestId = -100
